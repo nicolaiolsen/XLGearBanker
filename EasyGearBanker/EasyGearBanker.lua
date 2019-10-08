@@ -7,7 +7,8 @@ EasyGearBanker.name = "EasyGearBanker"
  
 -- Next we create a function that will initialize our addon
 function EasyGearBanker:Initialize()
-  -- ...but we don't have anything to initialize yet. We'll come back to this.
+  self.inCombat = IsUnitInCombat("player")
+  EVENT_MANAGER:RegisterForEvent(self.name, EVENT_PLAYER_COMBAT_STATE, self.OnPlayerCombatState)
 end
 
 -- Then we create an event handler function which will be called when the "addon loaded" event
@@ -17,6 +18,22 @@ function EasyGearBanker.OnAddOnLoaded(event, addonName)
     if addonName == EasyGearBanker.name then
         EasyGearBanker:Initialize()
     end
+end
+
+function EasyGearBanker.OnPlayerCombatState(event, inCombat)
+  -- The ~= operator is "not equal to" in Lua.
+  if inCombat ~= FooAddon.inCombat then
+    -- The player's state has changed. Update the stored state...
+    EasyGearBanker.inCombat = inCombat
+ 
+    -- ...and then announce the change.
+    if inCombat then
+      d("Entering combat.")
+    else
+      d("Exiting combat.")
+    end
+ 
+  end
 end
  
 -- Finally, we'll register our event handler function to be called when the proper event occurs.

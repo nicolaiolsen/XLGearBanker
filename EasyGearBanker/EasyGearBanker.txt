@@ -1,4 +1,5 @@
 ## Title: Easy Gear Banker
+## Author: @XL_Olsen
 ## APIVersion: 100025
 
 EasyGearBanker.lua
