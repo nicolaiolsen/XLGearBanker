@@ -8,6 +8,7 @@ EasyGearBanker.name = "EasyGearBanker"
 -- Next we create a function that will initialize our addon
 function EasyGearBanker:Initialize()
   self.bankOpen = IsBankOpen()
+  self.playerBag
 
   EVENT_MANAGER:RegisterForEvent(self.name, EVENT_OPEN_BANK, self.OnBankOpenEvent)
   EVENT_MANAGER:RegisterForEvent(self.name, EVENT_CLOSE_BANK, self.OnBankCloseEvent)
@@ -32,8 +33,21 @@ function EasyGearBanker.OnBankOpenEvent(event, bankBag)
   if not EasyGearBanker.bankOpen then
     -- The player's state has changed. Update the stored state...
     EasyGearBanker.bankOpen = IsBankOpen()
+    
     d("Bank open!")
-    -- ...and then announce the change.
+    local slot = ZO_GetNextBagSlotIndex(bankBag)
+
+    while slot do
+      if slot == 1 then
+        if CheckInventorySpaceSilently(1) then
+          d("There's an empty slot in player inventory, moving first item from bank!")
+          local emptySlotIndex = FindFirstEmptySlotInBag(BAG_BACKPACK)
+          CallSecureProtected("RequestMoveItem", bankBag, slot, BAG_BACKPACK, emptySlotIndex, 1)
+       end
+      end
+      slot = ZO_GetNextBagSlotIndex(bag, slot)
+    end
+
   end
 end
 
