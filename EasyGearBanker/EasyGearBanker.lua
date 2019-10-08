@@ -39,10 +39,11 @@ function EasyGearBanker.OnBankOpenEvent(event, bankBag)
     if CheckInventorySpaceSilently(1) then
       d("There's an empty slot in player inventory, moving first item from bank!")
       local emptySlotIndex = FindFirstEmptySlotInBag(BAG_BACKPACK)
-      d("Empty spot at: " + emptySlotIndex)
+      d(emptySlotIndex)
       local movedItem = CallSecureProtected("RequestMoveItem", bankBag, slot, BAG_BACKPACK, emptySlotIndex, 1)
-      d("Moved item:" + movedItem)
+      d(movedItem)
     end
+    
     --[[
     while slot do
       if slot == 1 then
