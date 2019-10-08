@@ -22,7 +22,7 @@ end
 
 function EasyGearBanker.OnPlayerCombatState(event, inCombat)
   -- The ~= operator is "not equal to" in Lua.
-  if inCombat ~= FooAddon.inCombat then
+  if inCombat ~= EasyGearBanker.inCombat then
     -- The player's state has changed. Update the stored state...
     EasyGearBanker.inCombat = inCombat
  
