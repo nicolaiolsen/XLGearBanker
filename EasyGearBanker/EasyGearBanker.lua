@@ -37,7 +37,7 @@ function EasyGearBanker.OnBankOpenEvent(event, bankBag)
   end
 end
 
-function EasyGearBanker.OnBankOpenEvent(event)
+function EasyGearBanker.OnBankCloseEvent(event)
   d("Bank closed")
 end
 
