@@ -1,4 +1,4 @@
-## Title: Foo Addon
+## Title: Easy Gear Banker
 ## APIVersion: 100025
 
 EasyGearBanker.lua
