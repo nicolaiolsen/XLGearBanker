@@ -43,7 +43,7 @@ function EasyGearBanker.OnBankOpenEvent(event, bankBag)
       local movedItem = CallSecureProtected("RequestMoveItem", bankBag, slot, BAG_BACKPACK, emptySlotIndex, 1)
       d(movedItem)
     end
-    
+
     --[[
     while slot do
       if slot == 1 then
@@ -57,7 +57,10 @@ function EasyGearBanker.OnBankOpenEvent(event, bankBag)
 end
 
 function EasyGearBanker.OnBankCloseEvent(event)
-  d("Bank closed")
+  if EasyGearBanker.bankOpen then
+    EasyGearBanker.bankOpen = IsBankOpen()
+    d("Bank closed")
+  end
 end
 
 
