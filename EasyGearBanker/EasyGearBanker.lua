@@ -37,16 +37,19 @@ function EasyGearBanker.OnBankOpenEvent(event, bankBag)
     d("Bank open!")
     local slot = ZO_GetNextBagSlotIndex(bankBag)
 
+    if CheckInventorySpaceSilently(1) then
+      d("There's an empty slot in player inventory, moving first item from bank!")
+      local emptySlotIndex = FindFirstEmptySlotInBag(BAG_BACKPACK)
+      CallSecureProtected("RequestMoveItem", bankBag, slot, BAG_BACKPACK, emptySlotIndex, 1)
+   end
+    --[[
     while slot do
       if slot == 1 then
-        if CheckInventorySpaceSilently(1) then
-          d("There's an empty slot in player inventory, moving first item from bank!")
-          local emptySlotIndex = FindFirstEmptySlotInBag(BAG_BACKPACK)
-          CallSecureProtected("RequestMoveItem", bankBag, slot, BAG_BACKPACK, emptySlotIndex, 1)
-       end
+        
       end
       slot = ZO_GetNextBagSlotIndex(bag, slot)
     end
+    ]]--
 
   end
 end
