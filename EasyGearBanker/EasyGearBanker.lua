@@ -28,13 +28,6 @@ function EasyGearBanker.OnPlayerCombatState(event, inCombat)
  
     -- ...and then announce the change.
     EasyGearBankerIndicator:SetHidden(not inCombat)
-    if inCombat then
-      d("Entering combat.")
-
-    else
-      d("Exiting combat.")
-    end
- 
   end
 end
  

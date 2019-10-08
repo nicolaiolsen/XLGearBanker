@@ -2,4 +2,5 @@
 ## Author: @XL_Olsen
 ## APIVersion: 100025
 
+EasyGearBanker.xml
 EasyGearBanker.lua
