@@ -1,0 +1,4 @@
+## Title: Foo Addon
+## APIVersion: 100025
+
+AltGearSwapHelper.lua
