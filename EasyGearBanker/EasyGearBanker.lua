@@ -31,7 +31,7 @@ function EasyGearBanker.OnBankOpenEvent(event, bankBag)
   -- The ~= operator is "not equal to" in Lua.
   if not EasyGearBanker.bankOpen then
     -- The player's state has changed. Update the stored state...
-    EasyGearBanker.bankOpen = isBankOpen()
+    EasyGearBanker.bankOpen = IsBankOpen()
     d("Bank open!")
     -- ...and then announce the change.
   end
