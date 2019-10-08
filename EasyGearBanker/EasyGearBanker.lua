@@ -8,7 +8,6 @@ EasyGearBanker.name = "EasyGearBanker"
 -- Next we create a function that will initialize our addon
 function EasyGearBanker:Initialize()
   self.bankOpen = IsBankOpen()
-  self.playerBag
 
   EVENT_MANAGER:RegisterForEvent(self.name, EVENT_OPEN_BANK, self.OnBankOpenEvent)
   EVENT_MANAGER:RegisterForEvent(self.name, EVENT_CLOSE_BANK, self.OnBankCloseEvent)
