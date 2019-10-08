@@ -1,6 +1,7 @@
 ## Title: Easy Gear Banker
 ## Author: @XL_Olsen
-## APIVersion: 100025
+## APIVersion: 100028
+## SavedVariables: EasyGearBankerSavedVariables
 
 EasyGearBanker.xml
 EasyGearBanker.lua

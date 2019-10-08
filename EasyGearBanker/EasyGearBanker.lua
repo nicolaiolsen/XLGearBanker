@@ -7,8 +7,14 @@ EasyGearBanker.name = "EasyGearBanker"
  
 -- Next we create a function that will initialize our addon
 function EasyGearBanker:Initialize()
-  self.inCombat = IsUnitInCombat("player")
-  EVENT_MANAGER:RegisterForEvent(self.name, EVENT_PLAYER_COMBAT_STATE, self.OnPlayerCombatState)
+  self.bankOpen = IsBankOpen()
+
+  EVENT_MANAGER:RegisterForEvent(self.name, EVENT_OPEN_BANK, self.OnBankOpenEvent)
+  EVENT_MANAGER:RegisterForEvent(self.name, EVENT_CLOSE_BANK, self.OnBankCloseEvent)
+  
+  self.savedVariables = ZO_SavedVars:NewAccountWide("EasyGearBankerSavedVariables", 1, nil, {})
+
+  self:RestorePosition()
 end
 
 -- Then we create an event handler function which will be called when the "addon loaded" event
@@ -16,19 +22,37 @@ end
 function EasyGearBanker.OnAddOnLoaded(event, addonName)
     -- The event fires each time *any* addon loads - but we only care about when our own addon loads.
     if addonName == EasyGearBanker.name then
-        EasyGearBanker:Initialize()
+      EasyGearBanker:Initialize()
     end
 end
 
-function EasyGearBanker.OnPlayerCombatState(event, inCombat)
+
+function EasyGearBanker.OnBankOpenEvent(event, bankBag)
   -- The ~= operator is "not equal to" in Lua.
-  if inCombat ~= EasyGearBanker.inCombat then
+  if  ~= EasyGearBanker.bankOpen then
     -- The player's state has changed. Update the stored state...
-    EasyGearBanker.inCombat = inCombat
- 
+    EasyGearBanker.bankOpen = isBankOpen()
+    d("Bank open!")
     -- ...and then announce the change.
-    EasyGearBankerIndicator:SetHidden(not inCombat)
   end
+end
+
+function EasyGearBanker.OnBankOpenEvent(event)
+  d("Bank closed")
+end
+
+
+function EasyGearBanker.OnIndicatorMoveStop()
+  EasyGearBanker.savedVariables.left = EasyGearBankerIndicator:GetLeft()
+  EasyGearBanker.savedVariables.top = EasyGearBankerIndicator:GetTop()
+end
+
+function EasyGearBanker:RestorePosition()
+  local left = self.savedVariables.left
+  local top = self.savedVariables.top
+ 
+  EasyGearBankerIndicator:ClearAnchors()
+  EasyGearBankerIndicator:SetAnchor(TOPLEFT, GuiRoot, TOPLEFT, left, top)
 end
  
 -- Finally, we'll register our event handler function to be called when the proper event occurs.
