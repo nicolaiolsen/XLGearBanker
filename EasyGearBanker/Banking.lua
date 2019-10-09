@@ -1,47 +1,25 @@
 Banking = {}
 
 function Banking:Initialize()
-    self.bankOpen = IsBankOpen()
-    self.debug = true
-    EVENT_MANAGER:RegisterForEvent(self.name, EVENT_OPEN_BANK, self.OnBankOpenEvent)
-    EVENT_MANAGER:RegisterForEvent(self.name, EVENT_CLOSE_BANK, self.OnBankCloseEvent)
-  end
+  self.bankOpen = IsBankOpen()
+  self.debug = true
+  EVENT_MANAGER:RegisterForEvent(self.name, EVENT_OPEN_BANK, self.OnBankOpenEvent)
+  EVENT_MANAGER:RegisterForEvent(self.name, EVENT_CLOSE_BANK, self.OnBankCloseEvent)
+end
 
 function Banking.OnBankOpenEvent(event, bankBag)
-    -- The ~= operator is "not equal to" in Lua.
-    if not Banking.bankOpen then
-      -- The player's state has changed. Update the stored state...
-      Banking.bankOpen = IsBankOpen()
-      
-      easyDebug("Bank open!")
-      --[[
-      local slot = ZO_GetNextBagSlotIndex(bankBag)
-  
-      if CheckInventorySpaceSilently(1) then
-        easyDebug("There's an empty slot in player inventory, moving first item from bank!")
-        local emptySlotIndex = FindFirstEmptySlotInBag(BAG_BACKPACK)
-        easyDebug(emptySlotIndex)
-        local movedItem = CallSecureProtected("RequestMoveItem", BAG_BANK, slot, BAG_BACKPACK, emptySlotIndex, 1)
-        easyDebug(movedItem)
-      end
-  
-      while slot do
-        if slot == 1 then
-          
-        end
-        slot = ZO_GetNextBagSlotIndex(bag, slot)
-      end
-      ]]--
-  
-    end
+  if not Banking.bankOpen then
+    Banking.bankOpen = IsBankOpen()
+    easyDebug("Bank open!")
   end
+end
   
-  function Banking.OnBankCloseEvent(event)
-    if Banking.bankOpen then
-      Banking.bankOpen = IsBankOpen()
-      easyDebug("Bank closed")
-    end
+function Banking.OnBankCloseEvent(event)
+  if Banking.bankOpen then
+    Banking.bankOpen = IsBankOpen()
+    easyDebug("Bank closed")
   end
+end
 
 --[[
   function depositGear
@@ -49,15 +27,9 @@ function Banking.OnBankOpenEvent(event, bankBag)
 
   Output:
 ]]--
-function Banking.depositGear(gearSet)
-  easyDebug("Attempting to deposit gearSet #", gearSet)
-  if not Banking.bankOpen then 
-    easyDebug("Bank is not open!")
-    return 
-  else 
-    local availableBagSpaces = Banking.getAvailableBagSpaces(BAG_BANK)
-    
-  end
+function Banking.depositGear(gearSetNumber)
+  local gearSet = GearSet.getGearSet(gearSetNumber)
+  Banking.moveGear(BAG_BACKPACK, BAG_BANK, gearSet)
 end
 
 --[[
@@ -66,15 +38,27 @@ end
 
   Output:
 ]]--
-function Banking.withdrawGear(gearSet)
-  easyDebug("Attempting to withdraw gearSet #", gearSet)
+function Banking.withdrawGear(gearSetNumber)
+  local gearSet = GearSet.getGearSet(gearSetNumber)
+  Banking.moveGear(BAG_BANK, BAG_BACKPACK, gearset)
+end
+
+function Banking.moveGear(sourceBag, targetBag, gearSet)
+  easyDebug("\tMoving gearSet #", gearSet)
   if not Banking.bankOpen then 
-    easyDebug("Bank is not open!")
+    easyDebug("\tBank is not open!")
     return 
   else 
-    local availableBagSpaces = Banking.getAvailableBagSpaces(BAG_BACKPACK)
-
+    local availableBagSpaces = Banking.getAvailableBagSpaces(targetBag)
+    for _, item in gearSet do
+      Banking.moveItem(sourceBag, targetBag, item, availableBagSpaces)
+    end
   end
+end
+
+function Banking.moveItem(sourceBag, targetBag, item, availableBagSpaces)
+  easyDebug("\t\tMoving item", item)
+  CallSecureProtected("RequestMoveItem", sourceBag, 1, targetBag, availableBagSpaces[0], 1)
 end
 
 --[[

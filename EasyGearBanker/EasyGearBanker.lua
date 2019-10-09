@@ -25,8 +25,8 @@ end
 function EasyGearBanker.OnAddOnLoaded(event, addonName)
     if addonName == EasyGearBanker.name then
       EasyGearBanker:Initialize()
-      Banking:Initialize()
       GearSet:Initialize()
+      Banking:Initialize()
     end
 end
 
