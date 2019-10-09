@@ -42,13 +42,15 @@ function Banking.withdrawGear(gearSetNumber)
 end
 
 function Banking.moveGear(sourceBag, targetBag, gearSetNumber)
-  easyDebug("\tMoving gearSet #", gearSetNumber)
+  easyDebug("Moving gearSet #", gearSetNumber)
   if not Banking.bankOpen then
-    easyDebug("\tBank is not open!")
+    easyDebug("Bank is not open!")
     return
   else
+    -- retrieve list of item ids (gearSet) related to the gearSetNumber
     local gearSet = GearSet.getGearSet(gearSetNumber)
     local availableBagSpaces = Banking.getAvailableBagSpaces(targetBag)
+    --Move each item of the specified gearset from sourceBag to targetBag
     for _, item in ipairs(gearSet) do
       Banking.moveItem(sourceBag, targetBag, item, availableBagSpaces)
     end
@@ -56,14 +58,17 @@ function Banking.moveGear(sourceBag, targetBag, gearSetNumber)
 end
 
 function Banking.moveItem(sourceBag, targetBag, item, availableBagSpaces)
-  easyDebug("\t\tMoving item", item)
-
-  local moveSuccesful = CallSecureProtected("RequestMoveItem", sourceBag, 1, targetBag, availableBagSpaces[1], 1)
-
-  if moveSuccesful then
-    easyDebug("\t\tItem move: Success!")
+  easyDebug("Moving item", item)
+  local moveSuccesful = false
+  if IsProtectedFunction("RequestMoveItem") then
+    moveSuccesful = CallSecureProtected("RequestMoveItem", sourceBag, 1, targetBag, availableBagSpaces[1], 1)
   else
-    easyDebug("\t\tItem move: Failure!")
+    moveSuccesful = RequestMoveItem(sourceBag, 1, targetBag, availableBagSpaces[1], 1)
+  end
+  if moveSuccesful then
+    easyDebug("Item move: Success!")
+  else
+    easyDebug("Item move: Failure!")
 
   end
 end
@@ -83,7 +88,7 @@ function Banking.getAvailableBagSpaces(bag)
   easyDebug("Finding available bagspaces in bag: ", bag )
   local availableBagSpaces = {}
 
-  for i = FindFirstEmptySlotInBag(bag), GetBagSize(bag) do
+  for i = FindFirstEmptySlotInBag(bag), GetBagSize(bag)-1 do
     if GetItemName(bag, i) == "" then
       table.insert(availableBagSpaces, i)
     end
