@@ -6,6 +6,7 @@ function GearSet:Initialize()
   self.numberOfGearSets = 1
 end
 
-function GearSet.getGearSet(number)
+function GearSet.getGearSet(numberString)
+  local number = tonumber(numberString)
   return GearSet.gearSetList[number]
 end
