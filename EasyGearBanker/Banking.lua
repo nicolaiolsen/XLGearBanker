@@ -45,8 +45,8 @@ function Banking.moveGear(sourceBag, targetBag, gearSetNumber)
   easyDebug("\tMoving gearSet #", gearSetNumber)
   if not Banking.bankOpen then 
     easyDebug("\tBank is not open!")
-    return 
-  else 
+    return
+  else
     local gearSet = GearSet.getGearSet(gearSetNumber)
     local availableBagSpaces = Banking.getAvailableBagSpaces(targetBag)
     for item in gearSet do
