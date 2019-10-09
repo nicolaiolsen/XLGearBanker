@@ -59,14 +59,12 @@ end
 
 function Banking.moveItem(sourceBag, targetBag, item, availableBagSpaces)
   easyDebug("Moving item", item)
-  local moveSuccesful = false
-  if IsProtectedFunction("RequestMoveItem") then
-    moveSuccesful = CallSecureProtected("RequestMoveItem", sourceBag, 1, targetBag, availableBagSpaces[1], 1)
-  else
-    moveSuccesful = RequestMoveItem(sourceBag, 1, targetBag, availableBagSpaces[1], 1)
-  end
+  
+  local moveSuccesful = CallSecureProtected("RequestMoveItem", sourceBag, 1, targetBag, availableBagSpaces[#availableBagSpaces], 1)
+
   if moveSuccesful then
     easyDebug("Item move: Success!")
+
   else
     easyDebug("Item move: Failure!")
 
@@ -90,7 +88,7 @@ function Banking.getAvailableBagSpaces(bag)
 
   for i = FindFirstEmptySlotInBag(bag), GetBagSize(bag)-1 do
     if GetItemName(bag, i) == "" then
-      table.insert(availableBagSpaces, i)
+      table.insert(availableBagSpaces, #availableBagSpaces, i)
     end
   end
   easyDebug("Found ", #availableBagSpaces, " available spaces in bag.")
