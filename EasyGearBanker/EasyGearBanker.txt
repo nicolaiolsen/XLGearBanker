@@ -4,4 +4,7 @@
 ## SavedVariables: EasyGearBankerSavedVariables
 
 EasyGearBanker.xml
+
+Banking.lua
+GearSet.lua
 EasyGearBanker.lua

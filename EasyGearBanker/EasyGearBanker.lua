@@ -7,9 +7,10 @@ EasyGearBanker.name = "EasyGearBanker"
  
 -------------------------------------------------------------------------------
 --Slash Commands! --
-SLASH_COMMANDS["/withdrawgear"] = function()
-    EasyGearBanker.withdrawGear()
-  end
+
+SLASH_COMMANDS["/depositgear"] = Banking.depositGear(gearSet)
+
+SLASH_COMMANDS["/withdrawgear"] = Banking.withdrawGear(gearSet)
 
 -------------------------------------------------------------------------------
 function EasyGearBanker:Initialize()
@@ -73,17 +74,36 @@ function EasyGearBanker.OnBankCloseEvent(event)
 end
 
 --[[
+  function depositGear
+  Input:
+
+  Output:
+]]--
+function EasyGearBanker.depositGear(gearSet)
+  easyDebug("Attempting to deposit gearSet #" + gearSet)
+  if not EasyGearBanker.bankOpen then 
+    easyDebug("Bank is not open!")
+    return 
+  else 
+    local availableBagSpaces = EasyGearBanker.getAvailableBagSpaces(BAG_BANK)
+    
+  end
+end
+
+--[[
   function withdrawGear
   Input:
 
   Output:
 ]]--
-function EasyGearBanker.withdrawGear()
+function EasyGearBanker.withdrawGear(gearSet)
+  easyDebug("Attempting to withdraw gearSet #" + gearSet)
   if not EasyGearBanker.bankOpen then 
     easyDebug("Bank is not open!")
     return 
   else 
     local availableBagSpaces = EasyGearBanker.getAvailableBagSpaces(BAG_BACKPACK)
+
   end
 end
 
