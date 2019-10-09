@@ -2,9 +2,10 @@ GearSet = {}
 
 function GearSet:Initialize()
   self.debug = true
-  self.gearSets = {{0}, {1}}
+  self.gearSetList = {{0},{1}}
+  self.numberOfGearSets = 1
 end
 
-function getGearSet(number)
+function Gearset.getGearSet(number)
   return Gearset.gearSets[number]
 end 
