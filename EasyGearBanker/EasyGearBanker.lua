@@ -83,7 +83,7 @@ function EasyGearBanker.withdrawGear()
     easyDebug("Bank is not open!")
     return 
   else 
-    availableBagSpaces = getAvailableBagSpaces(BAG_BACKPACK)
+    local availableBagSpaces = getAvailableBagSpaces(BAG_BACKPACK)
   end
 end
 
