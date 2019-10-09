@@ -7,5 +7,5 @@ function GearSet:Initialize()
 end
 
 function GearSet.getGearSet(number)
-  return GearSet.gearSets[number]
+  return GearSet.gearSetList[number]
 end 
