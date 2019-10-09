@@ -28,7 +28,7 @@ end
   Output:
 ]]--
 function Banking.depositGear(gearSetNumber)
-  Banking.moveGear(BAG_BACKPACK, BAG_BANK, gearSet)
+  Banking.moveGear(BAG_BACKPACK, BAG_BANK, gearSetNumber)
 end
 
 --[[
@@ -38,7 +38,7 @@ end
   Output:
 ]]--
 function Banking.withdrawGear(gearSetNumber)
-  Banking.moveGear(BAG_BANK, BAG_BACKPACK, gearsetNumber)
+  Banking.moveGear(BAG_BANK, BAG_BACKPACK, gearSetNumber)
 end
 
 function Banking.moveGear(sourceBag, targetBag, gearSetNumber)
@@ -59,7 +59,7 @@ function Banking.moveItem(sourceBag, targetBag, item, availableBagSpaces)
   easyDebug("\t\tMoving item", item)
 
   local moveSuccesful = CallSecureProtected("RequestMoveItem", sourceBag, 1, targetBag, availableBagSpaces[1], 1)
-  
+
   if moveSuccesful then
     easyDebug("\t\tItem move: Success!")
   else
