@@ -5,8 +5,8 @@
 
 EasyGearBanker.xml
 
-Banking.lua
 GearSet.lua
+Banking.lua
 EasyGearBanker.lua
 
 ##
