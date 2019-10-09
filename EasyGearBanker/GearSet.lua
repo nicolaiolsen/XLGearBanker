@@ -6,6 +6,6 @@ function GearSet:Initialize()
   self.numberOfGearSets = 1
 end
 
-function Gearset.getGearSet(number)
-  return Gearset.gearSets[number]
+function GearSet.getGearSet(number)
+  return GearSet.gearSets[number]
 end 
