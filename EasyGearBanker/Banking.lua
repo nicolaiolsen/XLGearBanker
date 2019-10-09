@@ -60,7 +60,7 @@ end
 function Banking.moveItem(sourceBag, targetBag, item, availableBagSpaces)
   easyDebug("Moving item", item)
 
-  local moveSuccesful = CallSecureProtected("RequestMoveItem", sourceBag, 1, targetBag, availableBagSpaces[#availableBagSpaces], 1)
+  local moveSuccesful = CallSecureProtected("RequestMoveItem", sourceBag, item, targetBag, availableBagSpaces[#availableBagSpaces], 1)
 
   if moveSuccesful then
     easyDebug("Item move: Success!")
