@@ -57,7 +57,7 @@ end
 
 function Banking.moveItem(sourceBag, targetBag, item, availableBagSpaces)
   easyDebug("\t\tMoving item", item)
-  CallSecureProtected("RequestMoveItem", sourceBag, 1, targetBag, availableBagSpaces[0], 1)
+  CallSecureProtected("RequestMoveItem", sourceBag, 1, targetBag, availableBagSpaces[1], 1)
 end
 
 --[[

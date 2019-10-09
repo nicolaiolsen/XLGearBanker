@@ -50,5 +50,4 @@ function EasyGearBanker:RestorePosition()
   EasyGearBankerIndicator:SetAnchor(TOPLEFT, GuiRoot, TOPLEFT, left, top)
 end
  
--- Finally, we'll register our event handler function to be called when the proper event occurs.
 EVENT_MANAGER:RegisterForEvent(EasyGearBanker.name, EVENT_ADD_ON_LOADED, EasyGearBanker.OnAddOnLoaded)
