@@ -49,7 +49,7 @@ function Banking.moveGear(sourceBag, targetBag, gearSetNumber)
   else 
     local gearSet = GearSet.getGearSet(gearSetNumber)
     local availableBagSpaces = Banking.getAvailableBagSpaces(targetBag)
-    for _, item in gearSet do
+    for item in gearSet do
       Banking.moveItem(sourceBag, targetBag, item, availableBagSpaces)
     end
   end
