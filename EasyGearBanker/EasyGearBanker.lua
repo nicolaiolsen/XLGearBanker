@@ -5,10 +5,16 @@ EasyGearBanker = {}
 -- Better to define it in a single place rather than retyping the same string.
 EasyGearBanker.name = "EasyGearBanker"
  
--- Next we create a function that will initialize our addon
+-------------------------------------------------------------------------------
+--Slash Commands! --
+SLASH_COMMANDS["/withdrawGear"] = function()
+    EasyGearBanker.withdrawGear()
+  end
+
+-------------------------------------------------------------------------------
 function EasyGearBanker:Initialize()
   self.bankOpen = IsBankOpen()
-
+  self.debug = true
   EVENT_MANAGER:RegisterForEvent(self.name, EVENT_OPEN_BANK, self.OnBankOpenEvent)
   EVENT_MANAGER:RegisterForEvent(self.name, EVENT_CLOSE_BANK, self.OnBankCloseEvent)
   
@@ -17,13 +23,16 @@ function EasyGearBanker:Initialize()
   self:RestorePosition()
 end
 
--- Then we create an event handler function which will be called when the "addon loaded" event
--- occurs. We'll use this to initialize our addon after all of its resources are fully loaded.
 function EasyGearBanker.OnAddOnLoaded(event, addonName)
-    -- The event fires each time *any* addon loads - but we only care about when our own addon loads.
     if addonName == EasyGearBanker.name then
       EasyGearBanker:Initialize()
     end
+end
+
+function easyDebug(...)
+  if EasyGearBanker.debug == true then
+    d(...)
+  end
 end
 
 
@@ -33,18 +42,18 @@ function EasyGearBanker.OnBankOpenEvent(event, bankBag)
     -- The player's state has changed. Update the stored state...
     EasyGearBanker.bankOpen = IsBankOpen()
     
-    d("Bank open!")
+    easyDebug("Bank open!")
+    --[[
     local slot = ZO_GetNextBagSlotIndex(bankBag)
 
     if CheckInventorySpaceSilently(1) then
-      d("There's an empty slot in player inventory, moving first item from bank!")
+      easyDebug("There's an empty slot in player inventory, moving first item from bank!")
       local emptySlotIndex = FindFirstEmptySlotInBag(BAG_BACKPACK)
-      d(emptySlotIndex)
-      local movedItem = CallSecureProtected("RequestMoveItem", bankBag, slot, BAG_BACKPACK, emptySlotIndex, 1)
-      d(movedItem)
+      easyDebug(emptySlotIndex)
+      local movedItem = CallSecureProtected("RequestMoveItem", BAG_BANK, slot, BAG_BACKPACK, emptySlotIndex, 1)
+      easyDebug(movedItem)
     end
 
-    --[[
     while slot do
       if slot == 1 then
         
@@ -59,8 +68,47 @@ end
 function EasyGearBanker.OnBankCloseEvent(event)
   if EasyGearBanker.bankOpen then
     EasyGearBanker.bankOpen = IsBankOpen()
-    d("Bank closed")
+    easyDebug("Bank closed")
   end
+end
+
+--[[
+  function withdrawGear
+  Input:
+
+  Output:
+]]--
+function EasyGearBanker.withdrawGear()
+  if not EasyGearBanker.bankOpen then 
+    easyDebug("Bank is not open!")
+    return 
+  else 
+    availableBagSpaces = getAvailableBagSpaces(BAG_BACKPACK)
+  end
+end
+
+--[[
+  function getAvailableBagSpaces
+
+    Returns a list of empty bag spaces.
+
+  Input:
+    bag = A bag as specified in the API constants (e.g. BAG_BANK, BAG_BACKPACK)
+
+  Output:
+    availableBagSpaces = Lua table containing indices of empty bag slots.
+]]--
+function EasyGearBanker.getAvailableBagSpaces(bag)
+  easyDebug("Finding available bagspaces in bag: ", bag )
+  local availableBagSpaces = {}
+
+  for i = FindFirstEmptySlotInBag(bag), GetBagSize(bag) do
+    if GetItemName(bag, i) == "" then
+      table.insert(availableBagSpaces, i)
+    end
+  end
+  easyDebug("Found ", #availableBagSpaces, " available spaces in bag.")
+  return availableBagSpaces
 end
 
 
