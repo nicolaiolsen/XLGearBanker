@@ -17,6 +17,7 @@
         "GuiRoot",
         "EVENT_ADD_ON_LOADED",
         "RequestMoveItem",
-        "IsProtectedFunction"
+        "IsProtectedFunction",
+        "GetItemLink"
     ]
 }

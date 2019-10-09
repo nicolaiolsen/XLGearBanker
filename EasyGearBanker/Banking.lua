@@ -59,8 +59,9 @@ end
 
 function Banking.moveItem(sourceBag, targetBag, item, availableBagSpaces)
   easyDebug("Moving item", item)
-
-  local moveSuccesful = CallSecureProtected("RequestMoveItem", sourceBag, item, targetBag, availableBagSpaces[#availableBagSpaces], 1)
+  --local itemIndex = Banking.findItemIndexInBag(sourceBag, item)
+  local itemIndex = item
+  local moveSuccesful = CallSecureProtected("RequestMoveItem", sourceBag, itemIndex, targetBag, availableBagSpaces[#availableBagSpaces], 1)
 
   if moveSuccesful then
     easyDebug("Item move: Success!")
@@ -68,6 +69,15 @@ function Banking.moveItem(sourceBag, targetBag, item, availableBagSpaces)
   else
     easyDebug("Item move: Failure!")
   end
+end
+
+function Banking.findItemIndexInBag(bag, itemID)
+  for i = 1, GetBagSize(bag) do
+    if GetItemUniqueID(bag, i) == itemID then
+      return i
+    end
+  end
+  return -1
 end
 
 --[[
