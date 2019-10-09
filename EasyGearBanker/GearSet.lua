@@ -8,4 +8,4 @@ end
 
 function GearSet.getGearSet(number)
   return GearSet.gearSetList[number]
-end 
+end

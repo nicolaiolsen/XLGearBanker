@@ -13,7 +13,7 @@ function Banking.OnBankOpenEvent(event, bankBag)
     easyDebug("Bank open!")
   end
 end
-  
+
 function Banking.OnBankCloseEvent(event)
   if Banking.bankOpen then
     Banking.bankOpen = IsBankOpen()
@@ -43,13 +43,13 @@ end
 
 function Banking.moveGear(sourceBag, targetBag, gearSetNumber)
   easyDebug("\tMoving gearSet #", gearSetNumber)
-  if not Banking.bankOpen then 
+  if not Banking.bankOpen then
     easyDebug("\tBank is not open!")
     return
   else
     local gearSet = GearSet.getGearSet(gearSetNumber)
     local availableBagSpaces = Banking.getAvailableBagSpaces(targetBag)
-    for item in gearSet do
+    for _, item in ipairs(gearSet) do
       Banking.moveItem(sourceBag, targetBag, item, availableBagSpaces)
     end
   end

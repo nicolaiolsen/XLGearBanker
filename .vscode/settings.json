@@ -1,0 +1,20 @@
+{
+    "Lua.diagnostics.globals": [
+        "CallSecureProtected",
+        "EVENT_CLOSE_BANK",
+        "EVENT_OPEN_BANK",
+        "EVENT_MANAGER",
+        "IsBankOpen",
+        "BAG_BACKPACK",
+        "BAG_BANK",
+        "FindFirstEmptySlotInBag",
+        "GetBagSize",
+        "GetItemName",
+        "ZO_SavedVars",
+        "SLASH_COMMANDS",
+        "EasyGearBankerIndicator",
+        "TOPLEFT",
+        "GuiRoot",
+        "EVENT_ADD_ON_LOADED"
+    ]
+}
