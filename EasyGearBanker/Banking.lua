@@ -1,5 +1,11 @@
 Banking = {}
 
+function Banking:Initialize()
+    self.bankOpen = IsBankOpen()
+    self.debug = true
+    EVENT_MANAGER:RegisterForEvent(self.name, EVENT_OPEN_BANK, self.OnBankOpenEvent)
+    EVENT_MANAGER:RegisterForEvent(self.name, EVENT_CLOSE_BANK, self.OnBankCloseEvent)
+  end
 
 function Banking.OnBankOpenEvent(event, bankBag)
     -- The ~= operator is "not equal to" in Lua.

@@ -14,19 +14,19 @@ SLASH_COMMANDS["/withdrawgear"] = Banking.withdrawGear
 
 -------------------------------------------------------------------------------
 function EasyGearBanker:Initialize()
-  self.bankOpen = IsBankOpen()
   self.debug = true
-  EVENT_MANAGER:RegisterForEvent(self.name, EVENT_OPEN_BANK, self.OnBankOpenEvent)
-  EVENT_MANAGER:RegisterForEvent(self.name, EVENT_CLOSE_BANK, self.OnBankCloseEvent)
-  
+
   self.savedVariables = ZO_SavedVars:NewAccountWide("EasyGearBankerSavedVariables", 1, nil, {})
 
   self:RestorePosition()
+
 end
 
 function EasyGearBanker.OnAddOnLoaded(event, addonName)
     if addonName == EasyGearBanker.name then
       EasyGearBanker:Initialize()
+      Banking:Initialize()
+      GearSet:Initialize()
     end
 end
 
