@@ -28,7 +28,6 @@ end
   Output:
 ]]--
 function Banking.depositGear(gearSetNumber)
-  local gearSet = GearSet.getGearSet(gearSetNumber)
   Banking.moveGear(BAG_BACKPACK, BAG_BANK, gearSet)
 end
 
@@ -39,16 +38,16 @@ end
   Output:
 ]]--
 function Banking.withdrawGear(gearSetNumber)
-  local gearSet = GearSet.getGearSet(gearSetNumber)
-  Banking.moveGear(BAG_BANK, BAG_BACKPACK, gearset)
+  Banking.moveGear(BAG_BANK, BAG_BACKPACK, gearsetNumber)
 end
 
-function Banking.moveGear(sourceBag, targetBag, gearSet)
+function Banking.moveGear(sourceBag, targetBag, gearSetNumber)
   easyDebug("\tMoving gearSet #", gearSet)
   if not Banking.bankOpen then 
     easyDebug("\tBank is not open!")
     return 
   else 
+    local gearSet = GearSet.getGearSet(gearSetNumber)
     local availableBagSpaces = Banking.getAvailableBagSpaces(targetBag)
     for _, item in gearSet do
       Banking.moveItem(sourceBag, targetBag, item, availableBagSpaces)
