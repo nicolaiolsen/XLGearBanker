@@ -7,7 +7,7 @@ EasyGearBanker.name = "EasyGearBanker"
  
 -------------------------------------------------------------------------------
 --Slash Commands! --
-SLASH_COMMANDS["/withdrawGear"] = function()
+SLASH_COMMANDS["/withdrawgear"] = function()
     EasyGearBanker.withdrawGear()
   end
 
