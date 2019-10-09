@@ -8,9 +8,9 @@ EasyGearBanker.name = "EasyGearBanker"
 -------------------------------------------------------------------------------
 --Slash Commands! --
 
-SLASH_COMMANDS["/depositgear"] = Banking.depositGear(gearSet)
+SLASH_COMMANDS["/depositgear"] = Banking.depositGear
 
-SLASH_COMMANDS["/withdrawgear"] = Banking.withdrawGear(gearSet)
+SLASH_COMMANDS["/withdrawgear"] = Banking.withdrawGear
 
 -------------------------------------------------------------------------------
 function EasyGearBanker:Initialize()
