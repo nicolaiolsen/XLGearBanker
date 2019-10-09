@@ -44,7 +44,7 @@ function Banking.OnBankOpenEvent(event, bankBag)
   Output:
 ]]--
 function Banking.depositGear(gearSet)
-  easyDebug("Attempting to deposit gearSet #" + gearSet)
+  easyDebug("Attempting to deposit gearSet #", gearSet)
   if not Banking.bankOpen then 
     easyDebug("Bank is not open!")
     return 
@@ -61,7 +61,7 @@ end
   Output:
 ]]--
 function Banking.withdrawGear(gearSet)
-  easyDebug("Attempting to withdraw gearSet #" + gearSet)
+  easyDebug("Attempting to withdraw gearSet #", gearSet)
   if not Banking.bankOpen then 
     easyDebug("Bank is not open!")
     return 
