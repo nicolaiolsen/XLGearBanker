@@ -42,7 +42,7 @@ function Banking.withdrawGear(gearSetNumber)
 end
 
 function Banking.moveGear(sourceBag, targetBag, gearSetNumber)
-  easyDebug("\tMoving gearSet #", gearSet)
+  easyDebug("\tMoving gearSet #", gearSetNumber)
   if not Banking.bankOpen then 
     easyDebug("\tBank is not open!")
     return 
@@ -57,7 +57,15 @@ end
 
 function Banking.moveItem(sourceBag, targetBag, item, availableBagSpaces)
   easyDebug("\t\tMoving item", item)
-  CallSecureProtected("RequestMoveItem", sourceBag, 1, targetBag, availableBagSpaces[1], 1)
+
+  local moveSuccesful = CallSecureProtected("RequestMoveItem", sourceBag, 1, targetBag, availableBagSpaces[1], 1)
+  
+  if moveSuccesful then
+    easyDebug("\t\tItem move: Success!")
+  else
+    easyDebug("\t\tItem move: Failure!")
+
+  end
 end
 
 --[[
