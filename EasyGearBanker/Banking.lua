@@ -28,6 +28,9 @@ end
   Output:
 ]]--
 function Banking.depositGear(gearSetNumber)
+  if gearSetNumber == nil then
+    return
+  end 
   local gearSet = GearSet.getGearSet(gearSetNumber)
   Banking.moveGear(BAG_BACKPACK, BAG_BANK, gearSet)
 end
@@ -39,6 +42,9 @@ end
   Output:
 ]]--
 function Banking.withdrawGear(gearSetNumber)
+  if gearSetNumber == nil then
+    return
+  end 
   local gearSet = GearSet.getGearSet(gearSetNumber)
   Banking.moveGear(BAG_BANK, BAG_BACKPACK, gearset)
 end
