@@ -50,6 +50,7 @@ end
 
 function EasyGearBanker:UISetGearNameLabel(gearSetNumber)
   local gearSetName = GearSet.getGearSetName(gearSetNumber)
+  easyDebug("Setting gear name label to: " .. gearSetName)
   EGBOverview_label:setText(gearSetName)
 end
 
