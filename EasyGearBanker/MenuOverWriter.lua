@@ -1,7 +1,3 @@
--- Namespace
-MenuOverWriter = {}
-
-local ADD_ITEM_TO_GEARSET = "EGB add"
 --[[
   MenuOverWriter.lua
 
@@ -9,6 +5,15 @@ local ADD_ITEM_TO_GEARSET = "EGB add"
 
   The following code is heavily inspired by TTC's TamrielTradeCenterPrice.lua
 ]]--
+
+-- Namespace
+MenuOverWriter = {}
+
+-- Constants
+local ADD_ITEM_TO_GEARSET = "EGB add"
+local REMOVE_ITEM_FROM_GEARSET = "EGB remove"
+
+-- Functions
 local function MakeContextMenuEntry_AddItemToGearSet(itemLink, inventorySlot)
   local gearSetNames = GearSet.getGearSetNames()
   local subEntries = {}

@@ -9,7 +9,6 @@ Banking = {}
   Functions:
 
 ]]--
-  
 
 function Banking:Initialize()
   self.bankOpen = IsBankOpen()
