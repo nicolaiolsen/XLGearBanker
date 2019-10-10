@@ -18,7 +18,7 @@ function EasyGearBanker:Initialize()
 
   self.savedVariables = ZO_SavedVars:NewAccountWide("EasyGearBankerSavedVariables", 1, nil, {})
 
-  --self:RestorePosition()
+  self:RestorePosition()
 
 end
 
@@ -37,18 +37,22 @@ function easyDebug(...)
   end
 end
 
---[[
-function EasyGearBanker.OnIndicatorMoveStop()
-  EasyGearBanker.savedVariables.left = EasyGearBankerIndicator:GetLeft()
-  EasyGearBanker.savedVariables.top = EasyGearBankerIndicator:GetTop()
+
+function EasyGearBanker.OnEGBOverviewMoveStop()
+  EasyGearBanker.savedVariables.left = EGBOverview:GetLeft()
+  EasyGearBanker.savedVariables.top = EGBOverview:GetTop()
 end
 
 function EasyGearBanker:RestorePosition()
   local left = self.savedVariables.left
   local top = self.savedVariables.top
  
-  EasyGearBankerIndicator:ClearAnchors()
-  EasyGearBankerIndicator:SetAnchor(TOPLEFT, GuiRoot, TOPLEFT, left, top)
+  EGBOverview:ClearAnchors()
+  EGBOverview:SetAnchor(TOPLEFT, GuiRoot, TOPLEFT, left, top)
 end
- ]]--
+
+function EasyGearBanker:HideUI()
+  EGBOverview:SetHidden(true)
+end
+
 EVENT_MANAGER:RegisterForEvent(EasyGearBanker.name, EVENT_ADD_ON_LOADED, EasyGearBanker.OnAddOnLoaded)

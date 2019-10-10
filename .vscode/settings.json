@@ -18,7 +18,8 @@
         "EVENT_ADD_ON_LOADED",
         "RequestMoveItem",
         "IsProtectedFunction",
-        "GetItemLink"
+        "GetItemLink",
+        "EGBOverview"
     ],
     "Lua.diagnostics.disable": [
         "lowercase-global"

@@ -1,13 +1,16 @@
 <GuiXml>
   <Controls>
     <!-- Every control's name must be _unique_. -->
-    <TopLevelControl name="MyDemoControl" clampedToScreen="true"  movable="true" mouseEnabled="true" hidden="false" resizeHandleSize="10">
+    <TopLevelControl name="EGBOverview" clampedToScreen="true"  movable="true" mouseEnabled="true" hidden="false" resizeHandleSize="10">
       <Dimensions x="200" y="100"/>
       <Anchor point="CENTER" relativeTo="GUI_ROOT" relativePoint="CENTER" offsetX="-125" offsetY="-140" />
+      <OnMoveStop>
+        EasyGearBanker.OnEGBOverviewMoveStop()
+      </OnMoveStop>
       <Controls>
         <Backdrop name="$(parent)_BG" inherits="ZO_DefaultBackdrop"><AnchorFill/></Backdrop>
                 <Button name="$(parent)_hide" inherits="ZO_ButtonBehaviorClickSound" >
-                    <!-- <OnClicked>MyAddon.HideUI()</OnClicked> -->
+                    <OnClicked>EasyGearBanker.HideUI()</OnClicked>
                     <Dimensions x="30" y="30" />                                
                     <Anchor point="TOPLEFT" relativeTo="$(parent)" relativePoint="TOPLEFT" offsetX="10" offsetY="10"  />
                     <Textures
