@@ -57,5 +57,5 @@ EVENT_MANAGER:RegisterForEvent(EasyGearBanker.name, EVENT_ADD_ON_LOADED, EasyGea
 SLASH_COMMANDS["/depositgear"] = Banking.depositGear
 SLASH_COMMANDS["/withdrawgear"] = Banking.withdrawGear
 
-SLASH_COMMANDS["/egboverview"] = EasyGearBanker.ShowUI()
+SLASH_COMMANDS["/egboverview"] = EasyGearBanker.ShowUI
 -------------------------------------------------------------------------------
