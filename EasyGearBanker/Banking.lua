@@ -1,4 +1,15 @@
+--Namespace
 Banking = {}
+
+--[[
+  Banking.lua
+
+  This module contains all functionality related to item transfer.
+
+  Functions:
+
+]]--
+  
 
 function Banking:Initialize()
   self.bankOpen = IsBankOpen()
@@ -57,6 +68,7 @@ function Banking.moveGear(sourceBag, targetBag, gearSetNumber)
   end
 end
 
+
 function Banking.moveItem(sourceBag, targetBag, item, availableBagSpaces)
   easyDebug("Moving item", item)
   --local itemIndex = Banking.findItemIndexInBag(sourceBag, item)
@@ -72,7 +84,7 @@ function Banking.moveItem(sourceBag, targetBag, item, availableBagSpaces)
 end
 
 function Banking.findItemIndexInBag(bag, itemID)
-  for i = 1, GetBagSize(bag) do
+  for i = 0, GetBagSize(bag) do
     if GetItemUniqueID(bag, i) == itemID then
       return i
     end

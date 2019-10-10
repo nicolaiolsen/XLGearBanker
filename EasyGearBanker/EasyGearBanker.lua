@@ -42,6 +42,10 @@ function EasyGearBanker.OnIndicatorMoveStop()
   EasyGearBanker.savedVariables.top = EasyGearBankerIndicator:GetTop()
 end
 
+function EasyGearBanker.isItemLink(link) 
+  if 
+end
+
 function EasyGearBanker:RestorePosition()
   local left = self.savedVariables.left
   local top = self.savedVariables.top

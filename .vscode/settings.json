@@ -19,5 +19,8 @@
         "RequestMoveItem",
         "IsProtectedFunction",
         "GetItemLink"
+    ],
+    "Lua.diagnostics.disable": [
+        "lowercase-global"
     ]
 }

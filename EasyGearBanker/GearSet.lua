@@ -2,11 +2,24 @@ GearSet = {}
 
 function GearSet:Initialize()
   self.debug = true
-  self.gearSetList = {{1}, {1, 2}, {1, 2, 3}}
-  self.numberOfGearSets = 1
+  EasyGearBanker.savedVariables.gearSetList = {{1}, {1, 2}, {1, 2, 3}}
+  EasyGearBanker.savedVariables.gearNames = {"Set 1", "Set 2", "Set 3"}
+
 end
 
 function GearSet.getGearSet(numberString)
   local number = tonumber(numberString)
-  return GearSet.gearSetList[number]
+  return EasyGearBanker.savedVariables.gearSetList[number]
+end
+
+function GearSet.getAmountOfGearSets()
+  return #EasyGearBanker.savedVariables.gearSetList
+end
+
+function GearSet.getGearSetNames()
+  return EasyGearBanker.savedVariables.gearSetNames
+end
+
+function GearSet.AddItemToGearSet(itemLink, gearSetNumber)
+  easyDebug("Added item to itemset")
 end
