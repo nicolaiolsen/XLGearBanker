@@ -138,3 +138,9 @@ function UI:UpdateScrollDataLinesData()
 
 end
 ]]--
+
+function UI:Initialize()
+	XLGearBanker.displayingSet = 1
+	UI:RestorePosition()
+	UI:UISetDisplaySet(self.displayingSet)
+  end

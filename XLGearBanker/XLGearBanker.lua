@@ -2,7 +2,6 @@
 XLGearBanker = {}
 
 XLGearBanker.name = "XLGearBanker"
-local XLGB_Overview = "XLGBOverview"
 
 function XLGearBanker.OnAddOnLoaded(event, addonName)
     if addonName == XLGearBanker.name then
@@ -10,6 +9,7 @@ function XLGearBanker.OnAddOnLoaded(event, addonName)
       GearSet:Initialize()
       Banking:Initialize()
       MenuOverWriter:Initialize()
+      UI:Initialize()
     end
 end
 
@@ -19,16 +19,9 @@ function easyDebug(...)
   end
 end
 
-
-
-
 function XLGearBanker:Initialize()
   self.debug = true
   self.savedVariables = ZO_SavedVars:NewAccountWide("XLGearBankerSavedVariables", 1, nil, {})
-  
-  self.displayingSet = 1
-  UI:RestorePosition()
-  UI:UISetDisplaySet(self.displayingSet)
 end
 
 EVENT_MANAGER:RegisterForEvent(XLGearBanker.name, EVENT_ADD_ON_LOADED, XLGearBanker.OnAddOnLoaded)
