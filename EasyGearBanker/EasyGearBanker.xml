@@ -34,7 +34,7 @@
               <OnClicked>EasyGearBanker.UICycleRight()</OnClicked>
 
               <Dimensions x="30" y="30" />                  
-              <Anchor point="TOPRIGHT" relativeTo="$(parent)" relativePoint="TOPRIGHT"  offsetX="-10" offsetY="0" />
+              <Anchor point="TOPRIGHT" relativeTo="$(parent)" relativePoint="TOPRIGHT"  offsetX="0" offsetY="0" />
               <Textures
                   normal    ="/esoui/art/buttons/rightarrow_up.dds"
                   pressed    ="/esoui/art/buttons/rightarrow_down.dds"
