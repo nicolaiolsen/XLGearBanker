@@ -1,7 +1,7 @@
 <GuiXml>
   <Controls>
     <!-- Every control's name must be _unique_. -->
-    <TopLevelControl name="XLGBOverview" clampedToScreen="true"  movable="true" mouseEnabled="true" hidden="false" resizeHandleSize="10">
+    <TopLevelControl name="XLGBOverview" clampedToScreen="true" movable="true" mouseEnabled="true" hidden="false" resizeHandleSize="10">
 
       <Dimensions x="350" y="600"/>
       <DimensionConstraints  minX="350" minY="200"/>
@@ -58,7 +58,7 @@
             </Button>
 
     <!-- Title -->
-            <Label name="$(parent)_Title" font="ZoFontAnnounceMedium" text="Easy Gear Banker" >
+            <Label name="$(parent)_Title" font="ZoFontAnnounceMedium" text="XL Gear Banker" >
               <Anchor point="TOP" relativeTo="$(parent)" relativePoint="TOP" offsetX="-15" offsetY="0"  />
             </Label>
           </Controls>
