@@ -1,7 +1,7 @@
 -- Namespace
 MenuOverWriter = {}
 
-local ADD_ITEM_TO_GEARSET = "Add item to gearSet"
+local ADD_ITEM_TO_GEARSET = "EGB add"
 --[[
   MenuOverWriter.lua
 
@@ -23,6 +23,7 @@ local function MakeContextMenuEntry_AddItemToGearSet(itemLink, inventorySlot)
     table.insert(subEntries, subEntry)
   end
   AddCustomSubMenuItem(ADD_ITEM_TO_GEARSET, subEntries)
+  ShowMenu(inventorySlot)
 end
 
 local function AddContextMenuEntry_AddItemToGearSet(itemLink, inventorySlot)
