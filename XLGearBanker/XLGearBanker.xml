@@ -59,7 +59,8 @@
             </Button>
 
     <!-- Title -->
-            <Label name="$(parent)_Title" font="ZoFontAnnounceMedium" text="XL Gear Banker" >
+            <Label name="$(parent)_Title" font="ZoFontAnnounceMedium" text="XL Gear Banker" movable="true" mouseEnabled="true">
+              <OnMoveStop> UI.OnXLGBOverviewMoveStop()</OnMoveStop>
               <Anchor point="TOP" relativeTo="$(parent)" relativePoint="TOP" offsetX="-15" offsetY="0"  />
             </Label>
           </Controls>
