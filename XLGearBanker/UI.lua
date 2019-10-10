@@ -1,6 +1,6 @@
 UI = {}
 
-function UI.OnXLGBOverviewMoveStop()
+function UI:OnXLGBOverviewMoveStop()
   XLGearBanker.savedVariables.left = XLGBOverview:GetLeft()
   XLGearBanker.savedVariables.top = XLGBOverview:GetTop()
 end

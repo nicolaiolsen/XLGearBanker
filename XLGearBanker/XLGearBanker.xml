@@ -4,7 +4,7 @@
     <TopLevelControl name="XLGBOverview" clampedToScreen="true"  movable="true" mouseEnabled="true" hidden="false" resizeHandleSize="10">
 
       <Dimensions x="350" y="600"/>
-      <DimensionConstraints  minX="350"/>
+      <DimensionConstraints  minX="350" minY="200"/>
       <Anchor point="CENTER" relativeTo="GUI_ROOT" relativePoint="CENTER" offsetX="-125" offsetY="-140" />
       <OnMoveStop> UI.OnXLGBOverviewMoveStop()</OnMoveStop>
       <Controls>
