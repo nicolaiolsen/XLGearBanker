@@ -52,7 +52,7 @@
             />  
         </Button>
 
-        <Label name="$(parent)_label">
+        <Label name="$(parent)_label" text="Test set #">
 
         </Label>
       </Controls>
