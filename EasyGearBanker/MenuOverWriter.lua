@@ -30,7 +30,7 @@ local function AddContextMenuEntry_AddItemToGearSet(itemLink, inventorySlot)
   zo_callLater(
     function()
       MakeContextMenuEntry_AddItemToGearSet(itemLink, inventorySlot)
-    end, 50)
+    end, 10)
 end
 
 local function OverWriteInventoryShowContextMenuHandler()
