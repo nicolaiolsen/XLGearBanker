@@ -143,4 +143,7 @@ function UI:Initialize()
   XLGearBanker.displayingSet = 1
   UI:RestorePosition()
   UI:UISetDisplaySet(XLGearBanker.displayingSet)
+  if XLGearBanker.debug then
+    UI:ShowUI()
+  end
 end
