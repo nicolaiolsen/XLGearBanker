@@ -37,7 +37,7 @@ function easyDebug(...)
   end
 end
 
-
+--[[
 function EasyGearBanker.OnIndicatorMoveStop()
   EasyGearBanker.savedVariables.left = EasyGearBankerIndicator:GetLeft()
   EasyGearBanker.savedVariables.top = EasyGearBankerIndicator:GetTop()
@@ -50,5 +50,5 @@ function EasyGearBanker:RestorePosition()
   EasyGearBankerIndicator:ClearAnchors()
   EasyGearBankerIndicator:SetAnchor(TOPLEFT, GuiRoot, TOPLEFT, left, top)
 end
- 
+ ]]--
 EVENT_MANAGER:RegisterForEvent(EasyGearBanker.name, EVENT_ADD_ON_LOADED, EasyGearBanker.OnAddOnLoaded)
