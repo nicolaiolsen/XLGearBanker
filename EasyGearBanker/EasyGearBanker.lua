@@ -5,15 +5,6 @@ EasyGearBanker = {}
 -- Better to define it in a single place rather than retyping the same string.
 EasyGearBanker.name = "EasyGearBanker"
 
--------------------------------------------------------------------------------
-                              --Slash Commands! --
--- Note: Slash commands should not contain capital letters!
-
-SLASH_COMMANDS["/depositgear"] = Banking.depositGear
-SLASH_COMMANDS["/withdrawgear"] = Banking.withdrawGear
-
-SLASH_COMMANDS["/egb"] = EasyGearBanker.ShowUI(EasyGearBanker)
--------------------------------------------------------------------------------
 function EasyGearBanker:Initialize()
   self.debug = true
   self.savedVariables = ZO_SavedVars:NewAccountWide("EasyGearBankerSavedVariables", 1, nil, {})
@@ -58,3 +49,13 @@ function EasyGearBanker:ShowUI()
 end
 
 EVENT_MANAGER:RegisterForEvent(EasyGearBanker.name, EVENT_ADD_ON_LOADED, EasyGearBanker.OnAddOnLoaded)
+
+-------------------------------------------------------------------------------
+                              --Slash Commands! --
+-- Note: Slash commands should not contain capital letters!
+
+SLASH_COMMANDS["/depositgear"] = Banking.depositGear
+SLASH_COMMANDS["/withdrawgear"] = Banking.withdrawGear
+
+SLASH_COMMANDS["/egb"] = EasyGearBanker:ShowUI()
+-------------------------------------------------------------------------------
