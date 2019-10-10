@@ -6,13 +6,13 @@ EasyGearBanker = {}
 EasyGearBanker.name = "EasyGearBanker"
 
 -------------------------------------------------------------------------------
---Slash Commands! --
+                              --Slash Commands! --
 -- Note: Slash commands should not contain capital letters!
 
 SLASH_COMMANDS["/depositgear"] = Banking.depositGear
 SLASH_COMMANDS["/withdrawgear"] = Banking.withdrawGear
 
-SLASH_COMMANDS["/egb"] = EasyGearBanker:ShowUI()
+SLASH_COMMANDS["/egb"] = EasyGearBanker.ShowUI(EasyGearBanker)
 -------------------------------------------------------------------------------
 function EasyGearBanker:Initialize()
   self.debug = true
