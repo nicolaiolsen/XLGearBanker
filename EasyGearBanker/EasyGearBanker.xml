@@ -11,7 +11,7 @@
         <Backdrop name="$(parent)_BG" inherits="ZO_DefaultBackdrop"><AnchorFill/></Backdrop>
 <!-- Toolbar -->
         <Control name="$(parent)_ToolBar" mouseEnabled="true" resizeToFitDescendents="false">
-          <Dimensions x="350" y="30" />
+          <Dimensions x="350" />
           <Anchor point="TOPLEFT" relativeTo="$(parent)" relativePoint="TOPLEFT" offsetX="10" offsetY="10"/>
           <Anchor point="BOTTOMRIGHT" relativeTo="$(parent)" relativePoint="TOPRIGHT" offsetX="-10" offsetY="40"/>
           <Controls>
@@ -59,7 +59,7 @@
 
     <!-- Title -->
             <Label name="$(parent)_Title" font="ZoFontAnnounceMedium" text="Easy Gear Banker" >
-              <Anchor point="TOP" relativeTo="$(parent)" relativePoint="TOP" offsetX="-10" offsetY="0"  />
+              <Anchor point="TOP" relativeTo="$(parent)" relativePoint="TOP" offsetX="-15" offsetY="0"  />
             </Label>
           </Controls>
         </Control>
@@ -67,14 +67,14 @@
 <!-- List Holder -->
         <Control name="$(parent)_ListHolder" mouseEnabled="true" resizeToFitDescendents="false">
 					<DimensionConstraints  minY="52"/>
-					<Anchor point="TOPLEFT" relativeTo="$(parent)_ToolBar" relativePoint="BOTTOMLEFT" offsetX="10"/>
+					<Anchor point="TOPLEFT" relativeTo="$(parent)_ToolBar" relativePoint="BOTTOMLEFT" offsetX="0" offsetY="20"/>
 					<Anchor point="BOTTOMRIGHT" relativeTo="$(parent)" relativePoint="BOTTOMRIGHT" offsetX="-35" offsetY="-10"/>
 					<!-- <OnMouseWheel>IIfA:GuiOnScroll(self, delta)</OnMouseWheel>-->
 					<Controls>
 
   <!-- GearSet name -->
             <Label name="$(parent)GearTitle" font="ZoFontAnnounceMedium" text="Test Set" >
-              <Anchor point="TOP" relativeTo="$(parent)" relativePoint="TOP" offsetX="-20" offsetY="50"  />
+              <Anchor point="TOPLEFT" relativeTo="$(parent)" relativePoint="TOPLEFT" offsetX="0" offsetY="0"  />
             </Label>
 
   <!-- List Slider-->
