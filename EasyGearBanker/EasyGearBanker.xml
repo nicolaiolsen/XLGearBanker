@@ -4,6 +4,7 @@
     <TopLevelControl name="EGBOverview" clampedToScreen="true"  movable="true" mouseEnabled="true" hidden="false" resizeHandleSize="10">
 
       <Dimensions x="400" y="600"/>
+      <DimensionConstraints  minX="350"/>
       <Anchor point="CENTER" relativeTo="GUI_ROOT" relativePoint="CENTER" offsetX="-125" offsetY="-140" />
       <OnMoveStop> EasyGearBanker.OnEGBOverviewMoveStop()</OnMoveStop>
 
@@ -58,6 +59,42 @@
         <Label name="$(parent)_setlabel" font="ZoFontAnnounceMedium" text="Test Set" >
           <Anchor point="TOP" relativeTo="$(parent)" relativePoint="TOP" offsetX="-20" offsetY="50"  />
         </Label>
+
+        <Control name="$(parent)_ListHolder" mouseEnabled="true" resizeToFitDescendents="false">
+					<DimensionConstraints  minY="52"/>
+					<Anchor point="TOPLEFT" relativeTo="$(parent)" relativePoint="BOTTOMLEFT" offsetX="10"/>
+					<Anchor point="BOTTOMRIGHT" relativeTo="$(parent)" relativePoint="BOTTOMRIGHT" offsetX="-35" offsetY="-60"/>
+					<!-- <OnMouseWheel>IIfA:GuiOnScroll(self, delta)</OnMouseWheel>-->
+
+					<Controls>
+						<Slider name="$(parent)_Slider" mouseEnabled="true" step="1" inherits="ZO_VerticalScrollbarBase">
+							<Anchor point="TOPRIGHT" relativeTo="$(parent)" relativePoint="TOPRIGHT" offsetX="16" offsetY="14"/>
+							<Anchor point="BOTTOMRIGHT" relativeTo="$(parent)" relativePoint="BOTTOMRIGHT" offsetX="23" offsetY="-14"/>
+
+							<OnMouseDown>self.locked=false</OnMouseDown>
+							<OnMouseUp>self.locked=true</OnMouseUp>
+							<!--<OnValueChanged>IIfA:GuiOnSliderUpdate(self, value)</OnValueChanged>-->
+						</Slider>
+
+						<Control name="$(parent)_Counts" verticalAlignment="LEFT">
+							<Anchor point="BOTTOMLEFT" relativeTo="$(parent)" relativePoint="BOTTOMLEFT" offsetY="6" />
+							<Anchor point="BOTTOMRIGHT" relativeTo="$(parent)" relativePoint="BOTTOMRIGHT" offsetY="6" />
+							<Dimensions y="26" />
+							<Controls>
+								<Label name="$(parent)_Items" mouseEnabled="false" font="ZoFontGameSmall" text="Items" >
+									<Anchor point="TOPLEFT" relativeTo="$(parent)" relativePoint="TOPLEFT" offsetX="0" offsetY="0"/>
+									<Anchor point="BOTTOMRIGHT" relativeTo="$(parent)" relativePoint="BOTTOM" offsetX="0" offsetY="0"/>
+								</Label>
+								<Label name="$(parent)_Slots" mouseEnabled="false" font="ZoFontGameSmall" text="Slots" >
+									<Anchor point="TOPRIGHT" relativeTo="$(parent)" relativePoint="TOPRIGHT" offsetX="0" offsetY="0"/>
+									<Anchor point="BOTTOMLEFT" relativeTo="$(parent)" relativePoint="BOTTOM" offsetX="0" offsetY="0"/>
+								</Label>
+							</Controls>
+						</Control>
+
+					</Controls>
+
+				</Control>
       </Controls>
     </TopLevelControl>
   </Controls>

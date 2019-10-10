@@ -53,7 +53,7 @@ function EasyGearBanker:UICycleRight()
   local nextSet = EasyGearBanker.displayingSet + 1
   local totalSets = GearSet.getAmountOfGearSets()
 
-  if nextSet >= totalSets then
+  if nextSet > totalSets then
     nextSet = 1
   end
 
