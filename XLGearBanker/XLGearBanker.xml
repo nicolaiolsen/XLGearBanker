@@ -84,7 +84,7 @@
 
   <!-- List Slider-->
 						<Slider name="$(parent)_Slider" mouseEnabled="true" step="1" inherits="ZO_VerticalScrollbarBase">
-							<Anchor point="TOPRIGHT" relativeTo="$(parent)" relativePoint="TOPRIGHT" offsetX="16" offsetY="34"/>
+							<Anchor point="TOPRIGHT" relativeTo="$(parent)" relativePoint="TOPRIGHT" offsetX="16" offsetY="64"/>
 							<Anchor point="BOTTOMRIGHT" relativeTo="$(parent)" relativePoint="BOTTOMRIGHT" offsetX="23" offsetY="-14"/>
 
 							<OnMouseDown>self.locked=false</OnMouseDown>
