@@ -67,7 +67,10 @@ function EasyGearBanker:UISetGearNameLabel(gearSetNumber)
   local gearSetName = GearSet.getGearSetName(gearSetNumber)
   easyDebug("Setting gear name label to: " .. gearSetName)
   local labelControl = EGBOverview:GetNamedChild("EGBOverview_setlabel")
-  labelControl:setText(gearSetName)
+  easyDebug("Labelcontrol: ", labelControl)
+  if labelControl then
+    labelControl:setText(gearSetName)
+  end
 end
 
 function EasyGearBanker:UISetDisplaySet(gearSetNumber)
