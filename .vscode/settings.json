@@ -28,7 +28,8 @@
         "SLOT_TYPE_ITEM",
         "SLOT_TYPE_EQUIPMENT",
         "SLOT_TYPE_BANK_ITEM",
-        "ZO_Inventory_GetBagAndIndex"
+        "ZO_Inventory_GetBagAndIndex",
+        "XLGBOverview"
     ],
     "Lua.diagnostics.disable": [
         "lowercase-global"

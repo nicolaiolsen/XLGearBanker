@@ -1,50 +1,50 @@
 UI = {}
 
-function UI.OnEGBOverviewMoveStop()
-  EasyGearBanker.savedVariables.left = EGBOverview:GetLeft()
-  EasyGearBanker.savedVariables.top = EGBOverview:GetTop()
+function UI.OnXLGBOverviewMoveStop()
+  XLGearBanker.savedVariables.left = XLGBOverview:GetLeft()
+  XLGearBanker.savedVariables.top = XLGBOverview:GetTop()
 end
 
 function UI:RestorePosition()
   local left = self.savedVariables.left
   local top = self.savedVariables.top
 
-  EGBOverview:ClearAnchors()
-  EGBOverview:SetAnchor(TOPLEFT, GuiRoot, TOPLEFT, left, top)
+  XLGBOverview:ClearAnchors()
+  XLGBOverview:SetAnchor(TOPLEFT, GuiRoot, TOPLEFT, left, top)
 end
 
 function UI:UICycleLeft()
   easyDebug("UI cycle left called!")
 
-  local nextSet = EasyGearBanker.displayingSet - 1
+  local nextSet = XLGearBanker.displayingSet - 1
   local totalSets = GearSet.getAmountOfGearSets()
 
   if nextSet <= 0 then
     nextSet = totalSets
   end
 
-  EasyGearBanker.displayingSet = nextSet
+  XLGearBanker.displayingSet = nextSet
   UI:UISetDisplaySet(nextSet)
 end
 
 function UI:UICycleRight()
   easyDebug("UI cycle right called!")
 
-  local nextSet = EasyGearBanker.displayingSet + 1
+  local nextSet = XLGearBanker.displayingSet + 1
   local totalSets = GearSet.getAmountOfGearSets()
 
   if nextSet > totalSets then
     nextSet = 1
   end
 
-  EasyGearBanker.displayingSet = nextSet
+  XLGearBanker.displayingSet = nextSet
   UI:UISetDisplaySet(nextSet)
 end
 
 function UI:UISetGearNameLabel(gearSetNumber)
   local gearSetName = GearSet.getGearSetName(gearSetNumber)
   easyDebug("Setting gear name label to: " .. gearSetName)
-  local labelControl = EGBOverview:GetNamedChild("EGBOverview_setlabel")
+  local labelControl = XLGBOverview:GetNamedChild("XLGBOverview_setlabel")
   easyDebug("Labelcontrol: ", labelControl)
   if labelControl then
     labelControl:setText(gearSetName)
@@ -56,13 +56,13 @@ function UI:UISetDisplaySet(gearSetNumber)
 end
 
 function UI:ShowUI()
-  EGBOverview:SetHidden(false)
+  XLGBOverview:SetHidden(false)
 end
 
 function UI:HideUI()
-  EGBOverview:SetHidden(true)
+  XLGBOverview:SetHidden(true)
 end
-
+--[[
 function UI:UpdateScrollDataLinesData()
   
 	local index = 0
@@ -137,3 +137,4 @@ function UI:UpdateScrollDataLinesData()
 	IIFA_GUI_ListHolder_Counts_Slots:SetText("Appx. Slots Used: " .. #dataLines)
 
 end
+]]--
