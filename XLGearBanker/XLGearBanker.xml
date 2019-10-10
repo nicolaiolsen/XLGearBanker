@@ -67,8 +67,6 @@
           </Controls>
         </Control>
 
-    
-  
 <!-- List Holder -->
         <Control name="$(parent)_ListHolder" mouseEnabled="true" resizeToFitDescendents="false">
 					<DimensionConstraints  minY="52"/>
@@ -84,33 +82,51 @@
 
   <!-- List Slider-->
 						<Slider name="$(parent)_Slider" mouseEnabled="true" step="1" inherits="ZO_VerticalScrollbarBase">
-							<Anchor point="TOPRIGHT" relativeTo="$(parent)" relativePoint="TOPRIGHT" offsetX="16" offsetY="64"/>
+							<Anchor point="TOPRIGHT" relativeTo="$(parent)" relativePoint="TOPRIGHT" offsetX="16" offsetY="54"/>
 							<Anchor point="BOTTOMRIGHT" relativeTo="$(parent)" relativePoint="BOTTOMRIGHT" offsetX="23" offsetY="-14"/>
 
 							<OnMouseDown>self.locked=false</OnMouseDown>
 							<OnMouseUp>self.locked=true</OnMouseUp>
 							<!--<OnValueChanged>IIfA:GuiOnSliderUpdate(self, value)</OnValueChanged>-->
 						</Slider>
-
-						<Control name="$(parent)_Counts" verticalAlignment="LEFT">
-							<Anchor point="BOTTOMLEFT" relativeTo="$(parent)" relativePoint="BOTTOMLEFT" offsetY="6" />
-							<Anchor point="BOTTOMRIGHT" relativeTo="$(parent)" relativePoint="BOTTOMRIGHT" offsetY="6" />
-							<Dimensions y="26" />
-							<Controls>
-								<Label name="$(parent)_Items" mouseEnabled="false" font="ZoFontGameSmall" text="Items" >
-									<Anchor point="TOPLEFT" relativeTo="$(parent)" relativePoint="TOPLEFT" offsetX="0" offsetY="0"/>
-									<Anchor point="BOTTOMRIGHT" relativeTo="$(parent)" relativePoint="BOTTOM" offsetX="0" offsetY="0"/>
-								</Label>
-								<Label name="$(parent)_Slots" mouseEnabled="false" font="ZoFontGameSmall" text="Slots" >
-									<Anchor point="TOPRIGHT" relativeTo="$(parent)" relativePoint="TOPRIGHT" offsetX="0" offsetY="0"/>
-									<Anchor point="BOTTOMLEFT" relativeTo="$(parent)" relativePoint="BOTTOM" offsetX="0" offsetY="0"/>
-								</Label>
-							</Controls>
-						</Control>
-
 					</Controls>
-
 				</Control>
+
+        <Control name="IIFA_SlotTemplate" inherits="ZO_ListInventorySlotBehavior" virtual="true" mouseEnabled="true">
+            <Dimensions x="300" y="52" />
+            <Controls>
+              <Texture name="$(parent)Bg" textureFile="EsoUI/Art/Miscellaneous/listItem_backdrop.dds" alpha="0.4">
+                <AnchorFill />
+                <TextureCoords left="0" right="1" top="0" bottom=".8125" />
+              </Texture>
+
+              <Button name="$(parent)Button" inherits="ZO_InventorySlotNoMouseover">
+                <Dimensions x="40" y="40" />
+                <Anchor point="TOPLEFT" relativePoint="TOPLEFT" offsetX="0" offsetY="3" />
+              </Button>
+
+              <Label name="$(parent)Qty" font="ZoFontGameShadow" horizontalAlignment="RIGHT" verticalAlignment="CENTER">
+                <Dimensions x="44" y="50"/>
+                <Anchor point="TOPLEFT" relativeTo="$(parent)Button" relativePoint="TOPRIGHT" offsetX="8" offsetY="-3" />
+              </Label>
+
+              <Label name="$(parent)Name" font="ZoFontGameShadow" wrapMode="ELLIPSIS" verticalAlignment="CENTER">
+                <Dimensions y="50" />
+                <Anchor point="TOPLEFT" relativeTo="$(parent)Qty" relativePoint="TOPRIGHT" offsetX="18" offsetY="0"/>
+                <Anchor point="TOPRIGHT" relativeTo="$(parent)" relativePoint="TOPRIGHT" offsetX="0" offsetY="0"/>
+              </Label>
+
+              <Texture name="$(parent)IconWorn" textureFile="esoui/art/campaign/overview_indexicon_bonus_disabled.dds" alpha="0.8" hidden="true" mouseEnabled="true">
+                <Dimensions x="20" y="20"/>
+                <Anchor point="TOPRIGHT" relativeTo="$(parent)Button" relativePoint="TOPLEFT" />
+              </Texture>
+
+              <Texture name="$(parent)IconStolen" textureFile="esoui/art/inventory/inventory_stolenitem_icon.dds" alpha="0.4" >
+                <Dimensions x="20" y="20"/>
+                <Anchor point="BOTTOMRIGHT" relativeTo="$(parent)Button" relativePoint="BOTTOMLEFT" />
+              </Texture>
+            </Controls>
+          </Control>
       </Controls>
     </TopLevelControl>
   </Controls>
