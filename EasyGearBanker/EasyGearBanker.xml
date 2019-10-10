@@ -3,7 +3,7 @@
     <!-- Every control's name must be _unique_. -->
     <TopLevelControl name="EGBOverview" clampedToScreen="true"  movable="true" mouseEnabled="true" hidden="false" resizeHandleSize="10">
 
-      <Dimensions x="400" y="600"/>
+      <Dimensions x="350" y="600"/>
       <DimensionConstraints  minX="350"/>
       <Anchor point="CENTER" relativeTo="GUI_ROOT" relativePoint="CENTER" offsetX="-125" offsetY="-140" />
       <OnMoveStop> EasyGearBanker.OnEGBOverviewMoveStop()</OnMoveStop>
@@ -67,7 +67,7 @@
 <!-- List Holder -->
         <Control name="$(parent)_ListHolder" mouseEnabled="true" resizeToFitDescendents="false">
 					<DimensionConstraints  minY="52"/>
-					<Anchor point="TOPLEFT" relativeTo="$(parent)_ToolBar" relativePoint="BOTTOMLEFT" offsetX="0" offsetY="20"/>
+					<Anchor point="TOPLEFT" relativeTo="$(parent)_ToolBar" relativePoint="BOTTOMLEFT" offsetX="30" offsetY="20"/>
 					<Anchor point="BOTTOMRIGHT" relativeTo="$(parent)" relativePoint="BOTTOMRIGHT" offsetX="-35" offsetY="-10"/>
 					<!-- <OnMouseWheel>IIfA:GuiOnScroll(self, delta)</OnMouseWheel>-->
 					<Controls>
