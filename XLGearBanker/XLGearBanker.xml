@@ -80,12 +80,11 @@
   <!-- GearSet name -->
             <Label name="$(parent)GearTitle" font="ZoFontAnnounceMedium" text="Test Set" >
               <Anchor point="TOPLEFT" relativeTo="$(parent)" relativePoint="TOPLEFT" offsetX="0" offsetY="0"  />
-              <Dimensions x="300" />
             </Label>
 
   <!-- List Slider-->
 						<Slider name="$(parent)_Slider" mouseEnabled="true" step="1" inherits="ZO_VerticalScrollbarBase">
-							<Anchor point="TOPRIGHT" relativeTo="$(parent)" relativePoint="TOPRIGHT" offsetX="16" offsetY="14"/>
+							<Anchor point="TOPRIGHT" relativeTo="$(parent)" relativePoint="TOPRIGHT" offsetX="16" offsetY="34"/>
 							<Anchor point="BOTTOMRIGHT" relativeTo="$(parent)" relativePoint="BOTTOMRIGHT" offsetX="23" offsetY="-14"/>
 
 							<OnMouseDown>self.locked=false</OnMouseDown>
