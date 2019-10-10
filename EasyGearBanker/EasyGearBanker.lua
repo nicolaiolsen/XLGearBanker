@@ -18,7 +18,7 @@ function EasyGearBanker:Initialize()
 
   self.savedVariables = ZO_SavedVars:NewAccountWide("EasyGearBankerSavedVariables", 1, nil, {})
 
-  self:RestorePosition()
+  --self:RestorePosition()
 
 end
 
