@@ -11,9 +11,8 @@
         <Backdrop name="$(parent)_BG" inherits="ZO_DefaultBackdrop"><AnchorFill/></Backdrop>
 <!-- Toolbar -->
         <Control name="$(parent)_ToolBar" mouseEnabled="true" resizeToFitDescendents="false">
+          <Anchor point="TOPRIGHT" relativeTo="$(parent)" relativePoint="TOPRIGHT" offsetX="10" offsetY="10"/>
           <Controls>
-            <Anchor point="TOPRIGHT" relativeTo="$(parent)" relativePoint="TOPRIGHT" offsetX="10" offsetY="10"/>
-            
     <!-- Escape button:-->
             <Button name="$(parent)_hide" inherits="ZO_ButtonBehaviorClickSound" >
 
