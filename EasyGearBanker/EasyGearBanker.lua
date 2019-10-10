@@ -1,25 +1,23 @@
 -- First, we create a namespace for our addon by declaring a top-level table that will hold everything else.
 EasyGearBanker = {}
- 
+
 -- This isn't strictly necessary, but we'll use this string later when registering events.
 -- Better to define it in a single place rather than retyping the same string.
 EasyGearBanker.name = "EasyGearBanker"
- 
+
 -------------------------------------------------------------------------------
 --Slash Commands! --
+-- Note: Slash commands should not contain capital letters!
 
 SLASH_COMMANDS["/depositgear"] = Banking.depositGear
 SLASH_COMMANDS["/withdrawgear"] = Banking.withdrawGear
 
-SLASH_COMMANDS["/EGB"] = EasyGearBanker:ShowUI()
+SLASH_COMMANDS["/egb"] = EasyGearBanker:ShowUI()
 -------------------------------------------------------------------------------
 function EasyGearBanker:Initialize()
   self.debug = true
-
   self.savedVariables = ZO_SavedVars:NewAccountWide("EasyGearBankerSavedVariables", 1, nil, {})
-
   self:RestorePosition()
-
 end
 
 function EasyGearBanker.OnAddOnLoaded(event, addonName)
@@ -46,7 +44,7 @@ end
 function EasyGearBanker:RestorePosition()
   local left = self.savedVariables.left
   local top = self.savedVariables.top
- 
+
   EGBOverview:ClearAnchors()
   EGBOverview:SetAnchor(TOPLEFT, GuiRoot, TOPLEFT, left, top)
 end
