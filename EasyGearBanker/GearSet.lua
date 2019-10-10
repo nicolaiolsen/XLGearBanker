@@ -12,14 +12,14 @@ function GearSet.getGearSet(numberString)
   return EasyGearBanker.savedVariables.gearSetList[number]
 end
 
-function GearSet.GetAmountOfGearSets()
+function GearSet.getAmountOfGearSets()
   return #EasyGearBanker.savedVariables.gearSetList
 end
 
-function GearSet.GetGearSetNames()
+function GearSet.getGearSetNames()
   return EasyGearBanker.savedVariables.gearSetNames
 end
 
-function GearSet.AddItemToGearSet(itemLink, gearSetNumber)
+function GearSet.addItemToGearSet(itemLink, gearSetNumber)
   easyDebug("Added item to itemset")
 end
