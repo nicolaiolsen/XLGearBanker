@@ -33,12 +33,10 @@ function EasyGearBanker:RestorePosition()
   EGBOverview:SetAnchor(TOPLEFT, GuiRoot, TOPLEFT, left, top)
 end
 
-
-
 function EasyGearBanker:UICycleLeft()
   easyDebug("UI cycle left called!")
 
-  local nextSet = self.displayingSet - 1
+  local nextSet = EasyGearBanker.displayingSet - 1
   local totalSets = GearSet.getAmountOfGearSets()
 
   if nextSet <= 0 then
@@ -52,7 +50,7 @@ end
 function EasyGearBanker:UICycleRight()
   easyDebug("UI cycle right called!")
 
-  local nextSet = self.displayingSet + 1
+  local nextSet = EasyGearBanker.displayingSet + 1
   local totalSets = GearSet.getAmountOfGearSets()
 
   if nextSet >= totalSets then
