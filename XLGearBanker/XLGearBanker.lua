@@ -33,5 +33,5 @@ EVENT_MANAGER:RegisterForEvent(XLGearBanker.name, EVENT_ADD_ON_LOADED, XLGearBan
 SLASH_COMMANDS["/depositgear"] = Banking.depositGear
 SLASH_COMMANDS["/withdrawgear"] = Banking.withdrawGear
 
-SLASH_COMMANDS["/xlgboverview"] = XLGearBanker.ShowUI
+SLASH_COMMANDS["/xlgboverview"] = UI.ShowUI
 -------------------------------------------------------------------------------
