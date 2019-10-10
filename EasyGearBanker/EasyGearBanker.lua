@@ -43,8 +43,8 @@ function EasyGearBanker:UICycleLeft()
     nextSet = totalSets
   end
 
-  self.displayingSet = nextSet
-  self:UISetDisplaySet(nextSet)
+  EasyGearBanker.displayingSet = nextSet
+  EasyGearBanker:UISetDisplaySet(nextSet)
 end
 
 function EasyGearBanker:UICycleRight()
@@ -57,8 +57,8 @@ function EasyGearBanker:UICycleRight()
     nextSet = 1
   end
 
-  self.displayingSet = nextSet
-  self:UISetDisplaySet(nextSet)
+  EasyGearBanker.displayingSet = nextSet
+  EasyGearBanker:UISetDisplaySet(nextSet)
 end
 
 function EasyGearBanker:UISetGearNameLabel(gearSetNumber)
@@ -72,7 +72,7 @@ function EasyGearBanker:UISetGearNameLabel(gearSetNumber)
 end
 
 function EasyGearBanker:UISetDisplaySet(gearSetNumber)
-  self:UISetGearNameLabel(gearSetNumber)
+  EasyGearBanker:UISetGearNameLabel(gearSetNumber)
 end
 
 function EasyGearBanker:ShowUI()
