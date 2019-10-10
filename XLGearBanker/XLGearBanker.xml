@@ -10,7 +10,8 @@
       <Controls>
         <Backdrop name="$(parent)_BG" inherits="ZO_DefaultBackdrop"><AnchorFill/></Backdrop>
 <!-- Toolbar -->
-        <Control name="$(parent)_ToolBar" mouseEnabled="true" resizeToFitDescendents="false">
+        <Control name="$(parent)_ToolBar" mouseEnabled="true" movable="true" resizeToFitDescendents="false">
+          <OnMoveStop> UI.OnXLGBOverviewMoveStop()</OnMoveStop>
           <Dimensions x="350" />
           <Anchor point="TOPLEFT" relativeTo="$(parent)" relativePoint="TOPLEFT" offsetX="10" offsetY="10"/>
           <Anchor point="BOTTOMRIGHT" relativeTo="$(parent)" relativePoint="TOPRIGHT" offsetX="-10" offsetY="40"/>
