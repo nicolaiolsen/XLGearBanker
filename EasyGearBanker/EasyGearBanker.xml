@@ -7,11 +7,11 @@
       <DimensionConstraints  minX="350"/>
       <Anchor point="CENTER" relativeTo="GUI_ROOT" relativePoint="CENTER" offsetX="-125" offsetY="-140" />
       <OnMoveStop> EasyGearBanker.OnEGBOverviewMoveStop()</OnMoveStop>
-      <Backdrop name="$(parent)_BG" inherits="ZO_DefaultBackdrop"><AnchorFill/></Backdrop>
       <Controls>
 
 <!-- Toolbar -->
         <Control name="$(parent)_ToolBar" mouseEnabled="true" resizeToFitDescendents="false">
+          <Backdrop name="$(parent)_BG" inherits="ZO_DefaultBackdrop"><AnchorFill/></Backdrop>
           <Anchor point="TOPRIGHT" relativeTo="$(parent)" relativePoint="TOPRIGHT" offsetX="10" offsetY="10"/>
           
   <!-- Escape button:-->
