@@ -9,26 +9,48 @@
       <OnMoveStop> UI.OnXLGBOverviewMoveStop()</OnMoveStop>
       <Controls>
         <Backdrop name="$(parent)_BG" inherits="ZO_DefaultBackdrop"><AnchorFill/></Backdrop>
-<!-- Toolbar -->
-        <Control name="$(parent)_ToolBar" mouseEnabled="true" resizeToFitDescendents="false">
-          <Dimensions x="350" />
-          <Anchor point="TOPLEFT" relativeTo="$(parent)" relativePoint="TOPLEFT" offsetX="10" offsetY="30"/>
-          <Anchor point="BOTTOMRIGHT" relativeTo="$(parent)" relativePoint="TOPRIGHT" offsetX="-10" offsetY="60"/>
-          <Controls>
-    <!-- Escape button:-->
+
+        <!-- Escape button:-->
             <Button name="$(parent)_Hide" inherits="ZO_ButtonBehaviorClickSound" >
 
               <OnClicked>UI.HideUI()</OnClicked>
 
               <Dimensions x="30" y="30" />                                
-              <Anchor point="TOPLEFT" relativeTo="$(parent)" relativePoint="TOPLEFT" offsetX="0" offsetY="0"  />
+              <Anchor point="TOPRIGHT" relativeTo="$(parent)" relativePoint="TOPRIGHT" offsetX="-10" offsetY="10"  />
               <Textures
                   normal    ="/esoui/art/buttons/decline_up.dds"
                   pressed    ="/esoui/art/buttons/decline_down.dds"
                   mouseOver  ="/esoui/art/buttons/decline_over.dds"
                 />  
             </Button>
-            
+        
+<!-- Toolbar -->
+        <Control name="$(parent)_ToolBar" mouseEnabled="true" resizeToFitDescendents="false">
+          <Dimensions x="350" />
+          <Anchor point="TOPLEFT" relativeTo="$(parent)" relativePoint="TOPLEFT" offsetX="10" offsetY="30"/>
+          <Anchor point="BOTTOMRIGHT" relativeTo="$(parent)" relativePoint="TOPRIGHT" offsetX="-10" offsetY="60"/>
+          <Controls>
+    <!-- Cycle left button:-->
+            <Button name="$(parent)_PreviousSet" inherits="ZO_ButtonBehaviorClickSound" >
+
+              <OnClicked>UI.UICycleLeft()</OnClicked>
+
+              <Dimensions x="30" y="30" />                  
+              <Anchor point="TOPLEFT" relativeTo="$(parent)" relativePoint="TOPLEFT"  offsetX="0" offsetY="0" />
+              <Textures
+                  normal    ="/esoui/art/buttons/leftarrow_up.dds"
+                  pressed    ="/esoui/art/buttons/leftarrow_down.dds"
+                  mouseOver  ="/esoui/art/buttons/leftarrow_over.dds"
+                />  
+            </Button>
+
+    <!-- Title -->
+            <Label name="$(parent)_Title" font="ZoFontAnnounceMedium" text="XL Gear Banker" mouseEnabled="true">
+              <Anchor point="TOP" relativeTo="$(parent)" relativePoint="TOP" offsetX="0" offsetY="0"  />
+            </Label>
+          </Controls>
+        </Control>
+
     <!-- Cycle right button:-->
             <Button name="$(parent)_NextSet" inherits="ZO_ButtonBehaviorClickSound" >
 
@@ -42,28 +64,7 @@
                   mouseOver  ="/esoui/art/buttons/rightarrow_over.dds"
                 />  
             </Button>
-    
-    <!-- Cycle left button:-->
-            <Button name="$(parent)_PreviousSet" inherits="ZO_ButtonBehaviorClickSound" >
-
-              <OnClicked>UI.UICycleLeft()</OnClicked>
-
-              <Dimensions x="30" y="30" />                  
-              <Anchor point="RIGHT" relativeTo="$(parent)_NextSet" relativePoint="RIGHT"  offsetX="-40" offsetY="0" />
-              <Textures
-                  normal    ="/esoui/art/buttons/leftarrow_up.dds"
-                  pressed    ="/esoui/art/buttons/leftarrow_down.dds"
-                  mouseOver  ="/esoui/art/buttons/leftarrow_over.dds"
-                />  
-            </Button>
-
-    <!-- Title -->
-            <Label name="$(parent)_Title" font="ZoFontAnnounceMedium" text="XL Gear Banker" mouseEnabled="true">
-              <Anchor point="TOP" relativeTo="$(parent)" relativePoint="TOP" offsetX="-15" offsetY="0"  />
-            </Label>
-          </Controls>
-        </Control>
-
+  
 <!-- List Holder -->
         <Control name="$(parent)_ListHolder" mouseEnabled="true" resizeToFitDescendents="false">
 					<DimensionConstraints  minY="52"/>
