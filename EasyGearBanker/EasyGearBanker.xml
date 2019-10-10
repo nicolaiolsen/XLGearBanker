@@ -1,7 +1,7 @@
 <GuiXml>
   <Controls>
     <!-- Every control's name must be _unique_. -->
-    <TopLevelControl name="EGBOverview" clampedToScreen="true"  movable="true" mouseEnabled="true" hidden="false" resizeHandleSize="10">
+    <TopLevelControl name="EGBOverview" clampedToScreen="true"  movable="true" mouseEnabled="true" hidden="true" resizeHandleSize="10">
       <Dimensions x="200" y="100"/>
       <Anchor point="CENTER" relativeTo="GUI_ROOT" relativePoint="CENTER" offsetX="-125" offsetY="-140" />
       <OnMoveStop>
