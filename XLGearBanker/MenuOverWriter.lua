@@ -10,8 +10,8 @@
 MenuOverWriter = {}
 
 -- Constants
-local ADD_ITEM_TO_GEARSET = "EGB add"
-local REMOVE_ITEM_FROM_GEARSET = "EGB remove"
+local ADD_ITEM_TO_GEARSET = "XLGB add"
+local REMOVE_ITEM_FROM_GEARSET = "XLGB remove"
 
 -- Functions
 local function MakeContextMenuEntry_AddItemToGearSet(itemLink, inventorySlot)
