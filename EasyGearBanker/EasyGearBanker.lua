@@ -9,9 +9,9 @@ EasyGearBanker.name = "EasyGearBanker"
 --Slash Commands! --
 
 SLASH_COMMANDS["/depositgear"] = Banking.depositGear
-
 SLASH_COMMANDS["/withdrawgear"] = Banking.withdrawGear
 
+SLASH_COMMANDS["/EGB"] = EasyGearBanker:ShowUI()
 -------------------------------------------------------------------------------
 function EasyGearBanker:Initialize()
   self.debug = true
@@ -53,6 +53,10 @@ end
 
 function EasyGearBanker:HideUI()
   EGBOverview:SetHidden(true)
+end
+
+function EasyGearBanker:ShowUI()
+  EGBOverview:SetHidden(false)
 end
 
 EVENT_MANAGER:RegisterForEvent(EasyGearBanker.name, EVENT_ADD_ON_LOADED, EasyGearBanker.OnAddOnLoaded)
