@@ -10,6 +10,7 @@
       <Controls>
         <Backdrop name="$(parent)_BG" inherits="ZO_DefaultBackdrop"><AnchorFill/></Backdrop>
 
+        <!-- Escape button:-->
         <Button name="$(parent)_hide" inherits="ZO_ButtonBehaviorClickSound" >
 
           <OnClicked>EasyGearBanker.HideUI()</OnClicked>
@@ -23,11 +24,12 @@
             />  
         </Button>
 
-        <Button name="$(parent)_nextSet" inherits="ZO_ButtonBehaviorClickSound" >
+        <!-- Cycle left button:-->
+        <Button name="$(parent)_previousSet" inherits="ZO_ButtonBehaviorClickSound" >
 
           <OnClicked>EasyGearBanker.UICycleLeft()</OnClicked>
 
-          <Dimensions x="40" y="40" />                  
+          <Dimensions x="30" y="30" />                  
           <Anchor point="TOPRIGHT" relativeTo="$(parent)" relativePoint="TOPRIGHT"  offsetX="-60" offsetY="10" />
           <Textures
               normal    ="/esoui/art/buttons/leftarrow_up.dds"
@@ -36,6 +38,20 @@
             />  
         </Button>
         
+        <!-- Cycle right button:-->
+        <Button name="$(parent)_nextSet" inherits="ZO_ButtonBehaviorClickSound" >
+
+          <OnClicked>EasyGearBanker.UICycleRight()</OnClicked>
+
+          <Dimensions x="30" y="30" />                  
+          <Anchor point="TOPRIGHT" relativeTo="$(parent)" relativePoint="TOPRIGHT"  offsetX="-10" offsetY="10" />
+          <Textures
+              normal    ="/esoui/art/buttons/rightarrow_up.dds"
+              pressed    ="/esoui/art/buttons/rightarrow_down.dds"
+              mouseOver  ="/esoui/art/buttons/rightarrow_over.dds"
+            />  
+        </Button>
+
         <Label name="$(parent)_label">
 
         </Label>
