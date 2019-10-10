@@ -11,55 +11,56 @@
         <Backdrop name="$(parent)_BG" inherits="ZO_DefaultBackdrop"><AnchorFill/></Backdrop>
 <!-- Toolbar -->
         <Control name="$(parent)_ToolBar" mouseEnabled="true" resizeToFitDescendents="false">
-          
-          <Anchor point="TOPRIGHT" relativeTo="$(parent)" relativePoint="TOPRIGHT" offsetX="10" offsetY="10"/>
-          
-  <!-- Escape button:-->
-          <Button name="$(parent)_hide" inherits="ZO_ButtonBehaviorClickSound" >
+          <Controls>
+            <Anchor point="TOPRIGHT" relativeTo="$(parent)" relativePoint="TOPRIGHT" offsetX="10" offsetY="10"/>
+            
+    <!-- Escape button:-->
+            <Button name="$(parent)_hide" inherits="ZO_ButtonBehaviorClickSound" >
 
-            <OnClicked>EasyGearBanker.HideUI()</OnClicked>
+              <OnClicked>EasyGearBanker.HideUI()</OnClicked>
 
-            <Dimensions x="30" y="30" />                                
-            <Anchor point="TOPLEFT" relativeTo="$(parent)" relativePoint="TOPLEFT" offsetX="10" offsetY="10"  />
-            <Textures
-                normal    ="/esoui/art/buttons/decline_up.dds"
-                pressed    ="/esoui/art/buttons/decline_down.dds"
-                mouseOver  ="/esoui/art/buttons/decline_over.dds"
-              />  
-          </Button>
+              <Dimensions x="30" y="30" />                                
+              <Anchor point="TOPLEFT" relativeTo="$(parent)" relativePoint="TOPLEFT" offsetX="10" offsetY="10"  />
+              <Textures
+                  normal    ="/esoui/art/buttons/decline_up.dds"
+                  pressed    ="/esoui/art/buttons/decline_down.dds"
+                  mouseOver  ="/esoui/art/buttons/decline_over.dds"
+                />  
+            </Button>
 
-  <!-- Cycle left button:-->
-          <Button name="$(parent)_previousSet" inherits="ZO_ButtonBehaviorClickSound" >
+    <!-- Cycle left button:-->
+            <Button name="$(parent)_previousSet" inherits="ZO_ButtonBehaviorClickSound" >
 
-            <OnClicked>EasyGearBanker.UICycleLeft()</OnClicked>
+              <OnClicked>EasyGearBanker.UICycleLeft()</OnClicked>
 
-            <Dimensions x="30" y="30" />                  
-            <Anchor point="TOPRIGHT" relativeTo="$(parent)" relativePoint="TOPRIGHT"  offsetX="-60" offsetY="10" />
-            <Textures
-                normal    ="/esoui/art/buttons/leftarrow_up.dds"
-                pressed    ="/esoui/art/buttons/leftarrow_down.dds"
-                mouseOver  ="/esoui/art/buttons/leftarrow_over.dds"
-              />  
-          </Button>
-          
-  <!-- Cycle right button:-->
-          <Button name="$(parent)_nextSet" inherits="ZO_ButtonBehaviorClickSound" >
+              <Dimensions x="30" y="30" />                  
+              <Anchor point="TOPRIGHT" relativeTo="$(parent)" relativePoint="TOPRIGHT"  offsetX="-60" offsetY="10" />
+              <Textures
+                  normal    ="/esoui/art/buttons/leftarrow_up.dds"
+                  pressed    ="/esoui/art/buttons/leftarrow_down.dds"
+                  mouseOver  ="/esoui/art/buttons/leftarrow_over.dds"
+                />  
+            </Button>
+            
+    <!-- Cycle right button:-->
+            <Button name="$(parent)_nextSet" inherits="ZO_ButtonBehaviorClickSound" >
 
-            <OnClicked>EasyGearBanker.UICycleRight()</OnClicked>
+              <OnClicked>EasyGearBanker.UICycleRight()</OnClicked>
 
-            <Dimensions x="30" y="30" />                  
-            <Anchor point="TOPRIGHT" relativeTo="$(parent)" relativePoint="TOPRIGHT"  offsetX="-10" offsetY="10" />
-            <Textures
-                normal    ="/esoui/art/buttons/rightarrow_up.dds"
-                pressed    ="/esoui/art/buttons/rightarrow_down.dds"
-                mouseOver  ="/esoui/art/buttons/rightarrow_over.dds"
-              />  
-          </Button>
+              <Dimensions x="30" y="30" />                  
+              <Anchor point="TOPRIGHT" relativeTo="$(parent)" relativePoint="TOPRIGHT"  offsetX="-10" offsetY="10" />
+              <Textures
+                  normal    ="/esoui/art/buttons/rightarrow_up.dds"
+                  pressed    ="/esoui/art/buttons/rightarrow_down.dds"
+                  mouseOver  ="/esoui/art/buttons/rightarrow_over.dds"
+                />  
+            </Button>
 
-  <!-- Title -->
-          <Label name="$(parent)_title" font="ZoFontAnnounceMedium" text="Easy Gear Banker" >
-            <Anchor point="TOP" relativeTo="$(parent)" relativePoint="TOP" offsetX="-20" offsetY="10"  />
-          </Label>
+    <!-- Title -->
+            <Label name="$(parent)_title" font="ZoFontAnnounceMedium" text="Easy Gear Banker" >
+              <Anchor point="TOP" relativeTo="$(parent)" relativePoint="TOP" offsetX="-20" offsetY="10"  />
+            </Label>
+          </Controls>
         </Control>
 
 <!-- List Holder -->
