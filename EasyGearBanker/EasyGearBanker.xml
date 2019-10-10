@@ -53,10 +53,10 @@
         </Button>
 
         <Label name="$(parent)_title" font="ZoFontAnnounceMedium" text="Easy Gear Banker" >
-          <Anchor point="TOP" relativeTo="$(parent)" relativePoint="TOP" offsetX="-10" offsetY="10"  />
+          <Anchor point="TOP" relativeTo="$(parent)" relativePoint="TOP" offsetX="-20" offsetY="10"  />
         </Label>
         <Label name="$(parent)_setlabel" font="ZoFontAnnounceMedium" text="Test Set" >
-          <Anchor point="TOPLEFT" relativeTo="$(parent)" relativePoint="TOPLEFT" offsetX="-10" offsetY="50"  />
+          <Anchor point="TOP" relativeTo="$(parent)" relativePoint="TOP" offsetX="-20" offsetY="50"  />
         </Label>
       </Controls>
     </TopLevelControl>
