@@ -1,22 +1,40 @@
 <GuiXml>
   <Controls>
-
-    <TopLevelControl name="EasyGearBankerIndicator" mouseEnabled="true" movable="true" clampedToScreen="true" hidden="true">
-
-      <Dimensions x="200" y="25" />
-      <Anchor point="BOTTOM" relativeTo="GuiRoot" relativePoint="CENTER" offsetY="-20" />
-
-      <OnMoveStop>
-        EasyGearBanker.OnIndicatorMoveStop()
-      </OnMoveStop>
-
+    <!-- Every control's name must be _unique_. -->
+    <TopLevelControl name="MyDemoControl" clampedToScreen="true"  movable="true" mouseEnabled="true" hidden="false" resizeHandleSize="10">
+      <Dimensions x="200" y="100"/>
+      <Anchor point="CENTER" relativeTo="GUI_ROOT" relativePoint="CENTER" offsetX="-125" offsetY="-140" />
       <Controls>
-        <Label name="$(parent)Label" width="200" height="25" font="ZoFontWinH1" inheritAlpha="true" color="FF0000"
-            wrapMode="TRUNCATE" verticalAlignment="TOP" horizontalAlignment="CENTER" text="Fighting!">
-        <Anchor point="TOP" relativeTo="$(parent)" relativePoint="TOP" />
-        </Label>
-      </Controls>
-    </TopLevelControl>
-
-  </Controls>
+        <Backdrop name="$(parent)_BG" inherits="ZO_DefaultBackdrop"><AnchorFill/></Backdrop>
+                <Button name="$(parent)_hide" inherits="ZO_ButtonBehaviorClickSound" >
+                    <!-- <OnClicked>MyAddon.HideUI()</OnClicked> -->
+                    <Dimensions x="30" y="30" />                                
+                    <Anchor point="TOPLEFT" relativeTo="$(parent)" relativePoint="TOPLEFT" offsetX="10" offsetY="10"  />
+                    <Textures
+                        normal    ="/esoui/art/buttons/decline_up.dds"
+                        pressed    ="/esoui/art/buttons/decline_down.dds"
+                        mouseOver  ="/esoui/art/buttons/decline_over.dds"
+                     />  
+                </Button>
+                <Button name="$(parent)_clear" inherits="ZO_ButtonBehaviorClickSound" >
+                    <!-- <OnClicked>MyAddon.TextboxIsEmpty</OnClicked> -->
+                    <Dimensions x="40" y="40" />                  
+                    <Anchor point="TOPRIGHT" relativeTo="$(parent)" relativePoint="TOPRIGHT"  offsetX="-10" offsetY="10" />
+                    <Textures
+                        normal    ="/esoui/art/help/help_tabicon_feedback_up.dds"
+                        pressed    ="/esoui/art/help/help_tabicon_feedback_down.dds "
+                        mouseOver  ="/esoui/art/help/help_tabicon_feedback_over.dds"
+                     />  
+                </Button>
+ 
+                <EditBox name="$(parent)Box" inherits="ZO_DefaultEditMultiLine ZO_DefaultEditForDarkBackdrop" >
+                    <Anchor point="TOPLEFT" relativeTo="$(parent)" relativePoint="TOPLEFT" offsetX="50" offsetY="50"/>
+                    <Anchor point="BOTTOMRIGHT" relativeTo="$(parent)" relativePoint="BOTTOMRIGHT" offsetX="50"/>                    
+                 <!--    <OnFocusGained>MyAddon.selectEntireTextbox()</OnFocusGained>
+                    <OnTextChanged>MyAddon.onTextboxTextChanged()</OnTextChanged> -->
+                </EditBox>
+ 
+            </Controls>
+        </TopLevelControl>
+    </Controls>
 </GuiXml>
