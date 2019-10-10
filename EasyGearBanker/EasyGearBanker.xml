@@ -11,6 +11,7 @@
         <Backdrop name="$(parent)_BG" inherits="ZO_DefaultBackdrop"><AnchorFill/></Backdrop>
 <!-- Toolbar -->
         <Control name="$(parent)_ToolBar" mouseEnabled="true" resizeToFitDescendents="false">
+          <Dimensions x="350" y="30" />
           <Anchor point="TOPLEFT" relativeTo="$(parent)" relativePoint="TOPLEFT" offsetX="10" offsetY="10"/>
           <Controls>
     <!-- Escape button:-->
@@ -33,7 +34,7 @@
               <OnClicked>EasyGearBanker.UICycleLeft()</OnClicked>
 
               <Dimensions x="30" y="30" />                  
-              <Anchor point="TOPRIGHT" relativeTo="$(parent)" relativePoint="TOPRIGHT"  offsetX="-70" offsetY="0" />
+              <Anchor point="RIGHT" relativeTo="$(parent)_NextSet" relativePoint="RIGHT"  offsetX="-20" offsetY="0" />
               <Textures
                   normal    ="/esoui/art/buttons/leftarrow_up.dds"
                   pressed    ="/esoui/art/buttons/leftarrow_down.dds"
@@ -42,12 +43,12 @@
             </Button>
             
     <!-- Cycle right button:-->
-            <Button name="$(parent)_nextSet" inherits="ZO_ButtonBehaviorClickSound" >
+            <Button name="$(parent)_NextSet" inherits="ZO_ButtonBehaviorClickSound" >
 
               <OnClicked>EasyGearBanker.UICycleRight()</OnClicked>
 
               <Dimensions x="30" y="30" />                  
-              <Anchor point="TOPRIGHT" relativeTo="$(parent)" relativePoint="TOPRIGHT"  offsetX="-20" offsetY="0" />
+              <Anchor point="TOPRIGHT" relativeTo="$(parent)" relativePoint="TOPRIGHT"  offsetX="-10" offsetY="0" />
               <Textures
                   normal    ="/esoui/art/buttons/rightarrow_up.dds"
                   pressed    ="/esoui/art/buttons/rightarrow_down.dds"
