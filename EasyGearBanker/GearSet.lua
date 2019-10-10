@@ -3,7 +3,7 @@ GearSet = {}
 function GearSet:Initialize()
   self.debug = true
   EasyGearBanker.savedVariables.gearSetList = {{1}, {1, 2}, {1, 2, 3}}
-  EasyGearBanker.savedVariables.gearNames = {"Set 1", "Set 2", "Set 3"}
+  EasyGearBanker.savedVariables.gearSetNames = {"Set 1", "Set 2", "Set 3"}
 
 end
 
