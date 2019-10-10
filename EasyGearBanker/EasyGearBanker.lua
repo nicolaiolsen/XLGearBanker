@@ -4,12 +4,6 @@ EasyGearBanker = {}
 EasyGearBanker.name = "EasyGearBanker"
 local EGB_Overview = "EGBOverview"
 
-function EasyGearBanker:Initialize()
-  self.debug = true
-  self.savedVariables = ZO_SavedVars:NewAccountWide("EasyGearBankerSavedVariables", 1, nil, {})
-  self:RestorePosition()
-end
-
 function EasyGearBanker.OnAddOnLoaded(event, addonName)
     if addonName == EasyGearBanker.name then
       EasyGearBanker:Initialize()
@@ -43,22 +37,22 @@ end
 
 function EasyGearBanker:UICycleLeft()
   easyDebug("UI cycle left called!")
-  
-  nextSet = EasyGearBanker.displayingSet - 1
+
+  nextSet = self.displayingSet - 1
   totalSets = GearSet.getAmountOfGearSets()
 
   if nextSet <= 0 then
     nextSet = totalSets
   end
 
-  EasyGearBanker.displayingSet = nextSet
-  EasyGearBanker:UISetDisplaySet(nextSet)
+  self.displayingSet = nextSet
+  self:UISetDisplaySet(nextSet)
 end
 
 function EasyGearBanker:UICycleRight()
   easyDebug("UI cycle right called!")
 
-  nextSet = EasyGearBanker.displayingSet + 1
+  nextSet = self.displayingSet + 1
   totalSets = GearSet.getAmountOfGearSets()
 
   if nextSet >= totalSets then
@@ -66,7 +60,7 @@ function EasyGearBanker:UICycleRight()
   end
 
   EasyGearBanker.displayingSet = nextSet
-  EasyGearBanker:UISetDisplaySet(nextSet)
+  self:UISetDisplaySet(nextSet)
 end
 
 function EasyGearBanker:UISetGearNameLabel(gearSetNumber)
@@ -77,18 +71,23 @@ function EasyGearBanker:UISetGearNameLabel(gearSetNumber)
 end
 
 function EasyGearBanker:UISetDisplaySet(gearSetNumber)
-  EasyGearBanker:UISetGearNameLabel(gearSetNumber)
+  self:UISetGearNameLabel(gearSetNumber)
 end
 
 function EasyGearBanker:ShowUI()
-  -- Default UI display is set 1
-  EasyGearBanker.displayingSet = 1
-  EasyGearBanker:UISetDisplaySet(EasyGearBanker.displayingSet)
   EGBOverview:SetHidden(false)
 end
 
 function EasyGearBanker:HideUI()
   EGBOverview:SetHidden(true)
+end
+
+function EasyGearBanker:Initialize()
+  self.debug = true
+  self.savedVariables = ZO_SavedVars:NewAccountWide("EasyGearBankerSavedVariables", 1, nil, {})
+  self:RestorePosition()
+  self.displayingSet = 1
+  self:UISetDisplaySet(EasyGearBanker.displayingSet)
 end
 
 EVENT_MANAGER:RegisterForEvent(EasyGearBanker.name, EVENT_ADD_ON_LOADED, EasyGearBanker.OnAddOnLoaded)
