@@ -20,6 +20,10 @@ function GearSet.getGearSetNames()
   return EasyGearBanker.savedVariables.gearSetNames
 end
 
+function GearSet.getGearSetName(gearSetNumber)
+  return GearSet.getGearSetNames()[gearSetNumber]
+end
+
 function GearSet.addItemToGearSet(itemLink, gearSetNumber)
   local gearSetName = GearSet.getGearSetNames()[gearSetNumber]
   table.insert(EasyGearBanker.savedVariables.gearSetList[gearSetNumber], itemLink)

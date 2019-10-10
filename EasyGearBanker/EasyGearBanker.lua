@@ -38,16 +38,34 @@ function EasyGearBanker:RestorePosition()
   EGBOverview:SetAnchor(TOPLEFT, GuiRoot, TOPLEFT, left, top)
 end
 
+
+
+function EasyGearBanker:UICycleLeft()
+  easyDebug("UI cycle left called!")
+end
+
+function EasyGearBanker:UICycleRight()
+  easyDebug("UI cycle right called!")
+end
+
+function EasyGearBanker:UISetGearNameLabel(gearSetNumber)
+  local gearSetName = GearSet.getGearSetName(gearSetNumber)
+  EGBOverview_label:setText(gearSetName)
+end
+
+function EasyGearBanker:UISetDisplaySet(gearSetNumber)
+  EasyGearBanker:UISetGearNameLabel(gearSetNumber)
+end
+
 function EasyGearBanker:ShowUI()
+  -- Default UI display is set 1
+  EasyGearBanker.displayingSet = 1
+  EasyGearBanker:UISetDisplaySet(EasyGearBanker.displayingSet)
   EGBOverview:SetHidden(false)
 end
 
 function EasyGearBanker:HideUI()
   EGBOverview:SetHidden(true)
-end
-
-function EasyGearBanker:UICycleLeft()
-  easyDebug("UI cycle left called!")
 end
 
 EVENT_MANAGER:RegisterForEvent(EasyGearBanker.name, EVENT_ADD_ON_LOADED, EasyGearBanker.OnAddOnLoaded)
