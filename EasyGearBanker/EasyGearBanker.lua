@@ -2,6 +2,8 @@
 EasyGearBanker = {}
 
 EasyGearBanker.name = "EasyGearBanker"
+local EGB_UI_STRING = "EGBOverview"
+local EGB_UI = EGBOverview
 
 function EasyGearBanker:Initialize()
   self.debug = true
@@ -51,7 +53,8 @@ end
 function EasyGearBanker:UISetGearNameLabel(gearSetNumber)
   local gearSetName = GearSet.getGearSetName(gearSetNumber)
   easyDebug("Setting gear name label to: " .. gearSetName)
-  --EGBOverview:setText(gearSetName)
+  local labelControl = EGBOverview:GetNamedChild(EGB_UI_STRING .. "_setlabel")
+  labelControl:setText(gearSetName)
 end
 
 function EasyGearBanker:UISetDisplaySet(gearSetNumber)
