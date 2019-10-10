@@ -38,8 +38,8 @@ end
 function EasyGearBanker:UICycleLeft()
   easyDebug("UI cycle left called!")
 
-  nextSet = self.displayingSet - 1
-  totalSets = GearSet.getAmountOfGearSets()
+  local nextSet = self.displayingSet - 1
+  local totalSets = GearSet.getAmountOfGearSets()
 
   if nextSet <= 0 then
     nextSet = totalSets
@@ -52,8 +52,8 @@ end
 function EasyGearBanker:UICycleRight()
   easyDebug("UI cycle right called!")
 
-  nextSet = self.displayingSet + 1
-  totalSets = GearSet.getAmountOfGearSets()
+  local nextSet = self.displayingSet + 1
+  local totalSets = GearSet.getAmountOfGearSets()
 
   if nextSet >= totalSets then
     nextSet = 1
@@ -90,7 +90,7 @@ function EasyGearBanker:Initialize()
   self.savedVariables = ZO_SavedVars:NewAccountWide("EasyGearBankerSavedVariables", 1, nil, {})
   self:RestorePosition()
   self.displayingSet = 1
-  self:UISetDisplaySet(EasyGearBanker.displayingSet)
+  self:UISetDisplaySet(self.displayingSet)
 end
 
 EVENT_MANAGER:RegisterForEvent(EasyGearBanker.name, EVENT_ADD_ON_LOADED, EasyGearBanker.OnAddOnLoaded)
