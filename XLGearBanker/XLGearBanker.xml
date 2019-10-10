@@ -1,12 +1,12 @@
 <GuiXml>
   <Controls>
     <!-- Every control's name must be _unique_. -->
-    <TopLevelControl name="XLGBOverview" clampedToScreen="true" movable="true" mouseEnabled="true" hidden="true" resizeHandleSize="10">
+    <TopLevelControl name="XLGB_UI" clampedToScreen="true" movable="true" mouseEnabled="true" hidden="true" resizeHandleSize="10">
 
       <Dimensions x="350" y="600"/>
       <DimensionConstraints  minX="350" minY="200"/>
       <Anchor point="CENTER" relativeTo="GUI_ROOT" relativePoint="CENTER" offsetX="-125" offsetY="-140" />
-      <OnMoveStop> UI.OnXLGBOverviewMoveStop()</OnMoveStop>
+      <OnMoveStop> UI.XLGB_UI_OnMoveStop()</OnMoveStop>
       <Controls>
         <Backdrop name="$(parent)_BG" inherits="ZO_DefaultBackdrop"><AnchorFill/></Backdrop>
 
@@ -37,7 +37,7 @@
               <OnClicked>UI.UICycleLeft()</OnClicked>
 
               <Dimensions x="30" y="30" />                  
-              <Anchor point="TOPLEFT" relativeTo="$(parent)" relativePoint="TOPLEFT"  offsetX="20" offsetY="0" />
+              <Anchor point="TOPLEFT" relativeTo="$(parent)" relativePoint="TOPLEFT"  offsetX="15" offsetY="0" />
               <Textures
                   normal    ="/esoui/art/buttons/leftarrow_up.dds"
                   pressed    ="/esoui/art/buttons/leftarrow_down.dds"
@@ -47,7 +47,7 @@
 
     <!-- Title -->
             <Label name="$(parent)_Title" font="ZoFontAnnounceMedium" text="XL Gear Banker" mouseEnabled="true">
-              <Anchor point="TOP" relativeTo="$(parent)" relativePoint="TOP" offsetX="-10" offsetY="0"  />
+              <Anchor point="TOP" relativeTo="$(parent)" relativePoint="TOP" offsetX="-15" offsetY="0"  />
             </Label>
 
     <!-- Cycle right button:-->
@@ -56,7 +56,7 @@
               <OnClicked>UI.UICycleRight()</OnClicked>
 
               <Dimensions x="30" y="30" />                  
-              <Anchor point="TOPRIGHT" relativeTo="$(parent)" relativePoint="TOPRIGHT"  offsetX="-40" offsetY="0" />
+              <Anchor point="TOPRIGHT" relativeTo="$(parent)" relativePoint="TOPRIGHT"  offsetX="-45" offsetY="0" />
               <Textures
                   normal    ="/esoui/art/buttons/rightarrow_up.dds"
                   pressed    ="/esoui/art/buttons/rightarrow_down.dds"
@@ -113,6 +113,7 @@
 				</Control>
       </Controls>
     </TopLevelControl>
+
     <Control name="XLGB_SlotTemplate" inherits="ZO_ListInventorySlotBehavior" virtual="true" mouseEnabled="true">
       <Dimensions x="300" y="52" />
       <Controls>
@@ -120,32 +121,27 @@
           <AnchorFill />
           <TextureCoords left="0" right="1" top="0" bottom=".8125" />
         </Texture>
+        <Label name="$(parent)Name" font="ZoFontGameShadow" wrapMode="ELLIPSIS" verticalAlignment="CENTER">
+          <Dimensions y="30" />
+          <Anchor point="TOPLEFT" relativeTo="$(parent)" relativePoint="TOPRIGHT" offsetX="20" offsetY="0"/>
+          <Anchor point="TOPRIGHT" relativeTo="$(parent)" relativePoint="TOPRIGHT" offsetX="-50" offsetY="0"/>
+        </Label>
 
-        <Button name="$(parent)Button" inherits="ZO_InventorySlotNoMouseover">
-          <Dimensions x="40" y="40" />
-          <Anchor point="TOPLEFT" relativePoint="TOPLEFT" offsetX="0" offsetY="3" />
+        <!-- Escape button:-->
+        <Button name="$(parent)RemoveItem" inherits="ZO_ButtonBehaviorClickSound" >
+
+          <OnClicked>UI.RemoveItem()</OnClicked>
+
+          <Dimensions x="20" y="20" />                                
+          <Anchor point="TOPRIGHT" relativeTo="$(parent)" relativePoint="TOPRIGHT" offsetX="-10" offsetY="5"  />
+          <Textures
+              normal    ="/esoui/art/buttons/decline_up.dds"
+              pressed    ="/esoui/art/buttons/decline_down.dds"
+              mouseOver  ="/esoui/art/buttons/decline_over.dds"
+            />  
         </Button>
 
-        <Label name="$(parent)Qty" font="ZoFontGameShadow" horizontalAlignment="RIGHT" verticalAlignment="CENTER">
-          <Dimensions x="44" y="50"/>
-          <Anchor point="TOPLEFT" relativeTo="$(parent)Button" relativePoint="TOPRIGHT" offsetX="8" offsetY="-3" />
-        </Label>
-
-        <Label name="$(parent)Name" font="ZoFontGameShadow" wrapMode="ELLIPSIS" verticalAlignment="CENTER">
-          <Dimensions y="50" />
-          <Anchor point="TOPLEFT" relativeTo="$(parent)Qty" relativePoint="TOPRIGHT" offsetX="18" offsetY="0"/>
-          <Anchor point="TOPRIGHT" relativeTo="$(parent)" relativePoint="TOPRIGHT" offsetX="0" offsetY="0"/>
-        </Label>
-
-        <Texture name="$(parent)IconWorn" textureFile="esoui/art/campaign/overview_indexicon_bonus_disabled.dds" alpha="0.8" hidden="true" mouseEnabled="true">
-          <Dimensions x="20" y="20"/>
-          <Anchor point="TOPRIGHT" relativeTo="$(parent)Button" relativePoint="TOPLEFT" />
-        </Texture>
-
-        <Texture name="$(parent)IconStolen" textureFile="esoui/art/inventory/inventory_stolenitem_icon.dds" alpha="0.4" >
-          <Dimensions x="20" y="20"/>
-          <Anchor point="BOTTOMRIGHT" relativeTo="$(parent)Button" relativePoint="BOTTOMLEFT" />
-        </Texture>
+        
       </Controls>
     </Control>
   </Controls>

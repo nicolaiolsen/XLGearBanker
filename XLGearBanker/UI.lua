@@ -1,16 +1,16 @@
 UI = {}
 
-function UI:OnXLGBOverviewMoveStop()
-  XLGearBanker.savedVariables.left = XLGBOverview:GetLeft()
-  XLGearBanker.savedVariables.top = XLGBOverview:GetTop()
+function UI:XLGB_UI_OnMoveStop()
+  XLGearBanker.savedVariables.left = XLGB_UI:GetLeft()
+  XLGearBanker.savedVariables.top = XLGB_UI:GetTop()
 end
 
 function UI:RestorePosition()
   local left = XLGearBanker.savedVariables.left
   local top = XLGearBanker.savedVariables.top
 
-  XLGBOverview:ClearAnchors()
-  XLGBOverview:SetAnchor(TOPLEFT, GuiRoot, TOPLEFT, left, top)
+  XLGB_UI:ClearAnchors()
+  XLGB_UI:SetAnchor(TOPLEFT, GuiRoot, TOPLEFT, left, top)
 end
 
 function UI:UICycleLeft()
@@ -44,7 +44,7 @@ end
 function UI:UISetGearNameLabel(gearSetNumber)
   local gearSetName = GearSet.getGearSetName(gearSetNumber)
   easyDebug("Setting gear name label to: " .. gearSetName)
-  local labelControl = XLGBOverview:GetNamedChild("XLGBOverview_setlabel")
+  local labelControl = XLGB_UI:GetNamedChild("XLGB_UI_setlabel")
   easyDebug("Labelcontrol: ", labelControl)
   if labelControl then
     labelControl:setText(gearSetName)
@@ -56,11 +56,35 @@ function UI:UISetDisplaySet(gearSetNumber)
 end
 
 function UI:ShowUI()
-  XLGBOverview:SetHidden(false)
+  XLGB_UI:SetHidden(false)
 end
 
 function UI:HideUI()
-  XLGBOverview:SetHidden(true)
+  XLGB_UI:SetHidden(true)
+end
+
+function UI:RemoveItem()
+  easyDebug("Removing item")
+end
+
+function UI:CreateLine(i, predecessor, parent)
+	local line = WINDOW_MANAGER:CreateControlFromVirtual("XLGB_ListItem_".. i, parent, "XLGB_SlotTemplate")
+
+	line.text = line:GetNamedChild("Name")
+	line.remove = line:GetNamedChild("RemoveItem")
+
+	line:SetHidden(false)
+	line:SetMouseEnabled(true)
+	line:SetHeight(XLGB_UI_ListHolder.rowHeight)
+
+	if i == 1 then
+		line:SetAnchor(TOPLEFT, XLGB_UI_ListHolder, TOPLEFT, 0, 0)
+		line:SetAnchor(TOPRIGHT, XLGB_UI_ListHolder, TOPRIGHT, 0, 0)
+	else
+		line:SetAnchor(TOPLEFT, predecessor, BOTTOMLEFT, 0, 0)
+		line:SetAnchor(TOPRIGHT, predecessor, BOTTOMRIGHT, 0, 0)
+	end
+	return line
 end
 --[[
 function UI:UpdateScrollDataLinesData()
