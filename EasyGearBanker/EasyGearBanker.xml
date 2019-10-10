@@ -16,7 +16,7 @@
           <Anchor point="BOTTOMRIGHT" relativeTo="$(parent)" relativePoint="TOPRIGHT" offsetX="-10" offsetY="40"/>
           <Controls>
     <!-- Escape button:-->
-            <Button name="$(parent)_hide" inherits="ZO_ButtonBehaviorClickSound" >
+            <Button name="$(parent)_Hide" inherits="ZO_ButtonBehaviorClickSound" >
 
               <OnClicked>EasyGearBanker.HideUI()</OnClicked>
 
@@ -58,7 +58,7 @@
             </Button>
 
     <!-- Title -->
-            <Label name="$(parent)_title" font="ZoFontAnnounceMedium" text="Easy Gear Banker" >
+            <Label name="$(parent)_Title" font="ZoFontAnnounceMedium" text="Easy Gear Banker" >
               <Anchor point="TOP" relativeTo="$(parent)" relativePoint="TOP" offsetX="-20" offsetY="0"  />
             </Label>
           </Controls>
