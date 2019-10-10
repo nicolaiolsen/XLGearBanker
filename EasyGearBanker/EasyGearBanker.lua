@@ -59,14 +59,14 @@ function EasyGearBanker:UICycleRight()
     nextSet = 1
   end
 
-  EasyGearBanker.displayingSet = nextSet
+  self.displayingSet = nextSet
   self:UISetDisplaySet(nextSet)
 end
 
 function EasyGearBanker:UISetGearNameLabel(gearSetNumber)
   local gearSetName = GearSet.getGearSetName(gearSetNumber)
   easyDebug("Setting gear name label to: " .. gearSetName)
-  local labelControl = EGBOverview:GetNamedChild(EGB_Overview .. "_setlabel")
+  local labelControl = EGBOverview:GetNamedChild("EGBOverview_setlabel")
   labelControl:setText(gearSetName)
 end
 
