@@ -140,7 +140,7 @@ end
 ]]--
 
 function UI:Initialize()
-	XLGearBanker.displayingSet = 1
-	UI:RestorePosition()
-	UI:UISetDisplaySet(self.displayingSet)
-  end
+  XLGearBanker.displayingSet = 1
+  UI:RestorePosition()
+  UI:UISetDisplaySet(XLGearBanker.displayingSet)
+end
