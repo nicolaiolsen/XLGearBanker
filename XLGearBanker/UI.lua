@@ -6,8 +6,8 @@ function UI.OnXLGBOverviewMoveStop()
 end
 
 function UI:RestorePosition()
-  local left = self.savedVariables.left
-  local top = self.savedVariables.top
+  local left = XLGearBanker.savedVariables.left
+  local top = XLGearBanker.savedVariables.top
 
   XLGBOverview:ClearAnchors()
   XLGBOverview:SetAnchor(TOPLEFT, GuiRoot, TOPLEFT, left, top)
