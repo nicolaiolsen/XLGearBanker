@@ -1,6 +1,3 @@
---Namespace
-Banking = {}
-
 --[[
   Banking.lua
 
@@ -9,6 +6,9 @@ Banking = {}
   Functions:
 
 ]]--
+
+--Namespace
+Banking = {}
 
 function Banking:Initialize()
   self.bankOpen = IsBankOpen()

@@ -1,8 +1,6 @@
--- First, we create a namespace for our addon by declaring a top-level table that will hold everything else.
+-- Namespace
 EasyGearBanker = {}
 
--- This isn't strictly necessary, but we'll use this string later when registering events.
--- Better to define it in a single place rather than retyping the same string.
 EasyGearBanker.name = "EasyGearBanker"
 
 function EasyGearBanker:Initialize()
@@ -40,12 +38,16 @@ function EasyGearBanker:RestorePosition()
   EGBOverview:SetAnchor(TOPLEFT, GuiRoot, TOPLEFT, left, top)
 end
 
+function EasyGearBanker:ShowUI()
+  EGBOverview:SetHidden(false)
+end
+
 function EasyGearBanker:HideUI()
   EGBOverview:SetHidden(true)
 end
 
-function EasyGearBanker:ShowUI()
-  EGBOverview:SetHidden(false)
+function EasyGearBanker:UICycleLeft()
+  easyDebug("UI cycle left called!")
 end
 
 EVENT_MANAGER:RegisterForEvent(EasyGearBanker.name, EVENT_ADD_ON_LOADED, EasyGearBanker.OnAddOnLoaded)
