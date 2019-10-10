@@ -27,6 +27,7 @@ function EasyGearBanker.OnAddOnLoaded(event, addonName)
       EasyGearBanker:Initialize()
       GearSet:Initialize()
       Banking:Initialize()
+      MenuOverWriter:Initialize()
     end
 end
 
@@ -40,10 +41,6 @@ end
 function EasyGearBanker.OnIndicatorMoveStop()
   EasyGearBanker.savedVariables.left = EasyGearBankerIndicator:GetLeft()
   EasyGearBanker.savedVariables.top = EasyGearBankerIndicator:GetTop()
-end
-
-function EasyGearBanker.isItemLink(link) 
-  if 
 end
 
 function EasyGearBanker:RestorePosition()

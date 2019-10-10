@@ -12,11 +12,11 @@ function GearSet.getGearSet(numberString)
   return EasyGearBanker.savedVariables.gearSetList[number]
 end
 
-function GearSet.getAmountOfGearSets()
+function GearSet.GetAmountOfGearSets()
   return #EasyGearBanker.savedVariables.gearSetList
 end
 
-function GearSet.getGearSetNames()
+function GearSet.GetGearSetNames()
   return EasyGearBanker.savedVariables.gearSetNames
 end
 

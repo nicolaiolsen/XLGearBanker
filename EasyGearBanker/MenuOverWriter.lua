@@ -10,9 +10,9 @@ local ADD_ITEM_TO_GEARSET = "Add item to gearSet"
   The following code is heavily inspired by TTC's TamrielTradeCenterPrice.lua
 ]]--
 local function MakeContextMenuEntry_AddItemToGearSet(itemLink, inventorySlot)
-  local gearSetNames = GearSet.getGearSetNames()
+  local gearSetNames = GearSet.GetGearSetNames()
   local subEntries = {}
-  for i = 1, GearSet.getAmountOfGearSets() do
+  for i = 1, GearSet.GetAmountOfGearSets() do
     local subEntry = {
       label = gearSetNames[i],
       callback = 
