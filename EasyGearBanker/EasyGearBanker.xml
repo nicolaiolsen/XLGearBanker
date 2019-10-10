@@ -53,7 +53,7 @@
         </Button>
 
         <Label name="$(parent)_label" font="ZoFontAnnounceMedium" text="Test Set" >
-          <Anchor point="TOPLEFT" relativeTo="$(parent)" relativePoint="CENTER" offsetX="50" offsetY="10"  />
+          <Anchor point="TOPLEFT" relativeTo="$(parent)" relativePoint="CENTERTOP" offsetX="50" offsetY="10"  />
         </Label>
       </Controls>
     </TopLevelControl>
