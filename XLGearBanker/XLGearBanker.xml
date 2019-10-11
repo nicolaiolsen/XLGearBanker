@@ -6,14 +6,14 @@
       <Dimensions x="350" y="600"/>
       <DimensionConstraints  minX="350" minY="200"/>
       <Anchor point="CENTER" relativeTo="GUI_ROOT" relativePoint="CENTER" offsetX="-125" offsetY="-140" />
-      <OnMoveStop> UI.XLGB_UI_Control_OnMoveStop()</OnMoveStop>
+      <OnMoveStop> XLGB_UI.XLGB_UI_Control_OnMoveStop()</OnMoveStop>
       <Controls>
         <Backdrop name="$(parent)_BG" inherits="ZO_DefaultBackdrop"><AnchorFill/></Backdrop>
 
         <!-- Escape button:-->
             <Button name="$(parent)_Hide" inherits="ZO_ButtonBehaviorClickSound" >
 
-              <OnClicked>UI.HideUI()</OnClicked>
+              <OnClicked>XLGB_UI.HideUI()</OnClicked>
 
               <Dimensions x="30" y="30" />                                
               <Anchor point="TOPRIGHT" relativeTo="$(parent)" relativePoint="TOPRIGHT" offsetX="-10" offsetY="10"  />
@@ -34,7 +34,7 @@
     <!-- Cycle left button:-->
             <Button name="$(parent)_PreviousSet" inherits="ZO_ButtonBehaviorClickSound" >
 
-              <OnClicked>UI.CycleLeft()</OnClicked>
+              <OnClicked>XLGB_UI.CycleLeft()</OnClicked>
 
               <Dimensions x="30" y="30" />                  
               <Anchor point="TOPLEFT" relativeTo="$(parent)" relativePoint="TOPLEFT"  offsetX="15" offsetY="0" />
@@ -53,7 +53,7 @@
     <!-- Cycle right button:-->
             <Button name="$(parent)_NextSet" inherits="ZO_ButtonBehaviorClickSound" >
 
-              <OnClicked>UI.CycleRight()</OnClicked>
+              <OnClicked>XLGB_UI.CycleRight()</OnClicked>
 
               <Dimensions x="30" y="30" />                  
               <Anchor point="TOPRIGHT" relativeTo="$(parent)" relativePoint="TOPRIGHT"  offsetX="-45" offsetY="0" />
