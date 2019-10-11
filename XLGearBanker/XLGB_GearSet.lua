@@ -2,7 +2,11 @@ XLGB_GearSet = {}
 
 function XLGB_GearSet:Initialize()
   self.debug = true
-  XLGearBanker.savedVariables.gearSetList = {}
+
+  if XLGearBanker.savedVariables.gearSetList == nil then
+    XLGearBanker.savedVariables.gearSetList = {}
+  end
+  
 end
 
 function XLGB_GearSet:ValidGearSetNumber(gearSetNumber, totalGearSets)
@@ -54,12 +58,10 @@ function XLGB_GearSet:RemoveGearSet(gearSetNumber)
 end
 
 local function createItemData(itemLink)
-  if itemLink then 
-    local itemData = {}
-    itemData.link = itemLink
-    itemData.name = GetItemLinkName(itemLink)
-    itemData.quality = GetItemLinkQuality(itemLink)
-  end
+  local itemData = {}
+  itemData.link = itemLink
+  itemData.name = GetItemLinkName(itemLink)
+  itemData.quality = GetItemLinkQuality(itemLink)
 end
 
 function XLGB_GearSet:AddItemToGearSet(itemLink, gearSetNumber)
