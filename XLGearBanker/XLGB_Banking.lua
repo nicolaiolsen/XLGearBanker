@@ -75,19 +75,19 @@ local function moveItem(sourceBag, targetBag, itemLink, availableBagSpaces)
   end
 end
 
-local function moveGear(sourceBag, targetBag, gearSetNumber)
-  easyDebug("Moving gearSet #", gearSetNumber)
+local function moveGear(sourceBag, targetBag, gearSet)
+  
+  
   if not XLGB_Banking.bankOpen then
-    easyDebug("Bank is not open!")
-    return
+    d("XLGB:Bank is not open, abort!")
+    return false
   else
-    -- retrieve list of item ids (gearSet) related to the gearSetNumber
-    local gearSet = GearSet:GetGearSet(gearSetNumber)
     local availableBagSpaces = getAvailableBagSpaces(targetBag)
     --Move each item of the specified gearset from sourceBag to targetBag
     for _, item in pairs(gearSet.items) do
       moveItem(sourceBag, targetBag, item.link, availableBagSpaces)
     end
+    return true
   end
 end
 --[[
@@ -97,7 +97,11 @@ end
   Output:
 ]]--
 function XLGB_Banking:DepositGear(gearSetNumber)
-  moveGear(BAG_BACKPACK, BAG_BANK, gearSetNumber)
+  local gearSet = XLGB_GearSet:GetGearSet(gearSetNumber)
+  d("XLGB: Depositing " .. gearSet.name)
+  if moveGear(BAG_BACKPACK, BAG_BANK, gearSetNumber) then
+    d("XLGB: Set \''" .. gearSet.name .. "\' deposited!'")
+  end
 end
 
 --[[
@@ -107,7 +111,11 @@ end
   Output:
 ]]--
 function XLGB_Banking:WithdrawGear(gearSetNumber)
-  moveGear(BAG_BANK, BAG_BACKPACK, gearSetNumber)
+  local gearSet = XLGB_GearSet:GetGearSet(gearSetNumber)
+  d("XLGB: Withdrawing " .. gearSet.name)
+  if moveGear(BAG_BANK, BAG_BACKPACK, gearSetNumber) then
+    d("XLGB: Set \''" .. gearSet.name .. "\' withdrawn!'")
+  end
 end
 
 function XLGB_Banking:Initialize()
