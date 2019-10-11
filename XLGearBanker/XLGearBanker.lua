@@ -60,7 +60,8 @@ SLASH_COMMANDS["/xlgb_printgearset"] = function (argsv)
 end
 
 SLASH_COMMANDS["/xlgb_addset"] = function (argsv)
-  if XLGB_GearSet:ValidGearSetName(argsv .. "") then
+  local gearSetName = argsv
+  if XLGB_GearSet:ValidGearSetName(gearSetName) then
     XLGB_GearSet:CreateNewGearSet(gearSetName)
   end
 end
