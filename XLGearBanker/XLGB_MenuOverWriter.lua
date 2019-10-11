@@ -1,5 +1,5 @@
 --[[
-  MenuOverWriter.lua
+  XLGB_MenuOverWriter.lua
 
   It adds an extra entry to the dropdown menu when you right click an item that allows you to add that item to a gearset of choice.
 
@@ -7,7 +7,7 @@
 ]]--
 
 -- Namespace
-MenuOverWriter = {}
+XLGB_MenuOverWriter = {}
 
 -- Constants
 local ADD_ITEM_TO_GEARSET = "XLGB add"
@@ -15,14 +15,14 @@ local REMOVE_ITEM_FROM_GEARSET = "XLGB remove"
 
 -- Functions
 local function MakeContextMenuEntry_AddItemToGearSet(itemLink, inventorySlot)
-  local gearSetNames = GearSet.getGearSetNames()
+  local gearSetNames = XLGB_GearSet.getGearSetNames()
   local subEntries = {}
-  for i = 1, GearSet.getAmountOfGearSets() do
+  for i = 1, XLGB_GearSet.getAmountOfGearSets() do
     local subEntry = {
       label = gearSetNames[i],
       callback = 
         function()
-          GearSet.addItemToGearSet(itemLink, i)
+          XLGB_GearSet.addItemToGearSet(itemLink, i)
         end
     }
     table.insert(subEntries, subEntry)
@@ -54,7 +54,7 @@ local function OverWriteInventoryShowContextMenuHandler()
     )
 end
 
-function MenuOverWriter:Initialize()
+function XLGB_MenuOverWriter:Initialize()
   OverWriteInventoryShowContextMenuHandler()
 end
 

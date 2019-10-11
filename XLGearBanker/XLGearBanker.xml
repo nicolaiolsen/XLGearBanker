@@ -1,12 +1,12 @@
 <GuiXml>
   <Controls>
     <!-- Every control's name must be _unique_. -->
-    <TopLevelControl name="XLGB_UI" clampedToScreen="true" movable="true" mouseEnabled="true" hidden="true" resizeHandleSize="10">
+    <TopLevelControl name="XLGB_UI_Control" clampedToScreen="true" movable="true" mouseEnabled="true" hidden="true" resizeHandleSize="10">
 
       <Dimensions x="350" y="600"/>
       <DimensionConstraints  minX="350" minY="200"/>
       <Anchor point="CENTER" relativeTo="GUI_ROOT" relativePoint="CENTER" offsetX="-125" offsetY="-140" />
-      <OnMoveStop> UI.XLGB_UI_OnMoveStop()</OnMoveStop>
+      <OnMoveStop> UI.XLGB_UI_Control_OnMoveStop()</OnMoveStop>
       <Controls>
         <Backdrop name="$(parent)_BG" inherits="ZO_DefaultBackdrop"><AnchorFill/></Backdrop>
 
@@ -34,7 +34,7 @@
     <!-- Cycle left button:-->
             <Button name="$(parent)_PreviousSet" inherits="ZO_ButtonBehaviorClickSound" >
 
-              <OnClicked>UI.UICycleLeft()</OnClicked>
+              <OnClicked>UI.CycleLeft()</OnClicked>
 
               <Dimensions x="30" y="30" />                  
               <Anchor point="TOPLEFT" relativeTo="$(parent)" relativePoint="TOPLEFT"  offsetX="15" offsetY="0" />
@@ -53,7 +53,7 @@
     <!-- Cycle right button:-->
             <Button name="$(parent)_NextSet" inherits="ZO_ButtonBehaviorClickSound" >
 
-              <OnClicked>UI.UICycleRight()</OnClicked>
+              <OnClicked>UI.CycleRight()</OnClicked>
 
               <Dimensions x="30" y="30" />                  
               <Anchor point="TOPRIGHT" relativeTo="$(parent)" relativePoint="TOPRIGHT"  offsetX="-45" offsetY="0" />
@@ -70,7 +70,7 @@
     
   
 <!-- List Holder -->
-        <Control name="$(parent)_ListHolder" mouseEnabled="true" resizeToFitDescendents="false">
+        <Control name="$(parent)_ListView" mouseEnabled="true" resizeToFitDescendents="false">
 					<DimensionConstraints  minY="52"/>
 					<Anchor point="TOPLEFT" relativeTo="$(parent)_ToolBar" relativePoint="BOTTOMLEFT" offsetX="20" offsetY="20"/>
 					<Anchor point="BOTTOMRIGHT" relativeTo="$(parent)" relativePoint="BOTTOMRIGHT" offsetX="-35" offsetY="-10"/>
@@ -130,7 +130,7 @@
         <!-- Escape button:-->
         <Button name="$(parent)RemoveItem" inherits="ZO_ButtonBehaviorClickSound" >
 
-          <OnClicked>UI.RemoveItem()</OnClicked>
+          <OnClicked>UI.RemoveItem(self)</OnClicked>
 
           <Dimensions x="20" y="20" />                                
           <Anchor point="TOPRIGHT" relativeTo="$(parent)" relativePoint="TOPRIGHT" offsetX="-10" offsetY="5"  />

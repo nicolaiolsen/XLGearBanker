@@ -6,10 +6,10 @@ XLGearBanker.name = "XLGearBanker"
 function XLGearBanker.OnAddOnLoaded(event, addonName)
     if addonName == XLGearBanker.name then
       XLGearBanker:Initialize()
-      GearSet:Initialize()
-      Banking:Initialize()
-      MenuOverWriter:Initialize()
-      UI:Initialize()
+      XLGB_GearSet:Initialize()
+      XLGB_Banking:Initialize()
+      XLGB_MenuOverWriter:Initialize()
+      XLGB_UI:Initialize()
     end
 end
 
@@ -30,8 +30,8 @@ EVENT_MANAGER:RegisterForEvent(XLGearBanker.name, EVENT_ADD_ON_LOADED, XLGearBan
                               --Slash Commands! --
 -- Note: Slash commands should not contain capital letters!
 
-SLASH_COMMANDS["/depositgear"] = Banking.depositGear
-SLASH_COMMANDS["/withdrawgear"] = Banking.withdrawGear
+SLASH_COMMANDS["/depositgear"] = XLGB_Banking.depositGear
+SLASH_COMMANDS["/withdrawgear"] = XLGB_Banking.withdrawGear
 
-SLASH_COMMANDS["/xlgboverview"] = UI.ShowUI
+SLASH_COMMANDS["/xlgboverview"] = XLGB_UI.ShowUI
 -------------------------------------------------------------------------------

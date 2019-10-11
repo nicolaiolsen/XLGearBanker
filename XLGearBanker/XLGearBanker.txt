@@ -7,10 +7,10 @@
 
 XLGearBanker.xml
 
-GearSet.lua
-Banking.lua
-MenuOverwriter.lua
-UI.lua
+XLGB_GearSet.lua
+XLGB_Banking.lua
+XLGB_MenuOverwriter.lua
+XLGB_UI.lua
 XLGearBanker.lua
 
 ## This Add-on is not created by, affiliated with or sponsored by ZeniMax Media Inc. or its affiliates. 
