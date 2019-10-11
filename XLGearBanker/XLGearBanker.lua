@@ -30,6 +30,10 @@ EVENT_MANAGER:RegisterForEvent(XLGearBanker.name, EVENT_ADD_ON_LOADED, XLGearBan
                               --Slash Commands! --
 -- Note: Slash commands should not contain capital letters!
 
+SLASH_COMMANDS["/echo"] = function (argsv)
+  d(argsv)
+end
+
 SLASH_COMMANDS["/xlgb_depositgear"] = function (argsv)
   local totalGearSets = XLGB_GearSet:GetNumberOfGearSets()
   local gearSetNumber = tonumber(argsv)
@@ -56,7 +60,7 @@ SLASH_COMMANDS["/xlgb_printgearset"] = function (argsv)
 end
 
 SLASH_COMMANDS["/xlgb_addset"] = function (argsv)
-  if XLGB_GearSet:ValidGearSetName(argsv) then
+  if XLGB_GearSet:ValidGearSetName(argsv .. "") then
     XLGB_GearSet:CreateNewGearSet(gearSetName)
   end
 end
