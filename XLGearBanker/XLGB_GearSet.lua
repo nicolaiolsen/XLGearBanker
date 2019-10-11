@@ -79,8 +79,8 @@ function XLGB_GearSet:RemoveItemFromGearSet(itemLink, gearSetNumber)
   local gearSetName = gearSet.name
 
   for i, item in pairs(gearSet.items) do
-    if item.itemLink and item.itemLink == itemLink then
-      table.remove(XLGearBanker.savedVariables.gearSetList[gearSetNumber], i)
+    if item.link == itemLink then
+      table.remove(XLGearBanker.savedVariables.gearSetList[gearSetNumber].items, i)
       break
     end
   end
