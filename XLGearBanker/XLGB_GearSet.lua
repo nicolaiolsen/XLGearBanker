@@ -125,7 +125,7 @@ end
 function XLGB_GearSet:PrintGearSetItems(gearSetNumber)
   local gearSet = XLGB_GearSet:GetGearSet(gearSetNumber)
 
-  d("Printing items in set: " .. gearSet.name)
+  d("Printing items in set \'" .. gearSet.name .. "\':")
   for i, item in pairs(gearSet.items) do 
     d("Item " .. i .. " = " .. item.link)
   end
