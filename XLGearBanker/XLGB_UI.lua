@@ -42,7 +42,7 @@ function XLGB_UI:CycleRight()
 end
 
 function XLGB_UI:SetGearNameLabel(gearSetNumber)
-  local gearSetName = GearSet.getGearSetName(gearSetNumber)
+  local gearSetName = XLGB_GearSet.getGearSetName(gearSetNumber)
   easyDebug("Setting gear name label to: " .. gearSetName)
   local labelControl = XLGB_UI_Control:GetNamedChild("XLGB_UI_Control_setlabel")
   easyDebug("Labelcontrol: ", labelControl)
