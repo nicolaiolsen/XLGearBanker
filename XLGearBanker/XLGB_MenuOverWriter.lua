@@ -24,7 +24,7 @@ local function MakeContextMenuEntry_AddItemToGearSet(itemLink, inventorySlot)
         label = gearSetName,
         callback = 
           function()
-            if XLGB_GearSet:GearSetContainsItem(itemLink, i) == -1 then
+            if (XLGB_GearSet:GetItemIndexInGearSet(itemLink, i) < -1) then
               XLGB_GearSet:AddItemToGearSet(itemLink, i)
             else
               d("XLGB: Item " .. itemLink .. " is already in " .. gearSetName)
@@ -47,7 +47,7 @@ local function MakeContextMenuEntry_RemoveItemFromGearSet(itemLink, inventorySlo
         label = gearSetName,
         callback = 
           function()
-            if XLGB_GearSet:GearSetContainsItem(itemLink, i) ~= -1 then
+            if (XLGB_GearSet:GetItemIndexInGearSet(itemLink, i) > 0) then
               XLGB_GearSet:RemoveItemFromGearSet(itemLink, i)
             else
               d("XLGB: Item " .. itemLink .. " is not in " .. gearSetName)

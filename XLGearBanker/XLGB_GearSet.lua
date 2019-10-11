@@ -86,25 +86,25 @@ end
 
 
 --[[
-  function XLGB_GearSet:GearSetContainsItem(itemLink, gearSetNumber)
+  function XLGB_GearSet:GetItemIndexInGearSet(itemLink, gearSetNumber)
   Input: 
-    itemLink = The itemLink of the item you wish to check exists in the gearSet.
+    itemLink = The itemLink of the item you wish to find index for in the gearSet.
     gearSetNumber = The number index of the gearSet you wish to check
   Output:
     (item_index, gearSetNumber) = Returns item_index that indicates where the item is located
       or item_index = -1 if the item doesn't exist in the gearSet.
 ]]--
-function XLGB_GearSet:GearSetContainsItem(itemLink, gearSetNumber)
+function XLGB_GearSet:GetItemIndexInGearSet(itemLink, gearSetNumber)
   local gearSet = XLGB_GearSet:GetGearSet(gearSetNumber)
-  local item_index = -1
+  local itemIndex = -1
 
   for i, item in pairs(gearSet.items) do
     if item.link == itemLink then
-      item_index = i
+      itemIndex = i
     end
   end
 
-  return item_index
+  return itemIndex
 end 
 
 function XLGB_GearSet:PrintGearSet(gearSetNumber)
