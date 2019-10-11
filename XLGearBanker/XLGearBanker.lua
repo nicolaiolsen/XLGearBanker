@@ -34,6 +34,16 @@ SLASH_COMMANDS["/echo"] = function (argsv)
   d(argsv)
 end
 
+SLASH_COMMANDS["/xlgb_debug"] = function (argsv)
+  if XLGearBanker.debug then
+    d("XLGB: Debugging = off.")
+    XLGearBanker.debug = false
+  else 
+    d("XLGB: Debugging = on.")
+    XLGearBanker.debug = true
+  end
+end
+
 SLASH_COMMANDS["/xlgb_depositgear"] = function (argsv)
   local totalGearSets = XLGB_GearSet:GetNumberOfGearSets()
   local gearSetNumber = tonumber(argsv)
@@ -49,7 +59,7 @@ SLASH_COMMANDS["/xlgb_withdrawgear"] = function (argsv)
   end
 end
 
-SLASH_COMMANDS["/xlgb_overview"] = XLGB_UI.ShowUI
+--SLASH_COMMANDS["/xlgb_overview"] = XLGB_UI.ShowUI
 
 SLASH_COMMANDS["/xlgb_sets"] = function (argsv)
   XLGB_GearSet:PrintGearSets()

@@ -44,7 +44,9 @@
         "d",
         "GetItemLinkItemType",
         "ITEMTYPE_ARMOR",
-        "ITEMTYPE_WEAPON"
+        "ITEMTYPE_WEAPON",
+        "BAG_SUBSCRIBER_BANK",
+        "IsESOPlusSubscriber"
     ],
     "Lua.diagnostics.disable": [
         "lowercase-global",

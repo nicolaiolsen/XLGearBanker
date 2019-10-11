@@ -65,7 +65,7 @@ local function moveItem(sourceBag, targetBag, itemLink, availableBagSpaces)
   easyDebug("Moving item", itemLink)
   local itemIndex = findItemIndexInBag(sourceBag, itemLink)
   local moveSuccesful = false
-  if (itemIndex ~= ITEM_NOT_IN_BAG) then
+  if (itemIndex ~= ITEM_NOT_IN_BAG) and (#availableBagSpaces > 0) then
     moveSuccesful = CallSecureProtected("RequestMoveItem", sourceBag, itemIndex, targetBag, availableBagSpaces[#availableBagSpaces], 1)
   end
 
@@ -99,23 +99,14 @@ local function depositGearESOPlus(gearSet)
     local totalItems = #gearSet.items
     if (#availableBagSpacesRegularBank >= totalItems) then
       return moveGear(BAG_BACKPACK, BAG_BANK, gearSet)
-    else
-      local itemsToRegularBank = #availableBagSpacesRegularBank
-      local itemsToESOPlusBank = totalItems - itemsToRegularBank
-      if (#availableBagSpacesRegularBank >= totalItems) then
-        for i = 1, itemsToRegularBank do
-          local itemLink = gearSet.items[i].link
-          moveItem(BAG_BACKPACK, BAG_BANK, itemLink, availableBagSpacesRegularBank)
-        end
-        for i = itemsToRegularBank, itemsToESOPlusBank do
-          local itemLink = gearSet.items[i].link
-          moveItem(BAG_BACKPACK, BAG_BANK, itemLink, availableBagSpacesESOPlusBank)
-        end
-      else 
-        d("XLGB Error: Not enough space in bank.", 
-        "Available bankspace = " .. (#availableBagSpacesRegularBank + #availableBagSpacesESOPlusBank),  
-        "Amount of items in set \'" .. gearSet.name .. "\' = " .. totalItems)
-        return false 
+    elseif ((#availableBagSpacesRegularBank + #availableBagSpacesESOPlusBank) >= totalItems) then
+      for i = 1, #availableBagSpacesRegularBank do
+        local itemLink = gearSet.items[i].link
+        moveItem(BAG_BACKPACK, BAG_BANK, itemLink, availableBagSpacesRegularBank)
+      end
+      for i = #availableBagSpacesRegularBank, totalItems do
+        local itemLink = gearSet.items[i].link
+        moveItem(BAG_BACKPACK, BAG_BANK, itemLink, availableBagSpacesESOPlusBank)
       end
     end
   end

@@ -12,7 +12,7 @@ function XLGB_GearSet:ValidGearSetNumber(gearSetNumber, totalGearSets)
   or gearSetNumber == ""
   or gearSetNumber > totalGearSets
   or gearSetNumber < 1 then
-    easyDebug("XLGB Error: GearSetNumber is invalid.")
+    d("XLGB Error: GearSetNumber is invalid.")
     return false
   else
     return true
@@ -22,7 +22,7 @@ end
 function XLGB_GearSet:ValidGearSetName(gearSetName)
   if gearSetName == nil
   or gearSetName == "" then 
-    easyDebug("XLGB Error: Enter a name for the set.")
+    d("XLGB Error: Enter a name for the set.")
     return false
   else 
     return true
@@ -109,25 +109,19 @@ end
 
 function XLGB_GearSet:PrintGearSets()
   local totalGearSets = XLGB_GearSet:GetNumberOfGearSets()
-  
-  d("Printing saved gear sets: ")
   for i = 1, totalGearSets do
     local gearSet = XLGB_GearSet:GetGearSet(i)
     d("Set " .. i .. " = " .. gearSet.name)
   end
-
-  d("Done!")
 end
 
 function XLGB_GearSet:PrintGearSetItems(gearSetNumber)
   local gearSet = XLGB_GearSet:GetGearSet(gearSetNumber)
 
-  d("Printing items in set \'" .. gearSet.name .. "\':")
-  for i, item in pairs(gearSet.items) do 
-    d("Item " .. i .. " = " .. item.link)
+  d("Set \'" .. gearSet.name .. "\' contains the following items:")
+  for _, item in pairs(gearSet.items) do 
+    d(item.link)
   end
-
-  d("Done!")
 end
 
 
