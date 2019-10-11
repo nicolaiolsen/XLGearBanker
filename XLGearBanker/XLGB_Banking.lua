@@ -76,8 +76,6 @@ local function moveItem(sourceBag, targetBag, itemLink, availableBagSpaces)
 end
 
 local function moveGear(sourceBag, targetBag, gearSet)
-  
-  
   if not XLGB_Banking.bankOpen then
     d("XLGB:Bank is not open, abort!")
     return false
@@ -99,7 +97,7 @@ end
 function XLGB_Banking:DepositGear(gearSetNumber)
   local gearSet = XLGB_GearSet:GetGearSet(gearSetNumber)
   d("XLGB: Depositing " .. gearSet.name)
-  if moveGear(BAG_BACKPACK, BAG_BANK, gearSetNumber) then
+  if moveGear(BAG_BACKPACK, BAG_BANK, gearSet) then
     d("XLGB: Set \''" .. gearSet.name .. "\' deposited!'")
   end
 end
@@ -113,7 +111,7 @@ end
 function XLGB_Banking:WithdrawGear(gearSetNumber)
   local gearSet = XLGB_GearSet:GetGearSet(gearSetNumber)
   d("XLGB: Withdrawing " .. gearSet.name)
-  if moveGear(BAG_BANK, BAG_BACKPACK, gearSetNumber) then
+  if moveGear(BAG_BANK, BAG_BACKPACK, gearSet) then
     d("XLGB: Set \''" .. gearSet.name .. "\' withdrawn!'")
   end
 end
