@@ -154,11 +154,11 @@ function XLGB_Banking:WithdrawGear(gearSetNumber)
   d("XLGB: Withdrawing " .. gearSet.name)
   if IsESOPlusSubscriber() then
     if moveGear(BAG_BANK, BAG_BACKPACK, gearSet) and moveGear(BAG_SUBSCRIBER_BANK, BAG_BACKPACK, gearSet) then
-      d("XLGB: Set \''" .. gearSet.name .. "\' withdrawn!'")
+      d("XLGB: Set \'" .. gearSet.name .. "\' withdrawn!")
       return
     end
   elseif moveGear(BAG_BANK, BAG_BACKPACK, gearSet) then
-    d("XLGB: Set \''" .. gearSet.name .. "\' withdrawn!'")
+    d("XLGB: Set \'" .. gearSet.name .. "\' withdrawn!")
   end
 end
 
