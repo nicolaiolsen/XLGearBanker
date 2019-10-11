@@ -98,15 +98,17 @@ local function depositGearESOPlus(gearSet)
     local availableBagSpacesESOPlusBank = getAvailableBagSpaces(BAG_SUBSCRIBER_BANK)
     local totalItems = #gearSet.items
     if (#availableBagSpacesRegularBank >= totalItems) then
-      return moveGear(BAG_BACKPACK, BAG_BANK, gearSet)
+      return moveGear(BAG_BACKPACK, BAG_BANK, gearSet) and moveGear(BAG_WORN, BAG_BANK, gearSet)
     elseif ((#availableBagSpacesRegularBank + #availableBagSpacesESOPlusBank) >= totalItems) then
       for i = 1, #availableBagSpacesRegularBank do
         local itemLink = gearSet.items[i].link
         moveItem(BAG_BACKPACK, BAG_BANK, itemLink, availableBagSpacesRegularBank)
+        moveItem(BAG_WORN, BAG_BANK, itemLink, availableBagSpacesRegularBank)
       end
       for i = #availableBagSpacesRegularBank, totalItems do
         local itemLink = gearSet.items[i].link
         moveItem(BAG_BACKPACK, BAG_BANK, itemLink, availableBagSpacesESOPlusBank)
+        moveItem(BAG_WORN, BAG_BANK, itemLink, availableBagSpacesRegularBank)
       end
     end
   end
@@ -125,7 +127,7 @@ function XLGB_Banking:DepositGear(gearSetNumber)
       d("XLGB: Set \'" .. gearSet.name .. "\' deposited!")
       return
     end
-  elseif moveGear(BAG_BACKPACK, BAG_BANK, gearSet) then
+  elseif moveGear(BAG_BACKPACK, BAG_BANK, gearSet) and moveGear(BAG_WORN, BAG_BANK, gearSet) then
     d("XLGB: Set \'" .. gearSet.name .. "\' deposited!")
   end
 end
