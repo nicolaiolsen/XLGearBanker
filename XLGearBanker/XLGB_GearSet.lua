@@ -1,8 +1,6 @@
 XLGB_GearSet = {}
 
 function XLGB_GearSet:Initialize()
-  self.debug = true
-
   if XLGearBanker.savedVariables.gearSetList == nil then
     XLGearBanker.savedVariables.gearSetList = {}
   end

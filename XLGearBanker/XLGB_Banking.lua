@@ -49,7 +49,7 @@ end
     availableBagSpaces = Lua table containing indices of empty bag slots.
 ]]--
 local function getAvailableBagSpaces(bag)
-  easyDebug("Finding available bagspaces in bag: ", bag )
+  easyDebug("Finding available bagspaces in bag: " .. bag )
   local availableBagSpaces = {}
 
   for i = 0, GetBagSize(bag)-1 do
@@ -57,7 +57,7 @@ local function getAvailableBagSpaces(bag)
       table.insert(availableBagSpaces, #availableBagSpaces, i)
     end
   end
-  easyDebug("Found ", #availableBagSpaces, " available spaces in bag.")
+  easyDebug("Found " .. #availableBagSpaces .. " available spaces in bag.")
   return availableBagSpaces
 end
 
@@ -88,6 +88,38 @@ local function moveGear(sourceBag, targetBag, gearSet)
     return true
   end
 end
+
+local function depositGearESOPlus(gearSet)
+  if not XLGB_Banking.bankOpen then
+    d("XLGB Error: Bank is not open, abort!")
+    return false
+  else
+    local availableBagSpacesRegularBank = getAvailableBagSpaces(BAG_BANK)
+    local availableBagSpacesESOPlusBank = getAvailableBagSpaces(BAG_SUBSCRIBER_BANK)
+    local totalItems = #gearSet.items
+    if (#availableBagSpacesRegularBank >= totalItems) then
+      return moveGear(BAG_BACKPACK, BAG_BANK, gearSet)
+    else
+      local itemsToRegularBank = #availableBagSpacesRegularBank
+      local itemsToESOPlusBank = totalItems - itemsToRegularBank
+      if (#availableBagSpacesRegularBank >= totalItems) then
+        for i = 1, itemsToRegularBank do
+          local itemLink = gearSet.items[i].link
+          moveItem(BAG_BACKPACK, BAG_BANK, itemLink, availableBagSpacesRegularBank)
+        end
+        for i = itemsToRegularBank, itemsToESOPlusBank do
+          local itemLink = gearSet.items[i].link
+          moveItem(BAG_BACKPACK, BAG_BANK, itemLink, availableBagSpacesESOPlusBank)
+        end
+      else 
+        d("XLGB Error: Not enough space in bank.", 
+        "Available bankspace = " .. (#availableBagSpacesRegularBank + #availableBagSpacesESOPlusBank),  
+        "Amount of items in set \'" .. gearSet.name .. "\' = " .. totalItems)
+        return false 
+      end
+    end
+  end
+end
 --[[
   function depositGear
   Input:
@@ -97,8 +129,13 @@ end
 function XLGB_Banking:DepositGear(gearSetNumber)
   local gearSet = XLGB_GearSet:GetGearSet(gearSetNumber)
   d("XLGB: Depositing " .. gearSet.name)
-  if moveGear(BAG_BACKPACK, BAG_BANK, gearSet) then
-    d("XLGB: Set \''" .. gearSet.name .. "\' deposited!'")
+  if IsESOPlusSubscriber() then
+    if depositGearESOPlus(gearSet) then
+      d("XLGB: Set \'" .. gearSet.name .. "\' deposited!")
+      return
+    end
+  elseif moveGear(BAG_BACKPACK, BAG_BANK, gearSet) then
+    d("XLGB: Set \'" .. gearSet.name .. "\' deposited!")
   end
 end
 
@@ -111,14 +148,18 @@ end
 function XLGB_Banking:WithdrawGear(gearSetNumber)
   local gearSet = XLGB_GearSet:GetGearSet(gearSetNumber)
   d("XLGB: Withdrawing " .. gearSet.name)
-  if moveGear(BAG_BANK, BAG_BACKPACK, gearSet) then
+  if IsESOPlusSubscriber() then
+    if moveGear(BAG_BANK, BAG_BACKPACK, gearSet) and moveGear(BAG_SUBSCRIBER_BANK, BAG_BACKPACK, gearSet) then
+      d("XLGB: Set \''" .. gearSet.name .. "\' withdrawn!'")
+      return
+    end
+  elseif moveGear(BAG_BANK, BAG_BACKPACK, gearSet) then
     d("XLGB: Set \''" .. gearSet.name .. "\' withdrawn!'")
   end
 end
 
 function XLGB_Banking:Initialize()
   self.bankOpen = IsBankOpen()
-  self.debug = true
   EVENT_MANAGER:RegisterForEvent(self.name, EVENT_OPEN_BANK, self.OnBankOpenEvent)
   EVENT_MANAGER:RegisterForEvent(self.name, EVENT_CLOSE_BANK, self.OnBankCloseEvent)
 end
