@@ -113,6 +113,7 @@ function XLGB_GearSet:PrintGearSets()
     local gearSet = XLGB_GearSet:GetGearSet(i)
     d("Set " .. i .. " = " .. gearSet.name)
   end
+  d("XLGB: Total sets = " .. totalGearSets)
 end
 
 function XLGB_GearSet:PrintGearSetItems(gearSetNumber)
@@ -122,7 +123,7 @@ function XLGB_GearSet:PrintGearSetItems(gearSetNumber)
   for _, item in pairs(gearSet.items) do 
     d(item.link)
   end
-  d("Total items: " .. #gearSet.items)
+  d("XLGB: Total items = " .. #gearSet.items)
 end
 
 
