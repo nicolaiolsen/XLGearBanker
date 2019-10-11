@@ -75,7 +75,7 @@ function XLGB_GearSet:AddItemToGearSet(itemLink, gearSetNumber)
 end
 
 function XLGB_GearSet:RemoveItemFromGearSet(itemLink, gearSetNumber)
-  local gearSet = XLGB_GearSet:getGearSet(gearSetNumber)
+  local gearSet = XLGB_GearSet:GetGearSet(gearSetNumber)
   local gearSetName = gearSet.name
 
   for i, item in pairs(gearSet.items) do
