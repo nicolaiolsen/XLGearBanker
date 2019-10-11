@@ -105,7 +105,7 @@ function XLGB_GearSet:GetItemIndexInGearSet(itemLink, gearSetNumber)
     end
   end
   return itemIndex
-end 
+end
 
 function XLGB_GearSet:PrintGearSets()
   local totalGearSets = XLGB_GearSet:GetNumberOfGearSets()
@@ -122,6 +122,7 @@ function XLGB_GearSet:PrintGearSetItems(gearSetNumber)
   for _, item in pairs(gearSet.items) do 
     d(item.link)
   end
+  d("Total items: " .. #gearSet.items)
 end
 
 
