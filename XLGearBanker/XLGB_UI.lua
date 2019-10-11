@@ -44,7 +44,7 @@ end
 function XLGB_UI:SetGearNameLabel(gearSetNumber)
   local totalGearSets = XLGB_GearSet:GetNumberOfGearSets()
   if XLGB_GearSet:ValidGearSetNumber(gearSetNumber, totalGearSets) then  
-    local gearSetName = XLGB_GearSet:GetGearSetName(gearSetNumber)
+    local gearSetName = XLGB_GearSet:GetGearSet(gearSetNumber).name
 
     easyDebug("Setting gear name label to: " .. gearSetName)
     XLGB_UI_Control_ListView_GearTitle:SetText(gearSetName)

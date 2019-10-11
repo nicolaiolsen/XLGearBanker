@@ -66,7 +66,7 @@ function XLGB_GearSet:AddItemToGearSet(itemLink, gearSetNumber)
   local itemData = createItemData(itemLink)
   table.insert(XLGearBanker.savedVariables.gearSetList[gearSetNumber].items, itemData)
 
-  local gearSetName = XLGB_GearSet:GetGearSetName(gearSetNumber)
+  local gearSetName = XLGB_GearSet:GetGearSet(gearSetNumber).name
   d("XLGB: Added item " .. itemLink .. " to " .. gearSetName)
 end
 

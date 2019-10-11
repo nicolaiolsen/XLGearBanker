@@ -10,16 +10,16 @@
 XLGB_MenuOverWriter = {}
 
 -- Constants
-local ADD_ITEM_TO_GEARSET = "XLGB add"
-local REMOVE_ITEM_FROM_GEARSET = "XLGB remove"
+local ADD_ITEM_TO_GEARSET = "XLGB addItem"
+local REMOVE_ITEM_FROM_GEARSET = "XLGB removeItem"
 
 -- Functions
 local function MakeContextMenuEntry_AddItemToGearSet(itemLink, inventorySlot)
   local subEntries = {}
   local totalGearSets = XLGB_GearSet:GetNumberOfGearSets()
-  if not (totalGearSets == 0) then
+  if totalGearSets ~= 0 then
     for i = 1, totalGearSets do
-      local gearSetName = XLGB_GearSet:GetGearSetName(i)
+      local gearSetName = XLGB_GearSet:GetGearSet(i).name
       local subEntry = {
         label = gearSetName,
         callback = 
@@ -42,7 +42,7 @@ local function MakeContextMenuEntry_RemoveItemFromGearSet(itemLink, inventorySlo
   local totalGearSets = XLGB_GearSet:GetNumberOfGearSets()
   if not (totalGearSets == 0) then
     for i = 1, totalGearSets do
-      local gearSetName = XLGB_GearSet:GetGearSetName(i)
+      local gearSetName = XLGB_GearSet:GetGearSet(i).name
       local subEntry = {
         label = gearSetName,
         callback = 
