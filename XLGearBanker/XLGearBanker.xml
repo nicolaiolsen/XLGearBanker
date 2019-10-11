@@ -117,10 +117,12 @@
     <Control name="XLGB_SlotTemplate" inherits="ZO_ListInventorySlotBehavior" virtual="true" mouseEnabled="true">
       <Dimensions x="300" y="52" />
       <Controls>
+        <!--
         <Texture name="$(parent)Bg" textureFile="EsoUI/Art/Miscellaneous/listItem_backdrop.dds" alpha="0.4">
           <AnchorFill />
           <TextureCoords left="0" right="1" top="0" bottom=".8125" />
         </Texture>
+        -->
         <Label name="$(parent)Name" font="ZoFontGameShadow" wrapMode="ELLIPSIS" verticalAlignment="CENTER">
           <Dimensions y="30" />
           <Anchor point="TOPLEFT" relativeTo="$(parent)" relativePoint="TOPRIGHT" offsetX="20" offsetY="0"/>

@@ -200,6 +200,7 @@ end
 ---------
 function XLGB_UI:Initialize()
   XLGearBanker.displayingSet = 1
+  XLGB_UI_Control_ListView.rowHeight = 52
   XLGB_UI:RestorePosition()
   XLGB_UI:InitializeListEntries()
   XLGB_UI:ChangeDisplayedGearSet(XLGearBanker.displayingSet)
