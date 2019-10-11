@@ -41,7 +41,10 @@
         "GetItemLinkName",
         "GetItemLinkQuality",
         "sort",
-        "d"
+        "d",
+        "GetItemLinkItemType",
+        "ITEMTYPE_ARMOR",
+        "ITEMTYPE_WEAPON"
     ],
     "Lua.diagnostics.disable": [
         "lowercase-global",
