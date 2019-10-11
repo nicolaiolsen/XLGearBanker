@@ -16,15 +16,15 @@ end
 function XLGB_UI:CycleLeft()
   easyDebug("Cycle left called!")
 
-  local nextSet = XLGearBanker.displayingSet - 1
+  local previousSet = XLGearBanker.displayingSet - 1
   local totalSets = XLGB_GearSet.getAmountOfGearSets()
 
-  if nextSet <= 0 then
-    nextSet = totalSets
+  if previousSet <= 0 then
+    previousSet = totalSets
   end
 
-  XLGearBanker.displayingSet = nextSet
-  XLGB_UI:SetDisplaySet(nextSet)
+  XLGearBanker.displayingSet = previousSet
+  XLGB_UI:ChangeDisplayedGearSet(previousSet)
 end
 
 function XLGB_UI:CycleRight()
@@ -38,24 +38,24 @@ function XLGB_UI:CycleRight()
   end
 
   XLGearBanker.displayingSet = nextSet
-  XLGB_UI:SetDisplaySet(nextSet)
+  XLGB_UI:ChangeDisplayedGearSet(nextSet)
 end
 
 function XLGB_UI:SetGearNameLabel(gearSetNumber)
   local gearSetName = XLGB_GearSet.getGearSetName(gearSetNumber)
+
   easyDebug("Setting gear name label to: " .. gearSetName)
-  local labelControl = XLGB_UI_Control:GetNamedChild("XLGB_UI_Control_setlabel")
-  easyDebug("Labelcontrol: ", labelControl)
-  if labelControl then
-    labelControl:setText(gearSetName)
-  end
+  XLGB_UI_Control_ListView_GearTitle:SetText(gearSetName)
+
 end
 
-function XLGB_UI:SetDisplaySet(gearSetNumber)
+function XLGB_UI:ChangeDisplayedGearSet(gearSetNumber)
   XLGB_UI:SetGearNameLabel(gearSetNumber)
+  XLGB_UI:UpdateListView()
 end
 
 function XLGB_UI:ShowUI()
+  XLGB_UI:ChangeDisplayedGearSet(XLGearBanker.displayingSet)
   XLGB_UI_Control:SetHidden(false)
 end
 
@@ -191,10 +191,15 @@ end
 -- Credit: Inventory Insight -  IIfABackPack.lua -> IIfA:UpdateInventoryScroll
 function XLGB_UI:UpdateListViewEntries()
   easyDebug("UpdateListViewEntries")
-	if XLGB_UI_Control_ListView.dataOffset < 0 then XLGB_UI_Control_ListView.dataOffset = 0 end
+
+  if XLGB_UI_Control_ListView.dataOffset < 0 then 
+    XLGB_UI_Control_ListView.dataOffset = 0 
+  end
+
 	if XLGB_UI_Control_ListView.maxLines == nil then
 		XLGB_UI_Control_ListView.maxLines = 35
-	end
+  end
+  
 	XLGB_UI:fillEntriesWithItemData()
 
 	local total = #XLGB_UI_Control_ListView.dataLines - XLGB_UI_Control_ListView.maxLines
@@ -211,7 +216,8 @@ end
 function XLGB_UI:Initialize()
   XLGearBanker.displayingSet = 1
   XLGB_UI:RestorePosition()
-  XLGB_UI:SetDisplaySet(XLGearBanker.displayingSet)
+  XLGB_UI:ChangeDisplayedGearSet(XLGearBanker.displayingSet)
+
   if XLGearBanker.debug then
     XLGB_UI:ShowUI()
   end

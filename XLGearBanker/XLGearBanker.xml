@@ -78,7 +78,7 @@
 					<Controls>
 
   <!-- GearSet name -->
-            <Label name="$(parent)GearTitle" font="ZoFontAnnounceMedium" text="Test Set" >
+            <Label name="$(parent)_GearTitle" font="ZoFontAnnounceMedium" text="Test Set" >
               <Anchor point="TOPLEFT" relativeTo="$(parent)" relativePoint="TOPLEFT" offsetX="0" offsetY="0"  />
             </Label>
 
