@@ -99,13 +99,22 @@ local function depositGearESOPlus(gearSet)
     local totalItems = #gearSet.items
     if (#availableBagSpacesRegularBank >= totalItems) then
       return (moveGear(BAG_BACKPACK, BAG_BANK, gearSet) and moveGear(BAG_WORN, BAG_BANK, gearSet))
+
     elseif ((#availableBagSpacesRegularBank + #availableBagSpacesESOPlusBank) >= totalItems) then
-      local itemsToRegularBank = tonumber(#availableBagSpacesRegularBank)
-      for i = 1, itemsToRegularBank do
-        local itemLink = gearSet.items[i].link
-        moveItem(BAG_BACKPACK, BAG_BANK, itemLink, availableBagSpacesRegularBank)
-        moveItem(BAG_WORN, BAG_BANK, itemLink, availableBagSpacesRegularBank)
+
+      local itemsToRegularBank = #availableBagSpacesRegularBank
+      -- Add items to regular bank
+      if itemsToRegularBank > 0 then
+        for i = 1, itemsToRegularBank do
+          local itemLink = gearSet.items[i].link
+          moveItem(BAG_BACKPACK, BAG_BANK, itemLink, availableBagSpacesRegularBank)
+          moveItem(BAG_WORN, BAG_BANK, itemLink, availableBagSpacesRegularBank)
+        end
+      else 
+        -- If no slots left in regular bank add items to subscriber bank
+        itemsToRegularBank = 1
       end
+      -- Add remaining items to available slots in subscriber bank
       for i = itemsToRegularBank, totalItems do
         local itemLink = gearSet.items[i].link
         moveItem(BAG_BACKPACK, BAG_BANK, itemLink, availableBagSpacesESOPlusBank)
