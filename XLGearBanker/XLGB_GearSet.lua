@@ -62,8 +62,8 @@ end
 
 function XLGB_GearSet:PrintGearSet(gearSetNumber)
   local totalGearSets = XLGB_GearSet:GetAmountOfGearSets()
-  if not gearSetNumber 
-    or gearSetNumber ~= "" 
+  if gearSetNumber == nil
+    or gearSetNumber == "" 
     or gearSetNumber > totalGearSets 
     or gearSetNumber < 1 then
       d("Invalid argument.")

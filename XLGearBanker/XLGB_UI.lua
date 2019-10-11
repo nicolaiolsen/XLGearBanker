@@ -51,8 +51,8 @@ end
 
 function XLGB_UI:ChangeDisplayedGearSet(gearSetNumber)
   if gearSetNumber ~= nil  
-    or gearSetNumber >= 1 
-    or gearSetNumber <= XLGB_GearSet:GetAmountOfGearSets() then
+    and gearSetNumber >= 1 
+    and gearSetNumber <= XLGB_GearSet:GetAmountOfGearSets() then
       XLGB_UI:SetGearNameLabel(gearSetNumber)
       XLGB_UI:UpdateListView()
   end
