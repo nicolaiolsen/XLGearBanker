@@ -17,7 +17,7 @@ function XLGB_UI:CycleLeft()
   easyDebug("Cycle left called!")
 
   local nextSet = XLGearBanker.displayingSet - 1
-  local totalSets = GearSet.getAmountOfGearSets()
+  local totalSets = XLGB_GearSet.getAmountOfGearSets()
 
   if nextSet <= 0 then
     nextSet = totalSets
@@ -31,7 +31,7 @@ function XLGB_UI:CycleRight()
   easyDebug("Cycle right called!")
 
   local nextSet = XLGearBanker.displayingSet + 1
-  local totalSets = GearSet.getAmountOfGearSets()
+  local totalSets = XLGB_GearSet.getAmountOfGearSets()
 
   if nextSet > totalSets then
     nextSet = 1
