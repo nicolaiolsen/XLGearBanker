@@ -103,7 +103,7 @@ end
 
 -- Credit: Inventory Insight - IIfABackPack.lua -> IIfA:SetDataLinesData
 function XLGB_UI:fillEntriesWithItemData()
-    local entry, item
+    local entry, item = nil
     for i = 1, XLGB_UI_Control_ListView.maxEntries do
 
       entry = XLGB_UI_Control_ListView.entries[i]
@@ -176,13 +176,13 @@ function XLGB_UI:UpdateListViewEntries()
     XLGB_UI_Control_ListView.dataOffset = 0 
   end
 
-	if XLGB_UI_Control_ListView.maxLines == nil then
-		XLGB_UI_Control_ListView.maxLines = 35
+	if XLGB_UI_Control_ListView.maxEntries == nil then
+		XLGB_UI_Control_ListView.maxEntries = 35
   end
   
 	XLGB_UI:fillEntriesWithItemData()
 
-	local total = #XLGB_UI_Control_ListView.dataLines - XLGB_UI_Control_ListView.maxLines
+	local total = #XLGB_UI_Control_ListView.items - XLGB_UI_Control_ListView.maxEntries
 	XLGB_UI_Control_ListView_Slider:SetMinMax(0, total)
 end
 
