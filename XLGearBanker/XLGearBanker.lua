@@ -20,7 +20,7 @@ function easyDebug(...)
 end
 
 function XLGearBanker:Initialize()
-  self.debug = true
+  self.debug = false
   self.savedVariables = ZO_SavedVars:NewAccountWide("XLGearBankerSavedVariables", 1, nil, {})
 end
 
