@@ -40,7 +40,8 @@
         "zo_strlen",
         "GetItemLinkName",
         "GetItemLinkQuality",
-        "sort"
+        "sort",
+        "d"
     ],
     "Lua.diagnostics.disable": [
         "lowercase-global",
