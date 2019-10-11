@@ -62,10 +62,12 @@ local function createItemData(itemLink)
   itemData.link = itemLink
   itemData.name = GetItemLinkName(itemLink)
   itemData.quality = GetItemLinkQuality(itemLink)
+  return itemData
 end
 
 function XLGB_GearSet:AddItemToGearSet(itemLink, gearSetNumber)
   local itemData = createItemData(itemLink)
+
   table.insert(XLGearBanker.savedVariables.gearSetList[gearSetNumber].items, itemData)
 
   local gearSetName = XLGB_GearSet:GetGearSet(gearSetNumber).name
