@@ -120,6 +120,7 @@ local function depositGearESOPlus(gearSet)
         moveItem(BAG_BACKPACK, BAG_BANK, itemLink, availableBagSpacesESOPlusBank)
         moveItem(BAG_WORN, BAG_BANK, itemLink, availableBagSpacesRegularBank)
       end
+      return true
     end
   end
 end
