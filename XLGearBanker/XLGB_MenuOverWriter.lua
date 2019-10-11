@@ -41,23 +41,23 @@ end
 local function MakeContextMenuEntry_RemoveItemFromGearSet(itemLink, inventorySlot)
   local subEntries = {}
   local totalGearSets = XLGB_GearSet:GetNumberOfGearSets()
-  if not (totalGearSets == 0) then
+  if totalGearSets ~= 0 then 
     for i = 1, totalGearSets do
-      local gearSetName = XLGB_GearSet:GetGearSet(i).name
-      local subEntry = {
-        label = gearSetName,
-        callback = 
-          function()
-            if (XLGB_GearSet:GetItemIndexInGearSet(itemLink, i) ~= ITEM_NOT_IN_SET) then
+      if (XLGB_GearSet:GetItemIndexInGearSet(itemLink, i) ~= ITEM_NOT_IN_SET) then
+        local gearSetName = XLGB_GearSet:GetGearSet(i).name
+        local subEntry = {
+          label = gearSetName,
+          callback = 
+            function()
               XLGB_GearSet:RemoveItemFromGearSet(itemLink, i)
-            else
-              d("XLGB: Item " .. itemLink .. " is not in " .. gearSetName)
             end
-          end
-      }
-      table.insert(subEntries, subEntry)
+        }
+        table.insert(subEntries, subEntry)
+      end
     end
-    AddCustomSubMenuItem(REMOVE_ITEM_FROM_GEARSET, subEntries)
+    if (#subEntries ~= 0) then 
+      AddCustomSubMenuItem(REMOVE_ITEM_FROM_GEARSET, subEntries)
+    end
   end
 end
 
