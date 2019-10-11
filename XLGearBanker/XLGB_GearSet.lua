@@ -7,8 +7,6 @@ function XLGB_GearSet:Initialize()
 
 end
 
-
-
 function XLGB_GearSet:GetGearSet(numberString)
   local number = tonumber(numberString)
   return XLGearBanker.savedVariables.gearSetList[number]
