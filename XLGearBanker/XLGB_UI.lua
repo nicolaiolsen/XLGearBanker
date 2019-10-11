@@ -17,7 +17,7 @@ function XLGB_UI:CycleLeft()
   easyDebug("Cycle left called!")
 
   local previousSet = XLGearBanker.displayingSet - 1
-  local totalSets = XLGB_GearSet.getAmountOfGearSets()
+  local totalSets = XLGB_GearSet:GetAmountOfGearSets()
 
   if previousSet <= 0 then
     previousSet = totalSets
@@ -31,7 +31,7 @@ function XLGB_UI:CycleRight()
   easyDebug("Cycle right called!")
 
   local nextSet = XLGearBanker.displayingSet + 1
-  local totalSets = XLGB_GearSet.getAmountOfGearSets()
+  local totalSets = XLGB_GearSet:GetAmountOfGearSets()
 
   if nextSet > totalSets then
     nextSet = 1
@@ -42,7 +42,7 @@ function XLGB_UI:CycleRight()
 end
 
 function XLGB_UI:SetGearNameLabel(gearSetNumber)
-  local gearSetName = XLGB_GearSet.getGearSetName(gearSetNumber)
+  local gearSetName = XLGB_GearSet:GetGearSetName(gearSetNumber)
 
   easyDebug("Setting gear name label to: " .. gearSetName)
   XLGB_UI_Control_ListView_GearTitle:SetText(gearSetName)
@@ -70,33 +70,8 @@ end
 -- Credit: Inventory Insight - IIfABackPack.lua -> IIfA:UpdateScrollDataLinesData
 function XLGB_UI:UpdateItemDataList(gearSetNumber)
 
-	local items = XLGB_GearSet.getGearSet(gearSetNumber)
-	local itemLink, tempItemData = nil
-
-	if items then
-    for _, item in pairs(items) do
-      
-      if item.itemLink then
-        itemLink = item.itemLink
-      end
-
-      if not item.itemName or #item.itemName == 0 then
-        easyDebug("Filling in missing itemName/Quality")
-        item.itemName = GetItemLinkName(itemLink)
-        item.itemQuality = GetItemLinkQuality(itemLink)
-      end
-
-      tempItemData = {
-        link = itemLink,
-        name = item.itemName,
-        quality = item.itemQuality
-      }
-
-      table.insert(items, tempItemData)
-			
-		end
-	end
-
+  local items = XLGB_GearSet:GetGearSet(gearSetNumber)
+  
 	XLGB_UI_Control_ListView.items = items
 	XLGB_UI_Control_ListView.dataOffset = 0
 
@@ -106,8 +81,8 @@ end
 local function fillEntryWithItemData(entry, item)
 	local color
 	if item == nil then
-		item.itemLink = ""
-		item.text:SetText("")
+		entry.itemLink = ""
+		entry.text:SetText("")
 	else
 		local r, g, b, a = 255, 255, 255, 1
 		if item.quality then
@@ -212,7 +187,12 @@ function XLGB_UI:UpdateListView()
 	XLGB_UI:UpdateItemDataList(XLGearBanker.displayingSet)
   XLGB_UI:UpdateListViewEntries()
 end
+---------
+-- This block is for testing purposes only
 
+
+
+---------
 function XLGB_UI:Initialize()
   XLGearBanker.displayingSet = 1
   XLGB_UI:RestorePosition()

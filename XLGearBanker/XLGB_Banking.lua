@@ -38,7 +38,7 @@ end
   Output:
 ]]--
 function XLGB_Banking.depositGear(gearSetNumber)
-  XLGB_Banking.moveGear(BAG_BACKPACK, BAG_BANK, gearSetNumber)
+  XLGB_Banking:MoveGear(BAG_BACKPACK, BAG_BANK, gearSetNumber)
 end
 
 --[[
@@ -58,19 +58,19 @@ function XLGB_Banking.moveGear(sourceBag, targetBag, gearSetNumber)
     return
   else
     -- retrieve list of item ids (gearSet) related to the gearSetNumber
-    local gearSet = GearSet.getGearSet(gearSetNumber)
-    local availableBagSpaces = XLGB_Banking.getAvailableBagSpaces(targetBag)
+    local gearSet = GearSet:GetGearSet(gearSetNumber)
+    local availableBagSpaces = XLGB_Banking:GetAvailableBagSpaces(targetBag)
     --Move each item of the specified gearset from sourceBag to targetBag
     for _, item in ipairs(gearSet) do
-      XLGB_Banking.moveItem(sourceBag, targetBag, item, availableBagSpaces)
+      XLGB_Banking:MoveItem(sourceBag, targetBag, item, availableBagSpaces)
     end
   end
 end
 
 
-function XLGB_Banking.moveItem(sourceBag, targetBag, item, availableBagSpaces)
+function XLGB_Banking:MoveItem(sourceBag, targetBag, item, availableBagSpaces)
   easyDebug("Moving item", item)
-  --local itemIndex = XLGB_Banking.findItemIndexInBag(sourceBag, item)
+  --local itemIndex = XLGB_Banking:FindItemIndexInBag(sourceBag, item)
   local itemIndex = item
   local moveSuccesful = CallSecureProtected("RequestMoveItem", sourceBag, itemIndex, targetBag, availableBagSpaces[#availableBagSpaces], 1)
 
@@ -82,7 +82,7 @@ function XLGB_Banking.moveItem(sourceBag, targetBag, item, availableBagSpaces)
   end
 end
 
-function XLGB_Banking.findItemIndexInBag(bag, itemID)
+function XLGB_Banking:FindItemIndexInBag(bag, itemID)
   for i = 0, GetBagSize(bag) do
     if GetItemUniqueID(bag, i) == itemID then
       return i
@@ -102,7 +102,7 @@ end
   Output:
     availableBagSpaces = Lua table containing indices of empty bag slots.
 ]]--
-function XLGB_Banking.getAvailableBagSpaces(bag)
+function XLGB_Banking:GetAvailableBagSpaces(bag)
   easyDebug("Finding available bagspaces in bag: ", bag )
   local availableBagSpaces = {}
 

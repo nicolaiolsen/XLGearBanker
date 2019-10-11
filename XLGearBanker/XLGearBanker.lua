@@ -34,4 +34,6 @@ SLASH_COMMANDS["/depositgear"] = XLGB_Banking.depositGear
 SLASH_COMMANDS["/withdrawgear"] = XLGB_Banking.withdrawGear
 
 SLASH_COMMANDS["/xlgboverview"] = XLGB_UI.ShowUI
+
+SLASH_COMMANDS["/printgearset"] = XLGB_GearSet.PrintGearSet
 -------------------------------------------------------------------------------

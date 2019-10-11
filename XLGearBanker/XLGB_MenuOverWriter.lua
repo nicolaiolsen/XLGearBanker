@@ -15,9 +15,9 @@ local REMOVE_ITEM_FROM_GEARSET = "XLGB remove"
 
 -- Functions
 local function MakeContextMenuEntry_AddItemToGearSet(itemLink, inventorySlot)
-  local gearSetNames = XLGB_GearSet.getGearSetNames()
+  local gearSetNames = XLGB_GearSet:GetGearSetNames()
   local subEntries = {}
-  for i = 1, XLGB_GearSet.getAmountOfGearSets() do
+  for i = 1, XLGB_GearSet:GetAmountOfGearSets() do
     local subEntry = {
       label = gearSetNames[i],
       callback = 
