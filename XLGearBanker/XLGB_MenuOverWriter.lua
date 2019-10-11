@@ -12,6 +12,7 @@ XLGB_MenuOverWriter = {}
 -- Constants
 local ADD_ITEM_TO_GEARSET = "XLGB addItem"
 local REMOVE_ITEM_FROM_GEARSET = "XLGB removeItem"
+local ITEM_NOT_IN_SET = -1
 
 -- Functions
 local function MakeContextMenuEntry_AddItemToGearSet(itemLink, inventorySlot)
@@ -24,7 +25,7 @@ local function MakeContextMenuEntry_AddItemToGearSet(itemLink, inventorySlot)
         label = gearSetName,
         callback = 
           function()
-            if (XLGB_GearSet:GetItemIndexInGearSet(itemLink, i) < -1) then
+            if (XLGB_GearSet:GetItemIndexInGearSet(itemLink, i) == ITEM_NOT_IN_SET) then
               XLGB_GearSet:AddItemToGearSet(itemLink, i)
             else
               d("XLGB: Item " .. itemLink .. " is already in " .. gearSetName)
@@ -47,7 +48,7 @@ local function MakeContextMenuEntry_RemoveItemFromGearSet(itemLink, inventorySlo
         label = gearSetName,
         callback = 
           function()
-            if (XLGB_GearSet:GetItemIndexInGearSet(itemLink, i) > 0) then
+            if (XLGB_GearSet:GetItemIndexInGearSet(itemLink, i) ~= ITEM_NOT_IN_SET) then
               XLGB_GearSet:RemoveItemFromGearSet(itemLink, i)
             else
               d("XLGB: Item " .. itemLink .. " is not in " .. gearSetName)

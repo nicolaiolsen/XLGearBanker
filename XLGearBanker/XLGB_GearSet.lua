@@ -97,13 +97,14 @@ end
 function XLGB_GearSet:GetItemIndexInGearSet(itemLink, gearSetNumber)
   local gearSet = XLGB_GearSet:GetGearSet(gearSetNumber)
   local itemIndex = -1
-
+  easyDebug("GetItemIndexInGearSet: Item index before: " .. itemIndex)
   for i, item in pairs(gearSet.items) do
+    easyDebug("Comparing item " .. item.link .. " with " .. itemLink)
     if item.link == itemLink then
       itemIndex = i
     end
   end
-
+  easyDebug("GetItemIndexInGearSet: Item index after: " .. itemIndex)
   return itemIndex
 end 
 
