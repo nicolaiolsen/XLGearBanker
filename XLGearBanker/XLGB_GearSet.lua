@@ -36,19 +36,15 @@ function XLGB_GearSet:GetNumberOfGearSets()
 end
 
 function XLGB_GearSet:CreateNewGearSet(gearSetName)
-  if XLGB_GearSet:ValidGearSetName(gearSetName) then
-    local gearSet = {}
-    gearSet.name = "" .. gearSetName
-    gearSet.items = {}
-    table.insert(XLGearBanker.savedVariables.gearSetList, gearSet)
-    d("XLGB: Created new set: " .. gearSetName)
-  end
+  local gearSet = {}
+  gearSet.name = "" .. gearSetName
+  gearSet.items = {}
+  table.insert(XLGearBanker.savedVariables.gearSetList, gearSet)
+  d("XLGB: Created new set: " .. gearSetName)
 end
 
 function XLGB_GearSet:EditGearSetName(gearSetName, gearSetNumber)
-  if XLGB_GearSet:ValidGearSetName(gearSetName) then
-    XLGearBanker.savedVariables.gearSetList[gearSetNumber].name = "" .. gearSetName
-  end
+  XLGearBanker.savedVariables.gearSetList[gearSetNumber].name = "" .. gearSetName
 end
 
 function XLGB_GearSet:RemoveGearSet(gearSetNumber)
