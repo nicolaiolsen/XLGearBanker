@@ -74,7 +74,7 @@ function XLGB_GearSet:RemoveItemFromGearSet(itemLink, gearSetNumber)
   local gearSet = XLGB_GearSet:getGearSet(gearSetNumber)
   local gearSetName = gearSet.name
 
-  for i, item in gearSet.items do
+  for i, item in pairs(gearSet.items) do
     if item.itemLink and item.itemLink == itemLink then
       table.remove(XLGearBanker.savedVariables.gearSetList[gearSetNumber], i)
       break
@@ -98,7 +98,7 @@ function XLGB_GearSet:GearSetContainsItem(itemLink, gearSetNumber)
   local gearSet = XLGB_GearSet:GetGearSet(gearSetNumber)
   local item_index = -1
 
-  for i, item in gearSet.items do
+  for i, item in pairs(gearSet.items) do
     if item.link == itemLink then
       item_index = i
     end
@@ -111,7 +111,7 @@ function XLGB_GearSet:PrintGearSet(gearSetNumber)
   local gearSet = XLGB_GearSet:GetGearSet(gearSetNumber)
   d("Printing: " .. gearSet.name)
 
-  for i, item in gearSet.items do 
+  for i, item in pairs(gearSet.items) do 
     d("Item " .. i .. " = " .. item.link)
   end
 
