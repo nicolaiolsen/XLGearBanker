@@ -15,20 +15,22 @@ local REMOVE_ITEM_FROM_GEARSET = "XLGB remove"
 
 -- Functions
 local function MakeContextMenuEntry_AddItemToGearSet(itemLink, inventorySlot)
-  local gearSetNames = XLGB_GearSet:GetGearSetNames()
   local subEntries = {}
-  for i = 1, XLGB_GearSet:GetAmountOfGearSets() do
-    local subEntry = {
-      label = gearSetNames[i],
-      callback = 
-        function()
-          XLGB_GearSet.addItemToGearSet(itemLink, i)
-        end
-    }
-    table.insert(subEntries, subEntry)
+  local totalGearSets = XLGB_GearSet:GetNumberOfGearSets()
+  if not (totalGearSets == 0) then
+    for i = 1, totalGearSets do
+      local subEntry = {
+        label = XLGB_GearSet:GetGearSetName(i),
+        callback = 
+          function()
+            XLGB_GearSet:AddItemToGearSet(itemLink, i)
+          end
+      }
+      table.insert(subEntries, subEntry)
+    end
+    AddCustomSubMenuItem(ADD_ITEM_TO_GEARSET, subEntries)
+    ShowMenu(inventorySlot)
   end
-  AddCustomSubMenuItem(ADD_ITEM_TO_GEARSET, subEntries)
-  ShowMenu(inventorySlot)
 end
 
 local function AddContextMenuEntry_AddItemToGearSet(itemLink, inventorySlot)

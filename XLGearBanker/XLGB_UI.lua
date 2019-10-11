@@ -17,7 +17,7 @@ function XLGB_UI:CycleLeft()
   easyDebug("Cycle left called!")
 
   local previousSet = XLGearBanker.displayingSet - 1
-  local totalSets = XLGB_GearSet:GetAmountOfGearSets()
+  local totalSets = XLGB_GearSet:GetNumberOfGearSets()
 
   if previousSet <= 0 then
     previousSet = totalSets
@@ -31,7 +31,7 @@ function XLGB_UI:CycleRight()
   easyDebug("Cycle right called!")
 
   local nextSet = XLGearBanker.displayingSet + 1
-  local totalSets = XLGB_GearSet:GetAmountOfGearSets()
+  local totalSets = XLGB_GearSet:GetNumberOfGearSets()
 
   if nextSet > totalSets then
     nextSet = 1
@@ -42,18 +42,19 @@ function XLGB_UI:CycleRight()
 end
 
 function XLGB_UI:SetGearNameLabel(gearSetNumber)
-  local gearSetName = XLGB_GearSet:GetGearSetName(gearSetNumber)
+  local totalGearSets = XLGB_GearSet:GetNumberOfGearSets()
+  if XLGB_GearSet:ValidGearSetNumber(gearSetNumber, totalGearSets) then  
+    local gearSetName = XLGB_GearSet:GetGearSetName(gearSetNumber)
 
-  easyDebug("Setting gear name label to: " .. gearSetName)
-  XLGB_UI_Control_ListView_GearTitle:SetText(gearSetName)
-
+    easyDebug("Setting gear name label to: " .. gearSetName)
+    XLGB_UI_Control_ListView_GearTitle:SetText(gearSetName)
+  end
 end
 
 function XLGB_UI:ChangeDisplayedGearSet(gearSetNumber)
-  if gearSetNumber ~= nil  
-    and gearSetNumber >= 1 
-    and gearSetNumber <= XLGB_GearSet:GetAmountOfGearSets() then
-      XLGB_UI:SetGearNameLabel(gearSetNumber)
+  local totalGearSets = XLGB_GearSet:GetNumberOfGearSets()
+  if XLGB_GearSet:ValidGearSetNumber(gearSetNumber, totalGearSets) then
+      XLGB_UI:SetGearNameLabel(tonumber(gearSetNumber))
       XLGB_UI:UpdateListView()
   end
 end
@@ -74,7 +75,7 @@ end
 -- Credit: Inventory Insight - IIfABackPack.lua -> IIfA:UpdateScrollDataLinesData
 function XLGB_UI:UpdateItemDataList(gearSetNumber)
 
-  local items = XLGB_GearSet:GetGearSet(gearSetNumber)
+  local items = XLGB_GearSet:GetGearSet(gearSetNumber).items
   
 	XLGB_UI_Control_ListView.items = items
 	XLGB_UI_Control_ListView.dataOffset = 0

@@ -43,6 +43,7 @@
         "sort"
     ],
     "Lua.diagnostics.disable": [
-        "lowercase-global"
+        "lowercase-global",
+        "empty-block"
     ]
 }
