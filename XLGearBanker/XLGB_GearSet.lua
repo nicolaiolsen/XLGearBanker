@@ -6,7 +6,7 @@ function XLGB_GearSet:Initialize()
   if XLGearBanker.savedVariables.gearSetList == nil then
     XLGearBanker.savedVariables.gearSetList = {}
   end
-  
+
 end
 
 function XLGB_GearSet:ValidGearSetNumber(gearSetNumber, totalGearSets)
@@ -110,10 +110,22 @@ function XLGB_GearSet:GetItemIndexInGearSet(itemLink, gearSetNumber)
   return itemIndex
 end 
 
-function XLGB_GearSet:PrintGearSet(gearSetNumber)
-  local gearSet = XLGB_GearSet:GetGearSet(gearSetNumber)
-  d("Printing: " .. gearSet.name)
+function XLGB_GearSet:PrintGearSets()
+  local totalGearSets = XLGB_GearSet:GetNumberOfGearSets()
+  
+  d("Printing saved gear sets: ")
+  for i = 1, totalGearSets do
+    local gearSet = XLGB_GearSet:GetGearSet(i)
+    d("Set " .. i .. " = " .. gearSet.name)
+  end
 
+  d("Done!")
+end
+
+function XLGB_GearSet:PrintGearSetItems(gearSetNumber)
+  local gearSet = XLGB_GearSet:GetGearSet(gearSetNumber)
+
+  d("Printing items in set: " .. gearSet.name)
   for i, item in pairs(gearSet.items) do 
     d("Item " .. i .. " = " .. item.link)
   end

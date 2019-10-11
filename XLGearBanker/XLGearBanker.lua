@@ -51,11 +51,15 @@ end
 
 SLASH_COMMANDS["/xlgb_overview"] = XLGB_UI.ShowUI
 
-SLASH_COMMANDS["/xlgb_printgearset"] = function (argsv)
+SLASH_COMMANDS["/xlgb_sets"] = function (argsv)
+  XLGB_GearSet:PrintGearSets()
+end
+
+SLASH_COMMANDS["/xlgb_items"] = function (argsv)
   local totalGearSets = XLGB_GearSet:GetNumberOfGearSets()
   local gearSetNumber = tonumber(argsv)
   if XLGB_GearSet:ValidGearSetNumber(gearSetNumber, totalGearSets) then
-    XLGB_GearSet:PrintGearSet(gearSetNumber)
+    XLGB_GearSet:PrintGearSetItems(gearSetNumber)
   end
 end
 
