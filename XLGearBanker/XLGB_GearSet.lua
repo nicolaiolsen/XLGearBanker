@@ -14,7 +14,7 @@ function XLGB_GearSet:ValidGearSetNumber(gearSetNumber, totalGearSets)
   or gearSetNumber == ""
   or gearSetNumber > totalGearSets
   or gearSetNumber < 1 then
-    d("XLGB Error: GearSetNumber is invalid.")
+    d("[XLGB_ERROR] GearSetNumber is invalid.")
     return false
   else
     return true
@@ -24,7 +24,7 @@ end
 function XLGB_GearSet:ValidGearSetName(gearSetName)
   if gearSetName == nil
   or gearSetName == "" then 
-    d("XLGB Error: Enter a name for the set.")
+    d("[XLGB_ERROR] Enter a name for the set.")
     return false
   else 
     return true
@@ -45,7 +45,7 @@ function XLGB_GearSet:CreateNewGearSet(gearSetName)
   gearSet.items = {}
   gearSet.assignedBag = XLGB_Banking.NO_BAG
   table.insert(XLGearBanker.savedVariables.gearSetList, gearSet)
-  d("XLGB: Created new set: " .. gearSetName)
+  d("[XLGB] Created new set: " .. gearSetName)
 end
 
 function XLGB_GearSet:EditGearSetName(gearSetName, gearSetNumber)
@@ -55,7 +55,7 @@ end
 function XLGB_GearSet:RemoveGearSet(gearSetNumber)
   gearSetName = XLGB_GearSet:GetGearSet(gearSetNumber).name
   table.remove(XLGearBanker.savedVariables.gearSetList, gearSetNumber)
-  d("XLGB: Removed set: " .. gearSetName)
+  d("[XLGB] Removed set: " .. gearSetName)
 end
 
 local function createItemData(itemLink)
@@ -72,7 +72,7 @@ function XLGB_GearSet:AddItemToGearSet(itemLink, gearSetNumber)
   table.insert(XLGearBanker.savedVariables.gearSetList[gearSetNumber].items, itemData)
 
   local gearSetName = XLGB_GearSet:GetGearSet(gearSetNumber).name
-  d("XLGB: Added item " .. itemLink .. " to " .. gearSetName)
+  d("[XLGB] Added item " .. itemLink .. " to " .. gearSetName)
 end
 
 function XLGB_GearSet:RemoveItemFromGearSet(itemLink, gearSetNumber)
@@ -86,7 +86,7 @@ function XLGB_GearSet:RemoveItemFromGearSet(itemLink, gearSetNumber)
     end
   end
 
-  d("XLGB: Removed item " .. itemLink .. " from " .. gearSetName)
+  d("[XLGB] Removed item " .. itemLink .. " from " .. gearSetName)
 end
 
 
@@ -120,7 +120,7 @@ function XLGB_GearSet:PrintGearSets()
     local gearSet = XLGB_GearSet:GetGearSet(i)
     d("Set " .. i .. " = " .. gearSet.name)
   end
-  d("XLGB: Total sets = " .. totalGearSets)
+  d("[XLGB] Total sets = " .. totalGearSets)
 end
 
 function XLGB_GearSet:PrintGearSetItems(gearSetNumber)
@@ -130,7 +130,7 @@ function XLGB_GearSet:PrintGearSetItems(gearSetNumber)
   for _, item in pairs(gearSet.items) do 
     d(item.link)
   end
-  d("XLGB: Total items = " .. #gearSet.items)
+  d("[XLGB] Total items = " .. #gearSet.items)
 end
 
 

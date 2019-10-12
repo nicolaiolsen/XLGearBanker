@@ -4,7 +4,7 @@ By @XL_Olsen
 
 ***
 
-#### Description
+## Description
 
 XL Gear Banker (XLGB) is an ESO addon that strives to combat the ***tedious*** task of funneling all your gear to another character.
 

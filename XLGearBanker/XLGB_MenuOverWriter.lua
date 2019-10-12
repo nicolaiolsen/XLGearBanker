@@ -26,7 +26,7 @@ local function MakeContextMenuEntry_AddItemToGearSet(itemLink, inventorySlot)
             if (XLGB_GearSet:GetItemIndexInGearSet(itemLink, i) == XLGB.ITEM_NOT_IN_SET) then
               XLGB_GearSet:AddItemToGearSet(itemLink, i)
             else
-              d("XLGB: Item " .. itemLink .. " is already in " .. gearSetName)
+              d("[XLGB] Item " .. itemLink .. " is already in " .. gearSetName)
             end
           end
       }

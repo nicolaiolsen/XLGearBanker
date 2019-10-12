@@ -70,7 +70,7 @@ local function moveItem(sourceBag, targetBag, itemLink, availableBagSpaces)
   if (itemIndex ~= XLGB.ITEM_NOT_IN_BAG) and (#availableBagSpaces > 0) then
     zo_callLater( function()
       CallSecureProtected("RequestMoveItem", sourceBag, itemIndex, targetBag, availableBagSpaces[#availableBagSpaces], 1)
-    end, 10)
+    end, 1)
   end
   if moveSuccesful then
     easyDebug("Item move: Success!")
@@ -80,7 +80,7 @@ end
 
 local function moveGear(sourceBag, targetBag, gearSet)
   if not XLGB_Banking.bankOpen then
-    d("XLGB:Bank is not open, abort!")
+    d("[XLGB]Bank is not open, abort!")
     return false
   else
     local availableBagSpaces = getAvailableBagSpaces(targetBag)
@@ -94,7 +94,7 @@ end
 
 local function depositGearToBankESOPlus(gearSet)
   if not XLGB_Banking.bankOpen then
-    d("XLGB Error: Bank is not open, abort!")
+    d("[XLGB_ERROR] Bank is not open, abort!")
     return false
   else
     local availableBagSpacesRegularBank = getAvailableBagSpaces(BAG_BANK)
@@ -136,20 +136,20 @@ end
 ]]--
 function XLGB_Banking:DepositGear(gearSetNumber)
   local gearSet = XLGB_GearSet:GetGearSet(gearSetNumber)
-  d("XLGB: Depositing " .. gearSet.name)
+  d("[XLGB] Depositing " .. gearSet.name)
   if IsESOPlusSubscriber() and (XLGB_Banking.currentBankBag == BAG_BANK) then
     if depositGearToBankESOPlus(gearSet) then
-      d("XLGB: Set \'" .. gearSet.name .. "\' deposited!")
+      d("[XLGB] Set \'" .. gearSet.name .. "\' deposited!")
       return
     end
   
   elseif (self.currentBankBag == BAG_BANK) or (XLGB_Banking.currentBankBag == gearSet.assignedBag) then
     if moveGear(BAG_BACKPACK, XLGB_Banking.currentBankBag, gearSet) 
     and moveGear(BAG_WORN, XLGB_Banking.currentBankBag, gearSet) then
-      d("XLGB: Set \'" .. gearSet.name .. "\' deposited!")
+      d("[XLGB] Set \'" .. gearSet.name .. "\' deposited!")
     end
   else
-    d("XLGB: Set \'" .. gearSet.name .. "\' does not belong to this storage chest.",
+    d("[XLGB] Set \'" .. gearSet.name .. "\' does not belong to this storage chest.",
   "To assign this chest to  \'" .. gearSet.name .. "\' use  \'/xlgb_assign setNumber\'")
   end
 end
@@ -162,14 +162,14 @@ end
 ]]--
 function XLGB_Banking:WithdrawGear(gearSetNumber)
   local gearSet = XLGB_GearSet:GetGearSet(gearSetNumber)
-  d("XLGB: Withdrawing " .. gearSet.name)
+  d("[XLGB] Withdrawing " .. gearSet.name)
   if IsESOPlusSubscriber() and (XLGB_Banking.currentBankBag == BAG_BANK) then
     if moveGear(XLGB_Banking.currentBankBag, BAG_BACKPACK, gearSet) and moveGear(BAG_SUBSCRIBER_BANK, BAG_BACKPACK, gearSet) then
-      d("XLGB: Set \'" .. gearSet.name .. "\' withdrawn!")
+      d("[XLGB] Set \'" .. gearSet.name .. "\' withdrawn!")
       return
     end
   elseif moveGear(XLGB_Banking.currentBankBag, BAG_BACKPACK, gearSet) then
-    d("XLGB: Set \'" .. gearSet.name .. "\' withdrawn!")
+    d("[XLGB] Set \'" .. gearSet.name .. "\' withdrawn!")
   end
 end
 
@@ -184,7 +184,7 @@ function XLGB_Banking:AssignStorage(gearSetNumber)
   if (not XLGB_Banking.bankOpen) 
   and (XLGB_Banking.currentBankBag ~= XLGB.NO_BAG)
   and (XLGB_Banking.currentBankBag ~= BAG_BANK) then
-    d("XLGB Error: House storage chest not open, abort!")
+    d("[XLGB_ERROR] House storage chest not open, abort!")
     return false
   else
     local totalGearSets = XLGB_GearSet:GetNumberOfGearSets()
@@ -195,14 +195,14 @@ function XLGB_Banking:AssignStorage(gearSetNumber)
       if (assignedBag == XLGB_Banking.currentBankBag) 
       and (i ~= gearSetNumber) then
         storageNotAlreadyAssigned = false
-        d("XLGB Error: Storage is already assigned to another set. Only one set allowed per chest!")
+        d("[XLGB_ERROR] Storage is already assigned to another set. Only one set allowed per chest!")
         return storageNotAlreadyAssigned
       end
     end
 
     if storageNotAlreadyAssigned then
       XLGB_GearSet:AssignBagToStorage(gearSetNumber, XLGB_Banking.currentBankBag)
-      d("XLGB: Assigned \'" .. gearSet.name .. "\' to chest.")
+      d("[XLGB] Assigned \'" .. gearSet.name .. "\' to chest.")
       return true
     end
   end

@@ -16,7 +16,7 @@ end
 
 function easyDebug(...)
   if XLGearBanker.debug == true then
-    d(...)
+    d("[XLGB_DEBUG] " ..  ...)
   end
 end
 
@@ -32,16 +32,16 @@ EVENT_MANAGER:RegisterForEvent(XLGearBanker.name, EVENT_ADD_ON_LOADED, XLGearBan
 -- Note: Slash commands should not contain capital letters!
 SLASH_COMMANDS["/xlgb_debug"] = function (argsv)
   if XLGearBanker.debug then
-    d("XLGB: Debugging = off.")
+    d("[XLGB] Debugging = off.")
     XLGearBanker.debug = false
   else 
-    d("XLGB: Debugging = on.")
+    d("[XLGB] Debugging = on.")
     XLGearBanker.debug = true
   end
 end
 
 SLASH_COMMANDS["/xlgb_help"] = function (argsv)
-  d("XLGB: Commands")
+  d("[XLGB] Commands")
   d("\'/xlgb_sets\': Prints out saved sets to chat.")
   d("\'/xlgb_items setNumber\': Prints out set #(setNumber)s items to chat.")
   d("\'/xlgb_addset setName\': Creates a new set named (setName).")
