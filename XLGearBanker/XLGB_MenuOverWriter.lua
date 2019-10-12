@@ -10,9 +10,7 @@
 XLGB_MenuOverWriter = {}
 
 -- Constants
-local ADD_ITEM_TO_GEARSET = "XLGB addItem"
-local REMOVE_ITEM_FROM_GEARSET = "XLGB removeItem"
-local ITEM_NOT_IN_SET = -1
+XLGB = XLGB_Constants
 
 -- Functions
 local function MakeContextMenuEntry_AddItemToGearSet(itemLink, inventorySlot)
@@ -25,7 +23,7 @@ local function MakeContextMenuEntry_AddItemToGearSet(itemLink, inventorySlot)
         label = gearSetName,
         callback = 
           function()
-            if (XLGB_GearSet:GetItemIndexInGearSet(itemLink, i) == ITEM_NOT_IN_SET) then
+            if (XLGB_GearSet:GetItemIndexInGearSet(itemLink, i) == XLGB.ITEM_NOT_IN_SET) then
               XLGB_GearSet:AddItemToGearSet(itemLink, i)
             else
               d("XLGB: Item " .. itemLink .. " is already in " .. gearSetName)
@@ -34,7 +32,7 @@ local function MakeContextMenuEntry_AddItemToGearSet(itemLink, inventorySlot)
       }
       table.insert(subEntries, subEntry)
     end
-    AddCustomSubMenuItem(ADD_ITEM_TO_GEARSET, subEntries)
+    AddCustomSubMenuItem(XLGB.ADD_ITEM_TO_GEARSET, subEntries)
   end
 end
 
@@ -43,7 +41,7 @@ local function MakeContextMenuEntry_RemoveItemFromGearSet(itemLink, inventorySlo
   local totalGearSets = XLGB_GearSet:GetNumberOfGearSets()
   if totalGearSets ~= 0 then 
     for i = 1, totalGearSets do
-      if (XLGB_GearSet:GetItemIndexInGearSet(itemLink, i) ~= ITEM_NOT_IN_SET) then
+      if (XLGB_GearSet:GetItemIndexInGearSet(itemLink, i) ~= XLGB.ITEM_NOT_IN_SET) then
         local gearSetName = XLGB_GearSet:GetGearSet(i).name
         local subEntry = {
           label = gearSetName,
@@ -56,7 +54,7 @@ local function MakeContextMenuEntry_RemoveItemFromGearSet(itemLink, inventorySlo
       end
     end
     if (#subEntries ~= 0) then 
-      AddCustomSubMenuItem(REMOVE_ITEM_FROM_GEARSET, subEntries)
+      AddCustomSubMenuItem(XLGB.REMOVE_ITEM_FROM_GEARSET, subEntries)
     end
   end
 end

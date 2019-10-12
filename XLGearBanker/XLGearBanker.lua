@@ -5,6 +5,7 @@ XLGearBanker.name = "XLGearBanker"
 
 function XLGearBanker.OnAddOnLoaded(event, addonName)
     if addonName == XLGearBanker.name then
+      XLGB_Constants:Initialize()
       XLGearBanker:Initialize()
       XLGB_GearSet:Initialize()
       XLGB_Banking:Initialize()
@@ -85,11 +86,20 @@ SLASH_COMMANDS["/xlgb_addset"] = function (argsv)
     XLGB_GearSet:CreateNewGearSet(gearSetName)
   end
 end
+
 SLASH_COMMANDS["/xlgb_removeset"] = function (argsv)
   local totalGearSets = XLGB_GearSet:GetNumberOfGearSets()
   local gearSetNumber = tonumber(argsv)
   if XLGB_GearSet:ValidGearSetNumber(gearSetNumber, totalGearSets) then
     XLGB_GearSet:RemoveGearSet(gearSetNumber)
+  end
+end
+
+SLASH_COMMANDS["/xlgb_assign"] = function (argsv)
+  local totalGearSets = XLGB_GearSet:GetNumberOfGearSets()
+  local gearSetNumber = tonumber(argsv)
+  if XLGB_GearSet:ValidGearSetNumber(gearSetNumber, totalGearSets) then
+    XLGB_Banking:AssignStorage(gearSetNumber)
   end
 end
 -------------------------------------------------------------------------------

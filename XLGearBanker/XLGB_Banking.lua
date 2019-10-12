@@ -10,11 +10,12 @@
 --Namespace
 XLGB_Banking = {}
 
-local ITEM_NOT_IN_BAG = -1
+local XLGB = XLGB_Constants
 
 function XLGB_Banking.OnBankOpenEvent(event, bankBag)
   if not XLGB_Banking.bankOpen then
     XLGB_Banking.bankOpen = IsBankOpen()
+    XLGB_Banking.currentBankBag = bankBag
     easyDebug("Bank open!")
   end
 end
@@ -22,12 +23,13 @@ end
 function XLGB_Banking.OnBankCloseEvent(event)
   if XLGB_Banking.bankOpen then
     XLGB_Banking.bankOpen = IsBankOpen()
+    XLGB_Banking.currentBankBag = XLGB.NO_BAG
     easyDebug("Bank closed")
   end
 end
 
 local function findItemIndexInBag(bag, itemLink)
-  local item_index = -1
+  local item_index = XLGB.ITEM_NOT_IN_BAG
   for i = 0, GetBagSize(bag) do
     if GetItemLink(bag, i) == itemLink then
       item_index = i
@@ -49,7 +51,7 @@ end
     availableBagSpaces = Lua table containing indices of empty bag slots.
 ]]--
 local function getAvailableBagSpaces(bag)
-  easyDebug("Finding available bagspaces in bag: " .. bag )
+  easyDebug("Finding available bagspaces in bag: " .. bag)
   local availableBagSpaces = {}
 
   for i = 0, GetBagSize(bag)-1 do
@@ -65,7 +67,7 @@ local function moveItem(sourceBag, targetBag, itemLink, availableBagSpaces)
   easyDebug("Moving item", itemLink)
   local itemIndex = findItemIndexInBag(sourceBag, itemLink)
   local moveSuccesful = false
-  if (itemIndex ~= ITEM_NOT_IN_BAG) and (#availableBagSpaces > 0) then
+  if (itemIndex ~= XLGB.ITEM_NOT_IN_BAG) and (#availableBagSpaces > 0) then
     moveSuccesful = CallSecureProtected("RequestMoveItem", sourceBag, itemIndex, targetBag, availableBagSpaces[#availableBagSpaces], 1)
   end
 
@@ -89,7 +91,7 @@ local function moveGear(sourceBag, targetBag, gearSet)
   end
 end
 
-local function depositGearESOPlus(gearSet)
+local function depositGearToBankESOPlus(gearSet)
   if not XLGB_Banking.bankOpen then
     d("XLGB Error: Bank is not open, abort!")
     return false
@@ -124,8 +126,9 @@ local function depositGearESOPlus(gearSet)
     end
   end
 end
+
 --[[
-  function depositGear
+  function DepositGear
   Input:
 
   Output:
@@ -133,18 +136,25 @@ end
 function XLGB_Banking:DepositGear(gearSetNumber)
   local gearSet = XLGB_GearSet:GetGearSet(gearSetNumber)
   d("XLGB: Depositing " .. gearSet.name)
-  if IsESOPlusSubscriber() then
-    if depositGearESOPlus(gearSet) then
+  if IsESOPlusSubscriber() and (XLGB_Banking.currentBankBag == BAG_BANK) then
+    if depositGearToBankESOPlus(gearSet) then
       d("XLGB: Set \'" .. gearSet.name .. "\' deposited!")
       return
     end
-  elseif moveGear(BAG_BACKPACK, BAG_BANK, gearSet) and moveGear(BAG_WORN, BAG_BANK, gearSet) then
-    d("XLGB: Set \'" .. gearSet.name .. "\' deposited!")
+  
+  elseif (self.currentBankBag == BAG_BANK) or (XLGB_Banking.currentBankBag == gearSet.assignedBag) then
+    if moveGear(BAG_BACKPACK, XLGB_Banking.currentBankBag, gearSet) 
+    and moveGear(BAG_WORN, XLGB_Banking.currentBankBag, gearSet) then
+      d("XLGB: Set \'" .. gearSet.name .. "\' deposited!")
+    end
+  else
+    d("XLGB: Set \'" .. gearSet.name .. "\' does not belong to this storage chest.",
+  "To assign this chest to  \'" .. gearSet.name .. "\' use  \'/xlgb_assign setNumber\'")
   end
 end
 
 --[[
-  function withdrawGear
+  function WithdrawGear
   Input:
 
   Output:
@@ -152,13 +162,46 @@ end
 function XLGB_Banking:WithdrawGear(gearSetNumber)
   local gearSet = XLGB_GearSet:GetGearSet(gearSetNumber)
   d("XLGB: Withdrawing " .. gearSet.name)
-  if IsESOPlusSubscriber() then
-    if moveGear(BAG_BANK, BAG_BACKPACK, gearSet) and moveGear(BAG_SUBSCRIBER_BANK, BAG_BACKPACK, gearSet) then
+  if IsESOPlusSubscriber() and (XLGB_Banking.currentBankBag == BAG_BANK) then
+    if moveGear(XLGB_Banking.currentBankBag, BAG_BACKPACK, gearSet) and moveGear(BAG_SUBSCRIBER_BANK, BAG_BACKPACK, gearSet) then
       d("XLGB: Set \'" .. gearSet.name .. "\' withdrawn!")
       return
     end
-  elseif moveGear(BAG_BANK, BAG_BACKPACK, gearSet) then
+  elseif moveGear(XLGB_Banking.currentBankBag, BAG_BACKPACK, gearSet) then
     d("XLGB: Set \'" .. gearSet.name .. "\' withdrawn!")
+  end
+end
+
+--[[
+  function AssignStorage
+  Input:
+
+  Output:
+]]--
+function XLGB_Banking:AssignStorage(gearSetNumber)
+  if (not XLGB_Banking.bankOpen) 
+  and (XLGB_Banking.currentBankBag ~= XLGB.NO_BAG)
+  and (XLGB_Banking.currentBankBag ~= BAG_BANK) then
+    d("XLGB Error: House storage chest not open, abort!")
+    return false
+  else
+    local totalGearSets = XLGB_GearSet:GetNumberOfGearSets()
+
+    local storageNotAlreadyAssigned = true
+    for i = 1, totalGearSets do
+      local assignedBag = XLGB_GearSet:GetGearSet(i).assignedBag
+      if (assignedBag == XLGB_Banking.currentBankBag) 
+      and (i ~= gearSetNumber) then
+        storageNotAlreadyAssigned = false
+        d("XLGB Error: Storage is already assigned to another set. Only one set allowed per chest!")
+        return storageNotAlreadyAssigned
+      end
+    end
+
+    if storageNotAlreadyAssigned then
+      XLGB_GearSet:AssignStorage(gearSetNumber)
+      return true
+    end
   end
 end
 

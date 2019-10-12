@@ -1,5 +1,7 @@
 XLGB_GearSet = {}
 
+local XLGB = XLGB_Constants
+
 function XLGB_GearSet:Initialize()
   if XLGearBanker.savedVariables.gearSetList == nil then
     XLGearBanker.savedVariables.gearSetList = {}
@@ -41,6 +43,7 @@ function XLGB_GearSet:CreateNewGearSet(gearSetName)
   local gearSet = {}
   gearSet.name = "" .. gearSetName
   gearSet.items = {}
+  gearSet.assignedBag = XLGB_Banking.NO_BAG
   table.insert(XLGearBanker.savedVariables.gearSetList, gearSet)
   d("XLGB: Created new set: " .. gearSetName)
 end
@@ -94,17 +97,21 @@ end
     gearSetNumber = The number index of the gearSet you wish to check
   Output:
     (item_index, gearSetNumber) = Returns item_index that indicates where the item is located
-      or item_index = -1 if the item doesn't exist in the gearSet.
+      or item_index = ITEM_NOT_IN_BAG if the item doesn't exist in the gearSet.
 ]]--
 function XLGB_GearSet:GetItemIndexInGearSet(itemLink, gearSetNumber)
   local gearSet = XLGB_GearSet:GetGearSet(gearSetNumber)
-  local itemIndex = -1
+  local itemIndex = XLGB.ITEM_NOT_IN_BAG
   for i, item in pairs(gearSet.items) do
     if item.link == itemLink then
       itemIndex = i
     end
   end
   return itemIndex
+end
+
+function XLGB_GearSet:AssignStorage(gearSetNumber, bag)
+  XLGearBanker.savedVariables.gearSetList[gearSetNumber].assignedBag = bag
 end
 
 function XLGB_GearSet:PrintGearSets()
