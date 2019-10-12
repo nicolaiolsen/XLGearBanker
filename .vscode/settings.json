@@ -48,7 +48,9 @@
         "BAG_SUBSCRIBER_BANK",
         "IsESOPlusSubscriber",
         "BAG_WORN",
-        "ZO_CreateStringId"
+        "ZO_CreateStringId",
+        "GetItemUniqueID",
+        "Id64ToString"
     ],
     "Lua.diagnostics.disable": [
         "lowercase-global",

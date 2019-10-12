@@ -7,20 +7,21 @@ By @XL_Olsen
 ## Description
 
 XL Gear Banker (XLGB) is an ESO addon that strives to combat the ***tedious*** task of funneling all your gear to another character.
+Got multiple healer characters? Multiple tanks? DDs? This addon might be for you!
 
 Before XLGB:
 
 1. Log into character with the gear you need.
-2. Go to bank
-3. For **every** gear piece you need, **find it** in your inventory and **manually** put it into bank.
+2. Go to bank or house storage chest
+3. For **every** gear piece you need, **find it** in your inventory and **manually** put it into bank/chest.
 4. Log into character that needs the gear.
-5. Go to bank
-6. For **every** gear piece you need, **find it** in your bank and **manually** withdraw it from the bank.
+5. Go to bank or house storage chest
+6. For **every** gear piece you need, **find it** in your bank/chest and **manually** withdraw it from the bank.
 
 After XLGB:
 
-- Step 3: Use depositgear function to deposit **all** gear pieces at **once**.
-- Step 6: Use withdrawgear function to withdraw **all** gear pieces at **once**.
+- Step 3: Use slash_command or keybind to deposit **all** gear pieces at **once**.
+- Step 6: Use slash_command or keybind to withdraw **all** gear pieces at **once**.
 
 Easy!
 ***
@@ -39,8 +40,11 @@ Some slash_commands take an "argument" which basically is extra information the 
 First off you'll need to add a gear set. Using the slash_command "/xlgb_addset setName" you'll create a new empty set with the name specified (setName).
 'setName' can be anything you'd like it to be.
 
-Example:
-\xlgb_addset DD single target
+Examples:
+/xlgb_addset Stamina Necro DD
+/xlgb_addset Healer sets
+/xlgb_addset Tank sets
+/xlgb_addset Everything
 
 ### Add items to a gear set
 

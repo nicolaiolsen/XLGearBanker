@@ -58,16 +58,17 @@ function XLGB_GearSet:RemoveGearSet(gearSetNumber)
   d("[XLGB] Removed set: " .. gearSetName)
 end
 
-local function createItemData(itemLink)
+local function createItemData(itemLink, itemID)
   local itemData = {}
   itemData.link = itemLink
   itemData.name = GetItemLinkName(itemLink)
   itemData.quality = GetItemLinkQuality(itemLink)
+  itemData.ID = itemID
   return itemData
 end
 
-function XLGB_GearSet:AddItemToGearSet(itemLink, gearSetNumber)
-  local itemData = createItemData(itemLink)
+function XLGB_GearSet:AddItemToGearSet(itemLink, itemID, gearSetNumber)
+  local itemData = createItemData(itemLink, itemID)
 
   table.insert(XLGearBanker.savedVariables.gearSetList[gearSetNumber].items, itemData)
 
@@ -75,12 +76,12 @@ function XLGB_GearSet:AddItemToGearSet(itemLink, gearSetNumber)
   d("[XLGB] Added item " .. itemLink .. " to " .. gearSetName)
 end
 
-function XLGB_GearSet:RemoveItemFromGearSet(itemLink, gearSetNumber)
+function XLGB_GearSet:RemoveItemFromGearSet(itemLink, itemID, gearSetNumber)
   local gearSet = XLGB_GearSet:GetGearSet(gearSetNumber)
   local gearSetName = gearSet.name
 
   for i, item in pairs(gearSet.items) do
-    if item.link == itemLink then
+    if item.ID == itemID then
       table.remove(XLGearBanker.savedVariables.gearSetList[gearSetNumber].items, i)
       break
     end
@@ -99,11 +100,11 @@ end
     (item_index, gearSetNumber) = Returns item_index that indicates where the item is located
       or item_index = ITEM_NOT_IN_BAG if the item doesn't exist in the gearSet.
 ]]--
-function XLGB_GearSet:GetItemIndexInGearSet(itemLink, gearSetNumber)
+function XLGB_GearSet:GetItemIndexInGearSet(itemID, gearSetNumber)
   local gearSet = XLGB_GearSet:GetGearSet(gearSetNumber)
   local itemIndex = XLGB.ITEM_NOT_IN_BAG
   for i, item in pairs(gearSet.items) do
-    if item.link == itemLink then
+    if item.itemID == itemID then
       itemIndex = i
     end
   end
