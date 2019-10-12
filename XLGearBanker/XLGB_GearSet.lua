@@ -110,7 +110,7 @@ function XLGB_GearSet:GetItemIndexInGearSet(itemLink, gearSetNumber)
   return itemIndex
 end
 
-function XLGB_GearSet:AssignStorage(gearSetNumber, bag)
+function XLGB_GearSet:AssignBagToStorage(gearSetNumber, bag)
   XLGearBanker.savedVariables.gearSetList[gearSetNumber].assignedBag = bag
 end
 

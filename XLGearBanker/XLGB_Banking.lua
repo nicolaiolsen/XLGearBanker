@@ -199,7 +199,7 @@ function XLGB_Banking:AssignStorage(gearSetNumber)
     end
 
     if storageNotAlreadyAssigned then
-      XLGB_GearSet:AssignStorage(gearSetNumber)
+      XLGB_GearSet:AssignBagToStorage(gearSetNumber, XLGB_Banking.currentBankBag)
       return true
     end
   end
