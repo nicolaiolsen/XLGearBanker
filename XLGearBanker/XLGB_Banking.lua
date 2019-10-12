@@ -84,7 +84,10 @@ local function moveGear(sourceBag, targetBag, gearSet)
     local availableBagSpaces = getAvailableBagSpaces(targetBag)
     --Move each item of the specified gearset from sourceBag to targetBag
     for _, item in pairs(gearSet.items) do
-      zo_callLater(moveItem(sourceBag, targetBag, item.link, availableBagSpaces), 10)
+      zo_callLater(
+        function () 
+          moveItem(sourceBag, targetBag, item.link, availableBagSpaces)
+        end, 10)
     end
     return true
   end
