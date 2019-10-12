@@ -179,6 +179,7 @@ end
   Output:
 ]]--
 function XLGB_Banking:AssignStorage(gearSetNumber)
+  local gearSet = XLGB_GearSet:GetGearSet(gearSetNumber)
   if (not XLGB_Banking.bankOpen) 
   and (XLGB_Banking.currentBankBag ~= XLGB.NO_BAG)
   and (XLGB_Banking.currentBankBag ~= BAG_BANK) then
@@ -200,6 +201,7 @@ function XLGB_Banking:AssignStorage(gearSetNumber)
 
     if storageNotAlreadyAssigned then
       XLGB_GearSet:AssignBagToStorage(gearSetNumber, XLGB_Banking.currentBankBag)
+      d("XLGB: Assigned \'" .. gearSet.name .. "\' to chest.")
       return true
     end
   end
