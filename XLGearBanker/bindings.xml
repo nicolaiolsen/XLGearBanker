@@ -1,0 +1,128 @@
+<Bindings>
+	<Layer name="SI_KEYBINDINGS_CATEGORY_GENERAL">
+		<Category name="XL Gear Banker">
+			<Action name="DEPOSIT_GEAR_SET_1">
+				<Down>XLGB_Banking:DepositGear(1)</Down>
+			</Action>
+		</Category>
+	</Layer>
+    <Layer name="SI_KEYBINDINGS_CATEGORY_GENERAL">
+		<Category name="XL Gear Banker">
+			<Action name="DEPOSIT_GEAR_SET_2">
+				<Down>XLGB_Banking:DepositGear(2)</Down>
+			</Action>
+		</Category>
+	</Layer>
+    <Layer name="SI_KEYBINDINGS_CATEGORY_GENERAL">
+		<Category name="XL Gear Banker">
+			<Action name="DEPOSIT_GEAR_SET_3">
+				<Down>XLGB_Banking:DepositGear(3)</Down>
+			</Action>
+		</Category>
+	</Layer>
+    <Layer name="SI_KEYBINDINGS_CATEGORY_GENERAL">
+		<Category name="XL Gear Banker">
+			<Action name="DEPOSIT_GEAR_SET_4">
+				<Down>XLGB_Banking:DepositGear(4)</Down>
+			</Action>
+		</Category>
+	</Layer>
+    <Layer name="SI_KEYBINDINGS_CATEGORY_GENERAL">
+		<Category name="XL Gear Banker">
+			<Action name="DEPOSIT_GEAR_SET_5">
+				<Down>XLGB_Banking:DepositGear(5)</Down>
+			</Action>
+		</Category>
+	</Layer>
+    <Layer name="SI_KEYBINDINGS_CATEGORY_GENERAL">
+		<Category name="XL Gear Banker">
+			<Action name="DEPOSIT_GEAR_SET_6">
+				<Down>XLGB_Banking:DepositGear(6)</Down>
+			</Action>
+		</Category>
+	</Layer>
+    <Layer name="SI_KEYBINDINGS_CATEGORY_GENERAL">
+		<Category name="XL Gear Banker">
+			<Action name="DEPOSIT_GEAR_SET_7">
+				<Down>XLGB_Banking:DepositGear(7)</Down>
+			</Action>
+		</Category>
+	</Layer>
+    <Layer name="SI_KEYBINDINGS_CATEGORY_GENERAL">
+		<Category name="XL Gear Banker">
+			<Action name="DEPOSIT_GEAR_SET_8">
+				<Down>XLGB_Banking:DepositGear(8)</Down>
+			</Action>
+		</Category>
+	</Layer>
+    <Layer name="SI_KEYBINDINGS_CATEGORY_GENERAL">
+		<Category name="XL Gear Banker">
+			<Action name="DEPOSIT_GEAR_SET_9">
+				<Down>XLGB_Banking:DepositGear(9)</Down>
+			</Action>
+		</Category>
+	</Layer>
+    <Layer name="SI_KEYBINDINGS_CATEGORY_GENERAL">
+		<Category name="XL Gear Banker">
+			<Action name="WITHDRAW_GEAR_SET_1">
+				<Down>XLGB_Banking:WithdrawGear(1)</Down>
+			</Action>
+		</Category>
+	</Layer>
+    <Layer name="SI_KEYBINDINGS_CATEGORY_GENERAL">
+		<Category name="XL Gear Banker">
+			<Action name="WITHDRAW_GEAR_SET_2">
+				<Down>XLGB_Banking:WithdrawGear(2)</Down>
+			</Action>
+		</Category>
+	</Layer>
+    <Layer name="SI_KEYBINDINGS_CATEGORY_GENERAL">
+		<Category name="XL Gear Banker">
+			<Action name="WITHDRAW_GEAR_SET_3">
+				<Down>XLGB_Banking:WithdrawGear(3)</Down>
+			</Action>
+		</Category>
+	</Layer>
+    <Layer name="SI_KEYBINDINGS_CATEGORY_GENERAL">
+		<Category name="XL Gear Banker">
+			<Action name="WITHDRAW_GEAR_SET_4">
+				<Down>XLGB_Banking:WithdrawGear(4)</Down>
+			</Action>
+		</Category>
+	</Layer>
+    <Layer name="SI_KEYBINDINGS_CATEGORY_GENERAL">
+		<Category name="XL Gear Banker">
+			<Action name="WITHDRAW_GEAR_SET_5">
+				<Down>XLGB_Banking:WithdrawGear(5)</Down>
+			</Action>
+		</Category>
+	</Layer>
+    <Layer name="SI_KEYBINDINGS_CATEGORY_GENERAL">
+		<Category name="XL Gear Banker">
+			<Action name="WITHDRAW_GEAR_SET_6">
+				<Down>XLGB_Banking:WithdrawGear(6)</Down>
+			</Action>
+		</Category>
+	</Layer>
+    <Layer name="SI_KEYBINDINGS_CATEGORY_GENERAL">
+		<Category name="XL Gear Banker">
+			<Action name="WITHDRAW_GEAR_SET_7">
+				<Down>XLGB_Banking:WithdrawGear(7)</Down>
+			</Action>
+		</Category>
+	</Layer>
+    <Layer name="SI_KEYBINDINGS_CATEGORY_GENERAL">
+		<Category name="XL Gear Banker">
+			<Action name="WITHDRAW_GEAR_SET_8">
+				<Down>XLGB_Banking:WithdrawGear(8)</Down>
+			</Action>
+		</Category>
+	</Layer>
+    <Layer name="SI_KEYBINDINGS_CATEGORY_GENERAL">
+		<Category name="XL Gear Banker">
+			<Action name="WITHDRAW_GEAR_SET_9">
+				<Down>XLGB_Banking:WithdrawGear(9)</Down>
+			</Action>
+		</Category>
+	</Layer>
+</Bindings>

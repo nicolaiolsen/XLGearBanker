@@ -47,7 +47,8 @@
         "ITEMTYPE_WEAPON",
         "BAG_SUBSCRIBER_BANK",
         "IsESOPlusSubscriber",
-        "BAG_WORN"
+        "BAG_WORN",
+        "ZO_CreateStringId"
     ],
     "Lua.diagnostics.disable": [
         "lowercase-global",

@@ -1,5 +1,7 @@
 XLGB_UI = {}
 
+--Credit: Inventory Insight - IIfABackPack.lua
+
 function XLGB_UI:XLGB_UI_Control_OnMoveStop()
   XLGearBanker.savedVariables.left = XLGB_UI_Control:GetLeft()
   XLGearBanker.savedVariables.top = XLGB_UI_Control:GetTop()
@@ -72,7 +74,6 @@ function XLGB_UI:RemoveItem()
   easyDebug("Removing item")
 end
 
--- Credit: Inventory Insight - IIfABackPack.lua -> IIfA:UpdateScrollDataLinesData
 function XLGB_UI:UpdateItemDataList(gearSetNumber)
 
   local items = XLGB_GearSet:GetGearSet(gearSetNumber).items
@@ -82,7 +83,6 @@ function XLGB_UI:UpdateItemDataList(gearSetNumber)
 
 end
 
--- Credit: Inventory Insight - IIfABackPack.lua -> fillLine
 local function fillEntryWithItemData(entry, item)
 	local color
 	if item == nil then
@@ -101,7 +101,6 @@ local function fillEntryWithItemData(entry, item)
 	end
 end
 
--- Credit: Inventory Insight - IIfABackPack.lua -> IIfA:SetDataLinesData
 function XLGB_UI:fillEntriesWithItemData()
     local entry, item = nil
     for i = 1, XLGB_UI_Control_ListView.maxEntries do
@@ -118,7 +117,6 @@ function XLGB_UI:fillEntriesWithItemData()
     end
   end
 
---Credit: Inventory Insight - IIfABackPack.lua -> IIfA:CreateLine
 function XLGB_UI:CreateEmptyListEntry(i, predecessor, parent)
 	local entry = WINDOW_MANAGER:CreateControlFromVirtual("XLGB_ListItem_".. i, parent, "XLGB_SlotTemplate")
 
@@ -140,7 +138,6 @@ function XLGB_UI:CreateEmptyListEntry(i, predecessor, parent)
 	return entry
 end
 
--- Credit: Inventory Insight -  IIfABackPack.lua -> IIfA:CreateInventoryScroll
 function XLGB_UI:InitializeListEntries()
 	easyDebug("InitializeListEntries")
 
@@ -168,7 +165,6 @@ function XLGB_UI:InitializeListEntries()
 	return XLGB_UI_Control_ListView.entries
 end
 
--- Credit: Inventory Insight -  IIfABackPack.lua -> IIfA:UpdateInventoryScroll
 function XLGB_UI:UpdateListViewEntries()
   easyDebug("UpdateListViewEntries")
 
@@ -186,18 +182,12 @@ function XLGB_UI:UpdateListViewEntries()
 	XLGB_UI_Control_ListView_Slider:SetMinMax(0, total)
 end
 
--- Credit: Inventory Insight -  IIfABackPack.lua -> IIfA:RefreshInventoryScroll
 function XLGB_UI:UpdateListView()
 	easyDebug("UpdateListView")
 	XLGB_UI:UpdateItemDataList(XLGearBanker.displayingSet)
   XLGB_UI:UpdateListViewEntries()
 end
----------
--- This block is for testing purposes only
 
-
-
----------
 function XLGB_UI:Initialize()
   XLGearBanker.displayingSet = 1
   XLGB_UI_Control_ListView.rowHeight = 52
