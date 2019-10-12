@@ -68,9 +68,10 @@ local function moveItem(sourceBag, targetBag, itemLink, availableBagSpaces)
   local itemIndex = findItemIndexInBag(sourceBag, itemLink)
   local moveSuccesful = false
   if (itemIndex ~= XLGB.ITEM_NOT_IN_BAG) and (#availableBagSpaces > 0) then
-    moveSuccesful = CallSecureProtected("RequestMoveItem", sourceBag, itemIndex, targetBag, availableBagSpaces[#availableBagSpaces], 1)
+    zo_callLater( function()
+      CallSecureProtected("RequestMoveItem", sourceBag, itemIndex, targetBag, availableBagSpaces[#availableBagSpaces], 1)
+    end, 10)
   end
-
   if moveSuccesful then
     easyDebug("Item move: Success!")
     table.remove(availableBagSpaces)
