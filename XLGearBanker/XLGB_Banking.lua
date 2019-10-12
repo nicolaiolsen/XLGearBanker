@@ -87,7 +87,7 @@ local function moveGear(sourceBag, targetBag, gearSet)
       zo_callLater(
         function () 
           moveItem(sourceBag, targetBag, item.link, availableBagSpaces)
-        end, 10)
+        end, 100)
     end
     return true
   end
