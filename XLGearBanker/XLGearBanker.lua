@@ -29,11 +29,6 @@ EVENT_MANAGER:RegisterForEvent(XLGearBanker.name, EVENT_ADD_ON_LOADED, XLGearBan
 -------------------------------------------------------------------------------
                               --Slash Commands! --
 -- Note: Slash commands should not contain capital letters!
-
-SLASH_COMMANDS["/echo"] = function (argsv)
-  d(argsv)
-end
-
 SLASH_COMMANDS["/xlgb_debug"] = function (argsv)
   if XLGearBanker.debug then
     d("XLGB: Debugging = off.")
@@ -44,14 +39,25 @@ SLASH_COMMANDS["/xlgb_debug"] = function (argsv)
   end
 end
 
-SLASH_COMMANDS["/xlgb_depositgear"] = function (argsv)
+SLASH_COMMANDS["/xlgb_help"] = function (argsv)
+  d("XLGB: Commands")
+  d("\'/xlgb_sets\': Prints out saved sets to chat.")
+  d("\'/xlgb_items setNumber\': Prints out set #(setNumber)s items to chat.")
+  d("\'/xlgb_addset setName\': Creates a new set named (setName).")
+  d("\'/xlgb_removeset setNumber\': Removes set #(setNumber).")
+  d("\'/xlgb_deposit setNumber\': Deposit all items from set #(setNumber) into the bank.")
+  d("\'/xlgb_withdraw setNumber\': Withdraw all items from set #(setNumber) into the player inventory.")
+  d("\'/xlgb_debug\': Toggles debug mode. (Note: quite verbose)")
+end
+
+SLASH_COMMANDS["/xlgb_deposit"] = function (argsv)
   local totalGearSets = XLGB_GearSet:GetNumberOfGearSets()
   local gearSetNumber = tonumber(argsv)
   if XLGB_GearSet:ValidGearSetNumber(gearSetNumber, totalGearSets) then
     XLGB_Banking:DepositGear(gearSetNumber)
   end
 end
-SLASH_COMMANDS["/xlgb_withdrawgear"] = function (argsv)
+SLASH_COMMANDS["/xlgb_withdraw"] = function (argsv)
   local totalGearSets = XLGB_GearSet:GetNumberOfGearSets()
   local gearSetNumber = tonumber(argsv)
   if XLGB_GearSet:ValidGearSetNumber(gearSetNumber, totalGearSets) then
