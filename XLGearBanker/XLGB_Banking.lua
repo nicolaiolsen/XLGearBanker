@@ -68,7 +68,7 @@ local function moveItem(sourceBag, targetBag, itemLink, availableBagSpaces)
   local itemIndex = findItemIndexInBag(sourceBag, itemLink)
   local moveSuccesful = false
   if (itemIndex ~= XLGB.ITEM_NOT_IN_BAG) and (#availableBagSpaces > 0) then
-    CallSecureProtected("RequestMoveItem", sourceBag, itemIndex, targetBag, availableBagSpaces[#availableBagSpaces], 1)
+    moveSuccesful = CallSecureProtected("RequestMoveItem", sourceBag, itemIndex, targetBag, availableBagSpaces[#availableBagSpaces], 1)
   end
   if moveSuccesful then
     easyDebug("Item move: Success!")
@@ -84,7 +84,7 @@ local function moveGear(sourceBag, targetBag, gearSet)
     local availableBagSpaces = getAvailableBagSpaces(targetBag)
     --Move each item of the specified gearset from sourceBag to targetBag
     for _, item in pairs(gearSet.items) do
-      moveItem(sourceBag, targetBag, item.link, availableBagSpaces)
+      zo_callLater(moveItem(sourceBag, targetBag, item.link, availableBagSpaces), 10)
     end
     return true
   end
