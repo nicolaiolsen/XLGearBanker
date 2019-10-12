@@ -6,12 +6,13 @@
 ## DependsOn: LibCustomMenu
 
 XLGearBanker.xml
+bindings.xml
 
 XLGB_GearSet.lua
 XLGB_Banking.lua
 XLGB_MenuOverwriter.lua
 XLGB_UI.lua
-Bindings.lua
+bindings.lua
 XLGearBanker.lua
 
 ## This Add-on is not created by, affiliated with or sponsored by ZeniMax Media Inc. or its affiliates. 
