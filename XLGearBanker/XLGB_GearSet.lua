@@ -98,13 +98,13 @@ end
     gearSetNumber = The number index of the gearSet you wish to check
   Output:
     (item_index, gearSetNumber) = Returns item_index that indicates where the item is located
-      or item_index = ITEM_NOT_IN_BAG if the item doesn't exist in the gearSet.
+      or item_index = ITEM_NOT_IN_SET if the item doesn't exist in the gearSet.
 ]]--
 function XLGB_GearSet:GetItemIndexInGearSet(itemID, gearSetNumber)
   local gearSet = XLGB_GearSet:GetGearSet(gearSetNumber)
-  local itemIndex = XLGB.ITEM_NOT_IN_BAG
+  local itemIndex = XLGB.ITEM_NOT_IN_SET
   for i, item in pairs(gearSet.items) do
-    if (item.itemID == itemID) then
+    if (item.ID == itemID) then
       itemIndex = i
     end
   end
