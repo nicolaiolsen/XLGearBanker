@@ -39,6 +39,19 @@ local function findItemIndexInBag(bag, itemID)
   return item_index
 end
 
+local function findItemsToMove(sourceBag, gearSet)
+  local itemsToMove = {}
+  for _, item in pairs(gearSet.items) do
+    local itemIndex = findItemIndexInBag(sourceBag, item)
+    if (itemIndex ~= XLGB.ITEM_NOT_IN_BAG) then
+      local itemToMoveEntry = {}
+      itemToMoveEntry.item = item
+      itemToMoveEntry.index = itemIndex
+      table.insert(itemToMoveEntry)
+    end
+  end
+  return itemsToMove
+end
 --[[
   function getAvailableBagSpaces
 
@@ -63,31 +76,31 @@ local function getAvailableBagSpaces(bag)
   return availableBagSpaces
 end
 
-local function moveItem(sourceBag, targetBag, itemLink, itemID, availableSpace)
+local function moveItem(sourceBag, targetBag, itemLink, itemIndex, availableSpace)
   easyDebug("Moving item", itemLink)
-  local itemIndex = findItemIndexInBag(sourceBag, itemID)
   local moveSuccesful = false
-  if itemIndex == XLGB.ITEM_NOT_IN_BAG then d("Couldn't find item " .. itemLink) end
-  
-  if (itemIndex ~= XLGB.ITEM_NOT_IN_BAG) then
-    moveSuccesful = CallSecureProtected("RequestMoveItem", sourceBag, itemIndex, targetBag, availableSpace, 1)
-  end
+  moveSuccesful = CallSecureProtected("RequestMoveItem", sourceBag, itemIndex, targetBag, availableSpace, 1)
+
   if moveSuccesful then
     easyDebug("Item move: Success!")
   end
 end
 
-local function moveGear(sourceBag, targetBag, gearSet)
-  if not XLGB_Banking.bankOpen then
-    d("[XLGB]Bank is not open, abort!")
+local function moveGear(sourceBag, targetBag, itemsToMove)
+  if (not XLGB_Banking.bankOpen) then
+    d("[XLGB_ERROR] Bank is not open, abort!")
     return false
   else
     local availableBagSpaces = getAvailableBagSpaces(targetBag)
+    if (#availableBagSpaces < #itemsToMove) then
+      d("[XLGB_ERROR] Trying to move " .. #itemsToMove .. "items into a bag with " .. #availableBagSpaces .." empty slots.")
+      return false
+    end
     --Move each item of the specified gearset from sourceBag to targetBag
-    for i, item in ipairs(gearSet.items) do
+    for i, itemEntry in ipairs(itemsToMove) do
         d("Moving item: " .. i .. " - Spaces left " .. #availableBagSpaces)
         if (#availableBagSpaces >= i) then
-          moveItem(sourceBag, targetBag, item.link, item.ID, availableBagSpaces[i])
+          moveItem(sourceBag, targetBag, itemEntry.item.link, itemEntry.index, availableBagSpaces[i])
         end
     end
     return true
@@ -154,14 +167,18 @@ function XLGB_Banking:DepositGear(gearSetNumber)
   d("[XLGB] Depositing " .. gearSet.name)
 
   if IsESOPlusSubscriber() and (XLGB_Banking.currentBankBag == BAG_BANK) then
-    if depositGearToBankESOPlus(gearSet) then
+    local equippedItemsToMove = findItemsToMove(BAG_WORN, gearSet)
+    local inventoryItemsToMove = findItemsToMove(BAG_BACKPACK, gearSet)
+    if depositGearToBankESOPlus(equippedItemsToMove, inventoryItemsToMove) then
       d("[XLGB] Set \'" .. gearSet.name .. "\' deposited!")
       return
     end
 
-  elseif (self.currentBankBag == BAG_BANK) or (XLGB_Banking.currentBankBag == gearSet.assignedBag) then
-    if moveGear(BAG_BACKPACK, XLGB_Banking.currentBankBag, gearSet) 
-    and moveGear(BAG_WORN, XLGB_Banking.currentBankBag, gearSet) then
+  elseif (XLGB_Banking.currentBankBag.currentBankBag == BAG_BANK) or (XLGB_Banking.currentBankBag == gearSet.assignedBag) then
+    local equippedItemsToMove = findItemsToMove(BAG_WORN, gearSet)
+    local inventoryItemsToMove = findItemsToMove(BAG_BACKPACK, gearSet)
+    if moveGear(BAG_BACKPACK, XLGB_Banking.currentBankBag, inventoryItemsToMove) 
+    and moveGear(BAG_WORN, XLGB_Banking.currentBankBag, equippedItemsToMove) then
       d("[XLGB] Set \'" .. gearSet.name .. "\' deposited!")
     end
   else
