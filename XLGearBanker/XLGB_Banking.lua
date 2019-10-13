@@ -109,16 +109,20 @@ end
 local function depositGearToBankNonESOPlus(gearSet)
   local equippedItemsToMove = findItemsToMove(BAG_WORN, gearSet)
   local inventoryItemsToMove = findItemsToMove(BAG_BACKPACK, gearSet)
+
   local availableBagSpaces = getAvailableBagSpaces(XLGB_Banking.currentBankBag)
   local numberOfItemsToMove = #equippedItemsToMove + #inventoryItemsToMove
+
   if (#availableBagSpaces < numberOfItemsToMove) then
     d("[XLGB_ERROR] Trying to move " .. numberOfItemsToMove.. "items into a bag with " .. #availableBagSpaces .." empty slots.")
-    return
+    return false
   end
+
   moveGearFromTwoBags(
       BAG_BACKPACK, inventoryItemsToMove,
       BAG_WORN, equippedItemsToMove,
       XLGB_Banking.currentBankBag, availableBagSpaces)
+  return true
 end
 
 local function getRemainingItems(items, fromIndex)
@@ -141,7 +145,7 @@ local function depositGearToBankESOPlus(gearSet)
 
   if (numberOfAvailableSpaces < numberOfItemsToMove) then
     d("[XLGB_ERROR] Trying to move " .. numberOfItemsToMove.. "items into a bag with " .. numberOfAvailableSpaces .." empty slots.")
-    return
+    return false
   end
 
   if (#availableBagSpacesRegularBank >= numberOfItemsToMove) then
@@ -149,7 +153,7 @@ local function depositGearToBankESOPlus(gearSet)
         BAG_BACKPACK, inventoryItemsToMove,
         BAG_WORN, equippedItemsToMove,
         BAG_BANK, availableBagSpacesRegularBank)
-    return
+    return true
 
   else
     -- Add items to regular bank
@@ -167,6 +171,7 @@ local function depositGearToBankESOPlus(gearSet)
     else 
       moveGear(BAG_WORN, equippedItemsToMove, BAG_SUBSCRIBER_BANK, availableBagSpacesESOPlusBank)
     end
+    return true
   end
 end
 
@@ -192,14 +197,17 @@ function XLGB_Banking:DepositGear(gearSetNumber)
   d("[XLGB] Depositing " .. gearSet.name)
 
   if IsESOPlusSubscriber() and (XLGB_Banking.currentBankBag == BAG_BANK) then
-    depositGearToBankESOPlus(gearSet)
-    d("[XLGB] Set \'" .. gearSet.name .. "\' deposited!")
-    return
+    if depositGearToBankESOPlus(gearSet) then
+      d("[XLGB] Set \'" .. gearSet.name .. "\' deposited!")
+      return
+    end
+    
 
   elseif (XLGB_Banking.currentBankBag == BAG_BANK) 
   or (XLGB_Banking.currentBankBag == gearSet.assignedBag) then
-    depositGearToBankNonESOPlus(gearSet)
-    d("[XLGB] Set \'" .. gearSet.name .. "\' deposited!")
+    if depositGearToBankNonESOPlus(gearSet) then
+      d("[XLGB] Set \'" .. gearSet.name .. "\' deposited!")
+    end
     
   else
     d("[XLGB] Set \'" .. gearSet.name .. "\' does not belong to this storage chest.",
@@ -219,7 +227,7 @@ local function withdrawGearESOPlus(gearSet)
   local numberOfItemsToMove = #regularBankItemsToMove + #ESOPlusItemsToMove
   if (#availableBagSpaces < numberOfItemsToMove) then
     d("[XLGB_ERROR] Trying to move " .. numberOfItemsToMove.. "items into a bag with " .. #availableBagSpaces .." empty slots.")
-    return
+    return false
   end
   moveGearFromTwoBags(
       BAG_BANK, regularBankItemsToMove,
@@ -232,9 +240,10 @@ local function withdrawGearNonESOPlus(gearSet)
   local availableBagSpaces = getAvailableBagSpaces(BAG_BACKPACK)
   if (#availableBagSpaces < #itemsToMove) then
     d("[XLGB_ERROR] Trying to move " .. #itemsToMove.. "items into a bag with " .. #availableBagSpaces .." empty slots.")
-    return
+    return false
   end
   moveGear(XLGB_Banking.currentBankBag, itemsToMove, BAG_BACKPACK, availableBagSpaces)
+  return true
 end
 --[[
   function WithdrawGear
@@ -257,11 +266,13 @@ function XLGB_Banking:WithdrawGear(gearSetNumber)
   local gearSet = XLGB_GearSet:GetGearSet(gearSetNumber)
   d("[XLGB] Withdrawing " .. gearSet.name)
   if IsESOPlusSubscriber() and (XLGB_Banking.currentBankBag == BAG_BANK) then
-    withdrawGearESOPlus(gearSet)
-    d("[XLGB] Set \'" .. gearSet.name .. "\' withdrawn!")
+    if withdrawGearESOPlus(gearSet) then
+      d("[XLGB] Set \'" .. gearSet.name .. "\' withdrawn!")
+    end
   else 
-    withdrawGearNonESOPlus(gearSet)
-    d("[XLGB] Set \'" .. gearSet.name .. "\' withdrawn!")
+    if withdrawGearNonESOPlus(gearSet) then
+      d("[XLGB] Set \'" .. gearSet.name .. "\' withdrawn!")
+    end
   end
   --[[
   zo_callLater(function()
