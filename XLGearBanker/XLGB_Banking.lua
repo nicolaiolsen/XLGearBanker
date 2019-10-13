@@ -113,8 +113,10 @@ local function depositGearToBankESOPlus(gearSet)
         for i = 1, itemsToRegularBank do
           local itemLink = gearSet.items[i].link
           local itemID = gearSet.items[i].ID
-          moveItem(BAG_BACKPACK, BAG_BANK, itemLink, itemID, availableBagSpacesRegularBank)
-          moveItem(BAG_WORN, BAG_BANK, itemLink, itemID, availableBagSpacesRegularBank)
+          if (#availableBagSpacesRegularBank >= i) then
+            moveItem(BAG_BACKPACK, BAG_BANK, itemLink, itemID, availableBagSpacesRegularBank[i])
+            moveItem(BAG_WORN, BAG_BANK, itemLink, itemID, availableBagSpacesRegularBank[i])
+          end
         end
       else 
         -- If no slots left in regular bank add items to subscriber bank
@@ -124,8 +126,10 @@ local function depositGearToBankESOPlus(gearSet)
       for i = itemsToRegularBank, totalItems do
         local itemLink = gearSet.items[i].link
         local itemID = gearSet.items[i].ID
-        moveItem(BAG_BACKPACK, BAG_BANK, itemLink, itemID, availableBagSpacesESOPlusBank)
-        moveItem(BAG_WORN, BAG_BANK, itemLink, itemID, availableBagSpacesRegularBank)
+        if (#availableBagSpacesESOPlusBank >= i) then
+          moveItem(BAG_BACKPACK, BAG_BANK, itemLink, itemID, availableBagSpacesESOPlusBank[i-itemsToRegularBank +1])
+          moveItem(BAG_WORN, BAG_BANK, itemLink, itemID, availableBagSpacesESOPlusBank[i-itemsToRegularBank +1])
+        end
       end
       return true
     end
