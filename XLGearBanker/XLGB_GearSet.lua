@@ -39,7 +39,23 @@ function XLGB_GearSet:GetNumberOfGearSets()
   return #XLGearBanker.savedVariables.gearSetList
 end
 
+local function isNameUnique(name)
+  local totalSets = XLGB_GearSet:GetNumberOfGearSets()
+  local isUnique = true
+  for i = 1, totalSets do
+    local gearSet = XLGB_GearSet:GetGearSet(i)
+    if (gearSet.name == name) then
+      isUnique = false
+    end
+  end
+  return isUnique
+end
+
 function XLGB_GearSet:CreateNewGearSet(gearSetName)
+  if (not isNameUnique(gearSetName)) then
+    d("[XLGB_ERROR] A set named ".. gearSetName .." does already exist! Set names should be unique.")
+    return
+  end
   local gearSet = {}
   gearSet.name = "" .. gearSetName
   gearSet.items = {}
@@ -49,6 +65,10 @@ function XLGB_GearSet:CreateNewGearSet(gearSetName)
 end
 
 function XLGB_GearSet:EditGearSetName(gearSetName, gearSetNumber)
+  if (not isNameUnique(gearSetName)) then
+    d("[XLGB_ERROR] A set named ".. gearSetName .." does already exist! Set names should be unique.")
+    return
+  end
   XLGearBanker.savedVariables.gearSetList[gearSetNumber].name = "" .. gearSetName
 end
 
@@ -111,7 +131,7 @@ function XLGB_GearSet:GetItemIndexInGearSet(itemID, gearSetNumber)
   return itemIndex
 end
 
-function XLGB_GearSet:AssignBagToStorage(gearSetNumber, bag)
+function XLGB_GearSet:AssignSetToStorage(gearSetNumber, bag)
   XLGearBanker.savedVariables.gearSetList[gearSetNumber].assignedBag = bag
 end
 

@@ -289,13 +289,13 @@ end
 ]]--
 function XLGB_Banking:AssignStorage(gearSetNumber)
   local gearSet = XLGB_GearSet:GetGearSet(gearSetNumber)
-  if (not XLGB_Banking.bankOpen) 
+  if (not XLGB_Banking.bankOpen)
   and (XLGB_Banking.currentBankBag ~= XLGB.NO_BAG)
   and (XLGB_Banking.currentBankBag ~= BAG_BANK) then
     d("[XLGB_ERROR] House storage chest not open, abort!")
     return false
   else
-    XLGB_GearSet:AssignBagToStorage(gearSetNumber, XLGB_Banking.currentBankBag)
+    XLGB_GearSet:AssignSetToStorage(gearSetNumber, XLGB_Banking.currentBankBag)
     d("[XLGB] Assigned \'" .. gearSet.name .. "\' to chest.")
     return true
   end
