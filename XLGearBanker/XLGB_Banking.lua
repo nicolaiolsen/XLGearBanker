@@ -79,35 +79,34 @@ end
 local function moveItem(sourceBag, itemIndex, targetBag, availableSpace)
   local moveSuccesful = false
   moveSuccesful = CallSecureProtected("RequestMoveItem", sourceBag, itemIndex, targetBag, availableSpace, 1)
-
   if moveSuccesful then
     easyDebug("Item move: Success!")
   end
 end
 
 local function moveGear(sourceBag, itemsToMove, targetBag, availableBagSpaces)
-  if (not XLGB_Banking.bankOpen) then
-    d("[XLGB_ERROR] Bank is not open, abort!")
-    return false
-  else
-    --Move each item of the specified gearset from sourceBag to targetBag
-    for i, itemEntry in ipairs(itemsToMove) do
-      moveItem(sourceBag, itemEntry.index, targetBag, availableBagSpaces[i])
-    end
-    return true
+  --Move each item of the specified gearset from sourceBag to targetBag
+  for i, itemEntry in ipairs(itemsToMove) do
+    moveItem(sourceBag, itemEntry.index, targetBag, availableBagSpaces[i])
   end
 end
 
 local function moveGearFromTwoBags(sourceBagOne, itemsToMoveOne, sourceBagTwo, itemsToMoveTwo, targetBag, availableBagSpaces)
   for i, itemEntry in ipairs(itemsToMoveOne) do
+    -- Stop when there are no more bag spaces,
+    -- return bag and index of item that was to be moved next.
+    if (#availableBagSpaces < i) then return sourceBagOne, i end
     moveItem(sourceBagOne, itemEntry.index, targetBag, availableBagSpaces[i])
   end
   for i, itemEntry in ipairs(itemsToMoveTwo) do
+    -- Stop when there are no more bag spaces,
+    -- return bag and index of item that was to be moved next.
+    if (#availableBagSpaces < i + #itemsToMoveOne) then return sourceBagTwo, i end
     moveItem(sourceBagTwo, itemEntry.index, targetBag, availableBagSpaces[i + #itemsToMoveOne])
   end
 end
 
-local function depositGearFromTwoBags(gearSet)
+local function depositGearToBankNonESOPlus(gearSet)
   local equippedItemsToMove = findItemsToMove(BAG_WORN, gearSet)
   local inventoryItemsToMove = findItemsToMove(BAG_BACKPACK, gearSet)
   local availableBagSpaces = getAvailableBagSpaces(XLGB_Banking.currentBankBag)
@@ -122,44 +121,51 @@ local function depositGearFromTwoBags(gearSet)
       XLGB_Banking.currentBankBag, availableBagSpaces)
 end
 
+local function getRemainingItems(items, fromIndex)
+  local remainingItems = {}
+  for i = fromIndex, #items do
+    table.insert(remainingItems, items[i])
+  end
+  return remainingItems
+end
+
 local function depositGearToBankESOPlus(gearSet)
-  if not XLGB_Banking.bankOpen then
-    d("[XLGB_ERROR] Bank is not open, abort!")
-    return false
+  local equippedItemsToMove = findItemsToMove(BAG_WORN, gearSet)
+  local inventoryItemsToMove = findItemsToMove(BAG_BACKPACK, gearSet)
+
+  local availableBagSpacesRegularBank = getAvailableBagSpaces(BAG_BANK)
+  local availableBagSpacesESOPlusBank = getAvailableBagSpaces(BAG_SUBSCRIBER_BANK)
+  -- 
+  local numberOfAvailableSpaces = #availableBagSpacesRegularBank + #availableBagSpacesESOPlusBank
+  local numberOfItemsToMove = #equippedItemsToMove + #inventoryItemsToMove
+
+  if (numberOfAvailableSpaces < numberOfItemsToMove) then
+    d("[XLGB_ERROR] Trying to move " .. numberOfItemsToMove.. "items into a bag with " .. numberOfAvailableSpaces .." empty slots.")
+    return
+  end
+
+  if (#availableBagSpacesRegularBank >= numberOfItemsToMove) then
+    moveGearFromTwoBags(
+        BAG_BACKPACK, inventoryItemsToMove,
+        BAG_WORN, equippedItemsToMove,
+        BAG_BANK, availableBagSpacesRegularBank)
+    return
+
   else
-    local availableBagSpacesRegularBank = getAvailableBagSpaces(BAG_BANK)
-    local availableBagSpacesESOPlusBank = getAvailableBagSpaces(BAG_SUBSCRIBER_BANK)
-    local totalItems = #gearSet.items
-    if (#availableBagSpacesRegularBank >= totalItems) then
-      return (moveGear(BAG_BACKPACK, BAG_BANK, gearSet) and moveGear(BAG_WORN, BAG_BANK, gearSet))
+    -- Add items to regular bank
+    local interruptedBag, fromIndex = moveGearFromTwoBags(
+                                          BAG_BACKPACK, inventoryItemsToMove,
+                                          BAG_WORN, equippedItemsToMove,
+                                          BAG_BANK, availableBagSpacesRegularBank)
 
-    elseif ((#availableBagSpacesRegularBank + #availableBagSpacesESOPlusBank) >= totalItems) then
-
-      local itemsToRegularBank = #availableBagSpacesRegularBank
-      -- Add items to regular bank
-      if itemsToRegularBank > 0 then
-        for i = 1, itemsToRegularBank do
-          local itemLink = gearSet.items[i].link
-          local itemID = gearSet.items[i].ID
-          if (#availableBagSpacesRegularBank >= i) then
-            moveItem(BAG_BACKPACK, BAG_BANK, itemLink, itemID, availableBagSpacesRegularBank[i])
-            moveItem(BAG_WORN, BAG_BANK, itemLink, itemID, availableBagSpacesRegularBank[i])
-          end
-        end
-      else 
-        -- If no slots left in regular bank add items to subscriber bank
-        itemsToRegularBank = 1
-      end
-      -- Add remaining items to available slots in subscriber bank
-      for i = itemsToRegularBank, totalItems do
-        local itemLink = gearSet.items[i].link
-        local itemID = gearSet.items[i].ID
-        if (#availableBagSpacesESOPlusBank >= i) then
-          moveItem(BAG_BACKPACK, BAG_BANK, itemLink, itemID, availableBagSpacesESOPlusBank[i-itemsToRegularBank +1])
-          moveItem(BAG_WORN, BAG_BANK, itemLink, itemID, availableBagSpacesESOPlusBank[i-itemsToRegularBank +1])
-        end
-      end
-      return true
+    if (interruptedBag == BAG_BACKPACK) then
+      local remainingItems = getRemainingItems(inventoryItemsToMove, fromIndex)
+      moveGearFromTwoBags(
+        BAG_BACKPACK, remainingItems,
+        BAG_WORN, equippedItemsToMove,
+        BAG_SUBSCRIBER_BANK, availableBagSpacesESOPlusBank)
+    else 
+      moveGear(BAG_WORN, equippedItemsToMove, BAG_SUBSCRIBER_BANK, availableBagSpacesESOPlusBank)
     end
   end
 end
@@ -178,20 +184,22 @@ function XLGB_Banking:DepositGear(gearSetNumber)
   end
   XLGB_Banking.recentlyCalled = true
   ]]--
+  if not XLGB_Banking.bankOpen then
+    d("[XLGB_ERROR] Bank is not open, abort!")
+    return
+  end
   local gearSet = XLGB_GearSet:GetGearSet(gearSetNumber)
   d("[XLGB] Depositing " .. gearSet.name)
 
   if IsESOPlusSubscriber() and (XLGB_Banking.currentBankBag == BAG_BANK) then
-    local equippedItemsToMove = findItemsToMove(BAG_WORN, gearSet)
-    local inventoryItemsToMove = findItemsToMove(BAG_BACKPACK, gearSet)
-    if depositGearToBankESOPlus(equippedItemsToMove, inventoryItemsToMove) then
+    depositGearToBankESOPlus(gearSet)
       d("[XLGB] Set \'" .. gearSet.name .. "\' deposited!")
       return
     end
 
   elseif (XLGB_Banking.currentBankBag == BAG_BANK) 
   or (XLGB_Banking.currentBankBag == gearSet.assignedBag) then
-    depositGearFromTwoBags(gearSet)
+    depositGearToBankNonESOPlus(gearSet)
     d("[XLGB] Set \'" .. gearSet.name .. "\' deposited!")
     
   else
@@ -243,6 +251,10 @@ function XLGB_Banking:WithdrawGear(gearSetNumber)
   end
   XLGB_Banking.recentlyCalled = true
   ]]--
+  if not XLGB_Banking.bankOpen then
+    d("[XLGB_ERROR] Bank is not open, abort!")
+    return
+  end
   local gearSet = XLGB_GearSet:GetGearSet(gearSetNumber)
   d("[XLGB] Withdrawing " .. gearSet.name)
   if IsESOPlusSubscriber() and (XLGB_Banking.currentBankBag == BAG_BANK) then
