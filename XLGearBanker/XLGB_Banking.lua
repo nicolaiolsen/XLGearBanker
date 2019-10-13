@@ -56,7 +56,7 @@ local function getAvailableBagSpaces(bag)
 
   for i = 0, GetBagSize(bag) do
     if GetItemName(bag, i) == "" then
-      table.insert(availableBagSpaces, #availableBagSpaces, i)
+      table.insert(availableBagSpaces, i)
     end
   end
   easyDebug("Found " .. #availableBagSpaces .. " available spaces in bag.")
