@@ -54,7 +54,7 @@ local function getAvailableBagSpaces(bag)
   easyDebug("Finding available bagspaces in bag: " .. bag)
   local availableBagSpaces = {}
 
-  for i = 0, GetBagSize(bag)-1 do
+  for i = 0, GetBagSize(bag) do
     if GetItemName(bag, i) == "" then
       table.insert(availableBagSpaces, #availableBagSpaces, i)
     end
