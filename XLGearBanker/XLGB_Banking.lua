@@ -47,7 +47,7 @@ local function findItemsToMove(sourceBag, gearSet)
       local itemToMoveEntry = {}
       itemToMoveEntry.item = item
       itemToMoveEntry.index = itemIndex
-      table.insert(itemToMoveEntry)
+      table.insert(itemsToMove, itemToMoveEntry)
     end
   end
   return itemsToMove
