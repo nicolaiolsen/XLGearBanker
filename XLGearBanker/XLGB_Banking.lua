@@ -204,24 +204,9 @@ function XLGB_Banking:AssignStorage(gearSetNumber)
     d("[XLGB_ERROR] House storage chest not open, abort!")
     return false
   else
-    local totalGearSets = XLGB_GearSet:GetNumberOfGearSets()
-
-    local storageNotAlreadyAssigned = true
-    for i = 1, totalGearSets do
-      local assignedBag = XLGB_GearSet:GetGearSet(i).assignedBag
-      if (assignedBag == XLGB_Banking.currentBankBag) 
-      and (i ~= gearSetNumber) then
-        storageNotAlreadyAssigned = false
-        d("[XLGB_ERROR] Storage is already assigned to another set. Only one set allowed per chest!")
-        return storageNotAlreadyAssigned
-      end
-    end
-
-    if storageNotAlreadyAssigned then
-      XLGB_GearSet:AssignBagToStorage(gearSetNumber, XLGB_Banking.currentBankBag)
-      d("[XLGB] Assigned \'" .. gearSet.name .. "\' to chest.")
-      return true
-    end
+    XLGB_GearSet:AssignBagToStorage(gearSetNumber, XLGB_Banking.currentBankBag)
+    d("[XLGB] Assigned \'" .. gearSet.name .. "\' to chest.")
+    return true
   end
 end
 
