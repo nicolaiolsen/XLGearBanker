@@ -193,9 +193,8 @@ function XLGB_Banking:DepositGear(gearSetNumber)
 
   if IsESOPlusSubscriber() and (XLGB_Banking.currentBankBag == BAG_BANK) then
     depositGearToBankESOPlus(gearSet)
-      d("[XLGB] Set \'" .. gearSet.name .. "\' deposited!")
-      return
-    end
+    d("[XLGB] Set \'" .. gearSet.name .. "\' deposited!")
+    return
 
   elseif (XLGB_Banking.currentBankBag == BAG_BANK) 
   or (XLGB_Banking.currentBankBag == gearSet.assignedBag) then
