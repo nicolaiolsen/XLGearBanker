@@ -112,7 +112,7 @@ local function depositGearFromTwoBags(gearSet)
   local inventoryItemsToMove = findItemsToMove(BAG_BACKPACK, gearSet)
   local availableBagSpaces = getAvailableBagSpaces(XLGB_Banking.currentBankBag)
   local numberOfItemsToMove = #equippedItemsToMove + #inventoryItemsToMove
-  if (availableBagSpaces < numberOfItemsToMove) then
+  if (#availableBagSpaces < numberOfItemsToMove) then
     d("[XLGB_ERROR] Trying to move " .. numberOfItemsToMove.. "items into a bag with " .. #availableBagSpaces .." empty slots.")
     return
   end
