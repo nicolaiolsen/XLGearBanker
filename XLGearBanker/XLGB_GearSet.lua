@@ -104,7 +104,7 @@ function XLGB_GearSet:GetItemIndexInGearSet(itemID, gearSetNumber)
   local gearSet = XLGB_GearSet:GetGearSet(gearSetNumber)
   local itemIndex = XLGB.ITEM_NOT_IN_BAG
   for i, item in pairs(gearSet.items) do
-    if item.itemID == itemID then
+    if (item.itemID == itemID) then
       itemIndex = i
     end
   end
