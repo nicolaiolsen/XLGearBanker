@@ -227,7 +227,7 @@ local function withdrawGearNonESOPlus(gearSet)
     d("[XLGB_ERROR] Trying to move " .. #itemsToMove.. "items into a bag with " .. #availableBagSpaces .." empty slots.")
     return
   end
-  moveGear(XLGB_Banking.currentBankBag, BAG_BACKPACK, itemsToMove)
+  moveGear(XLGB_Banking.currentBankBag, itemsToMove, BAG_BACKPACK, availableBagSpaces)
 end
 --[[
   function WithdrawGear
