@@ -63,18 +63,17 @@ local function getAvailableBagSpaces(bag)
   return availableBagSpaces
 end
 
-local function moveItem(sourceBag, targetBag, itemLink, itemID, availableBagSpaces)
+local function moveItem(sourceBag, targetBag, itemLink, itemID, availableSpace)
   easyDebug("Moving item", itemLink)
   local itemIndex = findItemIndexInBag(sourceBag, itemID)
   local moveSuccesful = false
   if itemIndex == XLGB.ITEM_NOT_IN_BAG then d("Couldn't find item " .. itemLink) end
   
-  if (itemIndex ~= XLGB.ITEM_NOT_IN_BAG) and (#availableBagSpaces >= 1) then
-    moveSuccesful = CallSecureProtected("RequestMoveItem", sourceBag, itemIndex, targetBag, availableBagSpaces[#availableBagSpaces], 1)
+  if (itemIndex ~= XLGB.ITEM_NOT_IN_BAG) then
+    moveSuccesful = CallSecureProtected("RequestMoveItem", sourceBag, itemIndex, targetBag, availableSpace, 1)
   end
   if moveSuccesful then
     easyDebug("Item move: Success!")
-    table.remove(availableBagSpaces)
   end
 end
 
@@ -87,9 +86,9 @@ local function moveGear(sourceBag, targetBag, gearSet)
     --Move each item of the specified gearset from sourceBag to targetBag
     for i, item in ipairs(gearSet.items) do
         d("Moving item: " .. i .. " - Spaces left " .. #availableBagSpaces)
-        lua_lock()
-        moveItem(sourceBag, targetBag, item.link, item.ID, availableBagSpaces)
-        lua_unlock()
+        if (#availableBagSpaces >= i) then
+          moveItem(sourceBag, targetBag, item.link, item.ID, availableBagSpaces[i])
+        end
     end
     return true
   end
