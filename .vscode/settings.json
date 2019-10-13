@@ -50,7 +50,8 @@
         "BAG_WORN",
         "ZO_CreateStringId",
         "GetItemUniqueID",
-        "Id64ToString"
+        "Id64ToString",
+        "GetItemUniqueId"
     ],
     "Lua.diagnostics.disable": [
         "lowercase-global",

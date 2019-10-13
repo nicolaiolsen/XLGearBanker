@@ -31,7 +31,7 @@ end
 local function findItemIndexInBag(bag, itemID)
   local item_index = XLGB.ITEM_NOT_IN_BAG
   for i = 0, GetBagSize(bag) do
-    if Id64ToString(GetItemUniqueID(bag, i)) == itemID then
+    if Id64ToString(GetItemUniqueId(bag, i)) == itemID then
       item_index = i
       return item_index
     end

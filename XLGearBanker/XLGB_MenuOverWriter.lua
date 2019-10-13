@@ -82,7 +82,7 @@ local function OverWriteInventoryShowContextMenuHandler()
           bag, index = ZO_Inventory_GetBagAndIndex(inventorySlot)
           itemLink = GetItemLink(bag, index)
           itemType = GetItemLinkItemType(itemLink)
-          itemID = Id64ToString(GetItemUniqueID(bag, index))
+          itemID = Id64ToString(GetItemUniqueId(bag, index))
 
           -- Item should be armor or weapon.
           if itemType ~= ITEMTYPE_ARMOR
