@@ -67,7 +67,8 @@ local function moveItem(sourceBag, targetBag, itemLink, itemID, availableBagSpac
   easyDebug("Moving item", itemLink)
   local itemIndex = findItemIndexInBag(sourceBag, itemID)
   local moveSuccesful = false
-  d("itemIndex: " .. itemIndex)
+  if itemIndex == XLGB.ITEM_NOT_IN_BAG then d("Couldn't find item " .. itemLink) end
+  
   if (itemIndex ~= XLGB.ITEM_NOT_IN_BAG) and (#availableBagSpaces >= 1) then
     moveSuccesful = CallSecureProtected("RequestMoveItem", sourceBag, itemIndex, targetBag, availableBagSpaces[#availableBagSpaces], 1)
   end
