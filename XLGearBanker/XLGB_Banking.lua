@@ -83,7 +83,8 @@ local function moveGear(sourceBag, targetBag, gearSet)
   else
     local availableBagSpaces = getAvailableBagSpaces(targetBag)
     --Move each item of the specified gearset from sourceBag to targetBag
-    for _, item in pairs(gearSet.items) do
+    for i, item in pairs(gearSet.items) do
+        d("Moving item: " .. i)
         moveItem(sourceBag, targetBag, item.link, item.ID, availableBagSpaces)
     end
     return true
