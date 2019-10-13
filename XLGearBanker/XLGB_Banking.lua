@@ -138,14 +138,20 @@ end
   Output:
 ]]--
 function XLGB_Banking:DepositGear(gearSetNumber)
+  if XLGB_Banking.recentlyCalled then
+    d("[XLGB_ERROR] You've recently transferred items! Let the servers catch their breath." )
+    return
+  end
   local gearSet = XLGB_GearSet:GetGearSet(gearSetNumber)
+  XLGB_Banking.recentlyCalled = true
   d("[XLGB] Depositing " .. gearSet.name)
+
   if IsESOPlusSubscriber() and (XLGB_Banking.currentBankBag == BAG_BANK) then
     if depositGearToBankESOPlus(gearSet) then
       d("[XLGB] Set \'" .. gearSet.name .. "\' deposited!")
       return
     end
-  
+
   elseif (self.currentBankBag == BAG_BANK) or (XLGB_Banking.currentBankBag == gearSet.assignedBag) then
     if moveGear(BAG_BACKPACK, XLGB_Banking.currentBankBag, gearSet) 
     and moveGear(BAG_WORN, XLGB_Banking.currentBankBag, gearSet) then
@@ -155,6 +161,9 @@ function XLGB_Banking:DepositGear(gearSetNumber)
     d("[XLGB] Set \'" .. gearSet.name .. "\' does not belong to this storage chest.",
   "To assign this chest to  \'" .. gearSet.name .. "\' use  \'/xlgb_assign setNumber\'")
   end
+  zo_callLater(function()
+    XLGB_Banking.recentlyCalled = false
+  end, 5000)
 end
 
 --[[
@@ -164,6 +173,10 @@ end
   Output:
 ]]--
 function XLGB_Banking:WithdrawGear(gearSetNumber)
+  if XLGB_Banking.recentlyCalled then
+    d("[XLGB_ERROR] You've recently transferred items! Let the servers catch their breath." )
+    return
+  end
   local gearSet = XLGB_GearSet:GetGearSet(gearSetNumber)
   d("[XLGB] Withdrawing " .. gearSet.name)
   if IsESOPlusSubscriber() and (XLGB_Banking.currentBankBag == BAG_BANK) then
@@ -174,6 +187,9 @@ function XLGB_Banking:WithdrawGear(gearSetNumber)
   elseif moveGear(XLGB_Banking.currentBankBag, BAG_BACKPACK, gearSet) then
     d("[XLGB] Set \'" .. gearSet.name .. "\' withdrawn!")
   end
+  zo_callLater(function()
+    XLGB_Banking.recentlyCalled = false
+  end, 5000)
 end
 
 --[[
@@ -213,6 +229,7 @@ end
 
 function XLGB_Banking:Initialize()
   self.bankOpen = IsBankOpen()
+  self.recentlyCalled = false
   EVENT_MANAGER:RegisterForEvent(self.name, EVENT_OPEN_BANK, self.OnBankOpenEvent)
   EVENT_MANAGER:RegisterForEvent(self.name, EVENT_CLOSE_BANK, self.OnBankCloseEvent)
 end
