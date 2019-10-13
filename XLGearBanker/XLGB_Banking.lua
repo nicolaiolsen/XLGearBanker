@@ -84,11 +84,14 @@ local function moveGear(sourceBag, targetBag, gearSet)
     return false
   else
     local availableBagSpaces = getAvailableBagSpaces(targetBag)
+    local totalGearSets = XLGB_GearSet:GetNumberOfGearSets()
     --Move each item of the specified gearset from sourceBag to targetBag
     for i, item in ipairs(gearSet.items) do
         d("Moving item: " .. i .. " - Spaces left " .. #availableBagSpaces)
         moveItem(sourceBag, targetBag, item.link, item.ID, availableBagSpaces)
     end
+    local lastItem = gearSet.items[totalGearSets]
+    moveItem(sourceBag, targetBag, lastItem.link, lastItem.ID, availableBagSpaces)
     return true
   end
 end
@@ -138,11 +141,13 @@ end
   Output:
 ]]--
 function XLGB_Banking:DepositGear(gearSetNumber)
+  --[[
   if XLGB_Banking.recentlyCalled then
     d("[XLGB_ERROR] You've recently transferred items! Let the servers catch their breath." )
     return
   end
   XLGB_Banking.recentlyCalled = true
+  ]]--
   local gearSet = XLGB_GearSet:GetGearSet(gearSetNumber)
   d("[XLGB] Depositing " .. gearSet.name)
 
@@ -161,9 +166,11 @@ function XLGB_Banking:DepositGear(gearSetNumber)
     d("[XLGB] Set \'" .. gearSet.name .. "\' does not belong to this storage chest.",
   "To assign this chest to  \'" .. gearSet.name .. "\' use  \'/xlgb_assign setNumber\'")
   end
+  --[[
   zo_callLater(function()
     XLGB_Banking.recentlyCalled = false
   end, 3000)
+  ]]--
 end
 
 --[[
@@ -173,11 +180,13 @@ end
   Output:
 ]]--
 function XLGB_Banking:WithdrawGear(gearSetNumber)
+  --[[
   if XLGB_Banking.recentlyCalled then
     d("[XLGB_ERROR] You've recently transferred items! Let the servers catch their breath." )
     return
   end
   XLGB_Banking.recentlyCalled = true
+  ]]--
   local gearSet = XLGB_GearSet:GetGearSet(gearSetNumber)
   d("[XLGB] Withdrawing " .. gearSet.name)
   if IsESOPlusSubscriber() and (XLGB_Banking.currentBankBag == BAG_BANK) then
@@ -188,9 +197,11 @@ function XLGB_Banking:WithdrawGear(gearSetNumber)
   elseif moveGear(XLGB_Banking.currentBankBag, BAG_BACKPACK, gearSet) then
     d("[XLGB] Set \'" .. gearSet.name .. "\' withdrawn!")
   end
+  --[[
   zo_callLater(function()
     XLGB_Banking.recentlyCalled = false
   end, 3000)
+  ]]--
 end
 
 --[[
