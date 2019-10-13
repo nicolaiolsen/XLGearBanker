@@ -163,7 +163,7 @@ function XLGB_Banking:DepositGear(gearSetNumber)
   end
   zo_callLater(function()
     XLGB_Banking.recentlyCalled = false
-  end, 5000)
+  end, 2000)
 end
 
 --[[
@@ -177,6 +177,7 @@ function XLGB_Banking:WithdrawGear(gearSetNumber)
     d("[XLGB_ERROR] You've recently transferred items! Let the servers catch their breath." )
     return
   end
+  XLGB_Banking.recentlyCalled = true
   local gearSet = XLGB_GearSet:GetGearSet(gearSetNumber)
   d("[XLGB] Withdrawing " .. gearSet.name)
   if IsESOPlusSubscriber() and (XLGB_Banking.currentBankBag == BAG_BANK) then
@@ -189,7 +190,7 @@ function XLGB_Banking:WithdrawGear(gearSetNumber)
   end
   zo_callLater(function()
     XLGB_Banking.recentlyCalled = false
-  end, 5000)
+  end, 2000)
 end
 
 --[[
