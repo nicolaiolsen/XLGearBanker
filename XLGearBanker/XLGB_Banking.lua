@@ -42,7 +42,7 @@ end
 local function findItemsToMove(sourceBag, gearSet)
   local itemsToMove = {}
   for _, item in pairs(gearSet.items) do
-    local itemIndex = findItemIndexInBag(sourceBag, item)
+    local itemIndex = findItemIndexInBag(sourceBag, item.ID)
     if (itemIndex ~= XLGB.ITEM_NOT_IN_BAG) then
       local itemToMoveEntry = {}
       itemToMoveEntry.item = item
@@ -76,8 +76,7 @@ local function getAvailableBagSpaces(bag)
   return availableBagSpaces
 end
 
-local function moveItem(sourceBag, targetBag, itemLink, itemIndex, availableSpace)
-  easyDebug("Moving item", itemLink)
+local function moveItem(sourceBag, itemIndex, targetBag, availableSpace)
   local moveSuccesful = false
   moveSuccesful = CallSecureProtected("RequestMoveItem", sourceBag, itemIndex, targetBag, availableSpace, 1)
 
@@ -98,10 +97,7 @@ local function moveGear(sourceBag, targetBag, itemsToMove)
     end
     --Move each item of the specified gearset from sourceBag to targetBag
     for i, itemEntry in ipairs(itemsToMove) do
-        d("Moving item: " .. i .. " - Spaces left " .. #availableBagSpaces)
-        if (#availableBagSpaces >= i) then
-          moveItem(sourceBag, targetBag, itemEntry.item.link, itemEntry.index, availableBagSpaces[i])
-        end
+      moveItem(sourceBag, itemEntry.index, targetBag, availableBagSpaces[i])
     end
     return true
   end
