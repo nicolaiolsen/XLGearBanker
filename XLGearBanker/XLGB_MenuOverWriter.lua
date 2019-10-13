@@ -83,6 +83,7 @@ local function OverWriteInventoryShowContextMenuHandler()
           itemLink = GetItemLink(bag, index)
           itemType = GetItemLinkItemType(itemLink)
           itemID = Id64ToString(GetItemUniqueId(bag, index))
+          easyDebug("Item ID of " .. itemLink .. ": " .. itemID)
 
           -- Item should be armor or weapon.
           if itemType ~= ITEMTYPE_ARMOR
