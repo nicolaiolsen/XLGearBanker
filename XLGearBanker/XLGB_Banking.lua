@@ -174,7 +174,7 @@ function XLGB_Banking:DepositGear(gearSetNumber)
       return
     end
 
-  elseif (XLGB_Banking.currentBankBag.currentBankBag == BAG_BANK) or (XLGB_Banking.currentBankBag == gearSet.assignedBag) then
+  elseif (XLGB_Banking.currentBankBag == BAG_BANK) or (XLGB_Banking.currentBankBag == gearSet.assignedBag) then
     local equippedItemsToMove = findItemsToMove(BAG_WORN, gearSet)
     local inventoryItemsToMove = findItemsToMove(BAG_BACKPACK, gearSet)
     if moveGear(BAG_BACKPACK, XLGB_Banking.currentBankBag, inventoryItemsToMove) 
