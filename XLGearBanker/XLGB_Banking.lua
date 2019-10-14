@@ -331,7 +331,9 @@ end
 
 local function assignSetToStorage(gearSetNumber, storageBagID)
   local gearSet = XLGB_GearSet:GetGearSet(gearSetNumber)
+  d("Assigning storagebagID " .. storageBagID)
   local storageBag = getStorageBag(storageBagID)
+  d(storageBag)
   local gearSetIndex = findGearSetInStorage(gearSet, storageBag)
   if (gearSetIndex ~= XLGB.GEARSET_NOT_ASSIGNED_TO_STORAGE) then
     d("[XLGB_ERROR] Gearset already assigned to this storage chest.")
