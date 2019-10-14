@@ -285,10 +285,10 @@ local function getStorageBag(storageBagID)
   return XLGearBanker.savedVariables.storageBags[storageBagID]
 end
 
-local function findGearSetInStorage(gearSet, storageBag)
+local function findGearSetInStorage(gearSetName, storageBag)
   local gearSetIndex = XLGB.GEARSET_NOT_ASSIGNED_TO_STORAGE
   for i, storageGearSet in pairs(storageBag.gearSets) do
-    if (gearSet.name == storageGearSet.name) then
+    if (gearSetName == storageGearSet.name) then
       gearSetIndex = i
       return gearSetIndex
     end
@@ -296,40 +296,40 @@ local function findGearSetInStorage(gearSet, storageBag)
   return gearSetIndex
 end
 
-local function isItemDuplicate(sourceItem, targetItems)
-  local isDuplicate = false
-  for _, targetItem in pairs(targetItems) do
+local function findItemIndexInSet(sourceItem, targetItems)
+  local itemIndex = XLGB.ITEM_NOT_IN_SET
+  for i, targetItem in pairs(targetItems) do
     if (sourceItem.ID == targetItem.ID) then
-      isDuplicate = true
-      return isDuplicate
+      itemIndex = i
+      return itemIndex
     end
   end
-  return isDuplicate
+  return itemIndex
 end
 
-local function compareItemSets(sourceItems, targetItems)
+local function compareItemsWithStorage(sourceItems, storageBag)
   local uniqueItems, duplicateItems = {}
   for _, sourceItem in pairs(sourceItems) do
-    if (isItemDuplicate(sourceItem, targetItems)) then
-      table.insert(duplicateItems, sourceItem)
+    itemIndex = findItemIndexInSet(sourceItem, storageBag.assignedItems)
+    if (itemIndex ~= XLGB.ITEM_NOT_IN_SET ) then
+      table.insert(duplicateItems, itemIndex)
     else
+      sourceItem.count = 1
       table.insert(uniqueItems, sourceItem)
     end
   end
   return uniqueItems, duplicateItems
 end
 
-local function compareItemsWithStorage(sourceItems, storageBag)
-  local duplicateItems = {}
-  local uniqueItems = sourceItems
-  for _, gearSet in pairs(storageBag.gearSets) do 
-    uniqueItems, duplicateItems = compareItemSets(uniqueItems, gearSet.items)
+local function addSetToStorageItems(uniqueItems, indicesOfDuplicates, gearSetName, storageBagID)
+  local storageBag = XLGearBanker.savedVariables.storageBags[storageBagID]
+  for _, duplicateIndex in pairs(indicesOfDuplicates) do
+    storageBag.assignedItems[duplicateIndex].count = storageBag.assignedItems[duplicateIndex].count + 1
   end
-  return uniqueItems, duplicateItems
-end
-
-local function addSetToStorageSets(gearSet, storageBagID)
-  table.insert(XLGearBanker.savedVariables.storageBags[storageBagID].gearSets, gearSet)
+  for _, uniqueItem in pairs(uniqueItems) do
+    table.insert(storageBag.assignedItems, uniqueItem)
+  end
+  table.insert(storageBag.assignedSets, gearSetName)
 end
 
 local function assignSetToStorage(gearSet, storageBagID)
@@ -339,13 +339,13 @@ local function assignSetToStorage(gearSet, storageBagID)
     d("[XLGB_ERROR] Gearset already assigned to this storage chest.")
     return false
   end
-  local _, itemsNotAlreadyAssigned = compareItemsWithStorage(gearSet, storageBag)
-  local slotsLeft = storageBag.size - storageBag.slotsLeft
-  if (slotsLeft < #itemsNotAlreadyAssigned) then
-    d("[XLGB_ERROR] Cannot assign set to storage. Trying to assign " .. #itemsNotAlreadyAssigned .. " items when only " .. slotsLeft .. " are open for assignment.")
+  local itemsNotAlreadyAssigned, indicesOfDuplicates = compareItemsWithStorage(gearSet, storageBag)
+  if (storageBag.slotsLeft < #itemsNotAlreadyAssigned) then
+    d("[XLGB_ERROR] Cannot assign set to storage. Trying to assign " .. #itemsNotAlreadyAssigned .. " items when only " .. storageBag.slotsLeft .. " are open for assignment.")
     return false
   end
-  addSetToStorageSets(gearSet, storageBagID)
+  addSetToStorageItems(itemsNotAlreadyAssigned, indicesOfDuplicates, storageBagID)
+  XLGearBanker.savedVariables.storageBags[storageBagID].slotsLeft = XLGearBanker.savedVariables.storageBags[storageBagID].slotsLeft - #itemsNotAlreadyAssigned
   return true
 end
 --[[
@@ -370,15 +370,29 @@ function XLGB_Banking:AssignStorage(gearSetNumber)
   end
 end
 
+local function removeSetFromStorage(gearSet, gearSetNameIndex, storageBagID)
+  local storageBag = XLGearBanker.savedVariables.storageBags[storageBagID]
+  for _, item in pairs(gearSet.items) do
+    itemIndex = findItemIndexInSet(item, storageBag.assignedItems)
+    local itemCount = storageBag.assignedItems[itemIndex].count - 1
+    if (itemCount < 1) then
+      table.remove(XLGearBanker.savedVariables.storageBags[storageBagID].assignedItems, itemIndex)
+      XLGearBanker.savedVariables.storageBags[storageBagID].slotsLeft = XLGearBanker.savedVariables.storageBags[storageBagID].slotsLeft + 1
+    else 
+      XLGearBanker.savedVariables.storageBags[storageBagID].assignedItems[itemIndex].count = XLGearBanker.savedVariables.storageBags[storageBagID].assignedItems[itemIndex].count - 1
+    end
+  end
+  table.remove(XLGearBanker.savedVariables.storageBags[storageBagID].gearSetNames, gearSetNameIndex)
+end
+
 local function unassignSetFromStorage(gearSet, storageBagID)
   local storageBag = getStorageBag(storageBagID)
-  local gearSetIndex = findGearSetInStorage(gearSet, storageBag)
-  if (gearSetIndex == XLGB.GEARSET_NOT_ASSIGNED_TO_STORAGE) then
+  local gearSetNameIndex = findGearSetInStorage(gearSet.name, storageBag)
+  if (gearSetNameIndex == XLGB.GEARSET_NOT_ASSIGNED_TO_STORAGE) then
     d("[XLGB_ERROR] Set \'" .. gearSet.name .. "\' is already not assigned to this chest.")
     return false
   else 
-    table.remove(storageBag.gearSets, gearSetIndex)
-    return true
+    removeSetFromStorage(gearSet, gearSetNameIndex, storageBag)
   end
 end
 
@@ -393,6 +407,13 @@ function XLGB_Banking:UnassignStorage(gearSetNumber)
     if unassignSetFromStorage(gearSet, XLGB_Banking.currentBankBag) then
       d("[XLGB] Set \'" .. gearSet.name .. "\' is no longer assigned to this chest.")
     end
+  end
+end
+
+function XLGB_Banking:DepositStorageItems()
+  if not XLGB_Banking.bankOpen then
+    d("[XLGB_ERROR] Bank is not open, abort!")
+    return
   end
 end
 
