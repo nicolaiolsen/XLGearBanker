@@ -330,7 +330,9 @@ end
 
 local function addSetToStorageSets(gearSet, storageBagID)
   d("Storage gearsets before: ", XLGearBanker.savedVariables.storageBags[storageBagID].gearSets)
-  table.insert(XLGearBanker.savedVariables.storageBags[storageBagID].gearSets, gearSet)
+  local gearSets = XLGearBanker.savedVariables.storageBags[storageBagID].gearSets
+  table.insert(gearSets, gearSet)
+  XLGearBanker.savedVariables.storageBags[storageBagID].gearSets = gearSets
   d("Storage gearsets after: ", XLGearBanker.savedVariables.storageBags[storageBagID].gearSets)
 end
 
