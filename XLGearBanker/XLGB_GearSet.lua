@@ -14,7 +14,7 @@ function XLGB_GearSet:ValidGearSetNumber(gearSetNumber, totalGearSets)
   or gearSetNumber == ""
   or gearSetNumber > totalGearSets
   or gearSetNumber < 1 then
-    d("[XLGB_ERROR] GearSetNumber is invalid.")
+    d("[XLGB_ERROR] GearSetNumber \'".. gearSetNumber .."\' is invalid.")
     return false
   else
     return true
