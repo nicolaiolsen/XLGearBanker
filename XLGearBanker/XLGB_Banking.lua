@@ -16,7 +16,6 @@ function XLGB_Banking.OnBankOpenEvent(event, bankBag)
   if not XLGB_Banking.bankOpen then
     XLGB_Banking.bankOpen = IsBankOpen()
     XLGB_Banking.currentBankBag = bankBag
-      
     easyDebug("Bank open!")
   end
 end
@@ -363,7 +362,7 @@ function XLGB_Banking:AssignStorage(gearSetNumber)
     return false
   else
     local gearSet = XLGB_GearSet:GetGearSet(gearSetNumber)
-    if assignSetToStorage(gearSet, XLGB.currentBankBag) then
+    if assignSetToStorage(gearSet, XLGB_Banking.currentBankBag) then
       d("[XLGB] Assigned \'" .. gearSet.name .. "\' to chest.")
       return true
     end
