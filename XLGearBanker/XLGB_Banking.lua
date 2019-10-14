@@ -329,7 +329,7 @@ local function compareItemsWithStorage(sourceItems, storageBag)
 end
 
 local function addSetToStorageSets(gearSet, storageBagID)
-  d("Gearset: ", gearSet)
+  d("Gearset addSetToStorageSets: ", gearSet)
   d("Storage gearsets before: ", XLGearBanker.savedVariables.storageBags[storageBagID].gearSets)
   local gearSets = XLGearBanker.savedVariables.storageBags[storageBagID].gearSets
   table.insert(gearSets, gearSet)
@@ -339,6 +339,7 @@ end
 
 local function assignSetToStorage(gearSetNumber, storageBagID)
   local gearSet = XLGB_GearSet:GetGearSet(gearSetNumber)
+  d("Gearset assignSetToStorage:", gearSet)
   local storageBag = getStorageBag(storageBagID)
   local gearSetIndex = findGearSetInStorage(gearSet, storageBag)
   if (gearSetIndex ~= XLGB.GEARSET_NOT_ASSIGNED_TO_STORAGE) then
