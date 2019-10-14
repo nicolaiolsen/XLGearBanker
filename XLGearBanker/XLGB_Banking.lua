@@ -337,9 +337,7 @@ local function addSetToStorageSets(gearSet, storageBagID)
   d("Storage gearsets after: ", XLGearBanker.savedVariables.storageBags[storageBagID].gearSets)
 end
 
-local function assignSetToStorage(gearSetNumber, storageBagID)
-  local gearSet = XLGB_GearSet:GetGearSet(gearSetNumber)
-  d("Gearset assignSetToStorage:", gearSet)
+local function assignSetToStorage(gearSet, storageBagID)
   local storageBag = getStorageBag(storageBagID)
   local gearSetIndex = findGearSetInStorage(gearSet, storageBag)
   if (gearSetIndex ~= XLGB.GEARSET_NOT_ASSIGNED_TO_STORAGE) then

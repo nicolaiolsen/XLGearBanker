@@ -31,7 +31,7 @@ function XLGB_GearSet:ValidGearSetName(gearSetName)
   end
 end
 
-function XLGB_GearSet:GetGearSet(gearSetNumber)  
+function XLGB_GearSet:GetGearSet(gearSetNumber)
   return XLGearBanker.savedVariables.gearSetList[gearSetNumber]
 end
 
