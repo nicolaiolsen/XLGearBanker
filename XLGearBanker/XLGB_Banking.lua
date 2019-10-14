@@ -328,6 +328,10 @@ local function compareItemsWithStorage(sourceItems, storageBag)
   return uniqueItems, duplicateItems
 end
 
+local function addSetToStorageSets(gearSet, storageBagID)
+  table.insert(XLGearBanker.savedVariables[storageBagID].gearSets, gearSet)
+end
+
 local function assignSetToStorage(gearSetNumber, storageBagID)
   local gearSet = XLGB_GearSet:GetGearSet(gearSetNumber)
   d("Assigning storagebagID " .. storageBagID)
@@ -344,7 +348,7 @@ local function assignSetToStorage(gearSetNumber, storageBagID)
     d("[XLGB_ERROR] Cannot assign set to storage. Trying to assign " .. #itemsNotAlreadyAssigned .. " items when only " .. slotsLeft .. " are open for assignment.")
     return false
   end
-  table.insert(storageBag.gearSets, gearSet)
+  addSetToStorageSets(gearSet, storageBagID)
   return true
 end
 --[[
