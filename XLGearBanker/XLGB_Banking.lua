@@ -281,6 +281,59 @@ function XLGB_Banking:WithdrawGear(gearSetNumber)
   ]]--
 end
 
+local function getStorageBag(storageBagID)
+  local storageBags = XLGearBanker.savedVariables.storageBags
+  for _, storageBag in pairs(storageBags) do
+    if (storageBagID == storageBag.ID) then
+      return storageBag
+    end
+  end
+end
+
+local function isItemDuplicate(sourceItem, targetItems)
+  local isDuplicate = false
+  for _, targetItem in pairs(targetItems) do
+    if (sourceItem.ID == targetItem.ID) then
+      isDuplicate = true
+      return isDuplicate
+    end
+  end
+  return isDuplicate
+end
+
+local function compareItemSets(sourceItems, targetItems)
+  local uniqueItems, duplicateItems = {}
+  for _, sourceItem in pairs(sourceItems) do
+    if (isItemDuplicate(sourceItem, targetItems)) then
+      table.insert(duplicateItems, sourceItem)
+    else
+      table.insert(uniqueItems, sourceItem)
+    end
+  end
+  return uniqueItems, duplicateItems
+end
+
+local function compareItemsWithStorage(sourceItems, storageBag)
+  local duplicateItems = {}
+  local uniqueItems = sourceItems
+  for _, gearSet in storageBag.gearSets do 
+    uniqueItems, duplicateItems = compareItemSets(uniqueItems, gearSet.items)
+  end
+  return uniqueItems, duplicateItems
+end
+
+local function assignSetToStorage(gearSetNumber, storageBagID)
+  local gearSet = XLGB_GearSet:GetGearSet(gearSetNumber)
+  local storageBag = getStorageBag(storageBagID)
+  local _, itemsNotAlreadyAssigned = compareItemsWithStorage(gearSet, storageBag)
+  local slotsLeft = GetBagSize(storageBagID) - storageBag.slotsLeft
+  if (slotsLeft < #itemsNotAlreadyAssigned) then
+    d("[XLGB_ERROR] Cannot assign set to storage. Trying to assign " .. #itemsNotAlreadyAssigned .. " items when only " .. slotsLeft .. " are open for assignment.")
+    return false
+  end
+  table.insert(storageBag.gearSets, gearSet)
+  return true
+end
 --[[
   function AssignStorage
   Input:
@@ -288,16 +341,42 @@ end
   Output:
 ]]--
 function XLGB_Banking:AssignStorage(gearSetNumber)
-  local gearSet = XLGB_GearSet:GetGearSet(gearSetNumber)
   if (not XLGB_Banking.bankOpen)
   and (XLGB_Banking.currentBankBag ~= XLGB.NO_BAG)
   and (XLGB_Banking.currentBankBag ~= BAG_BANK) then
     d("[XLGB_ERROR] House storage chest not open, abort!")
     return false
   else
-    XLGB_GearSet:AssignSetToStorage(gearSetNumber, XLGB_Banking.currentBankBag)
-    d("[XLGB] Assigned \'" .. gearSet.name .. "\' to chest.")
-    return true
+    local gearSet = XLGB_GearSet:GetGearSet(gearSetNumber)
+    if assignSetToStorage(gearSet, XLGB.currentBankBag) then
+      XLGB_GearSet:AssignSetToStorage(gearSetNumber, XLGB_Banking.currentBankBag)
+      d("[XLGB] Assigned \'" .. gearSet.name .. "\' to chest.")
+      return true
+    end
+  end
+end
+
+local function unassignSetFromStorage(gearSet, storageBagID)
+  local storageBag = getStorageBag(storageBagID)
+  for i, storageGearSet in pairs(storageBag.gearSets) do
+    if (gearSet.name == storageGearSet.name) then
+      table.remove(storageBag.gearSets, i)
+      return
+    end
+  end
+end
+
+function XLGB_Banking:UnassignStorage(gearSetNumber)
+  if (not XLGB_Banking.bankOpen)
+  and (XLGB_Banking.currentBankBag ~= XLGB.NO_BAG)
+  and (XLGB_Banking.currentBankBag ~= BAG_BANK) then
+    d("[XLGB_ERROR] House storage chest not open, abort!")
+    return false
+  else
+    local gearSet = XLGB_GearSet:GetGearSet(gearSetNumber)
+    if unassignSetFromStorage(gearSet, XLGB.currentBankBag) then
+      d("[XLGB] Assigned \'" .. gearSet.name .. "\' to chest.")
+    end
   end
 end
 

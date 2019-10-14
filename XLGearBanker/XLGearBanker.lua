@@ -102,4 +102,12 @@ SLASH_COMMANDS["/xlgb_assign"] = function (argsv)
     XLGB_Banking:AssignStorage(gearSetNumber)
   end
 end
+
+SLASH_COMMANDS["/xlgb_unassign"] = function (argsv)
+  local totalGearSets = XLGB_GearSet:GetNumberOfGearSets()
+  local gearSetNumber = tonumber(argsv)
+  if XLGB_GearSet:ValidGearSetNumber(gearSetNumber, totalGearSets) then
+    XLGB_Banking:UnassignStorage(gearSetNumber)
+  end
+end
 -------------------------------------------------------------------------------
