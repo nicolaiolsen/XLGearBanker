@@ -329,12 +329,7 @@ local function compareItemsWithStorage(sourceItems, storageBag)
 end
 
 local function addSetToStorageSets(gearSet, storageBagID)
-  d("Gearset addSetToStorageSets: ", gearSet)
-  d("Storage gearsets before: ", XLGearBanker.savedVariables.storageBags[storageBagID].gearSets)
-  local gearSets = XLGearBanker.savedVariables.storageBags[storageBagID].gearSets
-  table.insert(gearSets, gearSet)
-  XLGearBanker.savedVariables.storageBags[storageBagID].gearSets = gearSets
-  d("Storage gearsets after: ", XLGearBanker.savedVariables.storageBags[storageBagID].gearSets)
+  table.insert(XLGearBanker.savedVariables.storageBags[storageBagID].gearSets, gearSet)
 end
 
 local function assignSetToStorage(gearSet, storageBagID)
@@ -396,7 +391,7 @@ function XLGB_Banking:UnassignStorage(gearSetNumber)
   else
     local gearSet = XLGB_GearSet:GetGearSet(gearSetNumber)
     if unassignSetFromStorage(gearSet, XLGB_Banking.currentBankBag) then
-      d("[XLGB] Set \'" .. gearSet.name .. "\' is no more assigned to this chest.")
+      d("[XLGB] Set \'" .. gearSet.name .. "\' is no longer assigned to this chest.")
     end
   end
 end
