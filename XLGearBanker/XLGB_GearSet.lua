@@ -59,7 +59,6 @@ function XLGB_GearSet:CreateNewGearSet(gearSetName)
   local gearSet = {}
   gearSet.name = "" .. gearSetName
   gearSet.items = {}
-  gearSet.assignedBag = XLGB_Banking.NO_BAG
   table.insert(XLGearBanker.savedVariables.gearSetList, gearSet)
   d("[XLGB] Created new set: " .. gearSetName)
 end
@@ -129,10 +128,6 @@ function XLGB_GearSet:GetItemIndexInGearSet(itemID, gearSetNumber)
     end
   end
   return itemIndex
-end
-
-function XLGB_GearSet:AssignSetToStorage(gearSetNumber, bag)
-  XLGearBanker.savedVariables.gearSetList[gearSetNumber].assignedBag = bag
 end
 
 function XLGB_GearSet:PrintGearSets()
