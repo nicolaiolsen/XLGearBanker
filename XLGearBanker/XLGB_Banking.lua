@@ -374,12 +374,14 @@ local function removeSetFromStorage(gearSet, gearSetNameIndex, storageBagID)
   local storageBag = XLGearBanker.savedVariables.storageBags[storageBagID]
   for _, item in pairs(gearSet.items) do
     itemIndex = findItemIndexInSet(item, storageBag.assignedItems)
-    local itemCount = storageBag.assignedItems[itemIndex].count - 1
-    if (itemCount < 1) then
-      table.remove(XLGearBanker.savedVariables.storageBags[storageBagID].assignedItems, itemIndex)
-      XLGearBanker.savedVariables.storageBags[storageBagID].slotsLeft = XLGearBanker.savedVariables.storageBags[storageBagID].slotsLeft + 1
-    else 
-      XLGearBanker.savedVariables.storageBags[storageBagID].assignedItems[itemIndex].count = XLGearBanker.savedVariables.storageBags[storageBagID].assignedItems[itemIndex].count - 1
+    if (itemIndex ~= XLGB.ITEM_NOT_IN_SET) then
+      local itemCount = storageBag.assignedItems[itemIndex].count - 1
+      if (itemCount < 1) then
+        table.remove(XLGearBanker.savedVariables.storageBags[storageBagID].assignedItems, itemIndex)
+        XLGearBanker.savedVariables.storageBags[storageBagID].slotsLeft = XLGearBanker.savedVariables.storageBags[storageBagID].slotsLeft + 1
+      else 
+        XLGearBanker.savedVariables.storageBags[storageBagID].assignedItems[itemIndex].count = XLGearBanker.savedVariables.storageBags[storageBagID].assignedItems[itemIndex].count - 1
+      end
     end
   end
   table.remove(XLGearBanker.savedVariables.storageBags[storageBagID].gearSetNames, gearSetNameIndex)
