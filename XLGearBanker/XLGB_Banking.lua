@@ -322,7 +322,7 @@ end
 local function compareItemsWithStorage(sourceItems, storageBag)
   local duplicateItems = {}
   local uniqueItems = sourceItems
-  for _, gearSet in storageBag.gearSets do 
+  for _, gearSet in pairs(storageBag.gearSets) do 
     uniqueItems, duplicateItems = compareItemSets(uniqueItems, gearSet.items)
   end
   return uniqueItems, duplicateItems
@@ -339,7 +339,7 @@ local function assignSetToStorage(gearSetNumber, storageBagID)
     return false
   end
   local _, itemsNotAlreadyAssigned = compareItemsWithStorage(gearSet, storageBag)
-  local slotsLeft = GetBagSize(storageBagID) - storageBag.slotsLeft
+  local slotsLeft = storageBag.size - storageBag.slotsLeft
   if (slotsLeft < #itemsNotAlreadyAssigned) then
     d("[XLGB_ERROR] Cannot assign set to storage. Trying to assign " .. #itemsNotAlreadyAssigned .. " items when only " .. slotsLeft .. " are open for assignment.")
     return false
