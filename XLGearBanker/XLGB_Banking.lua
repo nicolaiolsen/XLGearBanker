@@ -329,7 +329,7 @@ local function compareItemsWithStorage(sourceItems, storageBag)
 end
 
 local function addSetToStorageSets(gearSet, storageBagID)
-  table.insert(XLGearBanker.savedVariables[storageBagID].gearSets, gearSet)
+  table.insert(XLGearBanker.savedVariables.storageBags[storageBagID].gearSets, gearSet)
 end
 
 local function assignSetToStorage(gearSetNumber, storageBagID)
