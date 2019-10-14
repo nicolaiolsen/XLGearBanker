@@ -329,6 +329,7 @@ local function compareItemsWithStorage(sourceItems, storageBag)
 end
 
 local function addSetToStorageSets(gearSet, storageBagID)
+  d("Gearset: ", gearSet)
   d("Storage gearsets before: ", XLGearBanker.savedVariables.storageBags[storageBagID].gearSets)
   local gearSets = XLGearBanker.savedVariables.storageBags[storageBagID].gearSets
   table.insert(gearSets, gearSet)
