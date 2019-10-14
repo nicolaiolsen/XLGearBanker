@@ -290,6 +290,17 @@ local function getStorageBag(storageBagID)
   end
 end
 
+local function findGearSetInStorage(gearSet, storageBag)
+  local gearSetIndex = XLGB.GEARSET_NOT_ASSIGNED_TO_STORAGE
+  for i, storageGearSet in pairs(storageBag.gearSets) do
+    if (gearSet.name == storageGearSet.name) then
+      gearSetIndex = i
+      return gearSetIndex
+    end
+  end
+  return gearSetIndex
+end
+
 local function isItemDuplicate(sourceItem, targetItems)
   local isDuplicate = false
   for _, targetItem in pairs(targetItems) do
@@ -325,6 +336,11 @@ end
 local function assignSetToStorage(gearSetNumber, storageBagID)
   local gearSet = XLGB_GearSet:GetGearSet(gearSetNumber)
   local storageBag = getStorageBag(storageBagID)
+  local gearSetIndex = findGearSetInStorage(gearSet, storageBag)
+  if (gearSetIndex ~= XLGB.GEARSET_NOT_ASSIGNED_TO_STORAGE) then
+    d("[XLGB_ERROR] Gearset already assigned to this storage chest.")
+    return false
+  end
   local _, itemsNotAlreadyAssigned = compareItemsWithStorage(gearSet, storageBag)
   local slotsLeft = GetBagSize(storageBagID) - storageBag.slotsLeft
   if (slotsLeft < #itemsNotAlreadyAssigned) then
@@ -340,6 +356,7 @@ end
 
   Output:
 ]]--
+
 function XLGB_Banking:AssignStorage(gearSetNumber)
   if (not XLGB_Banking.bankOpen)
   and (XLGB_Banking.currentBankBag ~= XLGB.NO_BAG)
@@ -349,7 +366,6 @@ function XLGB_Banking:AssignStorage(gearSetNumber)
   else
     local gearSet = XLGB_GearSet:GetGearSet(gearSetNumber)
     if assignSetToStorage(gearSet, XLGB.currentBankBag) then
-      XLGB_GearSet:AssignSetToStorage(gearSetNumber, XLGB_Banking.currentBankBag)
       d("[XLGB] Assigned \'" .. gearSet.name .. "\' to chest.")
       return true
     end
@@ -358,11 +374,13 @@ end
 
 local function unassignSetFromStorage(gearSet, storageBagID)
   local storageBag = getStorageBag(storageBagID)
-  for i, storageGearSet in pairs(storageBag.gearSets) do
-    if (gearSet.name == storageGearSet.name) then
-      table.remove(storageBag.gearSets, i)
-      return
-    end
+  local gearSetIndex = findGearSetInStorage(gearSet, storageBag)
+  if (gearSetIndex == XLGB.GEARSET_NOT_ASSIGNED_TO_STORAGE) then
+    d("[XLGB_ERROR] Set \'" .. gearSet.name .. "\' is already not assigned to this chest.")
+    return false
+  else 
+    table.remove(storageBag.gearSets, gearSetIndex)
+    return true
   end
 end
 
@@ -375,7 +393,7 @@ function XLGB_Banking:UnassignStorage(gearSetNumber)
   else
     local gearSet = XLGB_GearSet:GetGearSet(gearSetNumber)
     if unassignSetFromStorage(gearSet, XLGB.currentBankBag) then
-      d("[XLGB] Assigned \'" .. gearSet.name .. "\' to chest.")
+      d("[XLGB] Set \'" .. gearSet.name .. "\' is no more assigned to this chest.")
     end
   end
 end
