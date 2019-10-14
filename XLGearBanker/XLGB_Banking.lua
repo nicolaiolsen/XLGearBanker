@@ -16,6 +16,14 @@ function XLGB_Banking.OnBankOpenEvent(event, bankBag)
   if not XLGB_Banking.bankOpen then
     XLGB_Banking.bankOpen = IsBankOpen()
     XLGB_Banking.currentBankBag = bankBag
+    if (bankBag ~= BAG_BANK)
+    and (XLGearBanker.savedVariables.storageBags[bankBag] == nil) then
+      local storageBag = XLGearBanker.savedVariables.storageBags[bankBag]
+      storageBag.gearSets = {}
+      storageBag.assignedItems = {}
+      storageBag.size = GetBagSize(bankBag)
+      storageBag.slotsLeft = storageBag.size
+    end
     easyDebug("Bank open!")
   end
 end
@@ -282,12 +290,7 @@ function XLGB_Banking:WithdrawGear(gearSetNumber)
 end
 
 local function getStorageBag(storageBagID)
-  local storageBags = XLGearBanker.savedVariables.storageBags
-  for _, storageBag in pairs(storageBags) do
-    if (storageBagID == storageBag.ID) then
-      return storageBag
-    end
-  end
+  return XLGearBanker.savedVariables.storageBags[storageBagID]
 end
 
 local function findGearSetInStorage(gearSet, storageBag)
@@ -401,6 +404,9 @@ end
 function XLGB_Banking:Initialize()
   self.bankOpen = IsBankOpen()
   self.recentlyCalled = false
+  if (XLGearBanker.savedVariables.storageBag == nil) then
+    XLGearBanker.savedVariables.storageBag = {}
+  end
   EVENT_MANAGER:RegisterForEvent(self.name, EVENT_OPEN_BANK, self.OnBankOpenEvent)
   EVENT_MANAGER:RegisterForEvent(self.name, EVENT_CLOSE_BANK, self.OnBankCloseEvent)
 end
