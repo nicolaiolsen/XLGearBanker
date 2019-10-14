@@ -389,7 +389,7 @@ function XLGB_Banking:UnassignStorage(gearSetNumber)
     return false
   else
     local gearSet = XLGB_GearSet:GetGearSet(gearSetNumber)
-    if unassignSetFromStorage(gearSet, XLGB.currentBankBag) then
+    if unassignSetFromStorage(gearSet, XLGB_Banking.currentBankBag) then
       d("[XLGB] Set \'" .. gearSet.name .. "\' is no more assigned to this chest.")
     end
   end
