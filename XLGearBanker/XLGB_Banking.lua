@@ -339,7 +339,9 @@ local function assignSetToStorage(gearSet, storageBagID)
     d("[XLGB_ERROR] Gearset already assigned to this storage chest.")
     return false
   end
-  local itemsNotAlreadyAssigned, indicesOfDuplicates = compareItemsWithStorage(gearSet.items, storageBag)
+  local compareItemsResult = {compareItemsWithStorage(gearSet.items, storageBag)}
+  local itemsNotAlreadyAssigned = compareItemsResult[1]
+  local indicesOfDuplicates = compareItemsResult[2]
   if (storageBag.slotsLeft < #itemsNotAlreadyAssigned) then
     d("[XLGB_ERROR] Cannot assign set to storage. Trying to assign " .. #itemsNotAlreadyAssigned .. " items when only " .. storageBag.slotsLeft .. " are open for assignment.")
     return false
