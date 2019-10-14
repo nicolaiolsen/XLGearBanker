@@ -344,7 +344,7 @@ local function assignSetToStorage(gearSet, storageBagID)
     d("[XLGB_ERROR] Cannot assign set to storage. Trying to assign " .. #itemsNotAlreadyAssigned .. " items when only " .. storageBag.slotsLeft .. " are open for assignment.")
     return false
   end
-  addSetToStorageItems(itemsNotAlreadyAssigned, indicesOfDuplicates, storageBagID)
+  addSetToStorageItems(itemsNotAlreadyAssigned, indicesOfDuplicates, gearSet.name, storageBagID)
   XLGearBanker.savedVariables.storageBags[storageBagID].slotsLeft = XLGearBanker.savedVariables.storageBags[storageBagID].slotsLeft - #itemsNotAlreadyAssigned
   return true
 end
