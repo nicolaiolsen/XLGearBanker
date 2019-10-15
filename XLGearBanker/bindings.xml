@@ -1,6 +1,22 @@
 <Bindings>
 	<Layer name="SI_KEYBINDINGS_CATEGORY_GENERAL">
 		<Category name="XL Gear Banker">
+			<Action name="WITHDRAW_ASSIGNED_STORAGE_ITEMS">
+				<Down>return ZO_KeybindStrip_HandleKeybindDown(keybind)</Down>
+			</Action>
+		</Category>
+	</Layer>
+	<Layer name="SI_KEYBINDINGS_CATEGORY_GENERAL">
+		<Category name="XL Gear Banker">
+			<Action name="DEPOSIT_ASSIGNED_STORAGE_ITEMS">
+				<Down>return ZO_KeybindStrip_HandleKeybindDown(keybind)</Down>
+			</Action>
+		</Category>
+	</Layer>
+	
+<!-- Deposit Gear-->
+	<Layer name="SI_KEYBINDINGS_CATEGORY_GENERAL">
+		<Category name="XL Gear Banker">
 			<Action name="DEPOSIT_GEAR_SET_1">
 				<Down>XLGB_Banking:DepositGear(1)</Down>
 			</Action>
@@ -62,6 +78,8 @@
 			</Action>
 		</Category>
 	</Layer>
+
+<!-- Withdraw Gear-->
     <Layer name="SI_KEYBINDINGS_CATEGORY_GENERAL">
 		<Category name="XL Gear Banker">
 			<Action name="WITHDRAW_GEAR_SET_1">
@@ -125,20 +143,4 @@
 			</Action>
 		</Category>
 	</Layer>
-	<!--
-	<Layer name="SI_KEYBINDINGS_CATEGORY_GENERAL">
-		<Category name="XL Gear Banker">
-			<Action name="WITHDRAW_ASSIGNED_STORAGE_ITEMS">
-				<Down>XLGB_Banking:WithdrawStorageItems()</Down>
-			</Action>
-		</Category>
-	</Layer>
-	<Layer name="SI_KEYBINDINGS_CATEGORY_GENERAL">
-		<Category name="XL Gear Banker">
-			<Action name="DEPOSIT_ASSIGNED_STORAGE_ITEMS">
-				<Down>XLGB_Banking:DepositStorageItems()</Down>
-			</Action>
-		</Category>
-	</Layer>
-	-->
 </Bindings>
