@@ -66,10 +66,10 @@ SLASH_COMMANDS["/xlgb_withdraw"] = function (argsv)
   end
 end
 
-SLASH_COMMANDS["/xlgb_depositAssigned"] = function (argsv)
+SLASH_COMMANDS["/xlgb_depositassigned"] = function (argsv)
   XLGB_Banking:DepositStorageItems()
 end
-SLASH_COMMANDS["/xlgb_withdrawAssigned"] = function (argsv)
+SLASH_COMMANDS["/xlgb_withdrawassigned"] = function (argsv)
   XLGB_Banking:WithdrawStorageItems()
 end
 
