@@ -26,9 +26,18 @@ After XLGB:
 Easy!
 ***
 
-## How to use the addon
+## Dependencies
+
+This addon uses the following libraries:
+
+- LibCustomMenu
+
+These libraries are ***required*** to run the addon.
 
 ***
+
+## How to use the addon
+
 
 ### Usage of slash_commands
 
