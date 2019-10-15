@@ -2,7 +2,10 @@
 	<Layer name="SI_KEYBINDINGS_CATEGORY_GENERAL">
 		<Category name="XL Gear Banker">
 			<Action name="WITHDRAW_ASSIGNED_STORAGE_ITEMS" rebindable="true">
-				<Down>return ZO_KeybindStrip_HandleKeybindDown(keybind)</Down>
+				<Down>
+				d(keybind)
+				return ZO_KeybindStrip_HandleKeybindDown(keybind)
+				</Down>
 			</Action>
 		</Category>
 	</Layer>
