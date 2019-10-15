@@ -206,14 +206,10 @@ function XLGB_Banking:DepositGear(gearSetNumber)
       return
     end
     
-  elseif (XLGB_Banking.currentBankBag == BAG_BANK) then
+  else
     if depositItemsToBankNonESOPlus(gearSet.items) then
       d("[XLGB] Set \'" .. gearSet.name .. "\' deposited!")
     end
-    
-  else
-    d("[XLGB] Set \'" .. gearSet.name .. "\' does not belong to this storage chest.",
-  "To assign this chest to  \'" .. gearSet.name .. "\' use  \'/xlgb_assign setNumber\'")
   end
   --[[
   zo_callLater(function()
