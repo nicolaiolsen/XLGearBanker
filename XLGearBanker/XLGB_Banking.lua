@@ -426,7 +426,7 @@ local function setupStorage(storageBagIDs)
   local storageBags = {}
   for _, storageBagID in pairs(storageBagIDs) do
     local storageBag = {}
-    storageBag.gearSets = {}
+    storageBag.assignedSets = {}
     storageBag.assignedItems = {}
     storageBag.size = GetBagSize(storageBagID)
     storageBag.slotsLeft = storageBag.size
