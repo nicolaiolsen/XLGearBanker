@@ -477,7 +477,7 @@ function XLGB_Banking:PrintAssignedSets()
     d(gearSetName)
   end
   d("[XLGB] Total sets: " .. #storageBag.assignedSets)
-  d("[XLGB] Total items: " .. #storageBag.assignedItems)
+  d("[XLGB] Total items: " .. #storageBag.assignedItems .. " out of " .. storageBag.size)
 end
 
 function XLGB_Banking:Initialize()

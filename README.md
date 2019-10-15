@@ -99,6 +99,12 @@ If you want to remove (or reassign) a set from sets assigned to a chest, you'd o
 Example:
 /xlgb_unassign 4
 
+### Print assigned sets and number of items
+
+If you want to know which sets you've assigned to a chest and how many items that are assigned to it you can use the slash_command "/xlgb_assignedsets" while having a chest open, and the information will be printed in chat.
+
+Example:
+/xlgb_assignedsets
 ***
 
 ### List of slash_commands
