@@ -373,8 +373,7 @@ function XLGB_Banking:AssignStorage(gearSetNumber)
   end
 end
 
-local function removeSetFromStorage(gearSet, gearSetNameIndex, storageBagID)
-  local storageBag = XLGearBanker.savedVariables.storageBags[storageBagID]
+local function removeSetFromStorage(gearSet, gearSetNameIndex, storageBag, storageBagID)
   for _, item in pairs(gearSet.items) do
     itemIndex = findItemIndexInSet(item, storageBag.assignedItems)
     if (itemIndex ~= XLGB.ITEM_NOT_IN_SET) then
@@ -397,7 +396,7 @@ local function unassignSetFromStorage(gearSet, storageBagID)
     d("[XLGB_ERROR] Set \'" .. gearSet.name .. "\' is already not assigned to this chest.")
     return false
   else 
-    removeSetFromStorage(gearSet, gearSetNameIndex, storageBag)
+    removeSetFromStorage(gearSet, gearSetNameIndex, storageBag, storageBagID)
   end
 end
 
