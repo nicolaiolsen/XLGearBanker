@@ -437,7 +437,7 @@ function XLGB_Banking:DepositStorageItems()
   local storageBag = getStorageBag(XLGB_Banking.currentBankBag)
   d("[XLGB] Depositing assigned items: (Sets: " .. toStringOneLine(storageBag.assignedSets) .. " )" )
   if depositItemsToBankNonESOPlus(storageBag.assignedItems) then
-    d("[XLGB] Assigned items withdrawn!")
+    d("[XLGB] Assigned items deposited!")
   end
 end
 
@@ -488,12 +488,12 @@ function XLGB_Banking:Initialize()
   self.storageChestButtonGroup = {
     {
       name = "Deposit assigned",
-      keybind = "SI_BINDING_NAME_DEPOSIT_ASSIGNED_STORAGE_ITEMS",
+      keybind = "DEPOSIT_ASSIGNED_STORAGE_ITEMS",
       callback = function() XLGB_Banking:DepositStorageItems() end,
     },
     {
       name = "Withdraw assigned",
-      keybind = "SI_BINDING_NAME_WITHDRAW_ASSIGNED_STORAGE_ITEMS",
+      keybind = "WITHDRAW_ASSIGNED_STORAGE_ITEMS",
       callback = function() XLGB_Banking:WithdrawStorageItems() end,
     },
     alignment = KEYBIND_STRIP_ALIGN_CENTER,
