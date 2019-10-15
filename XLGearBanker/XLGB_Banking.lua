@@ -414,10 +414,10 @@ function XLGB_Banking:UnassignStorage(gearSetNumber)
 end
 
 local function toStringOneLine(tableToPrint)
-  local res = "("
-  for i, entry in pairs(tableToPrint) do
+  local res = ""
+  for i, entry in ipairs(tableToPrint) do
     if (i == #tableToPrint) then
-      res = res .. entry .. ")"
+      res = res .. entry
     else 
       res = res .. entry .. ", "
     end
