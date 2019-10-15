@@ -308,7 +308,8 @@ local function findItemIndexInSet(sourceItem, targetItems)
 end
 
 local function compareItemsWithStorage(sourceItems, storageBag)
-  local uniqueItems, duplicateItems = {}
+  local uniqueItems = {}
+  local duplicateItems = {}
   for _, sourceItem in pairs(sourceItems) do
     itemIndex = findItemIndexInSet(sourceItem, storageBag.assignedItems)
     if (itemIndex ~= XLGB.ITEM_NOT_IN_SET ) then
@@ -342,8 +343,6 @@ local function assignSetToStorage(gearSet, storageBagID)
   local compareItemsResult = {compareItemsWithStorage(gearSet.items, storageBag)}
   local itemsNotAlreadyAssigned = compareItemsResult[1]
   local indicesOfDuplicates = compareItemsResult[2]
-  d("itemsNotAlreadyAssigned:", itemsNotAlreadyAssigned)
-  d("indicesOfDuplicates:", indicesOfDuplicates)
   if (storageBag.slotsLeft < #itemsNotAlreadyAssigned) then
     d("[XLGB_ERROR] Cannot assign set to storage. Trying to assign " .. #itemsNotAlreadyAssigned .. " items when only " .. storageBag.slotsLeft .. " are open for assignment.")
     return false
