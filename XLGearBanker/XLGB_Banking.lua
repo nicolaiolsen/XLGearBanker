@@ -287,8 +287,8 @@ end
 
 local function findGearSetInStorage(gearSetName, storageBag)
   local gearSetIndex = XLGB.GEARSET_NOT_ASSIGNED_TO_STORAGE
-  for i, storageGearSet in pairs(storageBag.gearSets) do
-    if (gearSetName == storageGearSet.name) then
+  for i, storageSetName in pairs(storageBag.assignedSets) do
+    if (gearSetName == storageSetName) then
       gearSetIndex = i
       return gearSetIndex
     end
