@@ -36,3 +36,8 @@ ZO_CreateStringId("SI_BINDING_NAME_WITHDRAW_GEAR_SET_8",
 "Withdraw Gear Set 8")
 ZO_CreateStringId("SI_BINDING_NAME_WITHDRAW_GEAR_SET_9",
 "Withdraw Gear Set 9")
+
+ZO_CreateStringId("SI_BINDING_NAME_DEPOSIT_ASSIGNED_STORAGE_ITEMS",
+"Deposit assigned sets to chest")
+ZO_CreateStringId("SI_BINDING_NAME_WITHDRAW_ASSIGNED_STORAGE_ITEMS",
+"Withdraw assigned sets from chest")

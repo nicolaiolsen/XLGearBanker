@@ -16,6 +16,9 @@ function XLGB_Banking.OnBankOpenEvent(event, bankBag)
   if not XLGB_Banking.bankOpen then
     XLGB_Banking.bankOpen = IsBankOpen()
     XLGB_Banking.currentBankBag = bankBag
+    if (bankBag ~= BAG_BANK) then
+      KEYBIND_STRIP:AddKeybindButtonGroup(XLGB_Banking.storageChestButtonGroup)
+    end
     easyDebug("Bank open!")
   end
 end
@@ -24,6 +27,7 @@ function XLGB_Banking.OnBankCloseEvent(event)
   if XLGB_Banking.bankOpen then
     XLGB_Banking.bankOpen = IsBankOpen()
     XLGB_Banking.currentBankBag = XLGB.NO_BAG
+    KEYBIND_STRIP:RemoveKeybindButtonGroup(XLGB_Banking.storageChestButtonGroup)
     easyDebug("Bank closed")
   end
 end
@@ -480,6 +484,22 @@ function XLGB_Banking:Initialize()
   if (XLGearBanker.savedVariables.storageBags == nil) then
     setupStorage(self.storageBagIDs)
   end
+
+  self.storageChestButtonGroup = {
+    {
+      name = "Deposit assigned sets to chest",
+      keybind = "SI_BINDING_NAME_DEPOSIT_ASSIGNED_STORAGE_ITEMS",
+      callback = function() XLGB_Banking:DepositStorageItems() end,
+    },
+    {
+      name = "Withdraw assigned sets from chest",
+      keybind = "SI_BINDING_NAME_WITHDRAW_ASSIGNED_STORAGE_ITEMS",
+      callback = function() XLGB_Banking:WithdrawStorageItems() end,
+    },
+    alignment = KEYBIND_STRIP_ALIGN_CENTER,
+  }
+  
+
   EVENT_MANAGER:RegisterForEvent(self.name, EVENT_OPEN_BANK, self.OnBankOpenEvent)
   EVENT_MANAGER:RegisterForEvent(self.name, EVENT_CLOSE_BANK, self.OnBankCloseEvent)
 end
