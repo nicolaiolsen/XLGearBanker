@@ -413,13 +413,25 @@ function XLGB_Banking:UnassignStorage(gearSetNumber)
   end
 end
 
+local function toStringOneLine(tableToPrint)
+  local res = "("
+  for i, entry in pairs(tableToPrint) do
+    if (i == #tableToPrint) then
+      res = res .. entry .. ")"
+    else 
+      res = res .. entry .. ", "
+    end
+  end
+  return res
+end
+
 function XLGB_Banking:DepositStorageItems()
   if not XLGB_Banking.bankOpen then
     d("[XLGB_ERROR] Bank is not open, abort!")
     return
   end
   local storageBag = getStorageBag(XLGB_Banking.currentBankBag)
-  d("[XLGB] Depositing assigned items: (Sets: " .. storageBag.assignedSets .. " )" )
+  d("[XLGB] Depositing assigned items: (Sets: " .. toStringOneLine(storageBag.assignedSets) .. " )" )
   if depositItemsToBankNonESOPlus(storageBag.assignedItems) then
     d("[XLGB] Assigned items withdrawn!")
   end
@@ -431,7 +443,7 @@ function XLGB_Banking:WithdrawStorageItems()
     return
   end
   local storageBag = getStorageBag(XLGB_Banking.currentBankBag)
-  d("[XLGB] Withdrawing assigned items: (Sets: " .. storageBag.assignedSets .. " )" )
+  d("[XLGB] Withdrawing assigned items: (Sets: " .. toStringOneLine(storageBag.assignedSets) .. " )" )
   if withdrawItemsNonESOPlus(storageBag.assignedItems) then
     d("[XLGB] Assigned items withdrawn!")
   end
