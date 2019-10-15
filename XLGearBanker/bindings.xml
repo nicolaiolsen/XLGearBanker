@@ -128,14 +128,14 @@
 	<Layer name="SI_KEYBINDINGS_CATEGORY_GENERAL">
 		<Category name="XL Gear Banker">
 			<Action name="WITHDRAW_ASSIGNED_STORAGE_ITEMS">
-				<Down>XLGB_Banking:WithdrawStorageItems()</Down>
+				<!--<Down>XLGB_Banking:WithdrawStorageItems()</Down>-->
 			</Action>
 		</Category>
 	</Layer>
 	<Layer name="SI_KEYBINDINGS_CATEGORY_GENERAL">
 		<Category name="XL Gear Banker">
 			<Action name="DEPOSIT_ASSIGNED_STORAGE_ITEMS">
-				<Down>XLGB_Banking:DepositStorageItems()</Down>
+				<!--<Down>XLGB_Banking:DepositStorageItems()</Down>-->
 			</Action>
 		</Category>
 	</Layer>
