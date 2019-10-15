@@ -466,6 +466,20 @@ local function setupStorage(storageBagIDs)
   XLGearBanker.savedVariables.storageBags = storageBags
 end
 
+function XLGB_Banking:PrintAssignedSets()
+  if not XLGB_Banking.bankOpen then
+    d("[XLGB_ERROR] Bank is not open, abort!")
+    return
+  end
+  d("[XLGB] Chest contains the following assigned sets:")
+  local storageBag = getStorageBag(XLGB_Banking.currentBankBag)
+  for _, gearSetName in pairs(storageBag.assignedSets) do
+    d(gearSetName)
+  end
+  d("[XLGB] Total sets: " .. #storageBag.assignedSets)
+  d("[XLGB] Total items: " .. #storageBag.assignedItems)
+end
+
 function XLGB_Banking:Initialize()
   self.bankOpen = IsBankOpen()
   self.recentlyCalled = false

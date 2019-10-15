@@ -53,8 +53,8 @@ If you hover over this menu you'll see all your sets, and if you click on of the
 
 ### Depositing/withdrawing gear
 
-For now depositing and withdrawing gear happens through slash_commands similar to adding gear sets. Using the slash_commands "/xlgb_deposit setNumber", "/xlgb_withdraw setNumber", while having your bank open will result in depositing/withdrawing the gear set #(setNumber) to/from the bank.
-**Note:** The argument 'setNumber' should be a number between 1 and total number of sets.
+Depositing and withdrawing gear happens either through keybindings or slash_commands similar to adding gear sets. Using the slash_commands "/xlgb_deposit setNumber", "/xlgb_withdraw setNumber", while having your bank/storage chest open will result in depositing/withdrawing the gear set #(setNumber) to/from the bank/storage chest.
+**Note:** *The argument 'setNumber' should be a number between 1 and total number of sets.*
 
 Examples:
 /xlgb_withdraw 1
@@ -63,7 +63,7 @@ Examples:
 ### Getting the setNumber of a set or items in a set
 
 How do you know which set belongs to which set number? Using the provided slash_command "/xlgb_sets" will print out all sets you've added together with their respective set numbers. "/xlgb_items setNumber" will print out all items you've added to the set #(setNumber).
-**Note:** The argument 'setNumber' should be a number between 1 and total number of sets.
+**Note:** *The argument 'setNumber' should be a number between 1 and total number of sets.*
 
 Examples:
 /xlgb_sets
@@ -71,16 +71,34 @@ Examples:
 
 ### Remove items from a gear set
 
-Accidentally added an item to the wrong set? Fear not! When an item belongs to a set a new menu item appears in the drop-down menu, similar to adding items, this menu item reads 'XLG remove >'.
+Accidentally added an item to the wrong set? Fear not! When an item belongs to a set a new menu item appears in the drop-down menu, similar to adding items, this menu item reads 'XLGB remove >'.
 Clicking on one of the sets listed in the sub-menu will result in removing that gear piece from the set again.
 
 ### Remove a gear set
 
 If you've spelled a name wrong (Sorry no support for renaming sets yet) or just don't like a set you've previously created you can remove it with the slash_command  "/xlgb_removeset setNumber".
-**Warning:** This slash_command will immediately remove the gear set specified without any prompts, with no way to restore the gear set. (Doesn't delete the items themselves but removes your hard work of adding things to a set)
+**Warning:** *This slash_command will immediately remove the gear set specified without any prompts, with no way to restore the gear set. (Doesn't delete the items themselves but removes your hard work of adding things to a set).*
 
 Examples:
 /xlgb_removeset 2
+
+### Assign sets to storage chest
+
+To assign items to a chest simply open up the chest you want to assign to and use the slash_command "/xlgb_assign setNumber". This will assign the items from the set to the opened chest up to the total chest size number of items assigned.
+**Note:** *The argument 'setNumber' should be a number between 1 and total number of sets.*
+*For now when you assign a set to a chest, only the current items in the set will be assigned to the chest. This means if you add new items to the set after you assigned a set to a chest, you'd have to resassign (unassign -> assign) the set again.*
+
+Example:
+/xlgb_assign 4
+
+### Unassign sets from storage chest
+
+If you want to remove (or reassign) a set from sets assigned to a chest, you'd open the chest you want to unassign the set from (similar to assigning sets) and use the slash_command "/xlgb_unassign setNumber". This way the items in the set will be unassigned (unless they also appear in another set).
+**Note:** *The argument 'setNumber' should be a number between 1 and total number of sets.*
+
+Example:
+/xlgb_unassign 4
+
 ***
 
 ### List of slash_commands
@@ -102,6 +120,15 @@ Deposit all items from set #(setNumber) into the bank.
 
 /xlgb_withdraw setNumber
 Withdraw all items from set #(setNumber) into the player inventory.
+
+/xlgb_assign setNumber
+Assigns set #(setNumber) to opened chest.
+
+/xlgb_unassign setNumber
+Unassigns set #(setNumber) from opened chest.
+
+/xlgb_assignedsets
+Prints out the sets assigned to opened chest.
 
 /xlgb_debug
 Toggles debug mode. (Note: quite verbose)

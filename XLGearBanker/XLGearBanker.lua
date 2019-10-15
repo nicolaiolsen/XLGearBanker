@@ -102,6 +102,10 @@ SLASH_COMMANDS["/xlgb_removeset"] = function (argsv)
   end
 end
 
+SLASH_COMMANDS["/xlgb_assignedsets"] = function (argsv)
+  XLGB_Banking:PrintAssignedSets()
+end
+
 SLASH_COMMANDS["/xlgb_assign"] = function (argsv)
   local totalGearSets = XLGB_GearSet:GetNumberOfGearSets()
   local gearSetNumber = tonumber(argsv)
