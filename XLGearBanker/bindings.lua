@@ -1,4 +1,9 @@
 -- this puts the items in the bind list, calls are located in bindings.xml
+ZO_CreateStringId("SI_BINDING_NAME_DEPOSIT_ASSIGNED_STORAGE_ITEMS",
+"Deposit Assigned")
+ZO_CreateStringId("SI_BINDING_NAME_WITHDRAW_ASSIGNED_STORAGE_ITEMS",
+"Withdraw Assigned")
+
 ZO_CreateStringId("SI_BINDING_NAME_DEPOSIT_GEAR_SET_1",
 "Deposit Gear Set 1")
 ZO_CreateStringId("SI_BINDING_NAME_DEPOSIT_GEAR_SET_2",
@@ -37,7 +42,3 @@ ZO_CreateStringId("SI_BINDING_NAME_WITHDRAW_GEAR_SET_8",
 ZO_CreateStringId("SI_BINDING_NAME_WITHDRAW_GEAR_SET_9",
 "Withdraw Gear Set 9")
 
-ZO_CreateStringId("SI_BINDING_NAME_DEPOSIT_ASSIGNED_STORAGE_ITEMS",
-"Deposit assigned sets to chest")
-ZO_CreateStringId("SI_BINDING_NAME_WITHDRAW_ASSIGNED_STORAGE_ITEMS",
-"Withdraw assigned sets from chest")

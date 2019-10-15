@@ -487,12 +487,12 @@ function XLGB_Banking:Initialize()
 
   self.storageChestButtonGroup = {
     {
-      name = "Deposit assigned",
+      name = "Deposit Assigned",
       keybind = "DEPOSIT_ASSIGNED_STORAGE_ITEMS",
       callback = function() XLGB_Banking:DepositStorageItems() end,
     },
     {
-      name = "Withdraw assigned",
+      name = "Withdraw Assigned",
       keybind = "WITHDRAW_ASSIGNED_STORAGE_ITEMS",
       callback = function() XLGB_Banking:WithdrawStorageItems() end,
     },
