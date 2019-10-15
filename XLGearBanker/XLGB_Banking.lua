@@ -386,7 +386,7 @@ local function removeSetFromStorage(gearSet, gearSetNameIndex, storageBag, stora
       end
     end
   end
-  table.remove(XLGearBanker.savedVariables.storageBags[storageBagID].gearSetNames, gearSetNameIndex)
+  table.remove(XLGearBanker.savedVariables.storageBags[storageBagID].assignedSets, gearSetNameIndex)
 end
 
 local function unassignSetFromStorage(gearSet, storageBagID)
