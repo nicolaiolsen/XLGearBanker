@@ -73,8 +73,9 @@ end
 
 function XLGB_GearSet:RemoveGearSet(gearSetNumber)
   gearSet = XLGB_GearSet:GetGearSet(gearSetNumber)
+  XLGB_Events:OnGearSetPrepareRemove(gearSet)
   table.remove(XLGearBanker.savedVariables.gearSetList, gearSetNumber)
-  XLGB_Events:OnGearSetRemoved(gearSet)
+  XLGB_Events:OnGearSetRemoved()
   d(gearSet)
   d("[XLGB] Removed set: " .. gearSet.name)
 end
@@ -90,12 +91,12 @@ end
 
 function XLGB_GearSet:AddItemToGearSet(itemLink, itemID, gearSetNumber)
   local itemData = createItemData(itemLink, itemID)
+  local gearSet = XLGB_GearSet:GetGearSet(gearSetNumber)
 
   table.insert(XLGearBanker.savedVariables.gearSetList[gearSetNumber].items, itemData)
 
-  local gearSetName = XLGB_GearSet:GetGearSet(gearSetNumber).name
-  XLGB_Events:OnGearSetItemAdd(XLGearBanker.savedVariables.gearSetList[gearSetNumber])
-  d("[XLGB] Added item " .. itemLink .. " to " .. gearSetName)
+  XLGB_Events:OnGearSetItemAdd(gearSet, XLGearBanker.savedVariables.gearSetList[gearSetNumber])
+  d("[XLGB] Added item " .. itemLink .. " to " .. gearSet.name)
 end
 
 function XLGB_GearSet:RemoveItemFromGearSet(itemLink, itemID, gearSetNumber)
@@ -105,10 +106,11 @@ function XLGB_GearSet:RemoveItemFromGearSet(itemLink, itemID, gearSetNumber)
   for i, item in pairs(gearSet.items) do
     if item.ID == itemID then
       table.remove(XLGearBanker.savedVariables.gearSetList[gearSetNumber].items, i)
+      XLGB_Events:OnGearSetItemRemove(gearSet, XLGearBanker.savedVariables.gearSetList[gearSetNumber])
       break
     end
   end
-  XLGB_Events:OnGearSetItemRemove(XLGearBanker.savedVariables.gearSetList[gearSetNumber])
+  
   d("[XLGB] Removed item " .. itemLink .. " from " .. gearSetName)
 end
 

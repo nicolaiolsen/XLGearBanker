@@ -424,13 +424,13 @@ function XLGB_Banking:UpdateStorageOnGearSetRemoved(gearSet)
   end
 end
 
-function XLGB_Banking:UpdateStorageOnGearSetItemAddRemove(gearSet)
+function XLGB_Banking:UpdateStorageOnGearSetItemAddRemove(gearSetBefore, gearSetAfter)
   for _, storageBagID in pairs(XLGB.storageBagIDs) do
     local storageBag = getStorageBag(storageBagID)
-    if (findGearSetInStorage(gearSet.name, storageBag) ~= XLGB.GEARSET_NOT_ASSIGNED_TO_STORAGE) then
-      unassignSetFromStorage(gearSet, storageBagID)
-      if (not assignSetToStorage(gearSet, storageBagID)) then
-        d("[XLGB_ERROR] On item update: Couldn't reassign set \'".. gearSet.name .."\' to storageBag with ID: " .. storageBagID)
+    if (findGearSetInStorage(gearSetBefore.name, storageBag) ~= XLGB.GEARSET_NOT_ASSIGNED_TO_STORAGE) then
+      unassignSetFromStorage(gearSetBefore, storageBagID)
+      if (not assignSetToStorage(gearSetAfter, storageBagID)) then
+        d("[XLGB_ERROR] On item update: Couldn't reassign set \'".. gearSetAfter.name .."\' to storageBag with ID: " .. storageBagID)
       end
     end
   end
