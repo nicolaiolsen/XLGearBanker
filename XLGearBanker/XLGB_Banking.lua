@@ -335,7 +335,6 @@ local function assignSetToStorage(gearSet, storageBagID)
   local storageBag = getStorageBag(storageBagID)
   local gearSetIndex = findGearSetInStorage(gearSet.name, storageBag)
   if (gearSetIndex ~= XLGB.GEARSET_NOT_ASSIGNED_TO_STORAGE) then
-    d("[XLGB_ERROR] Gearset already assigned to this storage chest.")
     return false
   end
   local compareItemsResult = {compareItemsWithStorage(gearSet.items, storageBag)}
@@ -367,6 +366,8 @@ function XLGB_Banking:AssignStorage(gearSetNumber)
     if assignSetToStorage(gearSet, XLGB_Banking.currentBankBag) then
       d("[XLGB] Assigned \'" .. gearSet.name .. "\' to chest.")
       return true
+    else 
+      d("[XLGB_ERROR] Gearset already assigned to this storage chest.")
     end
   end
 end
@@ -391,7 +392,6 @@ local function unassignSetFromStorage(gearSet, storageBagID)
   local storageBag = getStorageBag(storageBagID)
   local gearSetNameIndex = findGearSetInStorage(gearSet.name, storageBag)
   if (gearSetNameIndex == XLGB.GEARSET_NOT_ASSIGNED_TO_STORAGE) then
-    d("[XLGB_ERROR] Set \'" .. gearSet.name .. "\' is already not assigned to this chest.")
     return false
   else 
     removeSetFromStorage(gearSet, gearSetNameIndex, storageBag, storageBagID)
@@ -409,6 +409,23 @@ function XLGB_Banking:UnassignStorage(gearSetNumber)
     local gearSet = XLGB_GearSet:GetGearSet(gearSetNumber)
     if unassignSetFromStorage(gearSet, XLGB_Banking.currentBankBag) then
       d("[XLGB] Set \'" .. gearSet.name .. "\' is no longer assigned to this chest.")
+    else 
+      d("[XLGB_ERROR] Set \'" .. gearSet.name .. "\' is already not assigned to this chest.")
+    end
+  end
+end
+
+function XLGB_Banking:UpdateStorageGearSetRemoved(gearSet)
+  for _, storageBagID in pairs(XLGB.storageBagIDs) do
+    unassignSetFromStorage(gearSet, storageBagID)
+  end
+end
+
+function XLGB_Banking:UpdateStorageOnGearSetItemAddRemove(gearSet)
+  for _, storageBagID in pairs(XLGB.storageBagIDs) do
+    unassignSetFromStorage(gearSet, storageBagID)
+    if (not assignSetToStorage(gearSet, storageBagID)) then
+      d("[XLGB_ERROR] On item update: Couldn't reassign set \'".. gearSet.name .."\' to storageBag with ID: " .. storageBagID)
     end
   end
 end
@@ -479,20 +496,9 @@ end
 function XLGB_Banking:Initialize()
   self.bankOpen = IsBankOpen()
   self.recentlyCalled = false
-  self.storageBagIDs = {
-    bag_eight = BAG_HOUSE_BANK_EIGHT,
-    bag_five = BAG_HOUSE_BANK_FIVE,
-    bag_four = BAG_HOUSE_BANK_FOUR,
-    bag_nine = BAG_HOUSE_BANK_NINE,
-    bag_one = BAG_HOUSE_BANK_ONE,
-    bag_seven = BAG_HOUSE_BANK_SEVEN,
-    bag_size = BAG_HOUSE_BANK_SIX,
-    bag_ten = BAG_HOUSE_BANK_TEN,
-    bag_three = BAG_HOUSE_BANK_THREE,
-    bag_two = BAG_HOUSE_BANK_TWO
-  }
+  
   if (XLGearBanker.savedVariables.storageBags == nil) then
-    setupStorage(self.storageBagIDs)
+    setupStorage(XLGB.storageBagIDs)
   end
 
   self.storageChestButtonGroup = {

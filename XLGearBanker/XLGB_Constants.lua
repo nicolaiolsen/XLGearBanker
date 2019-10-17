@@ -3,6 +3,18 @@ XLGB_Constants = {}
 function XLGB_Constants:Initialize()
     --Bags
     self.NO_BAG = -1
+    self.storageBagIDs = {
+        bag_eight = BAG_HOUSE_BANK_EIGHT,
+        bag_five = BAG_HOUSE_BANK_FIVE,
+        bag_four = BAG_HOUSE_BANK_FOUR,
+        bag_nine = BAG_HOUSE_BANK_NINE,
+        bag_one = BAG_HOUSE_BANK_ONE,
+        bag_seven = BAG_HOUSE_BANK_SEVEN,
+        bag_size = BAG_HOUSE_BANK_SIX,
+        bag_ten = BAG_HOUSE_BANK_TEN,
+        bag_three = BAG_HOUSE_BANK_THREE,
+        bag_two = BAG_HOUSE_BANK_TWO
+      }
 
     --Items
     self.ITEM_NOT_IN_BAG = -1

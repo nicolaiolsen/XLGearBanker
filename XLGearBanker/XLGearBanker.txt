@@ -9,10 +9,12 @@ XLGearBanker.xml
 bindings.xml
 
 XLGB_Constants.lua
+XLGB_Events.lua
 XLGB_GearSet.lua
 XLGB_Banking.lua
 XLGB_MenuOverwriter.lua
 XLGB_UI.lua
+XLGB_Events.lua
 bindings.lua
 XLGearBanker.lua
 
