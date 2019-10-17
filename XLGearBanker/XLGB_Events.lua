@@ -1,7 +1,7 @@
 XLGB_Events = {}
 
 function XLGB_Events:OnGearSetRemoved(gearSet)
-  XLGB_Banking:UpdateStorageOnGearSetRemove(gearSet)
+  XLGB_Banking:UpdateStorageOnGearSetRemoved(gearSet)
 end
 
 function XLGB_Events:OnGearSetItemAdd(gearSet)

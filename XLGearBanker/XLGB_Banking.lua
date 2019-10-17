@@ -415,7 +415,7 @@ function XLGB_Banking:UnassignStorage(gearSetNumber)
   end
 end
 
-function XLGB_Banking:UpdateStorageGearSetRemoved(gearSet)
+function XLGB_Banking:UpdateStorageOnGearSetRemoved(gearSet)
   for _, storageBagID in pairs(XLGB.storageBagIDs) do
     unassignSetFromStorage(gearSet, storageBagID)
   end
