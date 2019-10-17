@@ -93,20 +93,20 @@ Examples:
 
 ### Assign sets to storage chest
 
-To assign items to a chest simply open up the chest you want to assign to and use the slash_command "/xlgb_assign setNumber". This will assign the items from the set to the opened chest up to the total chest size number of items assigned.
+To assign items to a chest simply open up the chest you want to assign to and use the slash_command "/xlgb_assign setNumber". This will assign the items from the set to the opened chest up to the total chest size number of items assigned. When adding/removing items to/from a gearSet the assigned items stored in the storage chest will also automatically update.
 **Note:** *The argument 'setNumber' should be a number between 1 and total number of sets.*
-*For now when you assign a set to a chest, only the current items in the set will be assigned to the chest. This means if you add new items to the set after you assigned a set to a chest, you'd have to resassign (unassign -> assign) the set again.*
 
 Example:
 /xlgb_assign 4
 
-### Unassign sets from storage chest
+### Unassign sets from/reset storage chest
 
-If you want to remove (or reassign) a set from sets assigned to a chest, you'd open the chest you want to unassign the set from (similar to assigning sets) and use the slash_command "/xlgb_unassign setNumber". This way the items in the set will be unassigned (unless they also appear in another set).
+If you want to remove (or reassign) a set from sets assigned to a chest, you'd open the chest you want to unassign the set from (similar to assigning sets) and use the slash_command "/xlgb_unassign setNumber". This way the items in the set will be unassigned (unless they also appear in another set). If you want to fully reset a chest (i.e. unassign all sets and items from the chest) you could also use the slash_command "/xlgb_clearassigned" which will reset the currently opened chest.
 **Note:** *The argument 'setNumber' should be a number between 1 and total number of sets.*
 
-Example:
+Examples:
 /xlgb_unassign 4
+/xlgb_clearassigned
 
 ### Print assigned sets and number of items
 
@@ -114,6 +114,7 @@ If you want to know which sets you've assigned to a chest and how many items tha
 
 Example:
 /xlgb_assignedsets
+
 ***
 
 ### List of slash_commands
