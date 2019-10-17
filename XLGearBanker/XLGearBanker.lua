@@ -48,6 +48,10 @@ SLASH_COMMANDS["/xlgb_help"] = function (argsv)
   d("\'/xlgb_removeset setNumber\': Removes set #(setNumber).")
   d("\'/xlgb_deposit setNumber\': Deposit all items from set #(setNumber) into the bank.")
   d("\'/xlgb_withdraw setNumber\': Withdraw all items from set #(setNumber) into the player inventory.")
+  d("\'/xlgb_assign setNumber\': Assigns set #(setNumber) to opened chest.")
+  d("\'/xlgb_unassign setNumber\': Unassigns set #(setNumber) from opened chest.")
+  d("\'/xlgb_clearassigned\': Clears the list of sets assigned to opened chest.")
+  d("\'/xlgb_assignedsets\': Prints out the sets assigned to opened chest.")
   d("\'/xlgb_debug\': Toggles debug mode. (Note: quite verbose)")
 end
 
@@ -102,10 +106,6 @@ SLASH_COMMANDS["/xlgb_removeset"] = function (argsv)
   end
 end
 
-SLASH_COMMANDS["/xlgb_assignedsets"] = function (argsv)
-  XLGB_Banking:PrintAssignedSets()
-end
-
 SLASH_COMMANDS["/xlgb_assign"] = function (argsv)
   local totalGearSets = XLGB_GearSet:GetNumberOfGearSets()
   local gearSetNumber = tonumber(argsv)
@@ -121,7 +121,12 @@ SLASH_COMMANDS["/xlgb_unassign"] = function (argsv)
     XLGB_Banking:UnassignStorage(gearSetNumber)
   end
 end
-SLASH_COMMANDS["/xlgb_clearassign"] = function (argsv)
+
+SLASH_COMMANDS["/xlgb_clearassigned"] = function (argsv)
   XLGB_Banking:ClearAssignedSets()
+end
+
+SLASH_COMMANDS["/xlgb_assignedsets"] = function (argsv)
+  XLGB_Banking:PrintAssignedSets()
 end
 -------------------------------------------------------------------------------

@@ -142,6 +142,9 @@ Assigns set #(setNumber) to opened chest.
 /xlgb_unassign setNumber
 Unassigns set #(setNumber) from opened chest.
 
+/xlgb_clearassigned
+Clears the list of sets assigned to opened chest.
+
 /xlgb_assignedsets
 Prints out the sets assigned to opened chest.
 

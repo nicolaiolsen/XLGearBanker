@@ -492,7 +492,7 @@ end
 
 function XLGB_Banking:ClearAssignedSets()
   if not XLGB_Banking.bankOpen
-  or (XLGB_Banking.currentBankBag == BAG_BANK)then
+  or (XLGB_Banking.currentBankBag == BAG_BANK) then
     d("[XLGB_ERROR] Storage chest is not open, abort!")
     return
   end
