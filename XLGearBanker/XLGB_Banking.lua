@@ -454,7 +454,7 @@ function XLGB_Banking:DepositStorageItems()
     return
   end
   local storageBag = getStorageBag(XLGB_Banking.currentBankBag)
-  d("[XLGB] Depositing assigned items: (Sets: " .. toStringOneLine(storageBag.assignedSets) .. " )" )
+  d("[XLGB] Depositing assigned items from sets: ", storageBag.assignedSets)
   if depositItemsToBankNonESOPlus(storageBag.assignedItems) then
     d("[XLGB] Assigned items deposited!")
   end
@@ -466,7 +466,7 @@ function XLGB_Banking:WithdrawStorageItems()
     return
   end
   local storageBag = getStorageBag(XLGB_Banking.currentBankBag)
-  d("[XLGB] Withdrawing assigned items: (Sets: " .. toStringOneLine(storageBag.assignedSets) .. " )" )
+  d("[XLGB] Withdrawing assigned items from sets", storageBag.assignedSets )
   if withdrawItemsNonESOPlus(storageBag.assignedItems) then
     d("[XLGB] Assigned items withdrawn!")
   end
