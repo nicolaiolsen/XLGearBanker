@@ -472,22 +472,39 @@ function XLGB_Banking:WithdrawStorageItems()
   end
 end
 
-local function setupStorage(storageBagIDs)
-  local storageBags = {}
-  for _, storageBagID in pairs(storageBagIDs) do
-    local storageBag = {}
+local function createNewStorageBag(storageBagID)
+  local storageBag = {}
     storageBag.assignedSets = {}
     storageBag.assignedItems = {}
     storageBag.size = GetBagSize(storageBagID)
     storageBag.slotsLeft = storageBag.size
+    return storageBag
+end
+
+local function setupStorage(storageBagIDs)
+  local storageBags = {}
+  for _, storageBagID in pairs(storageBagIDs) do
+    local storageBag = createNewStorageBag(storageBagID)
     storageBags[storageBagID] = storageBag
   end
   XLGearBanker.savedVariables.storageBags = storageBags
 end
 
+function XLGB_Banking:ClearAssignedSets()
+  if not XLGB_Banking.bankOpen
+  or (XLGB_Banking.currentBankBag == BAG_BANK)then
+    d("[XLGB_ERROR] Storage chest is not open, abort!")
+    return
+  end
+  local storageBag = createNewStorageBag(XLGB_Banking.currentBankBag)
+  XLGearBanker.savedVariables.storageBags[XLGB_Banking.currentBankBag] = storageBag
+  d("[XLGB] Cleared storage chest assigned sets.")
+end
+
 function XLGB_Banking:PrintAssignedSets()
-  if not XLGB_Banking.bankOpen then
-    d("[XLGB_ERROR] Bank is not open, abort!")
+  if not XLGB_Banking.bankOpen
+  or (XLGB_Banking.currentBankBag == BAG_BANK) then
+    d("[XLGB_ERROR] Storage chest is not open, abort!")
     return
   end
   d("[XLGB] Chest contains the following assigned sets:")

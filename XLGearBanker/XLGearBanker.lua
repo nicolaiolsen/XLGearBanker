@@ -121,4 +121,7 @@ SLASH_COMMANDS["/xlgb_unassign"] = function (argsv)
     XLGB_Banking:UnassignStorage(gearSetNumber)
   end
 end
+SLASH_COMMANDS["/xlgb_clearassign"] = function (argsv)
+  XLGB_Banking:ClearAssignedSets()
+end
 -------------------------------------------------------------------------------
