@@ -88,7 +88,6 @@ function XLGB_GearSet:RemoveGearSet(gearSetNumber)
   local gearSet = XLGB_GearSet:GetGearSet(gearSetNumber)
   XLGB_Events:OnGearSetRemove(gearSet)
   table.remove(XLGearBanker.savedVariables.gearSetList, gearSetNumber)
-  XLGB_Events:OnGearSetRemoved()
   d("[XLGB] Removed set: " .. gearSet.name)
 end
 
