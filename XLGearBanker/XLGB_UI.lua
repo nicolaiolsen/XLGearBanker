@@ -107,7 +107,7 @@ function XLGB_UI:fillEntriesWithItemData()
 
       entry = XLGB_UI_Control_ListView.entries[i]
       item = XLGB_UI_Control_ListView.items[XLGB_UI_Control_ListView.dataOffset + i]
-      XLGB_UI_Control_ListView.lines[i] = entry
+      XLGB_UI_Control_ListView.entries[i] = entry
 
       if entry ~= nil then
         fillEntryWithItemData(entry, item)
@@ -145,6 +145,7 @@ function XLGB_UI:InitializeListEntries()
 
 	XLGB_UI_Control_ListView.items = {}
   XLGB_UI_Control_ListView.entries = {}
+  d(XLGB_UI_Control_ListView)
   
 	--local width = 250 -- XLGB_UI_Control_ListView:GetWidth()
 
