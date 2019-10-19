@@ -1,12 +1,12 @@
 <GuiXml>
   <Controls>
     <!-- Every control's name must be _unique_. -->
-    <TopLevelControl name="XLGB_UI_Control" clampedToScreen="true" movable="true" mouseEnabled="true" hidden="true" resizeHandleSize="10">
+    <TopLevelControl name="XLGB_Window_Control" clampedToScreen="true" movable="true" mouseEnabled="true" hidden="true" resizeHandleSize="10">
 
       <Dimensions x="350" y="600"/>
       <DimensionConstraints  minX="350" minY="200"/>
       <Anchor point="CENTER" relativeTo="GUI_ROOT" relativePoint="CENTER" offsetX="-125" offsetY="-140" />
-      <OnMoveStop> XLGB_UI.XLGB_UI_Control_OnMoveStop()</OnMoveStop>
+      <OnMoveStop> XLGB_UI.XLGB_Window_Control_OnMoveStop()</OnMoveStop>
       <Controls>
         <Backdrop name="$(parent)_BG" inherits="ZO_DefaultBackdrop"><AnchorFill/></Backdrop>
 
@@ -71,6 +71,7 @@
           <Anchor point="TOPLEFT" offsetX="10" offsetY="10" />
           <Anchor point="BOTTOMRIGHT" relativePoint="BOTTOMLEFT" offsetX="190" offsetY="-10" />
         </Control>
+
 <!--
 
         <Control name="$(parent)_ListView" mouseEnabled="true" resizeToFitDescendents="false">

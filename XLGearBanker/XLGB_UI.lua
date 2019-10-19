@@ -2,17 +2,17 @@ XLGB_UI = {}
 
 --Credit: Inventory Insight - IIfABackPack.lua
 
-function XLGB_UI:XLGB_UI_Control_OnMoveStop()
-  XLGearBanker.savedVariables.left = XLGB_UI_Control:GetLeft()
-  XLGearBanker.savedVariables.top = XLGB_UI_Control:GetTop()
+function XLGB_UI:XLGB_Window_Control_OnMoveStop()
+  XLGearBanker.savedVariables.left = XLGB_Window_Control:GetLeft()
+  XLGearBanker.savedVariables.top = XLGB_Window_Control:GetTop()
 end
 
 function XLGB_UI:RestorePosition()
   local left = XLGearBanker.savedVariables.left
   local top = XLGearBanker.savedVariables.top
 
-  XLGB_UI_Control:ClearAnchors()
-  XLGB_UI_Control:SetAnchor(TOPLEFT, GuiRoot, TOPLEFT, left, top)
+  XLGB_Window_Control:ClearAnchors()
+  XLGB_Window_Control:SetAnchor(TOPLEFT, GuiRoot, TOPLEFT, left, top)
 end
 
 function XLGB_UI:CycleLeft()
@@ -49,37 +49,39 @@ function XLGB_UI:SetGearNameLabel(gearSetNumber)
     local gearSetName = XLGB_GearSet:GetGearSet(gearSetNumber).name
 
     easyDebug("Setting gear name label to: " .. gearSetName)
-    XLGB_UI_Control_ListView_GearTitle:SetText(gearSetName)
+    XLGB_Window_Control_ListView_GearTitle:SetText(gearSetName)
   end
 end
 
 function XLGB_UI:ChangeDisplayedGearSet(gearSetNumber)
   local totalGearSets = XLGB_GearSet:GetNumberOfGearSets()
   if XLGB_GearSet:ValidGearSetNumber(gearSetNumber, totalGearSets) then
-      XLGB_UI:SetGearNameLabel(tonumber(gearSetNumber))
-      XLGB_UI:UpdateListView()
+      --XLGB_UI:SetGearNameLabel(tonumber(gearSetNumber))
+      --XLGB_UI:UpdateListView()
   end
 end
 
 function XLGB_UI:ShowUI()
   XLGB_UI:ChangeDisplayedGearSet(XLGearBanker.displayingSet)
-  XLGB_UI_Control:SetHidden(false)
+  XLGB_Window_Control:SetHidden(false)
 end
 
 function XLGB_UI:HideUI()
-  XLGB_UI_Control:SetHidden(true)
+  XLGB_Window_Control:SetHidden(true)
 end
 
 function XLGB_UI:RemoveItem()
   easyDebug("Removing item")
 end
 
+--[[
+
 function XLGB_UI:UpdateItemDataList(gearSetNumber)
 
   local items = XLGB_GearSet:GetGearSet(gearSetNumber).items
   
-	XLGB_UI_Control_ListView.items = items
-	XLGB_UI_Control_ListView.dataOffset = 0
+	XLGB_Window_Control_ListView.items = items
+	XLGB_Window_Control_ListView.dataOffset = 0
 
 end
 
@@ -103,11 +105,11 @@ end
 
 function XLGB_UI:fillEntriesWithItemData()
     local entry, item = nil
-    for i = 1, XLGB_UI_Control_ListView.maxEntries do
+    for i = 1, XLGB_Window_Control_ListView.maxEntries do
 
-      entry = XLGB_UI_Control_ListView.entries[i]
-      item = XLGB_UI_Control_ListView.items[XLGB_UI_Control_ListView.dataOffset + i]
-      XLGB_UI_Control_ListView.entries[i] = entry
+      entry = XLGB_Window_Control_ListView.entries[i]
+      item = XLGB_Window_Control_ListView.items[XLGB_Window_Control_ListView.dataOffset + i]
+      XLGB_Window_Control_ListView.entries[i] = entry
 
       if entry ~= nil then
         fillEntryWithItemData(entry, item)
@@ -126,11 +128,11 @@ function XLGB_UI:CreateEmptyListEntry(i, predecessor, parent)
 
 	entry:SetHidden(false)
 	entry:SetMouseEnabled(true)
-	entry:SetHeight(XLGB_UI_Control_ListView.rowHeight)
+	entry:SetHeight(XLGB_Window_Control_ListView.rowHeight)
 
 	if i == 1 then
-		entry:SetAnchor(TOPLEFT, XLGB_UI_Control_ListView, TOPLEFT, 0, 0)
-		entry:SetAnchor(TOPRIGHT, XLGB_UI_Control_ListView, TOPRIGHT, 0, 0)
+		entry:SetAnchor(TOPLEFT, XLGB_Window_Control_ListView, TOPLEFT, 0, 0)
+		entry:SetAnchor(TOPRIGHT, XLGB_Window_Control_ListView, TOPRIGHT, 0, 0)
 	else
 		entry:SetAnchor(TOPLEFT, predecessor, BOTTOMLEFT, 0, 0)
 		entry:SetAnchor(TOPRIGHT, predecessor, BOTTOMRIGHT, 0, 0)
@@ -141,45 +143,45 @@ end
 function XLGB_UI:InitializeListEntries()
 	easyDebug("InitializeListEntries")
 
-	XLGB_UI_Control_ListView.dataOffset = 0
+	XLGB_Window_Control_ListView.dataOffset = 0
 
-	XLGB_UI_Control_ListView.items = {}
-  XLGB_UI_Control_ListView.entries = {}
+	XLGB_Window_Control_ListView.items = {}
+  XLGB_Window_Control_ListView.entries = {}
   
-	--local width = 250 -- XLGB_UI_Control_ListView:GetWidth()
+	--local width = 250 -- XLGB_Window_Control_ListView:GetWidth()
 
 	-- we set those to 35 because that's the amount of lines we can show
 	-- within the dimension constraints
-	XLGB_UI_Control_ListView.maxEntries = 35
+	XLGB_Window_Control_ListView.maxEntries = 35
 	local predecessor = nil
-	for i = 1, XLGB_UI_Control_ListView.maxEntries do
-		XLGB_UI_Control_ListView.entries[i] = XLGB_UI:CreateEmptyListEntry(i, predecessor, XLGB_UI_Control_ListView)
-		predecessor = XLGB_UI_Control_ListView.entries[i]
+	for i = 1, XLGB_Window_Control_ListView.maxEntries do
+		XLGB_Window_Control_ListView.entries[i] = XLGB_UI:CreateEmptyListEntry(i, predecessor, XLGB_Window_Control_ListView)
+		predecessor = XLGB_Window_Control_ListView.entries[i]
 	end
 
 	-- setup slider
 	--	local tex = "/esoui/art/miscellaneous/scrollbox_elevator.dds"
-	--	XLGB_UI_Control_ListView_Slider:SetThumbTexture(tex, tex, tex, 16, 50, 0, 0, 1, 1)
-	XLGB_UI_Control_ListView_Slider:SetMinMax(0, #XLGB_UI_Control_ListView.items - XLGB_UI_Control_ListView.maxEntries)
+	--	XLGB_Window_Control_ListView_Slider:SetThumbTexture(tex, tex, tex, 16, 50, 0, 0, 1, 1)
+	XLGB_Window_Control_ListView_Slider:SetMinMax(0, #XLGB_Window_Control_ListView.items - XLGB_Window_Control_ListView.maxEntries)
 
-	return XLGB_UI_Control_ListView.entries
+	return XLGB_Window_Control_ListView.entries
 end
 
 function XLGB_UI:UpdateListViewEntries()
   easyDebug("UpdateListViewEntries")
 
-  if XLGB_UI_Control_ListView.dataOffset < 0 then 
-    XLGB_UI_Control_ListView.dataOffset = 0 
+  if XLGB_Window_Control_ListView.dataOffset < 0 then 
+    XLGB_Window_Control_ListView.dataOffset = 0 
   end
 
-	if XLGB_UI_Control_ListView.maxEntries == nil then
-		XLGB_UI_Control_ListView.maxEntries = 35
+	if XLGB_Window_Control_ListView.maxEntries == nil then
+		XLGB_Window_Control_ListView.maxEntries = 35
   end
   
 	XLGB_UI:fillEntriesWithItemData()
 
-	local total = #XLGB_UI_Control_ListView.items - XLGB_UI_Control_ListView.maxEntries
-	XLGB_UI_Control_ListView_Slider:SetMinMax(0, total)
+	local total = #XLGB_Window_Control_ListView.items - XLGB_Window_Control_ListView.maxEntries
+	XLGB_Window_Control_ListView_Slider:SetMinMax(0, total)
 end
 
 function XLGB_UI:UpdateListView()
@@ -188,11 +190,13 @@ function XLGB_UI:UpdateListView()
   XLGB_UI:UpdateListViewEntries()
 end
 
+]]--
+
 function XLGB_UI:Initialize()
   XLGearBanker.displayingSet = 1
-  XLGB_UI_Control_ListView.rowHeight = 52
+  --XLGB_Window_Control_ListView.rowHeight = 52
   XLGB_UI:RestorePosition()
-  XLGB_UI:InitializeListEntries()
+  --XLGB_UI:InitializeListEntries()
   XLGB_UI:ChangeDisplayedGearSet(XLGearBanker.displayingSet)
 
   if XLGearBanker.debug then
