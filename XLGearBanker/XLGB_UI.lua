@@ -118,7 +118,7 @@ function XLGB_UI:fillEntriesWithItemData()
   end
 
 function XLGB_UI:CreateEmptyListEntry(i, predecessor, parent)
-	local entry = WINDOW_MANAGER:CreateControlFromVirtual("XLGB_ListItem_".. i, parent, "XLGB_SlotTemplate")
+	local entry = CreateControlFromVirtual("XLGB_ListItem_".. i, parent, "XLGB_SlotTemplate")
 
   entry.number = i
 	entry.text = entry:GetNamedChild("Name")
