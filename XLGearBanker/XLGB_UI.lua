@@ -118,7 +118,7 @@ function XLGB_UI:fillEntriesWithItemData()
   end
 
 function XLGB_UI:CreateEmptyListEntry(i, predecessor, parent)
-	local entry = CreateControlFromVirtual("XLGB_ListItem_".. i, parent, "XLGB_SlotTemplate")
+	local entry = WINDOW_MANAGER:CreateControlFromVirtual("XLGB_ListItem_".. i, parent, "XLGB_SlotTemplate")
 
   entry.number = i
 	entry.text = entry:GetNamedChild("Name")
@@ -145,7 +145,6 @@ function XLGB_UI:InitializeListEntries()
 
 	XLGB_UI_Control_ListView.items = {}
   XLGB_UI_Control_ListView.entries = {}
-  d(XLGB_UI_Control_ListView)
   
 	--local width = 250 -- XLGB_UI_Control_ListView:GetWidth()
 

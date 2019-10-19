@@ -67,29 +67,32 @@
           </Controls>
         </Control>
 
-    
-  
-<!-- List Holder -->
+        <Control name="$(parent)Index" inherits="ZO_ScrollList">
+          <Anchor point="TOPLEFT" offsetX="10" offsetY="10" />
+          <Anchor point="BOTTOMRIGHT" relativePoint="BOTTOMLEFT" offsetX="190" offsetY="-10" />
+        </Control>
+<!--
+
         <Control name="$(parent)_ListView" mouseEnabled="true" resizeToFitDescendents="false">
 					<DimensionConstraints  minY="52"/>
 					<Anchor point="TOPLEFT" relativeTo="$(parent)_ToolBar" relativePoint="BOTTOMLEFT" offsetX="20" offsetY="20"/>
 					<Anchor point="BOTTOMRIGHT" relativeTo="$(parent)" relativePoint="BOTTOMRIGHT" offsetX="-35" offsetY="-10"/>
-					<!-- <OnMouseWheel>IIfA:GuiOnScroll(self, delta)</OnMouseWheel>-->
+					<OnMouseWheel>IIfA:GuiOnScroll(self, delta)</OnMouseWheel>
 					<Controls>
 
-  <!-- GearSet name -->
+ 
             <Label name="$(parent)_GearTitle" font="ZoFontAnnounceMedium" text="Test Set" >
               <Anchor point="TOPLEFT" relativeTo="$(parent)" relativePoint="TOPLEFT" offsetX="0" offsetY="0"  />
             </Label>
 
-  <!-- List Slider-->
+
 						<Slider name="$(parent)_Slider" mouseEnabled="true" step="1" inherits="ZO_VerticalScrollbarBase">
 							<Anchor point="TOPRIGHT" relativeTo="$(parent)" relativePoint="TOPRIGHT" offsetX="16" offsetY="54"/>
 							<Anchor point="BOTTOMRIGHT" relativeTo="$(parent)" relativePoint="BOTTOMRIGHT" offsetX="23" offsetY="-14"/>
 
 							<OnMouseDown>self.locked=false</OnMouseDown>
 							<OnMouseUp>self.locked=true</OnMouseUp>
-							<!--<OnValueChanged>IIfA:GuiOnSliderUpdate(self, value)</OnValueChanged>-->
+							<OnValueChanged>IIfA:GuiOnSliderUpdate(self, value)</OnValueChanged>
 						</Slider>
 
 						<Control name="$(parent)_Counts" verticalAlignment="LEFT">
@@ -110,7 +113,7 @@
 
 					</Controls>
 
-				</Control>
+				</Control>-->
       </Controls>
     </TopLevelControl>
 

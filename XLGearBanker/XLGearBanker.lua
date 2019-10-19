@@ -10,7 +10,7 @@ function XLGearBanker.OnAddOnLoaded(event, addonName)
       XLGB_GearSet:Initialize()
       XLGB_Banking:Initialize()
       XLGB_MenuOverWriter:Initialize()
-      XLGB_UI:Initialize()
+      --XLGB_UI:Initialize()
     end
 end
 
