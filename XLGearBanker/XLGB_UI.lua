@@ -170,14 +170,14 @@ end
 function XLGB_UI:UpdateListViewEntries()
   easyDebug("UpdateListViewEntries")
 
-  if XLGB_Window_Control_ListView.dataOffset < 0 then 
-    XLGB_Window_Control_ListView.dataOffset = 0 
+  if XLGB_Window_Control_ListView.dataOffset < 0 then
+    XLGB_Window_Control_ListView.dataOffset = 0
   end
 
 	if XLGB_Window_Control_ListView.maxEntries == nil then
 		XLGB_Window_Control_ListView.maxEntries = 35
   end
-  
+
 	XLGB_UI:fillEntriesWithItemData()
 
 	local total = #XLGB_Window_Control_ListView.items - XLGB_Window_Control_ListView.maxEntries

@@ -77,7 +77,7 @@ SLASH_COMMANDS["/xlgb_withdrawassigned"] = function (argsv)
   XLGB_Banking:WithdrawStorageItems()
 end
 
---SLASH_COMMANDS["/xlgb_overview"] = XLGB_UI.ShowUI
+SLASH_COMMANDS["/xlgb_overview"] = XLGB_UI.ShowUI
 
 SLASH_COMMANDS["/xlgb_sets"] = function (argsv)
   XLGB_GearSet:PrintGearSets()
