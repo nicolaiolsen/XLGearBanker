@@ -198,7 +198,7 @@ function XLGB_UI:Initialize()
   XLGB_UI:RestorePosition()
   --XLGB_UI:InitializeListEntries()
   XLGB_UI:ChangeDisplayedGearSet(XLGearBanker.displayingSet)
-
+  XLGearBanker.debug = true
   if XLGearBanker.debug then
     XLGB_UI:ShowUI()
   end
