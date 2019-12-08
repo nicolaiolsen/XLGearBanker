@@ -198,7 +198,7 @@ function XLGB_UI:UpdateListView()
   XLGB_UI:UpdateListViewEntries()
 end
 
---[[
+
 function XLGB_UI:CreateEmptyListEntry(i, predecessor, parent)
   local entry = WINDOW_MANAGER:CreateControlFromVirtual("XLGB_ListItem_".. i, parent, "XLGB_SlotTemplate")
 
