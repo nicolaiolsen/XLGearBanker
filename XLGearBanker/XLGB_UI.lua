@@ -56,8 +56,8 @@ end
 function XLGB_UI:ChangeDisplayedGearSet(gearSetNumber)
   local totalGearSets = XLGB_GearSet:GetNumberOfGearSets()
   if XLGB_GearSet:ValidGearSetNumber(gearSetNumber, totalGearSets) then
-      --XLGB_UI:SetGearNameLabel(tonumber(gearSetNumber))
-      --XLGB_UI:UpdateListView()
+      XLGB_UI:SetGearNameLabel(tonumber(gearSetNumber))
+      XLGB_UI:UpdateListView()
   end
 end
 
@@ -74,7 +74,7 @@ function XLGB_UI:RemoveItem()
   easyDebug("Removing item")
 end
 
---[[
+
 
 function XLGB_UI:UpdateItemDataList(gearSetNumber)
 
@@ -190,7 +190,7 @@ function XLGB_UI:UpdateListView()
   XLGB_UI:UpdateListViewEntries()
 end
 
-]]--
+
 
 function XLGB_UI:Initialize()
   XLGearBanker.displayingSet = 1

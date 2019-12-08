@@ -39,7 +39,7 @@
               <Dimensions x="30" y="30" />                  
               <Anchor point="TOPLEFT" relativeTo="$(parent)" relativePoint="TOPLEFT"  offsetX="15" offsetY="0" />
               <Textures
-                  normal    ="/esoui/art/buttons/leftarrow_up.dds"
+                  normal     ="/esoui/art/buttons/leftarrow_up.dds"
                   pressed    ="/esoui/art/buttons/leftarrow_down.dds"
                   mouseOver  ="/esoui/art/buttons/leftarrow_over.dds"
                 />  
@@ -58,7 +58,7 @@
               <Dimensions x="30" y="30" />                  
               <Anchor point="TOPRIGHT" relativeTo="$(parent)" relativePoint="TOPRIGHT"  offsetX="-45" offsetY="0" />
               <Textures
-                  normal    ="/esoui/art/buttons/rightarrow_up.dds"
+                  normal     ="/esoui/art/buttons/rightarrow_up.dds"
                   pressed    ="/esoui/art/buttons/rightarrow_down.dds"
                   mouseOver  ="/esoui/art/buttons/rightarrow_over.dds"
                 />  
@@ -72,7 +72,7 @@
           <Anchor point="BOTTOMRIGHT" relativePoint="BOTTOMLEFT" offsetX="190" offsetY="-10" />
         </Control>
 
-<!--
+
 
         <Control name="$(parent)_ListView" mouseEnabled="true" resizeToFitDescendents="false">
 					<DimensionConstraints  minY="52"/>
@@ -114,7 +114,7 @@
 
 					</Controls>
 
-				</Control>-->
+				</Control>
       </Controls>
     </TopLevelControl>
 
