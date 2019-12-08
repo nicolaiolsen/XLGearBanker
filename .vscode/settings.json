@@ -63,7 +63,9 @@
         "BAG_HOUSE_BANK_TEN",
         "BAG_HOUSE_BANK_THREE",
         "BAG_HOUSE_BANK_TWO",
-        "KEYBIND_STRIP_ALIGN_CENTER"
+        "KEYBIND_STRIP_ALIGN_CENTER",
+        "XLGB_Window_Control_ListView",
+        "XLGB_Window_Control_ListView_Slider"
     ],
     "Lua.diagnostics.disable": [
         "lowercase-global",

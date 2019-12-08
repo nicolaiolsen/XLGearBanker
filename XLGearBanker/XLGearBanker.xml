@@ -95,7 +95,7 @@
 							<OnMouseUp>self.locked=true</OnMouseUp>
 							<OnValueChanged>IIfA:GuiOnSliderUpdate(self, value)</OnValueChanged>
 						</Slider>
-
+            <!--
 						<Control name="$(parent)_Counts" verticalAlignment="LEFT">
 							<Anchor point="BOTTOMLEFT" relativeTo="$(parent)" relativePoint="BOTTOMLEFT" offsetY="6" />
 							<Anchor point="BOTTOMRIGHT" relativeTo="$(parent)" relativePoint="BOTTOMRIGHT" offsetY="6" />
@@ -110,7 +110,7 @@
 									<Anchor point="BOTTOMLEFT" relativeTo="$(parent)" relativePoint="BOTTOM" offsetX="0" offsetY="0"/>
 								</Label>
 							</Controls>
-						</Control>
+            </Control>-->
 
 					</Controls>
 
