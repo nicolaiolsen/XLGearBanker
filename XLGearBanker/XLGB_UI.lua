@@ -62,7 +62,7 @@ function XLGB_UI:ChangeDisplayedGearSet(gearSetNumber)
 end
 
 function XLGB_UI:ShowUI()
-  XLGB_UI:ChangeDisplayedGearSet(XLGearBanker.displayingSet)
+  --XLGB_UI:ChangeDisplayedGearSet(XLGearBanker.displayingSet)
   XLGB_Window_Control:SetHidden(false)
 end
 
