@@ -67,7 +67,7 @@
           </Controls>
         </Control>
 
-        <Control name="$(parent)Index" inherits="ZO_ScrollList">
+        <Control name="$(parent)_Index" inherits="ZO_ScrollList">
           <Anchor point="TOPLEFT" offsetX="10" offsetY="10" />
           <Anchor point="BOTTOMRIGHT" relativePoint="BOTTOMLEFT" offsetX="190" offsetY="-10" />
         </Control>
@@ -75,7 +75,7 @@
 
 
         <Control name="$(parent)_ListView" mouseEnabled="true" resizeToFitDescendents="false">
-					<DimensionConstraints  minY="52"/>
+					<DimensionConstraints  minY="30"/>
 					<Anchor point="TOPLEFT" relativeTo="$(parent)_ToolBar" relativePoint="BOTTOMLEFT" offsetX="20" offsetY="20"/>
 					<Anchor point="BOTTOMRIGHT" relativeTo="$(parent)" relativePoint="BOTTOMRIGHT" offsetX="-35" offsetY="-10"/>
 					<!--<OnMouseWheel>IIfA:GuiOnScroll(self, delta)</OnMouseWheel>-->
@@ -119,14 +119,9 @@
     </TopLevelControl>
 
     <Control name="XLGB_SlotTemplate" inherits="ZO_ListInventorySlotBehavior" virtual="true" mouseEnabled="true">
-      <Dimensions x="300" y="40" />
+      <Dimensions x="350" y="40" />
       <Controls>
-        <!--
-        <Texture name="$(parent)Bg" textureFile="EsoUI/Art/Miscellaneous/listItem_backdrop.dds" alpha="0.4">
-          <AnchorFill />
-          <TextureCoords left="0" right="1" top="0" bottom=".8125" />
-        </Texture>
-        -->
+        
         <Label name="$(parent)_Name" font="ZoFontGameShadow" wrapMode="ELLIPSIS" verticalAlignment="CENTER">
           <Dimensions y="30" />
           <Anchor point="TOPLEFT" offsetX="20" offsetY="0"/>

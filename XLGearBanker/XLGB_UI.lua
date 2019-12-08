@@ -74,7 +74,7 @@ function XLGB_UI:RemoveItem()
   easyDebug("Removing item")
 end
 
-
+--[[
 
 function XLGB_UI:UpdateItemDataList(gearSetNumber)
 
@@ -189,12 +189,32 @@ function XLGB_UI:UpdateListView()
 	XLGB_UI:UpdateItemDataList(XLGearBanker.displayingSet)
   XLGB_UI:UpdateListViewEntries()
 end
+]]
 
+function XLGB_UI:CreateEmptyListEntry(i, predecessor, parent)
+  local entry = WINDOW_MANAGER:CreateControlFromVirtual("XLGB_ListItem_".. i, parent, "XLGB_SlotTemplate")
+
+  entry:SetAnchor(TOPLEFT, predecessor, BOTTOMLEFT, 0, 0)
+	entry:SetAnchor(TOPRIGHT, predecessor, BOTTOMRIGHT, 0, 0)
+
+  return entry
+end
+
+function XLGB_UI:InitializeListEntries()
+  XLGB_Window_Control_ListView.maxEntries = 10
+  XLGB_Window_Control_ListView.entries = {}
+  local predecessor = XLGB_Window_Control_ListView_GearTitle
+  for i = 1, 10 do
+    local entry = XLGB_UI:CreateEmptyListEntry(i, predecessor, XLGB_Window_Control_ListView)
+    table.append(XLGB_Window_Control_ListView.entries, entry)
+    predecessor = entry
+  end
+end
 
 
 function XLGB_UI:Initialize()
   XLGearBanker.displayingSet = 1
-  XLGB_Window_Control_ListView.rowHeight = 52
+  XLGB_Window_Control_ListView.rowHeight = 30
   XLGB_UI:RestorePosition()
   XLGB_UI:InitializeListEntries()
   XLGB_UI:ChangeDisplayedGearSet(XLGearBanker.displayingSet)
