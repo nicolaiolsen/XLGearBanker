@@ -74,7 +74,7 @@ function XLGB_UI:RemoveItem()
   easyDebug("Removing item")
 end
 
---[[
+
 
 function XLGB_UI:UpdateItemDataList(gearSetNumber)
 
@@ -143,28 +143,36 @@ end
 function XLGB_UI:InitializeListEntries()
 	easyDebug("InitializeListEntries")
 
-	XLGB_Window_Control_ListView.dataOffset = 0
+  listview = WINDOW_MANAGER:GetControlByName("XLGB_Window_Control_ListView")
+	-- XLGB_Window_Control_ListView.dataOffset = 0
 
-	XLGB_Window_Control_ListView.items = {}
-  XLGB_Window_Control_ListView.entries = {}
+	-- XLGB_Window_Control_ListView.items = {}
+  -- XLGB_Window_Control_ListView.entries = {}
   
 	--local width = 250 -- XLGB_Window_Control_ListView:GetWidth()
 
 	-- we set those to 35 because that's the amount of lines we can show
 	-- within the dimension constraints
-	XLGB_Window_Control_ListView.maxEntries = 10
+  -- XLGB_Window_Control_ListView.maxEntries = 10
+  
+  listview.dataOffset = 0
+
+	listview.items = {}
+  listview.entries = {}
+  listview.maxEntries = 10
+
 	local predecessor = nil
-	for i = 1, XLGB_Window_Control_ListView.maxEntries do
-		XLGB_Window_Control_ListView.entries[i] = XLGB_UI:CreateEmptyListEntry(i, predecessor, XLGB_Window_Control_ListView)
-		predecessor = XLGB_Window_Control_ListView.entries[i]
+	for i = 1, listview.maxEntries do
+		XLGB_Window_Control_ListView.entries[i] = XLGB_UI:CreateEmptyListEntry(i, predecessor, listview)
+		predecessor = listview.entries[i]
 	end
 
 	-- setup slider
 	--	local tex = "/esoui/art/miscellaneous/scrollbox_elevator.dds"
 	--	XLGB_Window_Control_ListView_Slider:SetThumbTexture(tex, tex, tex, 16, 50, 0, 0, 1, 1)
-	XLGB_Window_Control_ListView_Slider:SetMinMax(0, #XLGB_Window_Control_ListView.items - XLGB_Window_Control_ListView.maxEntries)
+	XLGB_Window_Control_ListView_Slider:SetMinMax(0, #listview.items - listview.maxEntries)
 
-	return XLGB_Window_Control_ListView.entries
+	return listview.entries
 end
 
 function XLGB_UI:UpdateListViewEntries()
@@ -189,8 +197,8 @@ function XLGB_UI:UpdateListView()
 	XLGB_UI:UpdateItemDataList(XLGearBanker.displayingSet)
   XLGB_UI:UpdateListViewEntries()
 end
-]]
 
+--[[
 function XLGB_UI:CreateEmptyListEntry(i, predecessor, parent)
   local entry = WINDOW_MANAGER:CreateControlFromVirtual("XLGB_ListItem_".. i, parent, "XLGB_SlotTemplate")
 
@@ -210,7 +218,7 @@ function XLGB_UI:InitializeListEntries()
     predecessor = entry
   end
 end
-
+]]
 
 function XLGB_UI:Initialize()
   XLGearBanker.displayingSet = 1
