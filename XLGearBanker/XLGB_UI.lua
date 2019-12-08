@@ -75,7 +75,7 @@ function XLGB_UI:RemoveItem()
 end
 
 
-
+--[[
 function XLGB_UI:UpdateItemDataList(gearSetNumber)
 
   local items = XLGB_GearSet:GetGearSet(gearSetNumber).items
@@ -220,12 +220,18 @@ function XLGB_UI:InitializeListEntries()
 end
 ]]
 
+function XLGB_UI:InitializeScrollList()
+  XLGB_Window_Control_ListView.scrollList = WINDOW_MANAGER:CreateControlFromVirtual("$(parent)_scrollList", XLGB_Window_Control_ListView, "ZO_ScrollList")
+  XLGB_Window_Control_ListView.scrollList:SetAnchor(TOPLEFT, XLGB_Window_Control_ListView_GearTitle, BOTTOMLEFT, 0, 0)
+
+end
+
 function XLGB_UI:Initialize()
   XLGearBanker.displayingSet = 1
-  XLGB_Window_Control_ListView.rowHeight = 30
+  -- XLGB_Window_Control_ListView.rowHeight = 30
   XLGB_UI:RestorePosition()
-  XLGB_UI:InitializeListEntries()
-  XLGB_UI:ChangeDisplayedGearSet(XLGearBanker.displayingSet)
+  XLGB_UI:InitializeScrollList()
+  -- XLGB_UI:ChangeDisplayedGearSet(XLGearBanker.displayingSet)
   XLGearBanker.debug = true
   if XLGearBanker.debug then
     XLGB_UI:ShowUI()
