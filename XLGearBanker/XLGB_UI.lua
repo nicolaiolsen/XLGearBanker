@@ -120,6 +120,7 @@ function XLGB_UI:fillEntriesWithItemData()
   end
 
 function XLGB_UI:CreateEmptyListEntry(i, predecessor, parent)
+  d("Parent: ", parent)
 	local entry = WINDOW_MANAGER:CreateControlFromVirtual("XLGB_ListItem_".. i, parent, "XLGB_SlotTemplate")
 
   entry.number = i
@@ -155,7 +156,7 @@ function XLGB_UI:InitializeListEntries()
 	XLGB_Window_Control_ListView.maxEntries = 35
 	local predecessor = nil
 	for i = 1, XLGB_Window_Control_ListView.maxEntries do
-		XLGB_Window_Control_ListView.entries[i] = XLGB_UI:CreateEmptyListEntry(i, predecessor, "XLGB_Window_Control_ListView")
+		XLGB_Window_Control_ListView.entries[i] = XLGB_UI:CreateEmptyListEntry(i, predecessor, XLGB_Window_Control_ListView)
 		predecessor = XLGB_Window_Control_ListView.entries[i]
 	end
 
