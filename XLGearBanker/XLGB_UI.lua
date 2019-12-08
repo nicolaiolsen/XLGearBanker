@@ -124,8 +124,8 @@ function XLGB_UI:CreateEmptyListEntry(i, predecessor, parent)
 	local entry = WINDOW_MANAGER:CreateControlFromVirtual("XLGB_ListItem_".. i, parent, "XLGB_SlotTemplate")
 
   entry.number = i
-	entry.text = entry:GetNamedChild("Name")
-	entry.remove = entry:GetNamedChild("RemoveItem")
+	entry.text = entry:GetNamedChild("_Name")
+	entry.remove = entry:GetNamedChild("_RemoveItem")
 
 	entry:SetHidden(false)
 	entry:SetMouseEnabled(true)

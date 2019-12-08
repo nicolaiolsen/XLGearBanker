@@ -164,6 +164,3 @@ function XLGB_GearSet:PrintGearSetItems(gearSetNumber)
   end
   d("[XLGB] Total items = " .. #gearSet.items)
 end
-
-
-
