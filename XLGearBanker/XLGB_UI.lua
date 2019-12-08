@@ -120,12 +120,11 @@ function XLGB_UI:fillEntriesWithItemData()
   end
 
 function XLGB_UI:CreateEmptyListEntry(i, predecessor, parent)
-  d("Parent: ", parent)
 	local entry = WINDOW_MANAGER:CreateControlFromVirtual("XLGB_ListItem_".. i, parent, "XLGB_SlotTemplate")
 
   entry.number = i
 	entry.text = entry:GetNamedChild("_Name")
-	entry.remove = entry:GetNamedChild("_RemoveItem")
+	--entry.remove = entry:GetNamedChild("_RemoveItem")
 
 	entry:SetHidden(false)
 	entry:SetMouseEnabled(true)
@@ -153,7 +152,7 @@ function XLGB_UI:InitializeListEntries()
 
 	-- we set those to 35 because that's the amount of lines we can show
 	-- within the dimension constraints
-	XLGB_Window_Control_ListView.maxEntries = 35
+	XLGB_Window_Control_ListView.maxEntries = 10
 	local predecessor = nil
 	for i = 1, XLGB_Window_Control_ListView.maxEntries do
 		XLGB_Window_Control_ListView.entries[i] = XLGB_UI:CreateEmptyListEntry(i, predecessor, XLGB_Window_Control_ListView)
@@ -176,7 +175,7 @@ function XLGB_UI:UpdateListViewEntries()
   end
 
 	if XLGB_Window_Control_ListView.maxEntries == nil then
-		XLGB_Window_Control_ListView.maxEntries = 35
+		XLGB_Window_Control_ListView.maxEntries = 10
   end
 
 	XLGB_UI:fillEntriesWithItemData()
