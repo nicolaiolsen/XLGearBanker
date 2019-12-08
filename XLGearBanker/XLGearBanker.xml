@@ -78,7 +78,7 @@
 					<DimensionConstraints  minY="52"/>
 					<Anchor point="TOPLEFT" relativeTo="$(parent)_ToolBar" relativePoint="BOTTOMLEFT" offsetX="20" offsetY="20"/>
 					<Anchor point="BOTTOMRIGHT" relativeTo="$(parent)" relativePoint="BOTTOMRIGHT" offsetX="-35" offsetY="-10"/>
-					<OnMouseWheel>IIfA:GuiOnScroll(self, delta)</OnMouseWheel>
+					<!--<OnMouseWheel>IIfA:GuiOnScroll(self, delta)</OnMouseWheel>-->
 					<Controls>
 
  
@@ -93,7 +93,7 @@
 
 							<OnMouseDown>self.locked=false</OnMouseDown>
 							<OnMouseUp>self.locked=true</OnMouseUp>
-							<OnValueChanged>IIfA:GuiOnSliderUpdate(self, value)</OnValueChanged>
+							<!--<OnValueChanged>IIfA:GuiOnSliderUpdate(self, value)</OnValueChanged>-->
 						</Slider>
             <!--
 						<Control name="$(parent)_Counts" verticalAlignment="LEFT">
@@ -119,7 +119,7 @@
     </TopLevelControl>
 
     <Control name="XLGB_SlotTemplate" inherits="ZO_ListInventorySlotBehavior" virtual="true" mouseEnabled="true">
-      <Dimensions x="300" y="52" />
+      <Dimensions x="300" y="40" />
       <Controls>
         <!--
         <Texture name="$(parent)Bg" textureFile="EsoUI/Art/Miscellaneous/listItem_backdrop.dds" alpha="0.4">
@@ -127,14 +127,14 @@
           <TextureCoords left="0" right="1" top="0" bottom=".8125" />
         </Texture>
         -->
-        <Label name="$(parent)Name" font="ZoFontGameShadow" wrapMode="ELLIPSIS" verticalAlignment="CENTER">
+        <Label name="$(parent)_Name" font="ZoFontGameShadow" wrapMode="ELLIPSIS" verticalAlignment="CENTER">
           <Dimensions y="30" />
-          <Anchor point="TOPLEFT"  offsetX="20" offsetY="0"/>
-          <Anchor point="TOPRIGHT"  offsetX="-50" offsetY="0"/>
+          <Anchor point="TOPLEFT" offsetX="20" offsetY="0"/>
+          <Anchor point="TOPRIGHT" relativePoint="TOPRIGHT" offsetX="-50" offsetY="0"/>
         </Label>
 
         <!-- Escape button:-->
-        <!-- relativeTo="$(parent)" relativePoint="TOPRIGHT"
+        <!--
         <Button name="$(parent)RemoveItem" inherits="ZO_ButtonBehaviorClickSound" >
 
           <OnClicked>XLGB_UI.RemoveItem()
