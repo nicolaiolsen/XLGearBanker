@@ -225,14 +225,17 @@ function XLGB_UI:UpdateScrollList(gearSetNumber)
   local scrollData = ZO_ScrollList_GetDataList(XLGB_Window_Control_ListView.scrollList)
   ZO_ClearNumericallyIndexedTable(scrollData)
   for _, item in pairs(gearSet.items) do
-      local dataEntry = ZO_ScrollList_CreateDataEntry(XLGB_Constants.ITEM_ROW, item)
+      local dataEntry = ZO_ScrollList_CreateDataEntry(XLGB_Constants.ITEM_ROW, {
+        itemName = item.name,
+        itemLink = item.link
+      })
       table.insert(scrollData, dataEntry)
   end
   ZO_ScrollList_Commit(XLGB_Window_Control_ListView.scrollList)
 end
 
 local function fillItemRowWithData(control, data)
-  control:GetNamedChild("_Name"):SetText(data.item.name)
+  control:GetNamedChild("_Name"):SetText(data.itemName)
 end
 
 function XLGB_UI:InitializeScrollList()
