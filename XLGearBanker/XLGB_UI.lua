@@ -230,14 +230,14 @@ function XLGB_UI:UpdateScrollList(gearSetNumber)
   end
 end
 
-function XLGB_UI:FillItemRowWithData(control, data)
+local function fillItemRowWithData(control, data)
   control:GetNamedChild("_Name"):SetText(data.item_link)
 end
 
 function XLGB_UI:InitializeScrollList()
   XLGB_Window_Control_ListView.scrollList = WINDOW_MANAGER:CreateControlFromVirtual("$(parent)_scrollList", XLGB_Window_Control_ListView, "ZO_ScrollList")
   XLGB_Window_Control_ListView.scrollList:SetAnchor(TOPLEFT, XLGB_Window_Control_ListView_GearTitle, BOTTOMLEFT, 0, 0)
-  ZO_ScrollList_AddDataType(XLGB_Window_Control_ListView.scrollList, XLGB_Constants.ITEM_ROW, 30, XLGB_UI:FillItemRowWithData())
+  ZO_ScrollList_AddDataType(XLGB_Window_Control_ListView.scrollList, XLGB_Constants.ITEM_ROW, 30, fillItemRowWithData)
 end
 
 function XLGB_UI:Initialize()
