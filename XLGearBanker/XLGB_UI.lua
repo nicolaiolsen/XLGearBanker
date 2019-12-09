@@ -228,6 +228,7 @@ function XLGB_UI:UpdateScrollList(gearSetNumber)
       local dataEntry = ZO_ScrollList_CreateDataEntry(XLGB_Constants.ITEM_ROW, item)
       table.insert(scrollData, dataEntry)
   end
+  ZO_ScrollList_Commit(XLGB_Window_Control_ListView.scrollList)
 end
 
 local function fillItemRowWithData(control, data)
