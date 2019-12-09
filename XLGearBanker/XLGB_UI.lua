@@ -57,7 +57,7 @@ function XLGB_UI:ChangeDisplayedGearSet(gearSetNumber)
   local totalGearSets = XLGB_GearSet:GetNumberOfGearSets()
   if XLGB_GearSet:ValidGearSetNumber(gearSetNumber, totalGearSets) then
       XLGB_UI:SetGearNameLabel(tonumber(gearSetNumber))
-      XLGB_UI:UpdateListView()
+      --XLGB_UI:UpdateListView()
   end
 end
 
@@ -220,10 +220,24 @@ function XLGB_UI:InitializeListEntries()
 end
 ]]
 
+function XLGB_UI:UpdateScrollList(gearSetNumber)
+  local gearSet = XLGB_GearSet:GetGearSet(gearSetNumber)
+  local scrollData = ZO_ScrollList_GetDataList(XLGB_Window_Control_ListView.scrollList)
+  ZO_ClearNumericallyIndexedTable(scrollData)
+  for _, item in pairs(gearSet.items) do
+      local dataEntry = ZO_ScrollList_CreateDataEntry(XLGB_Constants.ITEM_ROW, item)
+      table.insert(scrollData, dataEntry)
+  end
+end
+
+function XLGB_UI:FillItemRowWithData(control, data)
+  control:GetNamedChild("_Name"):SetText(data.item_link)
+end
+
 function XLGB_UI:InitializeScrollList()
   XLGB_Window_Control_ListView.scrollList = WINDOW_MANAGER:CreateControlFromVirtual("$(parent)_scrollList", XLGB_Window_Control_ListView, "ZO_ScrollList")
   XLGB_Window_Control_ListView.scrollList:SetAnchor(TOPLEFT, XLGB_Window_Control_ListView_GearTitle, BOTTOMLEFT, 0, 0)
-
+  ZO_ScrollList_AddDataType(XLGB_Window_Control_ListView.scrollList, XLGB_Constants.ITEM_ROW, 30, XLGB_UI:FillItemRowWithData())
 end
 
 function XLGB_UI:Initialize()

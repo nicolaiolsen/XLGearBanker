@@ -22,7 +22,6 @@ function XLGB_GearSet:ValidGearSetNumber(gearSetNumber, totalGearSets)
 end
 
 -- credit: https://gist.github.com/tylerneylon/81333721109155b2d244
---
 local function copy(obj, seen)
   if type(obj) ~= 'table' then return obj end
   if seen and seen[obj] then return seen[obj] end
@@ -39,7 +38,7 @@ function XLGB_GearSet:ValidGearSetName(gearSetName)
   or gearSetName == "" then 
     d("[XLGB_ERROR] Enter a name for the set.")
     return false
-  else 
+  else
     return true
   end
 end

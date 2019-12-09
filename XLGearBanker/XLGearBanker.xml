@@ -35,7 +35,7 @@
             <Button name="$(parent)_PreviousSet" inherits="ZO_ButtonBehaviorClickSound" >
 
               <OnClicked>XLGB_UI.CycleLeft()</OnClicked>
-
+¢
               <Dimensions x="30" y="30" />                  
               <Anchor point="TOPLEFT" relativeTo="$(parent)" relativePoint="TOPLEFT"  offsetX="15" offsetY="0" />
               <Textures
