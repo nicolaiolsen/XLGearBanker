@@ -72,14 +72,12 @@
 					<Anchor point="TOPLEFT" relativeTo="$(parent)_ToolBar" relativePoint="BOTTOMLEFT" offsetX="20" offsetY="20"/>
 					<Anchor point="BOTTOMRIGHT" relativeTo="$(parent)" relativePoint="BOTTOMRIGHT" offsetX="-35" offsetY="-10"/>
 					<Controls>
-
  
             <EditBox name="$(parent)_GearTitle" inherits="ZO_DefaultEditMultiLine ZO_DefaultEditForDarkBackdrop" text="Test Set" >
               <Anchor point="TOPLEFT" relativeTo="$(parent)" relativePoint="TOPLEFT" offsetX="0" offsetY="0"  />
                <!--    <OnFocusGained>MyAddon.selectEntireTextbox()</OnFocusGained>
                 <OnTextChanged>MyAddon.onTextboxTextChanged()</OnTextChanged> -->
             </EditBox>
-                
 
             <Control name="$(parent)_ScrollList" inherits="ZO_ScrollList">
               <Anchor point="TOPLEFT" relativeTo="$(parent)_GearTitle" relativePoint="BOTTOMLEFT" offsetX="0" offsetY="10" />
