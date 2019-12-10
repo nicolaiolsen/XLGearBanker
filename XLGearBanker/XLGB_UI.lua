@@ -70,9 +70,9 @@ function XLGB_UI:HideUI()
   XLGB_Window_Control:SetHidden(true)
 end
 
-function XLGB_UI:RemoveItem(removeButton)
+function XLGB_UI:RemoveItem()
   easyDebug("Removing item")
-  easyDebug(removeButton:GetText())
+  --easyDebug(removeButton:GetText())
 end
 
 function XLGB_UI:UpdateScrollList(gearSetNumber)
