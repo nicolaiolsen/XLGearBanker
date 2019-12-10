@@ -41,8 +41,8 @@ function XLGB_UI:ToggleEdit(editControl)
     gearTitleControl:SetEditEnabled(true)
     gearTitleControl:SelectAll()
     editControl:SetNormalTexture("/esoui/art/buttons/edit_cancel_up.dds")
-    editControl:SetPressedTexture("/esoui/art/buttons/edit_cancel_updown.dds")
-    editControl:SetMouseOverTexture("/esoui/art/buttons/edit_cancel_upover.dds")
+    editControl:SetPressedTexture("/esoui/art/buttons/edit_cancel_down.dds")
+    editControl:SetMouseOverTexture("/esoui/art/buttons/edit_cancel_over.dds")
     
   end
   ZO_ScrollList_RefreshVisible(XLGB_Window_Control_ListView.scrollList)
