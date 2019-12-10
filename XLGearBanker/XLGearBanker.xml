@@ -149,13 +149,31 @@
             <Anchor point="TOPLEFT" offsetX="10" offsetY="10" />
     </Label>
 
+
+
     <Control name="XLGB_Item_Row_Template" virtual="true" >
       <Controls>
         <Label name="$(parent)_Name" font="ZoFontWinT2" text="Some Test Label" linkEnabled="true">
               <Anchor point="TOPLEFT" offsetX="10" offsetY="10" />
         </Label>
+
+        <Button name="$(parent)RemoveItem" inherits="ZO_ButtonBehaviorClickSound" >
+
+          <OnClicked>XLGB_UI.RemoveItem()
+          </OnClicked>
+
+          <Dimensions x="20" y="20" />                                
+          <Anchor point="TOPRIGHT" relativeTo="$(parent)" relativePoint="TOPRIGHT" offsetX="-10" offsetY="5"  />
+          <Textures
+              normal    ="/esoui/art/buttons/decline_up.dds"
+              pressed    ="/esoui/art/buttons/decline_down.dds"
+              mouseOver  ="/esoui/art/buttons/decline_over.dds"
+            />  
+        </Button>
       </Controls>
     </Control>
+
+
 
   </Controls>
 </GuiXml>

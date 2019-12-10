@@ -242,7 +242,7 @@ end
 
 function XLGB_UI:InitializeScrollList()
   XLGB_Window_Control_ListView.scrollList = XLGB_Window_Control_ListView:GetNamedChild("_ScrollList")
-  ZO_ScrollList_AddDataType(XLGB_Window_Control_ListView.scrollList, XLGB_Constants.ITEM_ROW, "XLGB_Item_Row_Template", 30, fillItemRowWithData)
+  ZO_ScrollList_AddDataType(XLGB_Window_Control_ListView.scrollList, XLGB_Constants.ITEM_ROW, "XLGB_Item_Row_Template", 35, fillItemRowWithData)
   XLGB_UI:UpdateScrollList(XLGearBanker.displayingSet)
 end
 
