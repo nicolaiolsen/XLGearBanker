@@ -41,7 +41,7 @@ end
 
 function XLGB_UI:ToggleEdit(editControl)
   local gearTitleControl = XLGB_Window_Control_ListView:GetNamedChild("_GearTitle")
-  local acceptControl = XLGB_Window_Control_ListView:GetNamedChild("_Accept")
+  local acceptControl = XLGB_Window_Control_ListView:GetNamedChild("_AcceptEdit")
   if XLGearBanker.UI_Editable then
     setEditFalse(editControl, gearTitleControl, acceptControl)
     gearTitleControl:SetText(XLGearBanker.UI_GearSetNameBefore)
