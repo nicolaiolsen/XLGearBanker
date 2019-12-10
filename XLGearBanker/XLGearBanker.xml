@@ -74,9 +74,12 @@
 					<Controls>
 
  
-            <Label name="$(parent)_GearTitle" font="ZoFontAnnounceMedium" text="Test Set" >
+            <EditBox name="$(parent)_GearTitle" inherits="ZO_DefaultEditMultiLine ZO_DefaultEditForDarkBackdrop" text="Test Set" >
               <Anchor point="TOPLEFT" relativeTo="$(parent)" relativePoint="TOPLEFT" offsetX="0" offsetY="0"  />
-            </Label>
+               <!--    <OnFocusGained>MyAddon.selectEntireTextbox()</OnFocusGained>
+                <OnTextChanged>MyAddon.onTextboxTextChanged()</OnTextChanged> -->
+            </EditBox>
+                
 
             <Control name="$(parent)_ScrollList" inherits="ZO_ScrollList">
               <Anchor point="TOPLEFT" relativeTo="$(parent)_GearTitle" relativePoint="BOTTOMLEFT" offsetX="0" offsetY="10" />
