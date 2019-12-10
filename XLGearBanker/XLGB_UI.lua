@@ -1,7 +1,5 @@
 XLGB_UI = {}
 
---Credit: Inventory Insight - IIfABackPack.lua
-
 function XLGB_UI:XLGB_Window_Control_OnMoveStop()
   XLGearBanker.savedVariables.left = XLGB_Window_Control:GetLeft()
   XLGearBanker.savedVariables.top = XLGB_Window_Control:GetTop()
@@ -62,7 +60,7 @@ function XLGB_UI:ChangeDisplayedGearSet(gearSetNumber)
 end
 
 function XLGB_UI:ShowUI()
-  XLGB_UI:ChangeDisplayedGearSet(XLGearBanker.displayingSet)
+  --XLGB_UI:ChangeDisplayedGearSet(XLGearBanker.displayingSet)
   XLGB_Window_Control:SetHidden(false)
 end
 
@@ -94,7 +92,7 @@ end
 
 local function fillItemRowWithData(control, data)
   control:GetNamedChild("_Name"):SetText(data.itemLink)
-  control:GetNamedChild("_Remove"):SetText(data.itemID)
+  --control:GetNamedChild("_Remove"):SetText(data.itemID)
 end
 
 function XLGB_UI:InitializeScrollList()
@@ -106,7 +104,6 @@ end
 
 function XLGB_UI:Initialize()
   XLGearBanker.displayingSet = 1
-  -- XLGB_Window_Control_ListView.rowHeight = 30
   XLGB_UI:RestorePosition()
   XLGB_UI:InitializeScrollList()
   XLGB_UI:ChangeDisplayedGearSet(XLGearBanker.displayingSet)
