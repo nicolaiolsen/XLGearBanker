@@ -13,6 +13,14 @@ function XLGB_UI:RestorePosition()
   XLGB_Window_Control:SetAnchor(TOPLEFT, GuiRoot, TOPLEFT, left, top)
 end
 
+function XLGB_UI:SelectEntireTextbox(control)
+  control:SelectAll()
+end
+
+function XLGB_UI:OnTextboxTextChanged(control)
+  
+end
+
 function XLGB_UI:CycleLeft()
   easyDebug("Cycle left called!")
 
