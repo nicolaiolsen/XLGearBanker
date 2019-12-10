@@ -75,12 +75,24 @@ function XLGB_GearSet:CreateNewGearSet(gearSetName)
   d("[XLGB] Created new set: " .. gearSetName)
 end
 
+function XLGB_GearSet:FindGearSet(gearSetName)
+  local gearSets = XLGearBanker.savedVariables.gearSetList
+  for _, gearSet in pairs(gearSets) do
+      if gearSet.name == gearSetName then
+        return gearSet
+      end
+  end
+  return nil
+end
+
 function XLGB_GearSet:EditGearSetName(gearSetName, gearSetNumber)
   if (not isNameUnique(gearSetName)) then
     d("[XLGB_ERROR] A set named ".. gearSetName .." does already exist! Set names should be unique.")
     return false
   end
+  local gearSet = copy(XLGB_GearSet:GetGearSet(gearSetNumber))
   XLGearBanker.savedVariables.gearSetList[gearSetNumber].name = "" .. gearSetName
+  XLGB_Events:OnGearSetNameUpdate(gearSet, XLGearBanker.savedVariables.gearSetList[gearSetNumber])
   return true
 end
 
