@@ -17,9 +17,11 @@ function XLGB_UI:SelectEntireTextbox(control)
   control:SelectAll()
 end
 
-function XLGB_UI:OnTextboxTextChanged(control)
+function XLGB_UI:OnTextboxEnter(control)
   local newGearName = control:GetText()
-  XLGB_GearSet:EditGearSetName(newGearName, XLGearBanker.displayingSet)
+  if XLGB_GearSet:EditGearSetName(newGearName, XLGearBanker.displayingSet) then
+    d("[XLGB] Gearset renamed to '" .. newGearName .. "'.")
+  end
 end
 
 function XLGB_UI:CycleLeft()

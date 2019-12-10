@@ -77,7 +77,7 @@
               <Anchor point="TOPLEFT" relativeTo="$(parent)" relativePoint="TOPLEFT" offsetX="0" offsetY="0"  />
               <Dimensions x="200" y="30" />
                 <OnFocusGained>XLGB_UI:SelectEntireTextbox(self)</OnFocusGained>
-                <OnTextChanged>XLGB_UI:OnTextboxTextChanged(self)</OnTextChanged>
+                <OnEnter>XLGB_UI:OnTextboxEnter(self)</OnEnter>
             </EditBox>
 
             <Control name="$(parent)_ScrollList" inherits="ZO_ScrollList">
