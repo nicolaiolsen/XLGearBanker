@@ -24,7 +24,7 @@ local function setEditFalse(editControl, gearTitleControl, acceptControl)
   editControl:SetNormalTexture("/esoui/art/buttons/edit_up.dds")
   editControl:SetPressedTexture("/esoui/art/buttons/edit_down.dds")
   editControl:SetMouseOverTexture("/esoui/art/buttons/edit_over.dds")
-  acceptControl:SetVisible(false)
+  acceptControl:SetHidden(true)
 end
 
 function XLGB_UI:AcceptEdit(acceptControl)
@@ -53,7 +53,7 @@ function XLGB_UI:ToggleEdit(editControl)
     editControl:SetNormalTexture("/esoui/art/buttons/edit_cancel_up.dds")
     editControl:SetPressedTexture("/esoui/art/buttons/edit_cancel_down.dds")
     editControl:SetMouseOverTexture("/esoui/art/buttons/edit_cancel_over.dds")
-    acceptControl:SetVisible(true)
+    acceptControl:SetHidden(false)
     
   end
   ZO_ScrollList_RefreshVisible(XLGB_Window_Control_ListView.scrollList)
