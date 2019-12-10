@@ -70,7 +70,6 @@ end
 
 function XLGB_UI:RemoveItem()
   easyDebug("Removing item")
-  --easyDebug(removeButton:GetText())
 end
 
 function XLGB_UI:UpdateScrollList(gearSetNumber)
