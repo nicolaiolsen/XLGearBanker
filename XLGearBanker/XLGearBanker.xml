@@ -163,7 +163,7 @@
           </OnClicked>
 
           <Dimensions x="20" y="20" />                                
-          <Anchor point="TOPRIGHT" relativeTo="$(parent)" relativePoint="TOPRIGHT" offsetX="-10" offsetY="5"  />
+          <Anchor point="TOPRIGHT" relativeTo="$(parent)" relativePoint="TOPRIGHT" offsetX="-20" offsetY="5"  />
           <Textures
               normal    ="/esoui/art/buttons/decline_up.dds"
               pressed    ="/esoui/art/buttons/decline_down.dds"
