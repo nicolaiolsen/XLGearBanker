@@ -223,8 +223,8 @@ end
 function XLGB_UI:UpdateScrollList(gearSetNumber)
   local gearSet = XLGB_GearSet:GetGearSet(gearSetNumber)
   local scrollData = ZO_ScrollList_GetDataList(XLGB_Window_Control_ListView.scrollList)
-  ZO_ClearNumericallyIndexedTable(scrollData)
-  for _, item in pairs(gearSet.items) do
+  ZO_ScrollList_Clear(scrollData)
+  for i, item in pairs(gearSet.items) do
       local dataEntry = ZO_ScrollList_CreateDataEntry(XLGB_Constants.ITEM_ROW, {
         itemName = item.name,
         itemLink = item.link
@@ -239,9 +239,10 @@ local function fillItemRowWithData(control, data)
 end
 
 function XLGB_UI:InitializeScrollList()
-  XLGB_Window_Control_ListView.scrollList = WINDOW_MANAGER:CreateControlFromVirtual("$(parent)_scrollList", XLGB_Window_Control_ListView, "ZO_ScrollList")
-  XLGB_Window_Control_ListView.scrollList:SetAnchor(TOPLEFT, XLGB_Window_Control_ListView_GearTitle, BOTTOMLEFT, 0, 0)
-  ZO_ScrollList_AddDataType(XLGB_Window_Control_ListView.scrollList, XLGB_Constants.ITEM_ROW, 30, fillItemRowWithData)
+  XLGB_Window_Control_ListView.scrollList = WINDOW_MANAGER:CreateControlFromVirtual("$(parent)_ScrollList", XLGB_Window_Control_ListView, "ZO_ScrollList")
+  local scrollList = XLGB_Window_Control_ListView.scrollList
+  scrollList:SetAnchor(TOPLEFT, XLGB_Window_Control_ListView_GearTitle, BOTTOMLEFT, 0, 0)
+  ZO_ScrollList_AddDataType(scrollList, XLGB_Constants.ITEM_ROW, 30, fillItemRowWithData)
   XLGB_UI:UpdateScrollList(XLGearBanker.displayingSet)
 end
 
