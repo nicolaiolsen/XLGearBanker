@@ -81,7 +81,7 @@
 
             <Control name="$(parent)_ScrollList" inherits="ZO_ScrollList">
               <Anchor point="TOPLEFT" relativeTo="$(parent)_GearTitle" relativePoint="BOTTOMLEFT" offsetX="0" offsetY="10" />
-              <Anchor point="BOTTOMRIGHT" relativeTo="$(parent)" relativePoint="BOTTOMRIGHT" offsetX="15" offsetY="-10" />
+              <Anchor point="BOTTOMRIGHT" relativeTo="$(parent)" relativePoint="BOTTOMRIGHT" offsetX="20" offsetY="-10" />
             </Control>
 
 					</Controls>
@@ -105,7 +105,7 @@
           </OnClicked>
 
           <Dimensions x="20" y="20" />                                
-          <Anchor point="TOPRIGHT" relativeTo="$(parent)" relativePoint="TOPRIGHT" offsetX="-15" offsetY="5"  />
+          <Anchor point="TOPRIGHT" relativeTo="$(parent)" relativePoint="TOPRIGHT" offsetX="-20" offsetY="5"  />
           <Textures
               normal    ="/esoui/art/buttons/decline_up.dds"
               pressed    ="/esoui/art/buttons/decline_down.dds"
