@@ -13,14 +13,22 @@ function XLGB_UI:RestorePosition()
   XLGB_Window_Control:SetAnchor(TOPLEFT, GuiRoot, TOPLEFT, left, top)
 end
 
-function XLGB_UI:SelectEntireTextbox(control)
-  control:SelectAll()
+function XLGB_UI:SelectEntireTextbox(gearTitleControl)
+  gearTitleControl:SelectAll()
 end
 
-function XLGB_UI:OnTextboxEnter(control)
-  local newGearName = control:GetText()
+function XLGB_UI:OnTextboxEnter(gearTitleControl)
+  local newGearName = gearTitleControl:GetText()
   if XLGB_GearSet:EditGearSetName(newGearName, XLGearBanker.displayingSet) then
     d("[XLGB] Gearset renamed to '" .. newGearName .. "'.")
+  end
+end
+
+function XLGB_UI:ToggleEdit(editControl)
+  if XLGearBanker.UI_Editable then
+    XLGearBanker.UI_Editable = false
+  else
+    XLGearBanker.UI_Editable = true
   end
 end
 
@@ -83,8 +91,8 @@ function XLGB_UI:RemoveItem()
   easyDebug("Removing item")
 end
 
-function XLGB_UI:UpdateScrollList(gearSetNumber)
-  local gearSet = XLGB_GearSet:GetGearSet(gearSetNumber)
+function XLGB_UI:UpdateScrollList()
+  local gearSet = XLGB_GearSet:GetGearSet(XLGearBanker.displayingSet)
   local scrollList = XLGB_Window_Control_ListView:GetNamedChild("_ScrollList")
   local scrollData = ZO_ScrollList_GetDataList(scrollList)
   ZO_ScrollList_Clear(scrollList)
@@ -102,18 +110,23 @@ end
 
 local function fillItemRowWithData(control, data)
   control:GetNamedChild("_Name"):SetText(data.itemLink)
-  --control:GetNamedChild("_Remove"):SetText(data.itemID)
+  if XLGearBanker.UI_Editable then
+    control:GetNamedChild("_Remove"):SetHidden(false)
+  else 
+    control:GetNamedChild("_Remove"):SetHidden(true)
+  end
 end
 
 function XLGB_UI:InitializeScrollList()
   XLGB_Window_Control_ListView.scrollList = XLGB_Window_Control_ListView:GetNamedChild("_ScrollList")
   ZO_ScrollList_EnableHighlight(XLGB_Window_Control_ListView.scrollList, "ZO_ThinListHighlight")
   ZO_ScrollList_AddDataType(XLGB_Window_Control_ListView.scrollList, XLGB_Constants.ITEM_ROW, "XLGB_Item_Row_Template", 35, fillItemRowWithData)
-  XLGB_UI:UpdateScrollList(XLGearBanker.displayingSet)
+  XLGB_UI:UpdateScrollList()
 end
 
 function XLGB_UI:Initialize()
   XLGearBanker.displayingSet = 1
+  XLGearBanker.UI_Editable = false
   XLGB_UI:RestorePosition()
   XLGB_UI:InitializeScrollList()
   XLGB_UI:ChangeDisplayedGearSet(XLGearBanker.displayingSet)
