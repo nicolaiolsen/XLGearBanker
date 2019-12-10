@@ -31,12 +31,18 @@ function XLGB_UI:ToggleEdit(editControl)
     XLGearBanker.UI_Editable = false
     gearTitleControl:ClearSelection()
     gearTitleControl:SetEditEnabled(false)
-    gearTitleControl:SetText(XLGearBanker.GearSetNameBefore)
+    gearTitleControl:SetText(XLGearBanker.UI_GearSetNameBefore)
+    editControl:SetNormalTexture("/esoui/art/buttons/edit_up.dds")
+    editControl:SetPressedTexture("/esoui/art/buttons/edit_down.dds")
+    editControl:SetMouseOverTexture("/esoui/art/buttons/edit_over.dds")
   else
     XLGearBanker.UI_Editable = true
-    XLGearBanker.GearSetNameBefore = gearTitleControl:GetText()
+    XLGearBanker.UI_GearSetNameBefore = gearTitleControl:GetText()
     gearTitleControl:SetEditEnabled(true)
     gearTitleControl:SelectAll()
+    editControl:SetNormalTexture("/esoui/art/buttons/edit_cancel_up.dds")
+    editControl:SetPressedTexture("/esoui/art/buttons/edit_cancel_updown.dds")
+    editControl:SetMouseOverTexture("/esoui/art/buttons/edit_cancel_upover.dds")
     
   end
   ZO_ScrollList_RefreshVisible(XLGB_Window_Control_ListView.scrollList)
