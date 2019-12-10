@@ -238,7 +238,6 @@ end
 
 local function fillItemRowWithData(control, data)
   control:SetText(data.itemLink)
-  control:SetLinkEnabled(true)
 end
 
 function XLGB_UI:InitializeScrollList()
