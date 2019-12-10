@@ -223,7 +223,7 @@ end
 function XLGB_UI:UpdateScrollList(gearSetNumber)
   local gearSet = XLGB_GearSet:GetGearSet(gearSetNumber)
   local scrollData = ZO_ScrollList_GetDataList(XLGB_Window_Control_ListView.scrollList)
-  ZO_ScrollList_Clear(scrollData)
+  --ZO_ScrollList_Clear(scrollData)
   for i, item in pairs(gearSet.items) do
       local dataEntry = ZO_ScrollList_CreateDataEntry(XLGB_Constants.ITEM_ROW, {
         itemName = item.name,
