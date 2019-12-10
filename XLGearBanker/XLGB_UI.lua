@@ -29,12 +29,15 @@ function XLGB_UI:ToggleEdit(editControl)
 
   if XLGearBanker.UI_Editable then
     XLGearBanker.UI_Editable = false
-    gearTitleControl:SetEditEnabled(false)
     gearTitleControl:ClearSelection()
+    gearTitleControl:SetEditEnabled(false)
+    gearTitleControl:SetText(XLGearBanker.GearSetNameBefore)
   else
     XLGearBanker.UI_Editable = true
+    XLGearBanker.GearSetNameBefore = gearTitleControl:GetText()
     gearTitleControl:SetEditEnabled(true)
     gearTitleControl:SelectAll()
+    
   end
   ZO_ScrollList_RefreshVisible(XLGB_Window_Control_ListView.scrollList)
 end
