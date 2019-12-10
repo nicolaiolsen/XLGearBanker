@@ -229,7 +229,8 @@ function XLGB_UI:UpdateScrollList(gearSetNumber)
         itemName = item.name,
         itemLink = item.link
       })
-      table.insert(scrollData, dataEntry)
+      scrollData[#scrollData + 1] = dataEntry
+      --table.insert(scrollData, dataEntry)
   end
   ZO_ScrollList_Commit(XLGB_Window_Control_ListView.scrollList)
 end
