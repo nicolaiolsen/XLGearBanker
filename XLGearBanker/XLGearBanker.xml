@@ -80,8 +80,8 @@
             </Label>
 
             <Control name="$(parent)_ScrollList" inherits="ZO_ScrollList">
-              <Anchor point="TOPLEFT" relativeTo="$(parent)_GearTitle" relativePoint="BOTTOMLEFT" offsetX="10" offsetY="10" />
-              <Anchor point="BOTTOMRIGHT" relativePoint="BOTTOMLEFT" offsetX="190" offsetY="-10" />
+              <Anchor point="TOPLEFT" relativeTo="$(parent)_GearTitle" relativePoint="BOTTOMLEFT" offsetX="0" offsetY="10" />
+              <Anchor point="BOTTOMRIGHT" relativeTo="$(parent)" relativePoint="BOTTOMRIGHT" offsetX="-10" offsetY="-10" />
             </Control>
 
 						<!-- <Slider name="$(parent)_Slider" mouseEnabled="true" step="1" inherits="ZO_VerticalScrollbarBase">

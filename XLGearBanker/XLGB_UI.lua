@@ -242,7 +242,7 @@ function XLGB_UI:InitializeScrollList()
   -- XLGB_Window_Control_ListView.scrollList = WINDOW_MANAGER:CreateControlFromVirtual("$(parent)_ScrollList", XLGB_Window_Control_ListView, "ZO_ScrollList")
   -- XLGB_Window_Control_ListView.scrollList:SetAnchor(TOPLEFT, XLGB_Window_Control_ListView_GearTitle, BOTTOMLEFT, 0, 0)
   XLGB_Window_Control_ListView.scrollList = XLGB_Window_Control_ListView:GetNamedChild("_ScrollList")
-  ZO_ScrollList_AddDataType(XLGB_Window_Control_ListView.scrollList, XLGB_Constants.ITEM_ROW, "XLGB_SlotTemplate", 30, fillItemRowWithData)
+  ZO_ScrollList_AddDataType(XLGB_Window_Control_ListView.scrollList, XLGB_Constants.ITEM_ROW, "XLGB_Test", 30, fillItemRowWithData)
   XLGB_UI:UpdateScrollList(XLGearBanker.displayingSet)
 end
 
