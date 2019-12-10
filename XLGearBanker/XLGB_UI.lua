@@ -30,6 +30,7 @@ function XLGB_UI:ToggleEdit(editControl)
   else
     XLGearBanker.UI_Editable = true
   end
+  ZO_ScrollList_RefreshVisible(XLGB_Window_Control_ListView.scrollList)
 end
 
 function XLGB_UI:CycleLeft()
