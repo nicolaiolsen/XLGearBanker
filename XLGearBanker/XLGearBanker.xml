@@ -147,10 +147,12 @@
     <Label name="XLGB_Test" font="ZoFontWinT2" text="Some Test Label" virtual="true" linkEnabled="true">
             <Anchor point="TOPLEFT" offsetX="10" offsetY="10" />
     </Label>
-    <Controls name="XLGB_Item_Row_Template" virtual="true" >
-      <Label name="($parent)_Name" font="ZoFontWinT2" text="Some Test Label" linkEnabled="true">
-            <Anchor point="TOPLEFT" offsetX="10" offsetY="10" />
-      </Label>
-    </Controls>
+    <Control name="XLGB_Item_Row_Template" virtual="true" >
+      <Controls>
+        <Label name="($parent)_Name" font="ZoFontWinT2" text="Some Test Label" linkEnabled="true">
+              <Anchor point="TOPLEFT" offsetX="10" offsetY="10" />
+        </Label>
+      </Controls>
+    </Control>
   </Controls>
 </GuiXml>
