@@ -111,7 +111,7 @@
               <Anchor point="TOPLEFT" offsetX="10" offsetY="10" />
         </Label>
 
-        <Button name="$(parent)_RemoveItem" inherits="ZO_ButtonBehaviorClickSound" >
+        <Button name="$(parent)_Remove" inherits="ZO_ButtonBehaviorClickSound" >
           <OnClicked>XLGB_UI.RemoveItem(self)</OnClicked>
           <Dimensions x="20" y="20" />                                
           <Anchor point="TOPRIGHT" relativeTo="$(parent)" relativePoint="TOPRIGHT" offsetX="-20" offsetY="5"  />
