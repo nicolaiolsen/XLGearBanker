@@ -18,7 +18,8 @@ function XLGB_UI:SelectEntireTextbox(control)
 end
 
 function XLGB_UI:OnTextboxTextChanged(control)
-  
+  local newGearName = control:GetText()
+  XLGB_GearSet:EditGearSetName(newGearName, XLGearBanker.displayingSet)
 end
 
 function XLGB_UI:CycleLeft()

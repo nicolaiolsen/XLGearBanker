@@ -78,9 +78,10 @@ end
 function XLGB_GearSet:EditGearSetName(gearSetName, gearSetNumber)
   if (not isNameUnique(gearSetName)) then
     d("[XLGB_ERROR] A set named ".. gearSetName .." does already exist! Set names should be unique.")
-    return
+    return false
   end
   XLGearBanker.savedVariables.gearSetList[gearSetNumber].name = "" .. gearSetName
+  return true
 end
 
 function XLGB_GearSet:RemoveGearSet(gearSetNumber)
