@@ -237,7 +237,7 @@ function XLGB_UI:UpdateScrollList(gearSetNumber)
 end
 
 local function fillItemRowWithData(control, data)
-  control:GetChild(1):SetText(data.itemLink)
+  control:GetNamedChild("_Name"):SetText(data.itemLink)
 end
 
 function XLGB_UI:InitializeScrollList()
