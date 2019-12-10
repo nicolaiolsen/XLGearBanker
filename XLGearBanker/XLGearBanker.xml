@@ -78,7 +78,6 @@
               <Anchor point="TOPLEFT" relativeTo="$(parent)" relativePoint="TOPLEFT" offsetX="0" offsetY="0"  />
               <Dimensions x="200" y="30" />
                 <OnFocusGained>XLGB_UI:SelectEntireTextbox(self)</OnFocusGained>
-                <OnEnter>XLGB_UI:OnTextboxEnter(self)</OnEnter>
             </EditBox>
 
         <!-- Edit Button -->
@@ -92,6 +91,19 @@
                   mouseOver  ="/esoui/art/buttons/edit_over.dds"
                 />  
             </Button>
+
+        <!-- Accept Button -->
+            <Button name="$(parent)_AcceptEdit" inherits="ZO_ButtonBehaviorClickSound" hidden="true" >
+              <OnClicked>XLGB_UI:AcceptEdit(self)</OnClicked>
+              <Dimensions x="20" y="20" />                                
+              <Anchor point="TOPLEFT" relativeTo="$(parent)_Edit" relativePoint="TOPRIGHT" offsetX="20" offsetY="0"  />
+              <Textures
+                  normal    ="/esoui/art/buttons/accept_up.dds"
+                  pressed    ="/esoui/art/buttons/accept_down.dds"
+                  mouseOver  ="/esoui/art/buttons/accept_over.dds"
+                />  
+            </Button> 
+            <!-- junk -->
 
         <!-- Scroll List -->
             <Control name="$(parent)_ScrollList" inherits="ZO_ScrollList">

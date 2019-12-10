@@ -17,24 +17,34 @@ function XLGB_UI:SelectEntireTextbox(gearTitleControl)
   gearTitleControl:SelectAll()
 end
 
-function XLGB_UI:OnTextboxEnter(gearTitleControl)
+local function setEditFalse(editControl, gearTitleControl, acceptControl)
+  XLGearBanker.UI_Editable = false
+  gearTitleControl:ClearSelection()
+  gearTitleControl:SetEditEnabled(false)
+  editControl:SetNormalTexture("/esoui/art/buttons/edit_up.dds")
+  editControl:SetPressedTexture("/esoui/art/buttons/edit_down.dds")
+  editControl:SetMouseOverTexture("/esoui/art/buttons/edit_over.dds")
+  acceptControl:SetVisible(false)
+end
+
+function XLGB_UI:AcceptEdit(acceptControl)
+  local gearTitleControl = XLGB_Window_Control_ListView:GetNamedChild("_GearTitle")
+  local editControl = XLGB_Window_Control_ListView:GetNamedChild("_Edit")
+
   local newGearName = gearTitleControl:GetText()
   if XLGB_GearSet:EditGearSetName(newGearName, XLGearBanker.displayingSet) then
     d("[XLGB] Gearset renamed to '" .. newGearName .. "'.")
+    setEditFalse(editControl, gearTitleControl, acceptControl)
+    ZO_ScrollList_RefreshVisible(XLGB_Window_Control_ListView.scrollList)
   end
 end
 
 function XLGB_UI:ToggleEdit(editControl)
   local gearTitleControl = XLGB_Window_Control_ListView:GetNamedChild("_GearTitle")
-
+  local acceptControl = XLGB_Window_Control_ListView:GetNamedChild("_Accept")
   if XLGearBanker.UI_Editable then
-    XLGearBanker.UI_Editable = false
-    gearTitleControl:ClearSelection()
-    gearTitleControl:SetEditEnabled(false)
+    setEditFalse(editControl, gearTitleControl, acceptControl)
     gearTitleControl:SetText(XLGearBanker.UI_GearSetNameBefore)
-    editControl:SetNormalTexture("/esoui/art/buttons/edit_up.dds")
-    editControl:SetPressedTexture("/esoui/art/buttons/edit_down.dds")
-    editControl:SetMouseOverTexture("/esoui/art/buttons/edit_over.dds")
   else
     XLGearBanker.UI_Editable = true
     XLGearBanker.UI_GearSetNameBefore = gearTitleControl:GetText()
@@ -43,6 +53,7 @@ function XLGB_UI:ToggleEdit(editControl)
     editControl:SetNormalTexture("/esoui/art/buttons/edit_cancel_up.dds")
     editControl:SetPressedTexture("/esoui/art/buttons/edit_cancel_down.dds")
     editControl:SetMouseOverTexture("/esoui/art/buttons/edit_cancel_over.dds")
+    acceptControl:SetVisible(true)
     
   end
   ZO_ScrollList_RefreshVisible(XLGB_Window_Control_ListView.scrollList)
