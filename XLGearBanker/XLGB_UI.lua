@@ -25,10 +25,16 @@ function XLGB_UI:OnTextboxEnter(gearTitleControl)
 end
 
 function XLGB_UI:ToggleEdit(editControl)
+  local gearTitleControl = XLGB_Window_Control_ListView:GetNamedChild("_GearTitle")
+
   if XLGearBanker.UI_Editable then
     XLGearBanker.UI_Editable = false
+    gearTitleControl:SetEditable(false)
+    gearTitleControl:ClearSelection()
   else
     XLGearBanker.UI_Editable = true
+    gearTitleControl:SetEditable(true)
+    gearTitleControl:SelectAll()
   end
   ZO_ScrollList_RefreshVisible(XLGB_Window_Control_ListView.scrollList)
 end
