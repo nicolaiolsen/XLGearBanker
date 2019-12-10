@@ -57,7 +57,7 @@ function XLGB_UI:ChangeDisplayedGearSet(gearSetNumber)
   local totalGearSets = XLGB_GearSet:GetNumberOfGearSets()
   if XLGB_GearSet:ValidGearSetNumber(gearSetNumber, totalGearSets) then
       XLGB_UI:SetGearNameLabel(tonumber(gearSetNumber))
-      --XLGB_UI:UpdateListView()
+      XLGB_UI:UpdateScrollList(tonumber(gearSetNumber))
   end
 end
 
@@ -253,7 +253,7 @@ function XLGB_UI:Initialize()
   -- XLGB_Window_Control_ListView.rowHeight = 30
   XLGB_UI:RestorePosition()
   XLGB_UI:InitializeScrollList()
-  -- XLGB_UI:ChangeDisplayedGearSet(XLGearBanker.displayingSet)
+  XLGB_UI:ChangeDisplayedGearSet(XLGearBanker.displayingSet)
   XLGearBanker.debug = true
   if XLGearBanker.debug then
     XLGB_UI:ShowUI()
