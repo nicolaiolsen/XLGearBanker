@@ -71,7 +71,6 @@
 					<DimensionConstraints  minY="30"/>
 					<Anchor point="TOPLEFT" relativeTo="$(parent)_ToolBar" relativePoint="BOTTOMLEFT" offsetX="20" offsetY="20"/>
 					<Anchor point="BOTTOMRIGHT" relativeTo="$(parent)" relativePoint="BOTTOMRIGHT" offsetX="-35" offsetY="-10"/>
-					<!--<OnMouseWheel>IIfA:GuiOnScroll(self, delta)</OnMouseWheel>-->
 					<Controls>
 
  
@@ -84,72 +83,14 @@
               <Anchor point="BOTTOMRIGHT" relativeTo="$(parent)" relativePoint="BOTTOMRIGHT" offsetX="15" offsetY="-10" />
             </Control>
 
-						<!-- <Slider name="$(parent)_Slider" mouseEnabled="true" step="1" inherits="ZO_VerticalScrollbarBase">
-							<Anchor point="TOPRIGHT" relativeTo="$(parent)" relativePoint="TOPRIGHT" offsetX="16" offsetY="54"/>
-							<Anchor point="BOTTOMRIGHT" relativeTo="$(parent)" relativePoint="BOTTOMRIGHT" offsetX="23" offsetY="-14"/>
-
-							<OnMouseDown>self.locked=false</OnMouseDown>
-							<OnMouseUp>self.locked=true</OnMouseUp>
-							<OnValueChanged>IIfA:GuiOnSliderUpdate(self, value)</OnValueChanged>
-						</Slider> -->
-            <!--
-						<Control name="$(parent)_Counts" verticalAlignment="LEFT">
-							<Anchor point="BOTTOMLEFT" relativeTo="$(parent)" relativePoint="BOTTOMLEFT" offsetY="6" />
-							<Anchor point="BOTTOMRIGHT" relativeTo="$(parent)" relativePoint="BOTTOMRIGHT" offsetY="6" />
-							<Dimensions y="26" />
-							<Controls>
-								<Label name="$(parent)_Items" mouseEnabled="false" font="ZoFontGameSmall" text="Items" >
-									<Anchor point="TOPLEFT" relativeTo="$(parent)" relativePoint="TOPLEFT" offsetX="0" offsetY="0"/>
-									<Anchor point="BOTTOMRIGHT" relativeTo="$(parent)" relativePoint="BOTTOM" offsetX="0" offsetY="0"/>
-								</Label>
-								<Label name="$(parent)_Slots" mouseEnabled="false" font="ZoFontGameSmall" text="Slots" >
-									<Anchor point="TOPRIGHT" relativeTo="$(parent)" relativePoint="TOPRIGHT" offsetX="0" offsetY="0"/>
-									<Anchor point="BOTTOMLEFT" relativeTo="$(parent)" relativePoint="BOTTOM" offsetX="0" offsetY="0"/>
-								</Label>
-							</Controls>
-            </Control>-->
-
 					</Controls>
 
 				</Control>
       </Controls>
     </TopLevelControl>
 
-    <Control name="XLGB_SlotTemplate" inherits="ZO_ListInventorySlotBehavior" virtual="true" mouseEnabled="true">
-      <Dimensions x="350" y="40" />
-      <Controls>
-        
-        <Label name="$(parent)_Name" font="ZoFontGameShadow" wrapMode="ELLIPSIS" verticalAlignment="CENTER">
-          <Dimensions y="30" />
-          <Anchor point="TOPLEFT" offsetX="20" offsetY="0"/>
-          <Anchor point="TOPRIGHT" relativePoint="TOPRIGHT" offsetX="-50" offsetY="0"/>
-        </Label>
-
-        <!-- Escape button:-->
-        <!--
-        <Button name="$(parent)RemoveItem" inherits="ZO_ButtonBehaviorClickSound" >
-
-          <OnClicked>XLGB_UI.RemoveItem()
-          </OnClicked>
-
-          <Dimensions x="20" y="20" />                                
-          <Anchor point="TOPRIGHT" relativeTo="$(parent)" relativePoint="TOPRIGHT" offsetX="-10" offsetY="5"  />
-          <Textures
-              normal    ="/esoui/art/buttons/decline_up.dds"
-              pressed    ="/esoui/art/buttons/decline_down.dds"
-              mouseOver  ="/esoui/art/buttons/decline_over.dds"
-            />  
-        </Button>
-        -->
-        
       </Controls>
     </Control>
-
-    <Label name="XLGB_Test" font="ZoFontWinT2" text="Some Test Label" virtual="true" linkEnabled="true">
-            <Anchor point="TOPLEFT" offsetX="10" offsetY="10" />
-    </Label>
-
-
 
     <Control name="XLGB_Item_Row_Template" virtual="true" >
       <Controls>
@@ -157,7 +98,7 @@
               <Anchor point="TOPLEFT" offsetX="10" offsetY="10" />
         </Label>
 
-        <Button name="$(parent)RemoveItem" inherits="ZO_ButtonBehaviorClickSound" >
+        <Button name="$(parent)_Remove" inherits="ZO_ButtonBehaviorClickSound" >
 
           <OnClicked>XLGB_UI.RemoveItem()
           </OnClicked>
@@ -172,8 +113,6 @@
         </Button>
       </Controls>
     </Control>
-
-
 
   </Controls>
 </GuiXml>
