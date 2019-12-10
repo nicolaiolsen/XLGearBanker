@@ -24,13 +24,13 @@ function XLGB_UI:OnTextboxEnter(gearTitleControl)
   end
 end
 
-function XLGB_UI:ToggleEdit(editControl)
-  if XLGearBanker.UI_Editable then
-    XLGearBanker.UI_Editable = false
-  else
-    XLGearBanker.UI_Editable = true
-  end
-end
+-- function XLGB_UI:ToggleEdit(editControl)
+--   if XLGearBanker.UI_Editable then
+--     XLGearBanker.UI_Editable = false
+--   else
+--     XLGearBanker.UI_Editable = true
+--   end
+-- end
 
 function XLGB_UI:CycleLeft()
   easyDebug("Cycle left called!")

@@ -82,7 +82,7 @@
             </EditBox>
 
         <!-- Edit Button -->
-            <Button name="$(parent)_Edit" inherits="ZO_ButtonBehaviorClickSound" >
+            <!-- <Button name="$(parent)_Edit" inherits="ZO_ButtonBehaviorClickSound" >
               <OnClicked>XLGB_UI:ToggleEdit(self)</OnClicked>
               <Dimensions x="20" y="20" />                                
               <Anchor point="TOPLEFT" relativeTo="$(parent)_GearTitle" relativePoint="TOPRIGHT" offsetX="20" offsetY="0"  />
@@ -91,7 +91,7 @@
                   pressed    ="/esoui/art/buttons/edit_down.dds"
                   mouseOver  ="/esoui/art/buttons/edit_over.dds"
                 />  
-            </Button>
+            </Button> -->
 
         <!-- Scroll List -->
             <Control name="$(parent)_ScrollList" inherits="ZO_ScrollList">
