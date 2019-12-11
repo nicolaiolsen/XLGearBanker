@@ -74,7 +74,7 @@
 					<Controls>
 
         <!-- Gear Title -->
-            <EditBox name="$(parent)_GearTitle" inherits="ZO_DefaultEdit ZO_EditDefaultText" text="Test Set" >
+            <EditBox name="$(parent)_GearTitle" inherits="ZO_DefaultEdit ZO_EditDefaultText" text="Test Set" mouseEnabled="false" color="255, 204, 102">
               <Anchor point="TOPLEFT" relativeTo="$(parent)" relativePoint="TOPLEFT" offsetX="0" offsetY="0"  />
               <Dimensions x="200" y="30" />
                 <OnFocusGained>XLGB_UI:SelectEntireTextbox(self)</OnFocusGained>
@@ -105,7 +105,7 @@
             </Button> 
 
             <!-- Accept Button -->
-            <Button name="$(parent)_AcceptEdit" inherits="ZO_ButtonBehaviorClickSound" hidden="true" >
+            <!-- <Button name="$(parent)_AcceptEdit" inherits="ZO_ButtonBehaviorClickSound" hidden="true" >
               <OnClicked>XLGB_UI:AcceptEdit(self)</OnClicked>
               <Dimensions x="20" y="20" />                                
               <Anchor point="TOPLEFT" relativeTo="$(parent)_Edit" relativePoint="TOPRIGHT" offsetX="20" offsetY="0"  />
@@ -114,7 +114,7 @@
                   pressed    ="/esoui/art/buttons/accept_down.dds"
                   mouseOver  ="/esoui/art/buttons/accept_over.dds"
                 />  
-            </Button> 
+            </Button>  -->
             <!-- junk -->
 
         <!-- Scroll List -->
