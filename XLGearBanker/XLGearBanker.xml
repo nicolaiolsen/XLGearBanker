@@ -103,6 +103,18 @@
                   mouseOver  ="/esoui/art/buttons/accept_over.dds"
                 />  
             </Button> 
+
+            <!-- Accept Button -->
+            <Button name="$(parent)_AcceptEdit" inherits="ZO_ButtonBehaviorClickSound" hidden="true" >
+              <OnClicked>XLGB_UI:AcceptEdit(self)</OnClicked>
+              <Dimensions x="20" y="20" />                                
+              <Anchor point="TOPLEFT" relativeTo="$(parent)_Edit" relativePoint="TOPRIGHT" offsetX="20" offsetY="0"  />
+              <Textures
+                  normal    ="/esoui/art/buttons/accept_up.dds"
+                  pressed    ="/esoui/art/buttons/accept_down.dds"
+                  mouseOver  ="/esoui/art/buttons/accept_over.dds"
+                />  
+            </Button> 
             <!-- junk -->
 
         <!-- Scroll List -->

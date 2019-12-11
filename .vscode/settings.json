@@ -73,7 +73,8 @@
         "ZO_ScrollList_Clear",
         "ZO_ScrollList_Commit",
         "ZO_ScrollList_EnableHighlight",
-        "ZO_ScrollList_AddDataType"
+        "ZO_ScrollList_AddDataType",
+        "ZO_ScrollList_RefreshVisible"
     ],
     "Lua.diagnostics.disable": [
         "lowercase-global",
