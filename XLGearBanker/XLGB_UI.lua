@@ -19,28 +19,6 @@ function XLGB_UI:SelectEntireTextbox(gearTitleControl)
   gearTitleControl:SelectAll()
 end
 
-function XLGB_UI:AddSet(addControl) 
-  local editControl = XLGB_Window_Control_ListView:GetNamedChild("_Edit")
-  if XLGearBanker.UI_Editable then 
-    XLGB_UI:ToggleEdit(editControl)
-  end
-
-  XLGB_GearSet:CreateNewGearSet("New XLGB Set")
-  XLGearBanker.displayingSet = XLGB_GearSet:GetNumberOfGearSets()
-  XLGB_UI:ChangeDisplayedGearSet(XLGearBanker.displayingSet)
-  
-  XLGB_UI:ToggleEdit(editControl)
-end
-
-local function removeSetConfirmed()
-  XLGB_GearSet:RemoveGearSet(XLGearBanker.displayingSet)
-  XLGB_UI:CycleLeft()
-end
-
-function XLGB_UI:RemoveSet(removeControl) 
-  libDialog:ShowDialog("XLGearBanker", "RemoveSetDialog", nil)
-end
-
 local function setEditFalse(editControl, gearTitleControl, acceptControl, removeControl)
   XLGearBanker.UI_Editable = false
   gearTitleControl:ClearSelection()
@@ -86,8 +64,6 @@ function XLGB_UI:AcceptEdit(acceptControl)
   end
 end
 
-
-
 local function discardChanges()
   local editControl = XLGB_Window_Control_ListView:GetNamedChild("_Edit")
   local gearTitleControl = XLGB_Window_Control_ListView:GetNamedChild("_GearTitle")
@@ -115,6 +91,37 @@ function XLGB_UI:ToggleEdit(editControl)
   end
   
 end
+
+function XLGB_UI:AddSet(addControl) 
+  local editControl = XLGB_Window_Control_ListView:GetNamedChild("_Edit")
+  if XLGearBanker.UI_Editable then 
+    XLGB_UI:ToggleEdit(editControl)
+  end
+
+  XLGB_GearSet:CreateNewGearSet("New XLGB Set")
+  XLGearBanker.displayingSet = XLGB_GearSet:GetNumberOfGearSets()
+  XLGB_UI:ChangeDisplayedGearSet(XLGearBanker.displayingSet)
+  
+  XLGB_UI:ToggleEdit(editControl)
+end
+
+local function removeSetConfirmed()
+  XLGB_GearSet:RemoveGearSet(XLGearBanker.displayingSet)
+
+  local editControl = XLGB_Window_Control_ListView:GetNamedChild("_Edit")
+  local gearTitleControl = XLGB_Window_Control_ListView:GetNamedChild("_GearTitle")
+  local acceptControl = XLGB_Window_Control_ListView:GetNamedChild("_AcceptEdit")
+  local removeControl = XLGB_Window_Control_ListView:GetNamedChild("_RemoveSet")
+
+  setEditFalse(editControl, gearTitleControl, acceptControl, removeControl)
+  
+  XLGB_UI:CycleLeft()
+end
+
+function XLGB_UI:RemoveSet(removeControl) 
+  libDialog:ShowDialog("XLGearBanker", "RemoveSetDialog", nil)
+end
+
 
 function XLGB_UI:CycleLeft()
   easyDebug("Cycle left called!")
