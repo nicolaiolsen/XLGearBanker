@@ -17,6 +17,10 @@ function XLGB_UI:SelectEntireTextbox(gearTitleControl)
   gearTitleControl:SelectAll()
 end
 
+function XLGB_UI:AddSet(addControl) 
+  d("Add set")
+end
+
 local function setEditFalse(editControl, gearTitleControl, acceptControl)
   XLGearBanker.UI_Editable = false
   gearTitleControl:ClearSelection()
