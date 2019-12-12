@@ -114,7 +114,7 @@ local function removeSetConfirmed()
   local removeControl = XLGB_Window_Control_ListView:GetNamedChild("_RemoveSet")
 
   setEditFalse(editControl, gearTitleControl, acceptControl, removeControl)
-  
+
   XLGB_UI:CycleLeft()
 end
 
@@ -190,7 +190,9 @@ function XLGB_UI:HideUI()
   XLGB_Window_Control:SetHidden(true)
 end
 
-function XLGB_UI:RemoveItem()
+function XLGB_UI:RemoveItem(removeItemControl)
+  itemNameControl = removeItemControl:GetParent():GetNamedChild("_Name")
+  itemNameControl:SetColor(155, 0, 0, 100)
   easyDebug("Removing item")
 end
 
@@ -228,29 +230,33 @@ function XLGB_UI:InitializeScrollList()
 end
 
 function XLGB_UI:SetupDialogs()
-  libDialog:RegisterDialog("XLGearBanker", 
-                          "RemoveSetDialog", 
-                          "XL Gear Banker", 
-                          "You are about to remove the set.\n\nAre you sure?", 
-                          removeSetConfirmed, 
-                          nil,
-                          nil)
 
-  libDialog:RegisterDialog("XLGearBanker", 
-                          "DiscardChangesDialog", 
-                          "XL Gear Banker", 
-                          "You've edited the current set, and are about to discard any changes you've made.\n\nAre you sure?", 
-                          discardChanges, 
-                          nil,
-                          nil)
+  libDialog:RegisterDialog(
+    "XLGearBanker", 
+    "RemoveSetDialog", 
+    "XL Gear Banker", 
+    "You are about to remove the set.\n\nAre you sure?", 
+    removeSetConfirmed, 
+    nil,
+    nil)
 
-  libDialog:RegisterDialog("XLGearBanker", 
-                          "DiscardChangesAndCycleDialog", 
-                          "XL Gear Banker", 
-                          "You've edited the current set, and are about to discard any changes you've made.\n\nAre you sure?", 
-                          discardChangesAndCycle, 
-                          nil,
-                          nil)
+  libDialog:RegisterDialog(
+    "XLGearBanker", 
+    "DiscardChangesDialog", 
+    "XL Gear Banker", 
+    "You are about to discard any changes you've made.\n\nAre you sure?", 
+    discardChanges, 
+    nil,
+    nil)
+
+  libDialog:RegisterDialog(
+    "XLGearBanker", 
+    "DiscardChangesAndCycleDialog", 
+    "XL Gear Banker", 
+    "You've edited the current set, and are about to discard any changes you've made.\n\nAre you sure?", 
+    discardChangesAndCycle, 
+    nil,
+    nil)
 
 end
 
