@@ -104,7 +104,7 @@
                 />  
             </Button>
 
-        <!-- Accept Button -->
+        
             <Button name="$(parent)_AcceptEdit" inherits="ZO_ButtonBehaviorClickSound" hidden="true" >
               <OnClicked>XLGB_UI:AcceptEdit(self)</OnClicked>
               <Dimensions x="20" y="20" />                                
@@ -116,6 +116,18 @@
                 />  
             </Button> 
 
+          <!-- Remove Set Button -->
+
+            <Button name="$(parent)_RemoveSet" inherits="ZO_ButtonBehaviorClickSound" hidden="true" >
+              <OnClicked>XLGB_UI:RemoveSet(self)</OnClicked>
+              <Dimensions x="20" y="20" />                                
+              <Anchor point="TOPRIGHT" relativeTo="$(parent)_AcceptEdit" relativePoint="TOPLEFT" offsetX="-18" offsetY="0"  />
+              <Textures
+                  normal    ="/esoui/art/buttons/pointsminus_up.dds"
+                  pressed    ="/esoui/art/buttons/pointsminus_down.dds"
+                  mouseOver  ="/esoui/art/buttons/pointsminus_over.dds"
+                />  
+            </Button> 
             <!-- junk -->
 
         <!-- Scroll List -->

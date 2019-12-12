@@ -21,7 +21,11 @@ function XLGB_UI:AddSet(addControl)
   d("Add set")
 end
 
-local function setEditFalse(editControl, gearTitleControl, acceptControl)
+function XLGB_UI:RemoveSet(removeControl) 
+  d("Remove set")
+end
+
+local function setEditFalse(editControl, gearTitleControl, acceptControl, removeControl)
   XLGearBanker.UI_Editable = false
   gearTitleControl:ClearSelection()
   gearTitleControl:SetEditEnabled(false)
@@ -30,6 +34,19 @@ local function setEditFalse(editControl, gearTitleControl, acceptControl)
   editControl:SetPressedTexture("/esoui/art/buttons/edit_down.dds")
   editControl:SetMouseOverTexture("/esoui/art/buttons/edit_over.dds")
   acceptControl:SetHidden(true)
+  removeControl:SetHidden(true)
+end
+
+local function setEditTrue(editControl, gearTitleControl, acceptControl, removeControl)
+  XLGearBanker.UI_GearSetNameBefore = gearTitleControl:GetText()
+  gearTitleControl:SetEditEnabled(true)
+  gearTitleControl:SelectAll()
+  gearTitleControl:SetMouseEnabled(true)
+  editControl:SetNormalTexture("/esoui/art/buttons/edit_cancel_up.dds")
+  editControl:SetPressedTexture("/esoui/art/buttons/edit_cancel_down.dds")
+  editControl:SetMouseOverTexture("/esoui/art/buttons/edit_cancel_over.dds")
+  acceptControl:SetHidden(false)
+  removeControl:SetHidden(false)
 end
 
 function XLGB_UI:AcceptEdit(acceptControl)
@@ -51,20 +68,13 @@ end
 function XLGB_UI:ToggleEdit(editControl)
   local gearTitleControl = XLGB_Window_Control_ListView:GetNamedChild("_GearTitle")
   local acceptControl = XLGB_Window_Control_ListView:GetNamedChild("_AcceptEdit")
+  local removeControl = XLGB_Window_Control_ListView:GetNamedChild("_RemoveSet")
   if XLGearBanker.UI_Editable then
-    setEditFalse(editControl, gearTitleControl, acceptControl)
+    setEditFalse(editControl, gearTitleControl, acceptControl, removeControl)
     gearTitleControl:SetText(XLGearBanker.UI_GearSetNameBefore)
   else
     XLGearBanker.UI_Editable = true
-    XLGearBanker.UI_GearSetNameBefore = gearTitleControl:GetText()
-    gearTitleControl:SetEditEnabled(true)
-    gearTitleControl:SelectAll()
-    gearTitleControl:SetMouseEnabled(true)
-    editControl:SetNormalTexture("/esoui/art/buttons/edit_cancel_up.dds")
-    editControl:SetPressedTexture("/esoui/art/buttons/edit_cancel_down.dds")
-    editControl:SetMouseOverTexture("/esoui/art/buttons/edit_cancel_over.dds")
-    acceptControl:SetHidden(false)
-    
+    setEditTrue(editControl, gearTitleControl, acceptControl, removeControl)
   end
   ZO_ScrollList_RefreshVisible(XLGB_Window_Control_ListView.scrollList)
 end
