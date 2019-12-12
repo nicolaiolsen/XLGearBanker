@@ -191,7 +191,9 @@ function XLGB_UI:HideUI()
 end
 
 function XLGB_UI:RemoveItem(removeItemControl)
-  itemNameControl = removeItemControl:GetParent():GetNamedChild("_Name")
+  
+  itemControl = removeItemControl:GetParent()
+  itemNameControl = itemControl:GetNamedChild("_Name")
   itemNameControl:SetText("Test remove")
   itemNameControl:SetColor(155, 0, 0, 100)
   easyDebug("Removing item")
