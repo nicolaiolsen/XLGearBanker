@@ -222,6 +222,7 @@ end
 
 local function fillItemRowWithData(control, data)
   control:GetNamedChild("_Name"):SetText(data.itemLink)
+  control:GetNamedChild("_Remove"):SetText(data.itemID)
   if XLGearBanker.UI_Editable then
     control:GetNamedChild("_Remove"):SetHidden(false)
   else 
