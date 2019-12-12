@@ -84,7 +84,7 @@
             <Button name="$(parent)_AddSet" inherits="ZO_ButtonBehaviorClickSound" >
               <OnClicked>XLGB_UI:AddSet(self)</OnClicked>
               <Dimensions x="20" y="20" />                                
-              <Anchor point="TOPRIGHT" relativeTo="$(parent)" relativePoint="TOPRIGHT" offsetX="-18" offsetY="0"  />
+              <Anchor point="TOPRIGHT" relativeTo="$(parent)" relativePoint="TOPRIGHT" offsetX="0" offsetY="0"  />
               <Textures
                   normal    ="/esoui/art/buttons/plus_up.dds"
                   pressed    ="/esoui/art/buttons/plus_down.dds"
