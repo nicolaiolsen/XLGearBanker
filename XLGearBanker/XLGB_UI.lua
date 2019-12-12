@@ -33,7 +33,11 @@ function XLGB_UI:AcceptEdit(acceptControl)
   local editControl = XLGB_Window_Control_ListView:GetNamedChild("_Edit")
 
   local newGearName = gearTitleControl:GetText()
-  if XLGB_GearSet:EditGearSetName(newGearName, XLGearBanker.displayingSet) then
+  if newGearName == XLGearBanker.UI_GearSetNameBefore then
+    setEditFalse(editControl, gearTitleControl, acceptControl)
+    ZO_ScrollList_RefreshVisible(XLGB_Window_Control_ListView.scrollList)
+  else
+    XLGB_GearSet:EditGearSetName(newGearName, XLGearBanker.displayingSet)
     d("[XLGB] Gearset renamed to '" .. newGearName .. "'.")
     setEditFalse(editControl, gearTitleControl, acceptControl)
     ZO_ScrollList_RefreshVisible(XLGB_Window_Control_ListView.scrollList)
