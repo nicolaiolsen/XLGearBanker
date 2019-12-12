@@ -19,6 +19,15 @@ function XLGB_UI:SelectEntireTextbox(gearTitleControl)
   gearTitleControl:SelectAll()
 end
 
+local function areThereAnyChanges()
+  local gearTitleControl = XLGB_Window_Control_ListView:GetNamedChild("_GearTitle")
+  if (gearTitleControl:GetText() == XLGearBanker.UI_GearSetNameBefore) 
+  and #XLGearBanker.UI_ItemsMarkedForRemoval == 0 then 
+    return false
+  end
+  return true
+end
+
 local function setEditFalse(editControl, gearTitleControl, acceptControl, removeControl)
   XLGearBanker.UI_Editable = false
   gearTitleControl:ClearSelection()
@@ -86,7 +95,11 @@ function XLGB_UI:ToggleEdit(editControl)
   local acceptControl = XLGB_Window_Control_ListView:GetNamedChild("_AcceptEdit")
   local removeControl = XLGB_Window_Control_ListView:GetNamedChild("_RemoveSet")
   if XLGearBanker.UI_Editable then
-    libDialog:ShowDialog("XLGearBanker", "DiscardChangesDialog", nil)
+    if areThereAnyChanges() then
+      libDialog:ShowDialog("XLGearBanker", "DiscardChangesDialog", nil)
+    else
+      discardChanges()
+    end
   else
     setEditTrue(editControl, gearTitleControl, acceptControl, removeControl)
   end
@@ -135,7 +148,11 @@ function XLGB_UI:CycleLeft()
   end
   
   if XLGearBanker.UI_Editable then
-    libDialog:ShowDialog("XLGearBanker", "DiscardChangesAndCycleDialog", previousSet)
+    if areThereAnyChanges() then
+      libDialog:ShowDialog("XLGearBanker", "DiscardChangesAndCycleDialog", previousSet)
+    else
+      discardChangesAndCycle({data = previousSet})
+    end
   else
     XLGearBanker.displayingSet = previousSet
     XLGB_UI:ChangeDisplayedGearSet(previousSet)
@@ -155,7 +172,11 @@ function XLGB_UI:CycleRight()
   end
 
   if XLGearBanker.UI_Editable then
-    libDialog:ShowDialog("XLGearBanker", "DiscardChangesAndCycleDialog", nextSet)
+    if areThereAnyChanges() then
+      libDialog:ShowDialog("XLGearBanker", "DiscardChangesAndCycleDialog", nextSet)
+    else
+      discardChangesAndCycle({data = nextSet})
+    end
   else
     XLGearBanker.displayingSet = nextSet
     XLGB_UI:ChangeDisplayedGearSet(nextSet)
