@@ -190,10 +190,9 @@ function XLGB_UI:HideUI()
   XLGB_Window_Control:SetHidden(true)
 end
 
-function XLGB_UI:RemoveItem(removeItemControl)
-  easyDebug("Removing item")
-  itemRowControl = removeItemControl:GetParent()
-  itemNameControl = itemRowControl:GetNamedChild("_Name")
+local function toggleToBeRemoved(itemRowControl)
+  local itemNameControl = itemRowControl:GetNamedChild("_Name")
+  local removeItemControl = itemRowControl:GetNamedChild("_Remove")
   if not(itemRowControl.toBeRemoved) then
     itemNameControl:SetText(itemRowControl.data.itemName)
     itemNameControl:SetColor(155, 0, 0, 100)
@@ -211,6 +210,12 @@ function XLGB_UI:RemoveItem(removeItemControl)
 
     itemRowControl.toBeRemoved = false
   end
+end
+
+function XLGB_UI:RemoveItem(removeItemControl)
+  easyDebug("Removing item")
+  itemRowControl = removeItemControl:GetParent()
+  toggleToBeRemoved(itemRowControl)
 end
 
 function XLGB_UI:UpdateScrollList()
@@ -236,6 +241,7 @@ local function fillItemRowWithData(control, data)
   control:GetNamedChild("_Name"):SetText(data.itemLink)
   control:GetNamedChild("_Remove"):SetText(data.itemID)
   if XLGearBanker.UI_Editable then
+    toggleToBeRemoved(control)
     control:GetNamedChild("_Remove"):SetHidden(false)
   else 
     control:GetNamedChild("_Remove"):SetHidden(true)
