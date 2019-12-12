@@ -84,7 +84,7 @@
             <Button name="$(parent)_AddSet" inherits="ZO_ButtonBehaviorClickSound" >
               <OnClicked>XLGB_UI:AddSet(self)</OnClicked>
               <Dimensions x="20" y="20" />                                
-              <Anchor point="TOPLEFT" relativeTo="$(parent)" relativePoint="TOPRIGHT" offsetX="-18" offsetY="0"  />
+              <Anchor point="TOPRIGHT" relativeTo="$(parent)" relativePoint="TOPRIGHT" offsetX="-18" offsetY="0"  />
               <Textures
                   normal    ="/esoui/art/buttons/plus_up.dds"
                   pressed    ="/esoui/art/buttons/plus_down.dds"
@@ -96,7 +96,7 @@
             <Button name="$(parent)_Edit" inherits="ZO_ButtonBehaviorClickSound" >
               <OnClicked>XLGB_UI:ToggleEdit(self)</OnClicked>
               <Dimensions x="20" y="20" />                                
-              <Anchor point="TOPRIGHT" relativeTo="$(parent)_AddSet" relativePoint="TOPRIGHT" offsetX="-20" offsetY="0"  />
+              <Anchor point="TOPRIGHT" relativeTo="$(parent)_AddSet" relativePoint="TOPLEFT" offsetX="-20" offsetY="0"  />
               <Textures
                   normal    ="/esoui/art/buttons/edit_up.dds"
                   pressed    ="/esoui/art/buttons/edit_down.dds"
