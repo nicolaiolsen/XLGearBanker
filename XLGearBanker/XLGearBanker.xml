@@ -81,10 +81,10 @@
             </EditBox>
 
         <!-- Add New Set Button -->
-            <Button name="$(parent)_AddSet" inherits="ZO_ButtonBehaviorClickSound" hidden="true" >
+            <Button name="$(parent)_AddSet" inherits="ZO_ButtonBehaviorClickSound" >
               <OnClicked>XLGB_UI:AddSet(self)</OnClicked>
               <Dimensions x="20" y="20" />                                
-              <Anchor point="TOPLEFT" relativeTo="$(parent)" relativePoint="TOPRIGHT" offsetX="-22" offsetY="0"  />
+              <Anchor point="TOPLEFT" relativeTo="$(parent)" relativePoint="TOPRIGHT" offsetX="-18" offsetY="0"  />
               <Textures
                   normal    ="/esoui/art/buttons/plus_up.dds"
                   pressed    ="/esoui/art/buttons/plus_down.dds"
