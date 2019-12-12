@@ -190,31 +190,41 @@ function XLGB_UI:HideUI()
   XLGB_Window_Control:SetHidden(true)
 end
 
+local function isItemMarkedForRemoval(itemID)
+  for _, markedID in pairs(XLGearBanker.UI_ItemsMarkedForRemoval) do
+      if itemID == markedID then
+        return true
+      end
+  end
+  return false
+end
+
 local function toggleToBeRemoved(itemRowControl)
   local itemNameControl = itemRowControl:GetNamedChild("_Name")
   local removeItemControl = itemRowControl:GetNamedChild("_Remove")
-  if not(itemRowControl.toBeRemoved) then
+  if isItemMarkedForRemoval(itemRowControl.data.itemID) then
     itemNameControl:SetText(itemRowControl.data.itemName)
     itemNameControl:SetColor(155, 0, 0, 100)
 
     removeItemControl:SetNormalTexture("/esoui/art/buttons/edit_cancel_up.dds")
     removeItemControl:SetPressedTexture("/esoui/art/buttons/edit_cancel_down.dds")
     removeItemControl:SetMouseOverTexture("/esoui/art/buttons/edit_cancel_over.dds")
-    itemRowControl.toBeRemoved = true
   else
     itemNameControl:SetText(itemRowControl.data.itemLink)
 
     removeItemControl:SetNormalTexture("/esoui/art/buttons/decline_up.dds")
     removeItemControl:SetPressedTexture("/esoui/art/buttons/decline_down.dds")
     removeItemControl:SetMouseOverTexture("/esoui/art/buttons/decline_over.dds")
-
-    itemRowControl.toBeRemoved = false
   end
 end
 
 function XLGB_UI:RemoveItem(removeItemControl)
   easyDebug("Removing item")
   itemRowControl = removeItemControl:GetParent()
+  if isItemMarkedForRemoval(itemRowControl.data.itemID) then
+  else
+    table.insert(XLGearBanker.UI_ItemsMarkedForRemoval, itemRowControl.data.itemID)
+  end
   toggleToBeRemoved(itemRowControl)
 end
 
@@ -237,9 +247,7 @@ end
 
 local function fillItemRowWithData(control, data)
   control.data = data
-  control.toBeRemoved = false
   control:GetNamedChild("_Name"):SetText(data.itemLink)
-  control:GetNamedChild("_Remove"):SetText(data.itemID)
   if XLGearBanker.UI_Editable then
     toggleToBeRemoved(control)
     control:GetNamedChild("_Remove"):SetHidden(false)
@@ -289,6 +297,7 @@ end
 function XLGB_UI:Initialize()
   XLGearBanker.displayingSet = 1
   XLGearBanker.UI_Editable = false
+  XLGearBanker.UI_ItemsMarkedForRemoval = {}
   XLGB_UI:RestorePosition()
   XLGB_UI:InitializeScrollList()
   XLGB_UI:ChangeDisplayedGearSet(XLGearBanker.displayingSet)
