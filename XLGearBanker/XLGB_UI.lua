@@ -98,10 +98,10 @@ local function discardChanges()
   gearTitleControl:SetText(XLGearBanker.UI_GearSetNameBefore)
 end
 
-local function discardChangesAndCycle(nextSet)
+local function discardChangesAndCycle(data)
   discardChanges()
-  XLGearBanker.displayingSet = nextSet
-  XLGB_UI:ChangeDisplayedGearSet(nextSet)
+  XLGearBanker.displayingSet = data.displaySet
+  XLGB_UI:ChangeDisplayedGearSet(data.displaySet)
 end
 
 function XLGB_UI:ToggleEdit(editControl)
@@ -127,7 +127,7 @@ function XLGB_UI:CycleLeft()
   end
   
   if XLGearBanker.UI_Editable then
-    libDialog:ShowDialog("XLGearBanker", "DiscardChangesAndCycleDialog", previousSet)
+    libDialog:ShowDialog("XLGearBanker", "DiscardChangesAndCycleDialog", {displaySet = previousSet})
   else
     XLGearBanker.displayingSet = previousSet
     XLGB_UI:ChangeDisplayedGearSet(previousSet)
@@ -147,7 +147,7 @@ function XLGB_UI:CycleRight()
   end
 
   if XLGearBanker.UI_Editable then
-    libDialog:ShowDialog("XLGearBanker", "DiscardChangesAndCycleDialog", nextSet)
+    libDialog:ShowDialog("XLGearBanker", "DiscardChangesAndCycleDialog", {displaySet = nextSet})
   else
     XLGearBanker.displayingSet = nextSet
     XLGB_UI:ChangeDisplayedGearSet(nextSet)
