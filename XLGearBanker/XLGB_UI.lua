@@ -177,7 +177,7 @@ function XLGB_UI:ChangeDisplayedGearSet(gearSetNumber)
   local totalGearSets = XLGB_GearSet:GetNumberOfGearSets()
   if XLGB_GearSet:ValidGearSetNumber(gearSetNumber, totalGearSets) then
       XLGB_UI:SetGearNameLabel(tonumber(gearSetNumber))
-      XLGB_UI:UpdateScrollList(tonumber(gearSetNumber))
+      XLGB_UI:UpdateScrollList()
   end
 end
 
@@ -192,6 +192,7 @@ end
 
 function XLGB_UI:RemoveItem(removeItemControl)
   itemNameControl = removeItemControl:GetParent():GetNamedChild("_Name")
+  itemNameControl:SetText("Test remove")
   itemNameControl:SetColor(155, 0, 0, 100)
   easyDebug("Removing item")
 end
