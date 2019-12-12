@@ -31,7 +31,8 @@ function XLGB_UI:AddSet(addControl)
 end
 
 function XLGB_UI:RemoveSet(removeControl) 
-  d("Remove set")
+  XLGB_GearSet:RemoveGearSet(XLGearBanker.displayingSet)
+  XLGB_UI:CycleLeft()
 end
 
 local function setEditFalse(editControl, gearTitleControl, acceptControl, removeControl)
