@@ -179,6 +179,8 @@ function XLGB_UI:CycleLeft()
       XLGearBanker.displayingSet = previousSet
       XLGB_UI:ChangeDisplayedGearSet(previousSet)
     end
+  else
+    XLGB_UI:ChangeDisplayedGearSet(XLGearBanker.displayingSet)
   end
   
   
@@ -204,6 +206,8 @@ function XLGB_UI:CycleRight()
       XLGearBanker.displayingSet = nextSet
       XLGB_UI:ChangeDisplayedGearSet(nextSet)
     end
+  else
+    XLGB_UI:ChangeDisplayedGearSet(XLGearBanker.displayingSet)
   end
 
   
@@ -234,7 +238,7 @@ function XLGB_UI:ChangeDisplayedGearSet(gearSetNumber)
     if XLGB_GearSet:ValidGearSetNumber(gearSetNumber, totalGearSets) then
         XLGB_UI:SetGearNameLabel(tonumber(gearSetNumber))
         editControl:SetHidden(false)
-        setXofYControl:SetText("[".. XLGearBanker.displayingSet .."/".. XLGB_GearSet:GetNumberOfGearSets() .."]")
+        setXofYControl:SetText("[".. gearSetNumber .."/".. XLGB_GearSet:GetNumberOfGearSets() .."]")
         itemAmountControl:SetText("Total items in set: ".. XLGB_GearSet:GetGearSet(gearSetNumber))
         XLGB_UI:UpdateScrollList()
     end
