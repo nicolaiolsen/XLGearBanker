@@ -52,6 +52,7 @@ local function setEditFalse(editControl, gearTitleControl, acceptControl, remove
   editControl:SetMouseOverTexture("/esoui/art/buttons/edit_over.dds")
   acceptControl:SetHidden(true)
   removeControl:SetHidden(true)
+  ZO_ScrollList_RefreshVisible(XLGB_Window_Control_ListView.scrollList)
 end
 
 local function setEditTrue(editControl, gearTitleControl, acceptControl, removeControl)
@@ -66,6 +67,7 @@ local function setEditTrue(editControl, gearTitleControl, acceptControl, removeC
   editControl:SetMouseOverTexture("/esoui/art/buttons/edit_cancel_over.dds")
   acceptControl:SetHidden(false)
   removeControl:SetHidden(false)
+  ZO_ScrollList_RefreshVisible(XLGB_Window_Control_ListView.scrollList)
 end
 
 function XLGB_UI:AcceptEdit(acceptControl)
@@ -84,6 +86,8 @@ function XLGB_UI:AcceptEdit(acceptControl)
   end
 end
 
+
+
 local function discardChanges()
   local editControl = XLGB_Window_Control_ListView:GetNamedChild("_Edit")
   local gearTitleControl = XLGB_Window_Control_ListView:GetNamedChild("_GearTitle")
@@ -92,7 +96,12 @@ local function discardChanges()
 
   setEditFalse(editControl, gearTitleControl, acceptControl, removeControl)
   gearTitleControl:SetText(XLGearBanker.UI_GearSetNameBefore)
+end
 
+local function discardChangesAndCycle(nextSet)
+  discardChanges()
+  XLGearBanker.displayingSet = nextSet
+  XLGB_UI:ChangeDisplayedGearSet(nextSet)
 end
 
 function XLGB_UI:ToggleEdit(editControl)
@@ -104,7 +113,7 @@ function XLGB_UI:ToggleEdit(editControl)
   else
     setEditTrue(editControl, gearTitleControl, acceptControl, removeControl)
   end
-  ZO_ScrollList_RefreshVisible(XLGB_Window_Control_ListView.scrollList)
+  
 end
 
 function XLGB_UI:CycleLeft()
@@ -118,12 +127,13 @@ function XLGB_UI:CycleLeft()
   end
   
   if XLGearBanker.UI_Editable then
-    local editControl = XLGB_Window_Control_ListView:GetNamedChild("_Edit")
-    XLGB_UI:ToggleEdit(editControl)
+    libDialog:ShowDialog("XLGearBanker", "DiscardChangesAndCycleDialog", previousSet)
+  else
+    XLGearBanker.displayingSet = previousSet
+    XLGB_UI:ChangeDisplayedGearSet(previousSet)
   end
   
-  XLGearBanker.displayingSet = previousSet
-  XLGB_UI:ChangeDisplayedGearSet(previousSet)
+  
 end
 
 function XLGB_UI:CycleRight()
@@ -137,12 +147,13 @@ function XLGB_UI:CycleRight()
   end
 
   if XLGearBanker.UI_Editable then
-    local editControl = XLGB_Window_Control_ListView:GetNamedChild("_Edit")
-    XLGB_UI:ToggleEdit(editControl)
+    libDialog:ShowDialog("XLGearBanker", "DiscardChangesAndCycleDialog", nextSet)
+  else
+    XLGearBanker.displayingSet = nextSet
+    XLGB_UI:ChangeDisplayedGearSet(nextSet)
   end
 
-  XLGearBanker.displayingSet = nextSet
-  XLGB_UI:ChangeDisplayedGearSet(nextSet)
+  
 end
 
 function XLGB_UI:SetGearNameLabel(gearSetNumber)
@@ -223,6 +234,14 @@ function XLGB_UI:SetupDialogs()
                           "XL Gear Banker", 
                           "You've edited the current set, and are about to discard any changes you've made.\n\nAre you sure?", 
                           discardChanges, 
+                          nil,
+                          nil)
+
+  libDialog:RegisterDialog("XLGearBanker", 
+                          "DiscardChangesAndCycleDialog", 
+                          "XL Gear Banker", 
+                          "You've edited the current set, and are about to discard any changes you've made.\n\nAre you sure?", 
+                          discardChangesAndCycle, 
                           nil,
                           nil)
 
