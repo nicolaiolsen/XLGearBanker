@@ -80,11 +80,23 @@
                 <OnFocusGained>XLGB_UI:SelectEntireTextbox(self)</OnFocusGained>
             </EditBox>
 
+        <!-- Add New Set Button -->
+            <Button name="$(parent)_AddSet" inherits="ZO_ButtonBehaviorClickSound" hidden="true" >
+              <OnClicked>XLGB_UI:AddSet(self)</OnClicked>
+              <Dimensions x="20" y="20" />                                
+              <Anchor point="TOPLEFT" relativeTo="$(parent)" relativePoint="TOPRIGHT" offsetX="-22" offsetY="0"  />
+              <Textures
+                  normal    ="/esoui/art/buttons/plus_up.dds"
+                  pressed    ="/esoui/art/buttons/plus_down.dds"
+                  mouseOver  ="/esoui/art/buttons/plus_over.dds"
+                />  
+            </Button> 
+
         <!-- Edit Button -->
             <Button name="$(parent)_Edit" inherits="ZO_ButtonBehaviorClickSound" >
               <OnClicked>XLGB_UI:ToggleEdit(self)</OnClicked>
               <Dimensions x="20" y="20" />                                
-              <Anchor point="TOPRIGHT" relativeTo="$(parent)" relativePoint="TOPRIGHT" offsetX="-50" offsetY="0"  />
+              <Anchor point="TOPRIGHT" relativeTo="$(parent)_AddSet" relativePoint="TOPRIGHT" offsetX="-20" offsetY="0"  />
               <Textures
                   normal    ="/esoui/art/buttons/edit_up.dds"
                   pressed    ="/esoui/art/buttons/edit_down.dds"
@@ -104,17 +116,6 @@
                 />  
             </Button> 
 
-            <!-- Accept Button -->
-            <!-- <Button name="$(parent)_AcceptEdit" inherits="ZO_ButtonBehaviorClickSound" hidden="true" >
-              <OnClicked>XLGB_UI:AcceptEdit(self)</OnClicked>
-              <Dimensions x="20" y="20" />                                
-              <Anchor point="TOPLEFT" relativeTo="$(parent)_Edit" relativePoint="TOPRIGHT" offsetX="20" offsetY="0"  />
-              <Textures
-                  normal    ="/esoui/art/buttons/accept_up.dds"
-                  pressed    ="/esoui/art/buttons/accept_down.dds"
-                  mouseOver  ="/esoui/art/buttons/accept_over.dds"
-                />  
-            </Button>  -->
             <!-- junk -->
 
         <!-- Scroll List -->
