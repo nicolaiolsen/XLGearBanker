@@ -19,7 +19,9 @@ end
 
 function XLGB_UI:AddSet(addControl) 
   local editControl = XLGB_Window_Control_ListView:GetNamedChild("_Edit")
-  XLGB_UI:ToggleEdit(editControl)
+  if XLGearBanker.UI_Editable then 
+    XLGB_UI:ToggleEdit(editControl)
+  end
 
   XLGB_GearSet:CreateNewGearSet("New XLGB Set")
   XLGearBanker.displayingSet = XLGB_GearSet:GetNumberOfGearSets()
