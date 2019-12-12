@@ -192,12 +192,25 @@ end
 
 function XLGB_UI:RemoveItem(removeItemControl)
   easyDebug("Removing item")
-  d(removeItemControl.data)
-  itemControl = removeItemControl:GetParent()
-  d(itemControl.data.itemName)
-  d(itemControl.itemName)
-  itemNameControl = itemControl:GetNamedChild("_Name")
-  itemNameControl:SetColor(155, 0, 0, 100)
+  itemRowControl = removeItemControl:GetParent()
+  itemNameControl = itemRowControl:GetNamedChild("_Name")
+  if not(itemRowControl.toBeRemoved) then
+    itemNameControl:SetText(itemRowControl.data.itemName)
+    itemNameControl:SetColor(155, 0, 0, 100)
+
+    removeItemControl:SetNormalTexture("/esoui/art/buttons/edit_cancel_up.dds")
+    removeItemControl:SetPressedTexture("/esoui/art/buttons/edit_cancel_down.dds")
+    removeItemControl:SetMouseOverTexture("/esoui/art/buttons/edit_cancel_over.dds")
+    itemRowControl.toBeRemoved = true
+  else
+    itemNameControl:SetText(itemRowControl.data.itemLink)
+
+    removeItemControl:SetNormalTexture("/esoui/art/buttons/decline_up.dds")
+    removeItemControl:SetPressedTexture("/esoui/art/buttons/decline_down.dds")
+    removeItemControl:SetMouseOverTexture("/esoui/art/buttons/decline_over.dds")
+
+    itemRowControl.toBeRemoved = false
+  end
 end
 
 function XLGB_UI:UpdateScrollList()
@@ -219,6 +232,7 @@ end
 
 local function fillItemRowWithData(control, data)
   control.data = data
+  control.toBeRemoved = false
   control:GetNamedChild("_Name"):SetText(data.itemLink)
   control:GetNamedChild("_Remove"):SetText(data.itemID)
   if XLGearBanker.UI_Editable then
