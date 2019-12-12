@@ -51,9 +51,7 @@
 
     <!-- Cycle right button:-->
             <Button name="$(parent)_NextSet" inherits="ZO_ButtonBehaviorClickSound" >
-
               <OnClicked>XLGB_UI:CycleRight()</OnClicked>
-
               <Dimensions x="30" y="30" />                  
               <Anchor point="TOPRIGHT" relativeTo="$(parent)" relativePoint="TOPRIGHT"  offsetX="-45" offsetY="0" />
               <Textures
@@ -63,22 +61,21 @@
                 />  
             </Button>
 
+
           </Controls>
         </Control>
 
 
-        <Control name="$(parent)_ListView" mouseEnabled="true" resizeToFitDescendents="false">
-					<DimensionConstraints  minY="30"/>
-					<Anchor point="TOPLEFT" relativeTo="$(parent)_ToolBar" relativePoint="BOTTOMLEFT" offsetX="20" offsetY="20"/>
-					<Anchor point="BOTTOMRIGHT" relativeTo="$(parent)" relativePoint="BOTTOMRIGHT" offsetX="-35" offsetY="-10"/>
-					<Controls>
+          <Control name="$(parent)_ListView" mouseEnabled="true" resizeToFitDescendents="false">
+            <DimensionConstraints  minY="30"/>
+            <Anchor point="TOPLEFT" relativeTo="$(parent)_ToolBar" relativePoint="BOTTOMLEFT" offsetX="20" offsetY="20"/>
+            <Anchor point="BOTTOMRIGHT" relativeTo="$(parent)" relativePoint="BOTTOMRIGHT" offsetX="-35" offsetY="-10"/>
+          <Controls>
 
-        <!-- Gear Title -->
-            <EditBox name="$(parent)_GearTitle" inherits="ZO_DefaultEdit ZO_EditDefaultText" text="Test Set" mouseEnabled="false">
-              <Anchor point="TOPLEFT" relativeTo="$(parent)" relativePoint="TOPLEFT" offsetX="0" offsetY="0"  />
-              <Dimensions x="200" y="30" />
-                <OnFocusGained>XLGB_UI:SelectEntireTextbox(self)</OnFocusGained>
-            </EditBox>
+        <!-- Gear set x of y -->
+            <Label name="$(parent)_SetXofY" font="ZoFontWinT2" text="[0/0]" linkEnabled="true">
+              <Anchor point="TOPLEFT" relativeTo="$(parent)" relativePoint="TOPLEFT" offsetX="0" offsetY="0" />
+            </Label>
 
         <!-- Add New Set Button -->
             <Button name="$(parent)_AddSet" inherits="ZO_ButtonBehaviorClickSound" >
@@ -104,7 +101,7 @@
                 />  
             </Button>
 
-        
+        <!-- Accept Edit Button -->
             <Button name="$(parent)_AcceptEdit" inherits="ZO_ButtonBehaviorClickSound" hidden="true" >
               <OnClicked>XLGB_UI:AcceptEdit(self)</OnClicked>
               <Dimensions x="20" y="20" />                                
@@ -117,7 +114,6 @@
             </Button> 
 
           <!-- Remove Set Button -->
-
             <Button name="$(parent)_RemoveSet" inherits="ZO_ButtonBehaviorClickSound" hidden="true" >
               <OnClicked>XLGB_UI:RemoveSet(self)</OnClicked>
               <Dimensions x="20" y="20" />                                
@@ -128,12 +124,25 @@
                   mouseOver  ="/esoui/art/buttons/pointsminus_over.dds"
                 />  
             </Button> 
-            <!-- junk -->
+
+            <!-- Gear Title -->
+            <EditBox name="$(parent)_GearTitle" inherits="ZO_DefaultEdit ZO_EditDefaultText" text="No sets found" mouseEnabled="false">
+              <Anchor point="TOPLEFT" relativeTo="$(parent)_SetXofY" relativePoint="TOPRIGHT" offsetX="10" offsetY="0"  />
+              <Anchor point="TOPRIGHT" relativeTo="$(parent)_RemoveSet" relativePoint="TOPLEFT" offsetX="-10" offsetY="0"  />
+              <Dimensions y="30" />
+                <OnFocusGained>XLGB_UI:SelectEntireTextbox(self)</OnFocusGained>
+            </EditBox>
+
+        <!-- Scroll List -->
+            <Label name="$(parent)_ItemAmount" font="ZoFontWinT2" text="Total items in set: 0" linkEnabled="true">
+              <Anchor point="BOTTOMLEFT" relativeTo="$(parent)" relativePoint="BOTTOMLEFT" offsetX="0" offsetY="0" />
+              <Anchor point="BOTTOMRIGHT" relativeTo="$(parent)" relativePoint="BOTTOMRIGHT" offsetX="0" offsetY="0" />
+            </Label>
 
         <!-- Scroll List -->
             <Control name="$(parent)_ScrollList" inherits="ZO_ScrollList">
               <Anchor point="TOPLEFT" relativeTo="$(parent)_GearTitle" relativePoint="BOTTOMLEFT" offsetX="0" offsetY="10" />
-              <Anchor point="BOTTOMRIGHT" relativeTo="$(parent)" relativePoint="BOTTOMRIGHT" offsetX="20" offsetY="-10" />
+              <Anchor point="BOTTOMRIGHT" relativeTo="$(parent)_ItemAmount" relativePoint="BOTTOMRIGHT" offsetX="20" offsetY="-10" />
             </Control>
 
 					</Controls>

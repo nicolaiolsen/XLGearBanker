@@ -164,19 +164,21 @@ function XLGB_UI:CycleLeft()
   local previousSet = XLGearBanker.displayingSet - 1
   local totalSets = XLGB_GearSet:GetNumberOfGearSets()
 
-  if previousSet <= 0 then
-    previousSet = totalSets
-  end
-  
-  if XLGearBanker.UI_Editable then
-    if areThereAnyChanges() then
-      libDialog:ShowDialog("XLGearBanker", "DiscardChangesAndCycleDialog", previousSet)
-    else
-      discardChangesAndCycle({data = previousSet})
+  if totalSets > 0 then 
+    if previousSet <= 0 then
+      previousSet = totalSets
     end
-  else
-    XLGearBanker.displayingSet = previousSet
-    XLGB_UI:ChangeDisplayedGearSet(previousSet)
+    
+    if XLGearBanker.UI_Editable then
+      if areThereAnyChanges() then
+        libDialog:ShowDialog("XLGearBanker", "DiscardChangesAndCycleDialog", previousSet)
+      else
+        discardChangesAndCycle({data = previousSet})
+      end
+    else
+      XLGearBanker.displayingSet = previousSet
+      XLGB_UI:ChangeDisplayedGearSet(previousSet)
+    end
   end
   
   
@@ -187,20 +189,21 @@ function XLGB_UI:CycleRight()
 
   local nextSet = XLGearBanker.displayingSet + 1
   local totalSets = XLGB_GearSet:GetNumberOfGearSets()
-
-  if nextSet > totalSets then
-    nextSet = 1
-  end
-
-  if XLGearBanker.UI_Editable then
-    if areThereAnyChanges() then
-      libDialog:ShowDialog("XLGearBanker", "DiscardChangesAndCycleDialog", nextSet)
-    else
-      discardChangesAndCycle({data = nextSet})
+  if totalSets > 0 then 
+    if nextSet > totalSets then
+      nextSet = 1
     end
-  else
-    XLGearBanker.displayingSet = nextSet
-    XLGB_UI:ChangeDisplayedGearSet(nextSet)
+
+    if XLGearBanker.UI_Editable then
+      if areThereAnyChanges() then
+        libDialog:ShowDialog("XLGearBanker", "DiscardChangesAndCycleDialog", nextSet)
+      else
+        discardChangesAndCycle({data = nextSet})
+      end
+    else
+      XLGearBanker.displayingSet = nextSet
+      XLGB_UI:ChangeDisplayedGearSet(nextSet)
+    end
   end
 
   
@@ -218,9 +221,13 @@ end
 
 function XLGB_UI:ChangeDisplayedGearSet(gearSetNumber)
   local totalGearSets = XLGB_GearSet:GetNumberOfGearSets()
-  if XLGB_GearSet:ValidGearSetNumber(gearSetNumber, totalGearSets) then
-      XLGB_UI:SetGearNameLabel(tonumber(gearSetNumber))
-      XLGB_UI:UpdateScrollList()
+  if totalGearSets == 0 then
+
+  else
+    if XLGB_GearSet:ValidGearSetNumber(gearSetNumber, totalGearSets) then
+        XLGB_UI:SetGearNameLabel(tonumber(gearSetNumber))
+        XLGB_UI:UpdateScrollList()
+    end
   end
 end
 
@@ -283,18 +290,19 @@ function XLGB_UI:RemoveItem(removeItemControl)
 end
 
 function XLGB_UI:UpdateScrollList()
-  local gearSet = XLGB_GearSet:GetGearSet(XLGearBanker.displayingSet)
   local scrollList = XLGB_Window_Control_ListView:GetNamedChild("_ScrollList")
   local scrollData = ZO_ScrollList_GetDataList(scrollList)
   ZO_ScrollList_Clear(scrollList)
-  for _, item in pairs(gearSet.items) do
-      local dataEntry = ZO_ScrollList_CreateDataEntry(XLGB_Constants.ITEM_ROW, {
-        itemName = item.name,
-        itemLink = item.link,
-        itemID = item.ID
-      })
-      --scrollData[#scrollData + 1] = dataEntry
-      table.insert(scrollData, dataEntry)
+  if XLGB_GearSet:GetNumberOfGearSets() > 0 then
+    local gearSet = XLGB_GearSet:GetGearSet(XLGearBanker.displayingSet)
+    for _, item in pairs(gearSet.items) do
+        local dataEntry = ZO_ScrollList_CreateDataEntry(XLGB_Constants.ITEM_ROW, {
+          itemName = item.name,
+          itemLink = item.link,
+          itemID = item.ID
+        })
+        table.insert(scrollData, dataEntry)
+    end
   end
   ZO_ScrollList_Commit(XLGB_Window_Control_ListView.scrollList)
 end
@@ -323,7 +331,7 @@ function XLGB_UI:SetupDialogs()
     "XLGearBanker", 
     "RemoveSetDialog", 
     "XL Gear Banker", 
-    "You are about to remove the set.\n\nAre you sure?", 
+    "You are about to remove the set.\n\nAre you sure you want the set removed?", 
     removeSetConfirmed, 
     nil,
     nil)
@@ -332,7 +340,7 @@ function XLGB_UI:SetupDialogs()
     "XLGearBanker", 
     "RemoveMarkedItems", 
     "XL Gear Banker", 
-    "You have marked items for removal from this set.\n\nAre you sure?", 
+    "You have marked items for removal from this set.\n\nAre you sure you want these items removed?", 
     removeItemsMarkedForRemoval, 
     nil,
     nil)
