@@ -86,9 +86,9 @@
               <Dimensions x="20" y="20" />                                
               <Anchor point="TOPRIGHT" relativeTo="$(parent)" relativePoint="TOPRIGHT" offsetX="22" offsetY="0"  />
               <Textures
-                  normal    ="/esoui/art/buttons/plus_up.dds"
-                  pressed    ="/esoui/art/buttons/plus_down.dds"
-                  mouseOver  ="/esoui/art/buttons/plus_over.dds"
+                  normal    ="/esoui/art/buttons/pointsplus_up.dds"
+                  pressed    ="/esoui/art/buttons/pointsplus_down.dds"
+                  mouseOver  ="/esoui/art/buttons/pointsplus_over.dds"
                 />  
             </Button> 
 
