@@ -70,6 +70,7 @@ local function discardChanges()
   local acceptControl = XLGB_Window_Control_ListView:GetNamedChild("_AcceptEdit")
   local removeControl = XLGB_Window_Control_ListView:GetNamedChild("_RemoveSet")
 
+  XLGearBanker.UI_ItemsMarkedForRemoval = {}
   setEditFalse(editControl, gearTitleControl, acceptControl, removeControl)
   gearTitleControl:SetText(XLGearBanker.UI_GearSetNameBefore)
 end
