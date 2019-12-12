@@ -38,6 +38,7 @@ local function setEditFalse(editControl, gearTitleControl, acceptControl, remove
 end
 
 local function setEditTrue(editControl, gearTitleControl, acceptControl, removeControl)
+  XLGearBanker.UI_Editable = true
   XLGearBanker.UI_GearSetNameBefore = gearTitleControl:GetText()
   gearTitleControl:SetEditEnabled(true)
   gearTitleControl:SelectAll()
@@ -73,7 +74,6 @@ function XLGB_UI:ToggleEdit(editControl)
     setEditFalse(editControl, gearTitleControl, acceptControl, removeControl)
     gearTitleControl:SetText(XLGearBanker.UI_GearSetNameBefore)
   else
-    XLGearBanker.UI_Editable = true
     setEditTrue(editControl, gearTitleControl, acceptControl, removeControl)
   end
   ZO_ScrollList_RefreshVisible(XLGB_Window_Control_ListView.scrollList)
