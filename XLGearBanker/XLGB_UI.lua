@@ -18,7 +18,14 @@ function XLGB_UI:SelectEntireTextbox(gearTitleControl)
 end
 
 function XLGB_UI:AddSet(addControl) 
-  d("Add set")
+  local editControl = XLGB_Window_Control_ListView:GetNamedChild("_Edit")
+  XLGB_UI:ToggleEdit(editControl)
+
+  XLGB_GearSet:CreateNewGearSet("New XLGB Set")
+  XLGearBanker.displayingSet = XLGB_GearSet:GetNumberOfGearSets()
+  XLGB_UI:ChangeDisplayedGearSet(XLGearBanker.displayingSet)
+  
+  XLGB_UI:ToggleEdit(editControl)
 end
 
 function XLGB_UI:RemoveSet(removeControl) 
