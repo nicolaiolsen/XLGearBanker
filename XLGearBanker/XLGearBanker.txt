@@ -3,7 +3,7 @@
 ## APIVersion: 100028
 ## Version: 0.7.3
 ## SavedVariables: XLGearBankerSavedVariables
-## DependsOn: LibCustomMenu
+## DependsOn: LibCustomMenu LibDialog
 
 XLGearBanker.xml
 bindings.xml

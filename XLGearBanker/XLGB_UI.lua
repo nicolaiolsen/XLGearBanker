@@ -1,5 +1,7 @@
 XLGB_UI = {}
 
+local libDialog = LibDialog
+
 function XLGB_UI:XLGB_Window_Control_OnMoveStop()
   XLGearBanker.savedVariables.left = XLGB_Window_Control:GetLeft()
   XLGearBanker.savedVariables.top = XLGB_Window_Control:GetTop()
@@ -30,9 +32,13 @@ function XLGB_UI:AddSet(addControl)
   XLGB_UI:ToggleEdit(editControl)
 end
 
-function XLGB_UI:RemoveSet(removeControl) 
+local function removeSetConfirmed()
   XLGB_GearSet:RemoveGearSet(XLGearBanker.displayingSet)
   XLGB_UI:CycleLeft()
+end
+
+function XLGB_UI:RemoveSet(removeControl) 
+  libDialog:ShowDialog("XLGearBanker", "RemoveSetDialog", nil)
 end
 
 local function setEditFalse(editControl, gearTitleControl, acceptControl, removeControl)
@@ -78,13 +84,23 @@ function XLGB_UI:AcceptEdit(acceptControl)
   end
 end
 
+local function discardChanges()
+  local editControl = XLGB_Window_Control_ListView:GetNamedChild("_Edit")
+  local gearTitleControl = XLGB_Window_Control_ListView:GetNamedChild("_GearTitle")
+  local acceptControl = XLGB_Window_Control_ListView:GetNamedChild("_AcceptEdit")
+  local removeControl = XLGB_Window_Control_ListView:GetNamedChild("_RemoveSet")
+
+  setEditFalse(editControl, gearTitleControl, acceptControl, removeControl)
+  gearTitleControl:SetText(XLGearBanker.UI_GearSetNameBefore)
+
+end
+
 function XLGB_UI:ToggleEdit(editControl)
   local gearTitleControl = XLGB_Window_Control_ListView:GetNamedChild("_GearTitle")
   local acceptControl = XLGB_Window_Control_ListView:GetNamedChild("_AcceptEdit")
   local removeControl = XLGB_Window_Control_ListView:GetNamedChild("_RemoveSet")
   if XLGearBanker.UI_Editable then
-    setEditFalse(editControl, gearTitleControl, acceptControl, removeControl)
-    gearTitleControl:SetText(XLGearBanker.UI_GearSetNameBefore)
+    libDialog:ShowDialog("XLGearBanker", "DiscardChangesDialog", nil)
   else
     setEditTrue(editControl, gearTitleControl, acceptControl, removeControl)
   end
@@ -193,12 +209,32 @@ function XLGB_UI:InitializeScrollList()
   XLGB_UI:UpdateScrollList()
 end
 
+function XLGB_UI:SetupDialogs()
+  libDialog:RegisterDialog("XLGearBanker", 
+                          "RemoveSetDialog", 
+                          "XL Gear Banker", 
+                          "You are about to remove the set.\n\nAre you sure?", 
+                          removeSetConfirmed, 
+                          nil,
+                          nil)
+
+  libDialog:RegisterDialog("XLGearBanker", 
+                          "DiscardChangesDialog", 
+                          "XL Gear Banker", 
+                          "You've edited the current set, and are about to discard any changes you've made.\n\nAre you sure?", 
+                          discardChanges, 
+                          nil,
+                          nil)
+
+end
+
 function XLGB_UI:Initialize()
   XLGearBanker.displayingSet = 1
   XLGearBanker.UI_Editable = false
   XLGB_UI:RestorePosition()
   XLGB_UI:InitializeScrollList()
   XLGB_UI:ChangeDisplayedGearSet(XLGearBanker.displayingSet)
+  XLGB_UI:SetupDialogs()
   XLGearBanker.debug = true
   if XLGearBanker.debug then
     XLGB_UI:ShowUI()
