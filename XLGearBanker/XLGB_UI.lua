@@ -300,7 +300,7 @@ function XLGB_UI:SetupDialogs()
     "XLGearBanker", 
     "DiscardChangesDialog", 
     "XL Gear Banker", 
-    "You are about to discard any changes you've made.\n\nAre you sure?", 
+    "Looks like you've edited the current set and are about to discard any changes you've made.\n\nAre you sure?", 
     discardChanges, 
     nil,
     nil)
@@ -309,7 +309,7 @@ function XLGB_UI:SetupDialogs()
     "XLGearBanker", 
     "DiscardChangesAndCycleDialog", 
     "XL Gear Banker", 
-    "You've edited the current set, and are about to discard any changes you've made.\n\nAre you sure?", 
+    "Looks like you've edited the current set and are about to discard any changes you've made.\n\nAre you sure?", 
     discardChangesAndCycle, 
     nil,
     nil)
