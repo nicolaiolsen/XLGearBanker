@@ -58,6 +58,13 @@ local function setEditTrue(editControl, gearTitleControl, acceptControl, removeC
 end
 
 local function removeItemsMarkedForRemoval()
+  for _, markedID in pairs(XLGearBanker.UI_ItemsMarkedForRemoval) do
+      for i, item in pairs(XLGB_GearSet:GetGearSet(XLGearBanker.displayingSet).items) do
+          if markedID == item.ID then
+            XLGB_GearSet:RemoveItemFromGearSet(item.link, item.ID, XLGearBanker.displayingSet)
+          end
+      end
+  end
   XLGearBanker.UI_ItemsMarkedForRemoval = {}
   XLGB_UI:ChangeDisplayedGearSet(XLGearBanker.displayingSet)
 end
