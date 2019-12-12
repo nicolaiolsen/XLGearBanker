@@ -39,6 +39,7 @@ local function setEditFalse(editControl, gearTitleControl, acceptControl, remove
   XLGearBanker.UI_Editable = false
   gearTitleControl:ClearSelection()
   gearTitleControl:SetEditEnabled(false)
+  gearTitleControl:LoseFocus()
   gearTitleControl:SetMouseEnabled(false)
   editControl:SetNormalTexture("/esoui/art/buttons/edit_up.dds")
   editControl:SetPressedTexture("/esoui/art/buttons/edit_down.dds")
@@ -52,6 +53,7 @@ local function setEditTrue(editControl, gearTitleControl, acceptControl, removeC
   XLGearBanker.UI_GearSetNameBefore = gearTitleControl:GetText()
   gearTitleControl:SetEditEnabled(true)
   gearTitleControl:SelectAll()
+  gearTitleControl:TakeFocus()
   gearTitleControl:SetMouseEnabled(true)
   editControl:SetNormalTexture("/esoui/art/buttons/edit_cancel_up.dds")
   editControl:SetPressedTexture("/esoui/art/buttons/edit_cancel_down.dds")
