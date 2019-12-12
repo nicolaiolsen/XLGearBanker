@@ -73,7 +73,7 @@
           <Controls>
 
         <!-- Gear set x of y -->
-            <Label name="$(parent)_SetXofY" font="ZoFontWinT2" text="[0/0]" linkEnabled="true">
+            <Label name="$(parent)_SetXofY" font="ZoFontWinH3" text="[0/0]" linkEnabled="true">
               <Anchor point="TOPLEFT" relativeTo="$(parent)" relativePoint="TOPLEFT" offsetX="0" offsetY="0" />
             </Label>
 
@@ -90,7 +90,7 @@
             </Button> 
 
         <!-- Edit Button -->
-            <Button name="$(parent)_Edit" inherits="ZO_ButtonBehaviorClickSound" >
+            <Button name="$(parent)_Edit" inherits="ZO_ButtonBehaviorClickSound" hidden="true">
               <OnClicked>XLGB_UI:ToggleEdit(self)</OnClicked>
               <Dimensions x="20" y="20" />                                
               <Anchor point="TOPRIGHT" relativeTo="$(parent)_AddSet" relativePoint="TOPLEFT" offsetX="-18" offsetY="0"  />

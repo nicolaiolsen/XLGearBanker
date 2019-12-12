@@ -221,18 +221,28 @@ end
 
 function XLGB_UI:ChangeDisplayedGearSet(gearSetNumber)
   local totalGearSets = XLGB_GearSet:GetNumberOfGearSets()
+  local editControl = XLGB_Window_Control_ListView:GetNamedChild("_Edit")
+  local setXofYControl = XLGB_Window_Control_ListView:GetNamedChild("_SetXofY")
+  local itemAmountControl = XLGB_Window_Control_ListView:GetNamedChild("_ItemAmount")
+  
   if totalGearSets == 0 then
-
+    editControl:SetHidden(true)
+    XLGB_Window_Control_ListView_GearTitle:SetText("No sets found")
+    setXofYControl:SetText("[0/0]")
+    itemAmountControl:SetText("Total items in set: 0")
   else
     if XLGB_GearSet:ValidGearSetNumber(gearSetNumber, totalGearSets) then
         XLGB_UI:SetGearNameLabel(tonumber(gearSetNumber))
+        editControl:SetHidden(false)
+        setXofYControl:SetText("[".. XLGearBanker.displayingSet .."/".. XLGB_GearSet:GetNumberOfGearSets() .."]")
+        itemAmountControl:SetText("Total items in set: ".. XLGB_GearSet:GetGearSet(gearSetNumber))
         XLGB_UI:UpdateScrollList()
     end
   end
 end
 
 function XLGB_UI:ShowUI()
-  --XLGB_UI:ChangeDisplayedGearSet(XLGearBanker.displayingSet)
+  XLGB_UI:ChangeDisplayedGearSet(XLGearBanker.displayingSet)
   XLGB_Window_Control:SetHidden(false)
 end
 
@@ -286,7 +296,6 @@ function XLGB_UI:RemoveItem(removeItemControl)
     table.insert(XLGearBanker.UI_ItemsMarkedForRemoval, itemRowControl.data.itemID)
   end
   toggleToBeRemoved(itemRowControl)
-  --ZO_ScrollList_RefreshVisible(XLGB_Window_Control_ListView.scrollList)
 end
 
 function XLGB_UI:UpdateScrollList()
