@@ -191,6 +191,7 @@ function XLGB_UI:HideUI()
 end
 
 function XLGB_UI:RemoveItem(removeItemControl)
+  d(removeItemControl:GetText())
   d("1")
   itemControl = removeItemControl:GetParent()
   d("2")
