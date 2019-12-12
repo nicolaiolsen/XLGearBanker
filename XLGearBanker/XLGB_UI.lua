@@ -240,14 +240,25 @@ local function toggleToBeRemoved(itemRowControl)
   end
 end
 
+local function unmarkItemFromRemoval(itemID)
+  for i, markedID in pairs(XLGearBanker.UI_ItemsMarkedForRemoval) do
+      if itemID == markedID then
+        table.remove(XLGearBanker.UI_ItemsMarkedForRemoval, i)
+        return
+      end
+  end
+end
+
 function XLGB_UI:RemoveItem(removeItemControl)
   easyDebug("Removing item")
   itemRowControl = removeItemControl:GetParent()
   if isItemMarkedForRemoval(itemRowControl.data.itemID) then
+    unmarkItemFromRemoval(itemRowControl.data.itemID)
   else
     table.insert(XLGearBanker.UI_ItemsMarkedForRemoval, itemRowControl.data.itemID)
   end
   toggleToBeRemoved(itemRowControl)
+  --ZO_ScrollList_RefreshVisible(XLGB_Window_Control_ListView.scrollList)
 end
 
 function XLGB_UI:UpdateScrollList()
