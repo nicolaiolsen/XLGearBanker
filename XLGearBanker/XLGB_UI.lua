@@ -88,7 +88,12 @@ function XLGB_UI:CycleLeft()
   if previousSet <= 0 then
     previousSet = totalSets
   end
-
+  
+  if XLGearBanker.UI_Editable then
+    local editControl = XLGB_Window_Control_ListView:GetNamedChild("_Edit")
+    XLGB_UI:ToggleEdit(editControl)
+  end
+  
   XLGearBanker.displayingSet = previousSet
   XLGB_UI:ChangeDisplayedGearSet(previousSet)
 end
@@ -101,6 +106,11 @@ function XLGB_UI:CycleRight()
 
   if nextSet > totalSets then
     nextSet = 1
+  end
+
+  if XLGearBanker.UI_Editable then
+    local editControl = XLGB_Window_Control_ListView:GetNamedChild("_Edit")
+    XLGB_UI:ToggleEdit(editControl)
   end
 
   XLGearBanker.displayingSet = nextSet
