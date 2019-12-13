@@ -39,9 +39,9 @@ These libraries are ***required*** to run the addon.
 
 ***
 
-## Changes (0.8.0)
+## Changes (version 0.8)
 
-Christmas is coming early with this new update (0.8.0). An XL change that alot of people I've talked to have asked for (including myself). The XLGB addon is getting its UI and is now not a complete mess to setup anymore! What this UI update includes is a UI that would help you track your sets, create new sets, and edit current sets easier than ever before! It's simple to use:
+Christmas is coming early with this new update (version 0.8). An XL change that alot of people I've talked to have asked for (including myself). The XLGB addon is getting its UI and is now not a complete mess to setup anymore! What this UI update includes is a UI that would help you track your sets, create new sets, and edit current sets easier than ever before! It's simple to use:
 
 ### You can now actually see your sets! (BIIG)
 
