@@ -37,7 +37,7 @@ local function setEditFalse()
   XLGearBanker.UI_Editable = false
   gearTitleControl:ClearSelection()
   gearTitleControl:SetEditEnabled(false)
-  gearTitleControl:SetCursorPosition(1)
+  gearTitleControl:SetCursorPosition(0)
   gearTitleControl:LoseFocus()
   gearTitleControl:SetMouseEnabled(false)
   gearTitleControl:SetAnchor(TOPRIGHT, editControl, TOPLEFT, -10, 0)
@@ -216,18 +216,21 @@ end
 function XLGB_UI:ChangeDisplayedGearSet(gearSetNumber)
   local totalGearSets = XLGB_GearSet:GetNumberOfGearSets()
   local editControl = XLGB_Window_Control_ListView:GetNamedChild("_Edit")
+  local gearTitleControl =  XLGB_Window_Control_ListView:GetNamedChild("_GearTitle")
   local setXofYControl = XLGB_Window_Control_ListView:GetNamedChild("_SetXofY")
   local itemAmountControl = XLGB_Window_Control_ListView:GetNamedChild("_ItemAmount")
 
   if totalGearSets == 0 then
     editControl:SetHidden(true)
-    XLGB_Window_Control_ListView_GearTitle:SetText("No sets found")
+    gearTitleControl:SetText("No sets found")
+    gearTitleControl:SetCursorPosition(0)
     setXofYControl:SetText("[0/0]")
     itemAmountControl:SetText("Total items in set: 0")
     XLGB_UI:UpdateScrollList()
   else
     if XLGB_GearSet:ValidGearSetNumber(gearSetNumber, totalGearSets) then
         XLGB_UI:SetGearNameLabel(tonumber(gearSetNumber))
+        gearTitleControl:SetCursorPosition(0)
         editControl:SetHidden(false)
         setXofYControl:SetText("[".. gearSetNumber .."/".. XLGB_GearSet:GetNumberOfGearSets() .."]")
         itemAmountControl:SetText("Total items in set: ".. #XLGB_GearSet:GetGearSet(gearSetNumber).items)
