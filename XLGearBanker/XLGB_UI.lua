@@ -390,7 +390,6 @@ function XLGB_UI:Initialize()
   XLGB_UI:InitializeScrollList()
   XLGB_UI:ChangeDisplayedGearSet(XLGearBanker.displayingSet)
   XLGB_UI:SetupDialogs()
-  XLGearBanker.debug = true
   if XLGearBanker.debug then
     XLGB_UI:ShowUI()
   end

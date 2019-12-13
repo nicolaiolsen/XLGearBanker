@@ -155,7 +155,7 @@ function XLGB_GearSet:RemoveItemsFromGearSet(itemsToBeRemoved, gearSetNumber)
         break
       end
     end
-      
+
   end
   XLGB_Events:OnGearSetItemRemove(gearSet, XLGearBanker.savedVariables.gearSetList[gearSetNumber])
   d("[XLGB] Removed items from " .. gearSetName)

@@ -42,10 +42,10 @@ end
 
 SLASH_COMMANDS["/xlgb_help"] = function (argsv)
   d("[XLGB] Commands")
-  d("\'/xlgb_sets\': Prints out saved sets to chat.")
-  d("\'/xlgb_items setNumber\': Prints out set #(setNumber)s items to chat.")
-  d("\'/xlgb_addset setName\': Creates a new set named (setName).")
-  d("\'/xlgb_removeset setNumber\': Removes set #(setNumber).")
+  --d("\'/xlgb_sets\': Prints out saved sets to chat.")
+  -- d("\'/xlgb_items setNumber\': Prints out set #(setNumber)s items to chat.")
+  -- d("\'/xlgb_addset setName\': Creates a new set named (setName).")
+  -- d("\'/xlgb_removeset setNumber\': Removes set #(setNumber).")
   d("\'/xlgb_deposit setNumber\': Deposit all items from set #(setNumber) into the bank.")
   d("\'/xlgb_withdraw setNumber\': Withdraw all items from set #(setNumber) into the player inventory.")
   d("\'/xlgb_assign setNumber\': Assigns set #(setNumber) to opened chest.")
@@ -77,34 +77,34 @@ SLASH_COMMANDS["/xlgb_withdrawassigned"] = function (argsv)
   XLGB_Banking:WithdrawStorageItems()
 end
 
-SLASH_COMMANDS["/xlgb_overview"] = XLGB_UI.ShowUI
+SLASH_COMMANDS["/xlgb"] = XLGB_UI.ShowUI
 
-SLASH_COMMANDS["/xlgb_sets"] = function (argsv)
-  XLGB_GearSet:PrintGearSets()
-end
+-- SLASH_COMMANDS["/xlgb_sets"] = function (argsv)
+--   XLGB_GearSet:PrintGearSets()
+-- end
 
-SLASH_COMMANDS["/xlgb_items"] = function (argsv)
-  local totalGearSets = XLGB_GearSet:GetNumberOfGearSets()
-  local gearSetNumber = tonumber(argsv)
-  if XLGB_GearSet:ValidGearSetNumber(gearSetNumber, totalGearSets) then
-    XLGB_GearSet:PrintGearSetItems(gearSetNumber)
-  end
-end
+-- SLASH_COMMANDS["/xlgb_items"] = function (argsv)
+--   local totalGearSets = XLGB_GearSet:GetNumberOfGearSets()
+--   local gearSetNumber = tonumber(argsv)
+--   if XLGB_GearSet:ValidGearSetNumber(gearSetNumber, totalGearSets) then
+--     XLGB_GearSet:PrintGearSetItems(gearSetNumber)
+--   end
+-- end
 
-SLASH_COMMANDS["/xlgb_addset"] = function (argsv)
-  local gearSetName = argsv
-  if XLGB_GearSet:ValidGearSetName(gearSetName) then
-    XLGB_GearSet:CreateNewGearSet(gearSetName)
-  end
-end
+-- SLASH_COMMANDS["/xlgb_addset"] = function (argsv)
+--   local gearSetName = argsv
+--   if XLGB_GearSet:ValidGearSetName(gearSetName) then
+--     XLGB_GearSet:CreateNewGearSet(gearSetName)
+--   end
+-- end
 
-SLASH_COMMANDS["/xlgb_removeset"] = function (argsv)
-  local totalGearSets = XLGB_GearSet:GetNumberOfGearSets()
-  local gearSetNumber = tonumber(argsv)
-  if XLGB_GearSet:ValidGearSetNumber(gearSetNumber, totalGearSets) then
-    XLGB_GearSet:RemoveGearSet(gearSetNumber)
-  end
-end
+-- SLASH_COMMANDS["/xlgb_removeset"] = function (argsv)
+--   local totalGearSets = XLGB_GearSet:GetNumberOfGearSets()
+--   local gearSetNumber = tonumber(argsv)
+--   if XLGB_GearSet:ValidGearSetNumber(gearSetNumber, totalGearSets) then
+--     XLGB_GearSet:RemoveGearSet(gearSetNumber)
+--   end
+-- end
 
 SLASH_COMMANDS["/xlgb_assign"] = function (argsv)
   local totalGearSets = XLGB_GearSet:GetNumberOfGearSets()
