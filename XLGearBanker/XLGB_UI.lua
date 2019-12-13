@@ -227,6 +227,7 @@ function XLGB_UI:ChangeDisplayedGearSet(gearSetNumber)
     XLGB_Window_Control_ListView_GearTitle:SetText("No sets found")
     setXofYControl:SetText("[0/0]")
     itemAmountControl:SetText("Total items in set: 0")
+    XLGB_UI:UpdateScrollList()
   else
     if XLGB_GearSet:ValidGearSetNumber(gearSetNumber, totalGearSets) then
         XLGB_UI:SetGearNameLabel(tonumber(gearSetNumber))

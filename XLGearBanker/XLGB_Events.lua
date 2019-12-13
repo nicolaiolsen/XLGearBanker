@@ -6,6 +6,7 @@ end
 
 function XLGB_Events:OnGearSetItemAdd(gearSetBefore, gearSetAfter)
   XLGB_Banking:UpdateStorageOnGearSetItemAddRemove(gearSetBefore, gearSetAfter)
+  XLGB_UI:UpdateScrollList()
 end
 
 function XLGB_Events:OnGearSetNameUpdate(gearSetBefore, gearSetAfter)
@@ -15,3 +16,4 @@ end
 function XLGB_Events:OnGearSetItemRemove(gearSetBefore, gearSetAfter)
   XLGB_Banking:UpdateStorageOnGearSetItemAddRemove(gearSetBefore, gearSetAfter)
 end
+
