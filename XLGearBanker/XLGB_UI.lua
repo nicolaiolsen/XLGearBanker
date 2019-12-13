@@ -225,17 +225,21 @@ function XLGB_UI:ChangeDisplayedGearSet(gearSetNumber)
     editControl:SetHidden(true)
     gearTitleControl:SetText("No sets found")
     gearTitleControl:SetCursorPosition(0)
+    gearTitleControl:SetAnchor(TOPRIGHT, editControl, TOPLEFT, -10, 0)
     setXofYControl:SetText("[0/0]")
     itemAmountControl:SetText("Total items in set: 0")
     XLGB_UI:UpdateScrollList()
   else
     if XLGB_GearSet:ValidGearSetNumber(gearSetNumber, totalGearSets) then
-        XLGB_UI:SetGearNameLabel(tonumber(gearSetNumber))
-        gearTitleControl:SetCursorPosition(0)
-        editControl:SetHidden(false)
-        setXofYControl:SetText("[".. gearSetNumber .."/".. XLGB_GearSet:GetNumberOfGearSets() .."]")
-        itemAmountControl:SetText("Total items in set: ".. #XLGB_GearSet:GetGearSet(gearSetNumber).items)
-        XLGB_UI:UpdateScrollList()
+      XLGB_UI:SetGearNameLabel(tonumber(gearSetNumber))
+      gearTitleControl:SetCursorPosition(0)
+      if not(XLGearBanker.UI_Editable) then
+        gearTitleControl:SetAnchor(TOPRIGHT, editControl, TOPLEFT, -10, 0)
+      end
+      editControl:SetHidden(false)
+      setXofYControl:SetText("[".. gearSetNumber .."/".. XLGB_GearSet:GetNumberOfGearSets() .."]")
+      itemAmountControl:SetText("Total items in set: ".. #XLGB_GearSet:GetGearSet(gearSetNumber).items)
+      XLGB_UI:UpdateScrollList()
     end
   end
 end
