@@ -134,7 +134,7 @@ function XLGB_UI:AddSet(addControl)
     XLGB_UI:ToggleEdit(editControl)
   end
 
-  XLGB_GearSet:CreateNewGearSet("New XLGB Set")
+  XLGB_GearSet:GenerateNewSet()
   XLGearBanker.displayingSet = XLGB_GearSet:GetNumberOfGearSets()
   XLGB_UI:ChangeDisplayedGearSet(XLGearBanker.displayingSet)
   

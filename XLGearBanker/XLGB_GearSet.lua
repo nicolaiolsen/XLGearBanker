@@ -63,16 +63,23 @@ local function isNameUnique(name)
   return isUnique
 end
 
+function XLGB_GearSet:GenerateNewSet()
+  local xcounter = "X"
+  while not(XLGB_GearSet:CreateNewGearSet("My " .. xcounter .. "LGB Set")) do
+      xcounter = "X" .. xcounter
+  end
+end
+
 function XLGB_GearSet:CreateNewGearSet(gearSetName)
   if (not isNameUnique(gearSetName)) then
-    d("[XLGB_ERROR] A set named ".. gearSetName .." does already exist! Set names should be unique.")
-    return
+    return false
   end
   local gearSet = {}
   gearSet.name = "" .. gearSetName
   gearSet.items = {}
   table.insert(XLGearBanker.savedVariables.gearSetList, gearSet)
   d("[XLGB] Created new set: " .. gearSetName)
+  return true
 end
 
 function XLGB_GearSet:FindGearSet(gearSetName)
