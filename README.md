@@ -33,7 +33,7 @@ Easy!
 This addon uses the following libraries:
 
 - LibCustomMenu
-- LibDialog
+- LibDialog ***new since version 0.8!***
 
 These libraries are ***required*** to run the addon.
 
