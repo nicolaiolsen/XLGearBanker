@@ -129,7 +129,6 @@ function XLGB_UI:ToggleEdit(editControl)
   else
     setEditTrue()
   end
-  
 end
 
 function XLGB_UI:AddSet(addControl) 
@@ -157,7 +156,6 @@ function XLGB_UI:RemoveSet(removeControl)
   libDialog:ShowDialog("XLGearBanker", "RemoveSetDialog", nil)
 end
 
-
 function XLGB_UI:CycleLeft()
   easyDebug("Cycle left called!")
 
@@ -182,8 +180,6 @@ function XLGB_UI:CycleLeft()
   else
     XLGB_UI:ChangeDisplayedGearSet(XLGearBanker.displayingSet)
   end
-  
-  
 end
 
 function XLGB_UI:CycleRight()
@@ -209,8 +205,6 @@ function XLGB_UI:CycleRight()
   else
     XLGB_UI:ChangeDisplayedGearSet(XLGearBanker.displayingSet)
   end
-
-  
 end
 
 function XLGB_UI:SetGearNameLabel(gearSetNumber)
@@ -228,7 +222,7 @@ function XLGB_UI:ChangeDisplayedGearSet(gearSetNumber)
   local editControl = XLGB_Window_Control_ListView:GetNamedChild("_Edit")
   local setXofYControl = XLGB_Window_Control_ListView:GetNamedChild("_SetXofY")
   local itemAmountControl = XLGB_Window_Control_ListView:GetNamedChild("_ItemAmount")
-  
+
   if totalGearSets == 0 then
     editControl:SetHidden(true)
     XLGB_Window_Control_ListView_GearTitle:SetText("No sets found")
@@ -275,7 +269,7 @@ local function toggleToBeRemoved(itemRowControl)
     removeItemControl:SetMouseOverTexture("/esoui/art/buttons/edit_cancel_over.dds")
   else
     itemNameControl:SetText(itemRowControl.data.itemLink)
-
+    
     removeItemControl:SetNormalTexture("/esoui/art/buttons/decline_up.dds")
     removeItemControl:SetPressedTexture("/esoui/art/buttons/decline_down.dds")
     removeItemControl:SetMouseOverTexture("/esoui/art/buttons/decline_over.dds")
