@@ -56,6 +56,7 @@ local function findItemsToMove(sourceBag, sourceItems)
   end
   return itemsToMove
 end
+
 --[[
   function getAvailableBagSpaces
 

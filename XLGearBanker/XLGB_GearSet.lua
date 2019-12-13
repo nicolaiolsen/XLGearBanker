@@ -137,6 +137,23 @@ function XLGB_GearSet:RemoveItemFromGearSet(itemLink, itemID, gearSetNumber)
   d("[XLGB] Removed item " .. itemLink .. " from " .. gearSetName)
 end
 
+function XLGB_GearSet:RemoveItemsFromGearSet(itemsToBeRemoved, gearSetNumber)
+  local gearSet = copy(XLGB_GearSet:GetGearSet(gearSetNumber))
+  local gearSetName = gearSet.name
+
+  for _, itemToBeRemoved in pairs(itemsToBeRemoved) do
+    for i, item in pairs(gearSet.items) do
+      if item.ID == itemToBeRemoved then
+        table.remove(XLGearBanker.savedVariables.gearSetList[gearSetNumber].items, i)
+        break
+      end
+    end
+      
+  end
+  XLGB_Events:OnGearSetItemRemove(gearSet, XLGearBanker.savedVariables.gearSetList[gearSetNumber])
+  d("[XLGB] Removed items from " .. gearSetName)
+end
+
 
 --[[
   function XLGB_GearSet:GetItemIndexInGearSet(itemLink, gearSetNumber)
