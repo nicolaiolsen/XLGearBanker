@@ -15,5 +15,6 @@ end
 
 function XLGB_Events:OnGearSetItemRemove(gearSetBefore, gearSetAfter)
   XLGB_Banking:UpdateStorageOnGearSetItemAddRemove(gearSetBefore, gearSetAfter)
+  XLGB_UI:UpdateScrollList()
 end
 
