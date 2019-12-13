@@ -150,7 +150,12 @@ local function removeSetConfirmed()
 end
 
 function XLGB_UI:RemoveSet(removeControl) 
-  libDialog:ShowDialog("XLGearBanker", "RemoveSetDialog", nil)
+  if #XLGB_GearSet:GetGearSet(XLGearBanker.displayingSet).items == 0 then
+    removeSetConfirmed()
+  else
+    libDialog:ShowDialog("XLGearBanker", "RemoveSetDialog", nil)
+  end
+  
 end
 
 function XLGB_UI:CycleLeft()
