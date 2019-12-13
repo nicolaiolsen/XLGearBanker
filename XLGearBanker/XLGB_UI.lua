@@ -101,7 +101,6 @@ function XLGB_UI:AcceptEdit(acceptControl)
       end
     end
   end
-  
   ZO_ScrollList_RefreshVisible(XLGB_Window_Control_ListView.scrollList)
 end
 
@@ -233,7 +232,7 @@ function XLGB_UI:ChangeDisplayedGearSet(gearSetNumber)
         XLGB_UI:SetGearNameLabel(tonumber(gearSetNumber))
         editControl:SetHidden(false)
         setXofYControl:SetText("[".. gearSetNumber .."/".. XLGB_GearSet:GetNumberOfGearSets() .."]")
-        itemAmountControl:SetText("Total items in set: ".. XLGB_GearSet:GetGearSet(gearSetNumber))
+        itemAmountControl:SetText("Total items in set: ".. #XLGB_GearSet:GetGearSet(gearSetNumber).items)
         XLGB_UI:UpdateScrollList()
     end
   end
