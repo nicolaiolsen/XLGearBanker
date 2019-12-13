@@ -43,12 +43,12 @@ These libraries are ***required*** to run the addon.
 
 Christmas is coming early with this new update (0.8.0). An XL change that alot of people I've talked to have asked for (including myself). The XLGB addon is getting its UI and is now not a complete mess to setup anymore! What this UI update includes is a UI that would help you track your sets, create new sets, and edit current sets easier than ever before! It's simple to use:
 
-### Browsing sets
+### You can now actually see your sets! (BIIG)
 
 1. Open your chat and type in '/xlgb' to bring up the UI.
 2. Use the arrows to browse your current sets
 
-### Edit sets (change name/remove items from set)
+### New way to edit sets! (change name/remove items from set)
 
 1. Open your chat and type in '/xlgb' to bring up the UI.
 2. Press the edit icon (pen and paper thingy)
@@ -59,13 +59,13 @@ Christmas is coming early with this new update (0.8.0). An XL change that alot o
     2. Accept changes by clicking the "accept icon". (If you've marked items for removal a dialog will pop up to confirm)
     3. Remove the set by click the "minus icon". (If the set is not empty a dialog will pop up to confirm)
 
-### Adding new sets
+### Adding new sets (The EZ Clap way)
 
 1. Open your chat and type in '/xlgb' to bring up the UI.
 2. Use the '+' to add a new set.
 3. You now enter 'edit' mode. (Look above for explanation)
 
-### Removing sets
+### Removing sets (YEET)
 
 See "Edit sets" above at 3.3.
 
@@ -120,6 +120,7 @@ Clicking on one of the sets listed in the sub-menu will result in removing that 
 
 ### Depositing/withdrawing gear
 
+**NOTE:** *For now the recommeded way is to bind a key in your keybinding menu - UI 2.0 is coming to help make this an easier process*
 Depositing and withdrawing gear happens either through keybindings or slash_commands. Using the slash_commands "/xlgb_deposit setNumber", "/xlgb_withdraw setNumber", while having your bank/storage chest open will result in depositing/withdrawing the gear set #(setNumber) to/from the bank/storage chest.
 **Note:** *The argument 'setNumber' should be a number between 1 and total number of sets.*
 
