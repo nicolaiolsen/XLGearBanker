@@ -107,6 +107,7 @@ local function discardChanges()
   XLGearBanker.UI_ItemsMarkedForRemoval = {}
   setEditFalse()
   gearTitleControl:SetText(XLGearBanker.UI_GearSetNameBefore)
+  gearTitleControl:SetCursorPosition(0)
 end
 
 local function discardChangesAndCycle(dialog)
