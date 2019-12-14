@@ -3,7 +3,7 @@
 ## APIVersion: 100029
 ## Version: 0.8
 ## SavedVariables: XLGearBankerSavedVariables
-## DependsOn: LibCustomMenu LibDialog
+## DependsOn: LibCustomMenu LibDialog LibShifterBox
 
 XLGearBanker.xml
 bindings.xml
@@ -14,6 +14,7 @@ XLGB_GearSet.lua
 XLGB_Banking.lua
 XLGB_MenuOverwriter.lua
 XLGB_UI.lua
+XLGB_Banking.lua
 XLGB_Events.lua
 bindings.lua
 XLGearBanker.lua

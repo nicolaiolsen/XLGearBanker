@@ -3,13 +3,13 @@ XLGB_UI = {}
 local libDialog = LibDialog
 
 function XLGB_UI:XLGB_Window_Control_OnMoveStop()
-  XLGearBanker.savedVariables.left = XLGB_Window_Control:GetLeft()
-  XLGearBanker.savedVariables.top = XLGB_Window_Control:GetTop()
+  XLGearBanker.savedVariables.main_ui_left = XLGB_Window_Control:GetLeft()
+  XLGearBanker.savedVariables.main_ui_top = XLGB_Window_Control:GetTop()
 end
 
 function XLGB_UI:RestorePosition()
-  local left = XLGearBanker.savedVariables.left
-  local top = XLGearBanker.savedVariables.top
+  local left = XLGearBanker.savedVariables.main_ui_left
+  local top = XLGearBanker.savedVariables.main_ui_top
 
   XLGB_Window_Control:ClearAnchors()
   XLGB_Window_Control:SetAnchor(TOPLEFT, GuiRoot, TOPLEFT, left, top)

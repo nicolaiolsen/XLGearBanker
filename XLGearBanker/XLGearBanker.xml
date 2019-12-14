@@ -2,12 +2,12 @@
   <Controls>
     <!-- Every control's name must be _unique_. -->
     <TopLevelControl name="XLGB_Window_Control" clampedToScreen="true" movable="true" mouseEnabled="true" hidden="true" resizeHandleSize="10">
-
       <Dimensions x="350" y="600"/>
       <DimensionConstraints  minX="350" minY="200"/>
       <Anchor point="CENTER" relativeTo="GUI_ROOT" relativePoint="CENTER" offsetX="-125" offsetY="-140" />
       <OnMoveStop> XLGB_UI:XLGB_Window_Control_OnMoveStop()</OnMoveStop>
       <Controls>
+
         <Backdrop name="$(parent)_BG" inherits="ZO_DefaultBackdrop"><AnchorFill/></Backdrop>
 
         <!-- Escape button:-->
@@ -150,8 +150,35 @@
       </Controls>
     </TopLevelControl>
 
+
+
+
+
+<!-- Banking control -->
+    <TopLevelControl name="XLGB_Banking_Control" clampedToScreen="true" movable="true" mouseEnabled="true" hidden="true" resizeHandleSize="10">
+
+      <Dimensions x="350" y="250"/>
+      <DimensionConstraints  minX="350" minY="200"/>
+      <Anchor point="CENTER" relativeTo="GUI_ROOT" relativePoint="CENTER" offsetX="-125" offsetY="-140" />
+      <OnMoveStop> XLGB_Banking_UI:XLGB_Banking_Control_OnMoveStop()</OnMoveStop>
+      <Controls>
+        <Backdrop name="$(parent)_BG" inherits="ZO_DefaultBackdrop"><AnchorFill/></Backdrop>
+
+        <Label name="$(parent)_Title" font="ZoFontAnnounceMedium" text="XL Gear Banker" mouseEnabled="true">
+              <Anchor point="TOPLEFT" relativeTo="$(parent)" relativePoint="TOPLEFT" offsetX="10" offsetY="10"  />
+              <Anchor point="TOPRIGHT" relativeTo="$(parent)" relativePoint="TOPRIGHT" offsetX="-10" offsetY="10"  />
+        </Label>
+
+
+      </Controls>
+
+    </TopLevelControl>
+
+
+<!-- Templates -->
     <Control name="XLGB_Item_Row_Template" virtual="true" >
       <Controls>
+
         <Label name="$(parent)_Name" font="ZoFontWinT2" text="Some Test Label" linkEnabled="true">
               <Anchor point="TOPLEFT" offsetX="10" offsetY="10" />
         </Label>
@@ -166,6 +193,7 @@
               mouseOver  ="/esoui/art/buttons/decline_over.dds"
             />  
         </Button>
+
       </Controls>
     </Control>
 

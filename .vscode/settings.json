@@ -75,7 +75,9 @@
         "ZO_ScrollList_EnableHighlight",
         "ZO_ScrollList_AddDataType",
         "ZO_ScrollList_RefreshVisible",
-        "LibDialog"
+        "LibDialog",
+        "LibShifterBox",
+        "XLGB_Banking_Control"
     ],
     "Lua.diagnostics.disable": [
         "lowercase-global",
