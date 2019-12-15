@@ -10,19 +10,19 @@
 
         <Backdrop name="$(parent)_BG" inherits="ZO_DefaultBackdrop"><AnchorFill/></Backdrop>
 
-        <!-- Escape button:-->
-            <Button name="$(parent)_Hide" inherits="ZO_ButtonBehaviorClickSound" >
+      <!-- Escape button:-->
+          <Button name="$(parent)_Hide" inherits="ZO_ButtonBehaviorClickSound" >
 
-              <OnClicked>XLGB_UI:HideUI()</OnClicked>
+            <OnClicked>XLGB_UI:HideUI()</OnClicked>
 
-              <Dimensions x="30" y="30" />                                
-              <Anchor point="TOPRIGHT" relativeTo="$(parent)" relativePoint="TOPRIGHT" offsetX="-10" offsetY="10"  />
-              <Textures
-                  normal    ="/esoui/art/buttons/decline_up.dds"
-                  pressed    ="/esoui/art/buttons/decline_down.dds"
-                  mouseOver  ="/esoui/art/buttons/decline_over.dds"
-                />  
-            </Button>
+            <Dimensions x="30" y="30" />                                
+            <Anchor point="TOPRIGHT" relativeTo="$(parent)" relativePoint="TOPRIGHT" offsetX="-10" offsetY="10"  />
+            <Textures
+                normal    ="/esoui/art/buttons/decline_up.dds"
+                pressed    ="/esoui/art/buttons/decline_down.dds"
+                mouseOver  ="/esoui/art/buttons/decline_over.dds"
+              />  
+          </Button>
         
 <!-- Toolbar -->
         <Control name="$(parent)_ToolBar" mouseEnabled="true" resizeToFitDescendents="false">
@@ -136,6 +136,7 @@
             <OnClicked>XLGB_UI:DepositSet(self)</OnClicked>
             <Dimensions x="120" y="30" />                                
             <Anchor point="BOTTOMLEFT" relativeTo="$(parent)" relativePoint="BOTTOMLEFT" offsetX="0" offsetY="0"  />
+            <TextureCoords left="0" top="0" right="1/8" bottom="1/4"/>
             <Textures
                 normal    ="/esoui/art/buttons/button_xlarge_mouseup.dds"
                 pressed    ="/esoui/art/buttons/button_xlarge_mousedown.dds"
