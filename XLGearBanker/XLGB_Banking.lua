@@ -17,7 +17,7 @@ function XLGB_Banking.OnBankOpenEvent(event, bankBag)
     XLGB_Banking.bankOpen = IsBankOpen()
     XLGB_Banking.currentBankBag = bankBag
     XLGB_UI:OnBankOpen()
-    KEYBIND_STRIP:AddKeybindButtonGroup(XLGB_Banking.storageChestButtonGroup)
+    KEYBIND_STRIP:AddKeybindButtonGroup(XLGB_Banking.bankButtonGroup)
     easyDebug("Bank open!")
   end
 end
@@ -27,7 +27,7 @@ function XLGB_Banking.OnBankCloseEvent(event)
     XLGB_Banking.bankOpen = IsBankOpen()
     XLGB_Banking.currentBankBag = XLGB.NO_BAG
     XLGB_UI:OnBankClosed()
-    KEYBIND_STRIP:RemoveKeybindButtonGroup(XLGB_Banking.storageChestButtonGroup)
+    KEYBIND_STRIP:RemoveKeybindButtonGroup(XLGB_Banking.bankButtonGroup)
     easyDebug("Bank closed")
   end
 end
@@ -293,7 +293,7 @@ function XLGB_Banking:Initialize()
   
   XLGearBanker.savedVariables.storageBags = nil
 
-  self.BankButtonGroup = {
+  self.bankButtonGroup = {
     {
       name = "Toggle XLGB UI",
       keybind = "TOGGLE_XLGB_UI",
