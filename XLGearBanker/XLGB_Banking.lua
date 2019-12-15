@@ -17,9 +17,7 @@ function XLGB_Banking.OnBankOpenEvent(event, bankBag)
     XLGB_Banking.bankOpen = IsBankOpen()
     XLGB_Banking.currentBankBag = bankBag
     XLGB_UI:OnBankOpen()
-    if (bankBag ~= BAG_BANK) then
-      KEYBIND_STRIP:AddKeybindButtonGroup(XLGB_Banking.storageChestButtonGroup)
-    end
+    KEYBIND_STRIP:AddKeybindButtonGroup(XLGB_Banking.storageChestButtonGroup)
     easyDebug("Bank open!")
   end
 end
@@ -205,15 +203,18 @@ function XLGB_Banking:DepositGear(gearSetNumber)
 
   if IsESOPlusSubscriber() and (XLGB_Banking.currentBankBag == BAG_BANK) then
     if depositGearToBankESOPlus(gearSet) then
+      PlaySound(SOUNDS.INVENTORY_ITEM_UNLOCKED)
       d("[XLGB] Set \'" .. gearSet.name .. "\' deposited!")
       return
     end
     
   else
     if depositItemsToBankNonESOPlus(gearSet.items) then
+      PlaySound(SOUNDS.INVENTORY_ITEM_UNLOCKED)
       d("[XLGB] Set \'" .. gearSet.name .. "\' deposited!")
     end
   end
+
   --[[
   zo_callLater(function()
     XLGB_Banking.recentlyCalled = false
@@ -268,13 +269,17 @@ function XLGB_Banking:WithdrawGear(gearSetNumber)
   d("[XLGB] Withdrawing " .. gearSet.name)
   if IsESOPlusSubscriber() and (XLGB_Banking.currentBankBag == BAG_BANK) then
     if withdrawGearESOPlus(gearSet) then
+      PlaySound(SOUNDS.RETRAITING_ITEM_TO_RETRAIT_REMOVED)
       d("[XLGB] Set \'" .. gearSet.name .. "\' withdrawn!")
+      return
     end
   else 
     if withdrawItemsNonESOPlus(gearSet.items) then
+      PlaySound(SOUNDS.RETRAITING_ITEM_TO_RETRAIT_REMOVED)
       d("[XLGB] Set \'" .. gearSet.name .. "\' withdrawn!")
     end
   end
+  
   --[[
   zo_callLater(function()
     XLGB_Banking.recentlyCalled = false
@@ -282,261 +287,17 @@ function XLGB_Banking:WithdrawGear(gearSetNumber)
   ]]--
 end
 
-local function getStorageBag(storageBagID)
-  return XLGearBanker.savedVariables.storageBags[storageBagID]
-end
-
-local function findGearSetInStorage(gearSetName, storageBag)
-  local gearSetIndex = XLGB.GEARSET_NOT_ASSIGNED_TO_STORAGE
-  for i, storageSetName in pairs(storageBag.assignedSets) do
-    if (gearSetName == storageSetName) then
-      gearSetIndex = i
-      return gearSetIndex
-    end
-  end
-  return gearSetIndex
-end
-
-local function findItemIndexInSet(sourceItem, targetItems)
-  local itemIndex = XLGB.ITEM_NOT_IN_SET
-  for i, targetItem in pairs(targetItems) do
-    if (sourceItem.ID == targetItem.ID) then
-      itemIndex = i
-      return itemIndex
-    end
-  end
-  return itemIndex
-end
-
-local function compareItemsWithStorage(sourceItems, storageBag)
-  local uniqueItems = {}
-  local duplicateItems = {}
-  for _, sourceItem in pairs(sourceItems) do
-    itemIndex = findItemIndexInSet(sourceItem, storageBag.assignedItems)
-    if (itemIndex ~= XLGB.ITEM_NOT_IN_SET ) then
-      table.insert(duplicateItems, itemIndex)
-    else
-      sourceItem.count = 1
-      table.insert(uniqueItems, sourceItem)
-    end
-  end
-  return uniqueItems, duplicateItems
-end
-
-local function addSetToStorageItems(uniqueItems, indicesOfDuplicates, gearSetName, storageBagID)
-  local storageBag = XLGearBanker.savedVariables.storageBags[storageBagID]
-  for _, duplicateIndex in pairs(indicesOfDuplicates) do
-    storageBag.assignedItems[duplicateIndex].count = storageBag.assignedItems[duplicateIndex].count + 1
-  end
-  for _, uniqueItem in pairs(uniqueItems) do
-    table.insert(storageBag.assignedItems, uniqueItem)
-  end
-  table.insert(storageBag.assignedSets, gearSetName)
-end
-
-local function assignSetToStorage(gearSet, storageBagID)
-  local storageBag = getStorageBag(storageBagID)
-  local gearSetIndex = findGearSetInStorage(gearSet.name, storageBag)
-  if (gearSetIndex ~= XLGB.GEARSET_NOT_ASSIGNED_TO_STORAGE) then
-    return false
-  end
-  local compareItemsResult = {compareItemsWithStorage(gearSet.items, storageBag)}
-  local itemsNotAlreadyAssigned = compareItemsResult[1]
-  local indicesOfDuplicates = compareItemsResult[2]
-  if (storageBag.slotsLeft < #itemsNotAlreadyAssigned) then
-    d("[XLGB_ERROR] Cannot assign set to storage. Trying to assign " .. #itemsNotAlreadyAssigned .. " items when only " .. storageBag.slotsLeft .. " are open for assignment.")
-    return false
-  end
-  addSetToStorageItems(itemsNotAlreadyAssigned, indicesOfDuplicates, gearSet.name, storageBagID)
-  XLGearBanker.savedVariables.storageBags[storageBagID].slotsLeft = XLGearBanker.savedVariables.storageBags[storageBagID].slotsLeft - #itemsNotAlreadyAssigned
-  return true
-end
---[[
-  function AssignStorage
-  Input:
-
-  Output:
-]]--
-
-function XLGB_Banking:AssignStorage(gearSetNumber)
-  if (not XLGB_Banking.bankOpen)
-  and (XLGB_Banking.currentBankBag ~= XLGB.NO_BAG)
-  and (XLGB_Banking.currentBankBag ~= BAG_BANK) then
-    d("[XLGB_ERROR] House storage chest not open, abort!")
-    return false
-  else
-    local gearSet = XLGB_GearSet:GetGearSet(gearSetNumber)
-    if assignSetToStorage(gearSet, XLGB_Banking.currentBankBag) then
-      d("[XLGB] Assigned \'" .. gearSet.name .. "\' to chest.")
-      return true
-    else 
-      d("[XLGB_ERROR] Gearset already assigned to this storage chest.")
-    end
-  end
-end
-
-local function removeSetFromStorage(gearSet, gearSetNameIndex, storageBag, storageBagID)
-  for _, item in pairs(gearSet.items) do
-    itemIndex = findItemIndexInSet(item, storageBag.assignedItems)
-    if (itemIndex ~= XLGB.ITEM_NOT_IN_SET) then
-      local itemCount = storageBag.assignedItems[itemIndex].count - 1
-      if (itemCount < 1) then
-        table.remove(XLGearBanker.savedVariables.storageBags[storageBagID].assignedItems, itemIndex)
-        XLGearBanker.savedVariables.storageBags[storageBagID].slotsLeft = XLGearBanker.savedVariables.storageBags[storageBagID].slotsLeft + 1
-      else 
-        XLGearBanker.savedVariables.storageBags[storageBagID].assignedItems[itemIndex].count = XLGearBanker.savedVariables.storageBags[storageBagID].assignedItems[itemIndex].count - 1
-      end
-    end
-  end
-  table.remove(XLGearBanker.savedVariables.storageBags[storageBagID].assignedSets, gearSetNameIndex)
-end
-
-local function unassignSetFromStorage(gearSet, storageBagID)
-  local storageBag = getStorageBag(storageBagID)
-  local gearSetNameIndex = findGearSetInStorage(gearSet.name, storageBag)
-  if (gearSetNameIndex == XLGB.GEARSET_NOT_ASSIGNED_TO_STORAGE) then
-    return false
-  else 
-    removeSetFromStorage(gearSet, gearSetNameIndex, storageBag, storageBagID)
-    return true
-  end
-end
-
-function XLGB_Banking:UnassignStorage(gearSetNumber)
-  if (not XLGB_Banking.bankOpen)
-  and (XLGB_Banking.currentBankBag ~= XLGB.NO_BAG)
-  and (XLGB_Banking.currentBankBag ~= BAG_BANK) then
-    d("[XLGB_ERROR] House storage chest not open, abort!")
-    return false
-  else
-    local gearSet = XLGB_GearSet:GetGearSet(gearSetNumber)
-    if unassignSetFromStorage(gearSet, XLGB_Banking.currentBankBag) then
-      d("[XLGB] Set \'" .. gearSet.name .. "\' is no longer assigned to this chest.")
-    else 
-      d("[XLGB_ERROR] Set \'" .. gearSet.name .. "\' is already not assigned to this chest.")
-    end
-  end
-end
-
-function XLGB_Banking:UpdateStorageOnGearSetRemove(gearSet)
-  for _, storageBagID in pairs(XLGB.storageBagIDs) do
-    local storageBag = getStorageBag(storageBagID)
-    if (findGearSetInStorage(gearSet.name, storageBag) ~= XLGB.GEARSET_NOT_ASSIGNED_TO_STORAGE) then
-      unassignSetFromStorage(gearSet, storageBagID)
-    end
-  end
-end
-
-function XLGB_Banking:UpdateStorageOnGearSetItemAddRemove(gearSetBefore, gearSetAfter)
-  for _, storageBagID in pairs(XLGB.storageBagIDs) do
-    local storageBag = getStorageBag(storageBagID)
-    if (findGearSetInStorage(gearSetBefore.name, storageBag) ~= XLGB.GEARSET_NOT_ASSIGNED_TO_STORAGE) then
-      unassignSetFromStorage(gearSetBefore, storageBagID)
-      if (not assignSetToStorage(gearSetAfter, storageBagID)) then
-        d("[XLGB_ERROR] On item update: Couldn't reassign set \'".. gearSetAfter.name .."\' to storageBag with ID: " .. storageBagID)
-      end
-    end
-  end
-end
-
-local function toStringOneLine(tableToPrint)
-  local res = ""
-  for i, entry in ipairs(tableToPrint) do
-    if (i == #tableToPrint) then
-      res = res .. entry
-    else 
-      res = res .. entry .. ", "
-    end
-  end
-  return res
-end
-
-function XLGB_Banking:DepositStorageItems()
-  if not XLGB_Banking.bankOpen then
-    d("[XLGB_ERROR] Bank is not open, abort!")
-    return
-  end
-  local storageBag = getStorageBag(XLGB_Banking.currentBankBag)
-  d("[XLGB] Depositing assigned items from sets: ", storageBag.assignedSets)
-  if depositItemsToBankNonESOPlus(storageBag.assignedItems) then
-    d("[XLGB] Assigned items deposited!")
-  end
-end
-
-function XLGB_Banking:WithdrawStorageItems()
-  if not XLGB_Banking.bankOpen then
-    d("[XLGB_ERROR] Bank is not open, abort!")
-    return
-  end
-  local storageBag = getStorageBag(XLGB_Banking.currentBankBag)
-  d("[XLGB] Withdrawing assigned items from sets", storageBag.assignedSets )
-  if withdrawItemsNonESOPlus(storageBag.assignedItems) then
-    d("[XLGB] Assigned items withdrawn!")
-  end
-end
-
-local function createNewStorageBag(storageBagID)
-  local storageBag = {}
-    storageBag.assignedSets = {}
-    storageBag.assignedItems = {}
-    storageBag.size = GetBagSize(storageBagID)
-    storageBag.slotsLeft = storageBag.size
-    return storageBag
-end
-
-local function setupStorage(storageBagIDs)
-  local storageBags = {}
-  for _, storageBagID in pairs(storageBagIDs) do
-    local storageBag = createNewStorageBag(storageBagID)
-    storageBags[storageBagID] = storageBag
-  end
-  XLGearBanker.savedVariables.storageBags = storageBags
-end
-
-function XLGB_Banking:ClearAssignedSets()
-  if not XLGB_Banking.bankOpen
-  or (XLGB_Banking.currentBankBag == BAG_BANK) then
-    d("[XLGB_ERROR] Storage chest is not open, abort!")
-    return
-  end
-  local storageBag = createNewStorageBag(XLGB_Banking.currentBankBag)
-  XLGearBanker.savedVariables.storageBags[XLGB_Banking.currentBankBag] = storageBag
-  d("[XLGB] Cleared storage chest assigned sets.")
-end
-
-function XLGB_Banking:PrintAssignedSets()
-  if not XLGB_Banking.bankOpen
-  or (XLGB_Banking.currentBankBag == BAG_BANK) then
-    d("[XLGB_ERROR] Storage chest is not open, abort!")
-    return
-  end
-  d("[XLGB] Chest contains the following assigned sets:")
-  local storageBag = getStorageBag(XLGB_Banking.currentBankBag)
-  for _, gearSetName in pairs(storageBag.assignedSets) do
-    d(gearSetName)
-  end
-  d("[XLGB] Total sets: " .. #storageBag.assignedSets)
-  d("[XLGB] Total items: " .. #storageBag.assignedItems .. " out of " .. storageBag.size)
-end
-
 function XLGB_Banking:Initialize()
   self.bankOpen = IsBankOpen()
   self.recentlyCalled = false
   
-  if (XLGearBanker.savedVariables.storageBags == nil) then
-    setupStorage(XLGB.storageBagIDs)
-  end
+  XLGearBanker.savedVariables.storageBags = nil
 
-  self.storageChestButtonGroup = {
+  self.BankButtonGroup = {
     {
-      name = "Deposit Assigned",
-      keybind = "DEPOSIT_ASSIGNED_STORAGE_ITEMS",
-      callback = function() XLGB_Banking:DepositStorageItems() end,
-    },
-    {
-      name = "Withdraw Assigned",
-      keybind = "WITHDRAW_ASSIGNED_STORAGE_ITEMS",
-      callback = function() XLGB_Banking:WithdrawStorageItems() end,
+      name = "Toggle XLGB UI",
+      keybind = "TOGGLE_XLGB_UI",
+      callback = function() XLGB_UI:ToggleUI() end,
     },
     alignment = KEYBIND_STRIP_ALIGN_CENTER,
   }

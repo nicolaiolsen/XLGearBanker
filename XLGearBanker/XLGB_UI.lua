@@ -15,6 +15,14 @@ function XLGB_UI:RestorePosition()
   XLGB_Window_Control:SetAnchor(TOPLEFT, GuiRoot, TOPLEFT, left, top)
 end
 
+function XLGB_UI:ToggleUI()
+  if XLGB_Window_Control:IsHidden() then
+    XLGB_UI:ShowUI()
+  else
+    XLGB_UI:HideUI()
+  end
+end
+
 function XLGB_UI:ShowUI()
   XLGB_UI:ChangeDisplayedGearSet(XLGearBanker.displayingSet)
   XLGB_Window_Control:SetHidden(false)
@@ -340,17 +348,10 @@ end
 
 function XLGB_UI:DepositSet()
   XLGB_Banking:DepositGear(XLGearBanker.displayingSet)
-  -- PlaySound(SOUNDS.SMITHING_ITEM_TO_EXTRACT_PLACED)
-  -- PlaySound(SOUNDS.RETRAITING_ITEM_TO_RETRAIT_PLACED)
-  PlaySound(SOUNDS.SMITHING_ITEM_TO_IMPROVE_PLACED)
 end
 
 function XLGB_UI:WithdrawSet()
   XLGB_Banking:WithdrawGear(XLGearBanker.displayingSet)
-  -- PlaySound(SOUNDS.SMITHING_ITEM_TO_EXTRACT_REMOVED)
-  -- PlaySound(SOUNDS.RETRAITING_ITEM_TO_RETRAIT_REMOVED)
-  PlaySound(SOUNDS.SMITHING_ITEM_TO_IMPROVE_REMOVED)
-
 end
 
 

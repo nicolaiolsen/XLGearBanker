@@ -77,7 +77,9 @@
         "ZO_ScrollList_RefreshVisible",
         "LibDialog",
         "LibShifterBox",
-        "XLGB_Banking_Control"
+        "XLGB_Banking_Control",
+        "PlaySound",
+        "SOUNDS"
     ],
     "Lua.diagnostics.disable": [
         "lowercase-global",
