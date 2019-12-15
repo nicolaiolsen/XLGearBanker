@@ -45,8 +45,8 @@ function XLGB_UI:OnBankClosed()
   local withdrawControl = XLGB_Window_Control_ListView:GetNamedChild("_Withdraw")
   local itemAmountControl = XLGB_Window_Control_ListView:GetNamedChild("_ItemAmount")
 
-  itemAmountControl:SetAnchor(BOTTOMLEFT, XLGB_Window_Control_ListView, BOTTOMLEFT, 0, 0)
-  itemAmountControl:SetAnchor(BOTTOMRIGHT, XLGB_Window_Control_ListView, BOTTOMRIGHT, 0, 0)
+  itemAmountControl:SetAnchor(BOTTOMLEFT, XLGB_Window_Control_ListView, BOTTOMLEFT, 0, -10)
+  itemAmountControl:SetAnchor(BOTTOMRIGHT, XLGB_Window_Control_ListView, BOTTOMRIGHT, 0, -10)
 
   depositControl:SetHidden(true)
   depositControl:SetMouseEnabled(false)
