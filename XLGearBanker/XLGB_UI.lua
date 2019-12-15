@@ -273,7 +273,7 @@ function XLGB_UI:ChangeDisplayedGearSet(gearSetNumber)
   local editControl = XLGB_Window_Control_ListView:GetNamedChild("_Edit")
   local gearTitleControl =  XLGB_Window_Control_ListView:GetNamedChild("_GearTitle")
   local setXofYControl = XLGB_Window_Control_ListView:GetNamedChild("_SetXofY")
-  local itemAmountControl = XLGB_Window_Control_ListView:GetNamedChild("_ItemAmount")
+  
 
   if totalGearSets == 0 then
     editControl:SetHidden(true)
@@ -281,7 +281,6 @@ function XLGB_UI:ChangeDisplayedGearSet(gearSetNumber)
     gearTitleControl:SetCursorPosition(0)
     gearTitleControl:SetAnchor(TOPRIGHT, editControl, TOPLEFT, -10, 0)
     setXofYControl:SetText("[0/0]")
-    itemAmountControl:SetText("Total items in set: 0")
     XLGB_UI:UpdateScrollList()
   else
     if XLGB_GearSet:ValidGearSetNumber(gearSetNumber, totalGearSets) then
@@ -292,7 +291,6 @@ function XLGB_UI:ChangeDisplayedGearSet(gearSetNumber)
       end
       editControl:SetHidden(false)
       setXofYControl:SetText("[".. gearSetNumber .."/".. XLGB_GearSet:GetNumberOfGearSets() .."]")
-      itemAmountControl:SetText("Total items in set: ".. #XLGB_GearSet:GetGearSet(gearSetNumber).items)
       XLGB_UI:UpdateScrollList()
     end
   end
@@ -300,9 +298,9 @@ end
 
 local function isItemMarkedForRemoval(itemID)
   for _, markedID in pairs(XLGearBanker.UI_ItemsMarkedForRemoval) do
-      if itemID == markedID then
-        return true
-      end
+    if itemID == markedID then
+      return true
+    end
   end
   return false
 end
@@ -313,7 +311,7 @@ local function toggleToBeRemoved(itemRowControl)
   if isItemMarkedForRemoval(itemRowControl.data.itemID) then
     itemNameControl:SetText(itemRowControl.data.itemName)
     itemNameControl:SetColor(155, 0, 0, 100)
-
+    
     removeItemControl:SetNormalTexture("/esoui/art/buttons/edit_cancel_up.dds")
     removeItemControl:SetPressedTexture("/esoui/art/buttons/edit_cancel_down.dds")
     removeItemControl:SetMouseOverTexture("/esoui/art/buttons/edit_cancel_over.dds")
@@ -328,10 +326,10 @@ end
 
 local function unmarkItemFromRemoval(itemID)
   for i, markedID in pairs(XLGearBanker.UI_ItemsMarkedForRemoval) do
-      if itemID == markedID then
-        table.remove(XLGearBanker.UI_ItemsMarkedForRemoval, i)
-        return
-      end
+    if itemID == markedID then
+      table.remove(XLGearBanker.UI_ItemsMarkedForRemoval, i)
+      return
+    end
   end
 end
 
@@ -357,18 +355,21 @@ end
 
 function XLGB_UI:UpdateScrollList()
   local scrollList = XLGB_Window_Control_ListView:GetNamedChild("_ScrollList")
+  local itemAmountControl = XLGB_Window_Control_ListView:GetNamedChild("_ItemAmount")
   local scrollData = ZO_ScrollList_GetDataList(scrollList)
   ZO_ScrollList_Clear(scrollList)
+  itemAmountControl:SetText("Total items in set: 0")
   if XLGB_GearSet:GetNumberOfGearSets() > 0 then
     local gearSet = XLGB_GearSet:GetGearSet(XLGearBanker.displayingSet)
     for _, item in pairs(gearSet.items) do
-        local dataEntry = ZO_ScrollList_CreateDataEntry(XLGB_Constants.ITEM_ROW, {
-          itemName = item.name,
-          itemLink = item.link,
-          itemID = item.ID
-        })
-        table.insert(scrollData, dataEntry)
+      local dataEntry = ZO_ScrollList_CreateDataEntry(XLGB_Constants.ITEM_ROW, {
+        itemName = item.name,
+        itemLink = item.link,
+        itemID = item.ID
+      })
+      table.insert(scrollData, dataEntry)
     end
+    itemAmountControl:SetText("Total items in set: ".. #XLGB_GearSet:GetGearSet(gearSetNumber).items)
   end
   ZO_ScrollList_Commit(XLGB_Window_Control_ListView.scrollList)
 end
