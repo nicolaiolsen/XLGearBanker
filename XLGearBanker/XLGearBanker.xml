@@ -134,7 +134,7 @@
         <!-- Deposit Set Button -->
           <Button name="$(parent)_Deposit" inherits="ZO_ButtonBehaviorClickSound" hidden="false" >
             <OnClicked>XLGB_UI:DepositSet(self)</OnClicked>
-            <Dimensions x="120" y="60" />                                
+            <Dimensions x="120" y="30" />                                
             <Anchor point="BOTTOMLEFT" relativeTo="$(parent)" relativePoint="BOTTOMLEFT" offsetX="0" offsetY="0"  />
             <Textures
                 normal    ="/esoui/art/buttons/button_xlarge_mouseup.dds"
