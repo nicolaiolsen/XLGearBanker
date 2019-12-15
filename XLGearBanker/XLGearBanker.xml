@@ -135,7 +135,12 @@
           <Button name="$(parent)_Deposit" inherits="ZO_ButtonBehaviorClickSound" hidden="false" >
             <OnClicked>XLGB_UI:DepositSet(self)</OnClicked>
             <Dimensions x="100" y="30" />                                
-            <Anchor point="BOTTOMLEFT" relativeTo="$(parent)" relativePoint="BOTTOMLEFT" offsetX="20" offsetY="0"  />
+            <Anchor point="BOTTOMLEFT" relativeTo="$(parent)" relativePoint="BOTTOMLEFT" offsetX="0" offsetY="0"  />
+            <Textures
+                normal    ="/esoui/art/buttons/button_xlarge_mouseup.dds"
+                pressed    ="/esoui/art/buttons/button_xlarge_mousedown.dds"
+                mouseOver  ="/esoui/art/buttons/button_xlarge_mouseover.dds"
+              />  
             <Controls>
               <Label name="$(parent)_Label" font="ZoFontWinH4" text="Deposit Set">
                 <Anchor point="TOPLEFT" relativeTo="$(parent)" relativePoint="TOPLEFT" offsetX="0" offsetY="0" />
@@ -148,9 +153,14 @@
           <Button name="$(parent)_Withdraw" inherits="ZO_ButtonBehaviorClickSound" hidden="false" >
             <OnClicked>XLGB_UI:WithdrawSet(self)</OnClicked>
             <Dimensions x="100" y="30" />                                
-            <Anchor point="BOTTOMRIGHT" relativeTo="$(parent)" relativePoint="BOTTOMRIGHT" offsetX="-20" offsetY="0"  />
+            <Anchor point="BOTTOMRIGHT" relativeTo="$(parent)" relativePoint="BOTTOMRIGHT" offsetX="0" offsetY="0"  />
+            <Textures
+                normal    ="/esoui/art/buttons/button_xlarge_mouseup.dds"
+                pressed    ="/esoui/art/buttons/button_xlarge_mousedown.dds"
+                mouseOver  ="/esoui/art/buttons/button_xlarge_mouseover.dds"
+              />
             <Controls>
-              <Label name="$(parent)_Label" font="ZoFontWinH4" text="Withdraw Set">
+              <Label name="$(parent)_Label" font="ZoFontWinH4" text="Withdraw">
                 <Anchor point="TOPLEFT" relativeTo="$(parent)" relativePoint="TOPLEFT" offsetX="0" offsetY="0" />
                 <Anchor point="BOTTOMRIGHT" relativeTo="$(parent)" relativePoint="BOTTOMRIGHT" offsetX="0" offsetY="0" />
               </Label> 
