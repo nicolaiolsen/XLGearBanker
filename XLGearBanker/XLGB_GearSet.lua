@@ -116,12 +116,16 @@ local function createItemData(itemLink, itemID)
   return itemData
 end
 
+local function compareItems(itemA, itemB)
+  return itemA.name > itemB.name
+end
+
 function XLGB_GearSet:AddItemToGearSet(itemLink, itemID, gearSetNumber)
   local itemData = createItemData(itemLink, itemID)
   local gearSet = XLGB_GearSet:GetGearSet(gearSetNumber)
 
   table.insert(XLGearBanker.savedVariables.gearSetList[gearSetNumber].items, itemData)
-  table.sort(XLGearBanker.savedVariables.gearSetList[gearSetNumber].items)
+  table.sort(XLGearBanker.savedVariables.gearSetList[gearSetNumber].items, compareItems)
 
   XLGB_Events:OnGearSetItemAdd(gearSet, XLGearBanker.savedVariables.gearSetList[gearSetNumber])
   d("[XLGB] Added item " .. itemLink .. " to " .. gearSet.name)
