@@ -169,8 +169,8 @@
 
         <!-- Item Amount -->
             <Label name="$(parent)_ItemAmount" font="ZoFontWinT2" text="Total items in set: 0" linkEnabled="true">
-              <Anchor point="BOTTOMLEFT" relativeTo="$(parent)_Deposit" relativePoint="TOPLEFT" offsetX="0" offsetY="-10" />
-              <Anchor point="BOTTOMRIGHT" relativeTo="$(parent)_Withdraw" relativePoint="TOPRIGHT" offsetX="0" offsetY="-10" />
+              <Anchor point="BOTTOMLEFT" relativeTo="$(parent)" relativePoint="TOPLEFT" offsetX="0" offsetY="-10" />
+              <Anchor point="BOTTOMRIGHT" relativeTo="$(parent)" relativePoint="TOPRIGHT" offsetX="0" offsetY="-10" />
             </Label>
 
         <!-- Scroll List -->
