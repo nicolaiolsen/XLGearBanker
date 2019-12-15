@@ -20,8 +20,8 @@ Before XLGB:
 
 After XLGB:
 
-- Step 3: Use keybind to deposit **all** gear pieces at **once**.
-- Step 6: Use keybind to withdraw **all** gear pieces at **once**.
+- Step 3: Use keybind or UI to deposit **all** gear pieces at **once**.
+- Step 6: Use keybind or UI to withdraw **all** gear pieces at **once**.
 
 Easy!
 
