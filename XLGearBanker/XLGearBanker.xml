@@ -134,7 +134,7 @@
         <!-- Deposit Set Button -->
           <Button name="$(parent)_Deposit" inherits="ZO_ButtonBehaviorClickSound" hidden="false" >
             <OnClicked>XLGB_UI:DepositSet(self)</OnClicked>
-            <Dimensions x="150" y="30" />                                
+            <Dimensions x="150" y="10" />                                
             <Anchor point="BOTTOMLEFT" relativeTo="$(parent)" relativePoint="BOTTOMLEFT" offsetX="0" offsetY="0"  />
             <Textures
                 normal    ="/esoui/art/buttons/button_xlarge_mouseup.dds"
@@ -153,7 +153,7 @@
         <!-- Withdraw Set Button -->
           <Button name="$(parent)_Withdraw" inherits="ZO_ButtonBehaviorClickSound" hidden="false" >
             <OnClicked>XLGB_UI:WithdrawSet(self)</OnClicked>
-            <Dimensions x="150" y="30" />                                
+            <Dimensions x="150" y="10" />                                
             <Anchor point="BOTTOMRIGHT" relativeTo="$(parent)" relativePoint="BOTTOMRIGHT" offsetX="0" offsetY="0"  />
             <Textures
                 normal    ="/esoui/art/buttons/button_xlarge_mouseup.dds"
