@@ -369,7 +369,7 @@ function XLGB_UI:UpdateScrollList()
       })
       table.insert(scrollData, dataEntry)
     end
-    itemAmountControl:SetText("Total items in set: ".. #XLGB_GearSet:GetGearSet(gearSetNumber).items)
+    itemAmountControl:SetText("Total items in set: ".. #XLGB_GearSet:GetGearSet(XLGearBanker.displayingSet).items)
   end
   ZO_ScrollList_Commit(XLGB_Window_Control_ListView.scrollList)
 end
