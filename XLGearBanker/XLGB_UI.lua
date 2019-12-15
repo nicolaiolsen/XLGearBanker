@@ -435,7 +435,6 @@ function XLGB_UI:Initialize()
   XLGearBanker.displayingSet = 1
   XLGearBanker.UI_Editable = false
   XLGearBanker.UI_ItemsMarkedForRemoval = {}
-  XLGearBanker.debug = true
   XLGB_UI:RestorePosition()
   XLGB_UI:InitializeScrollList()
   XLGB_UI:ChangeDisplayedGearSet(XLGearBanker.displayingSet)
