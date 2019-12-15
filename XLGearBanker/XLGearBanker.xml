@@ -134,7 +134,7 @@
         <!-- Deposit Set Button -->
           <Button name="$(parent)_Deposit" inherits="ZO_ButtonBehaviorClickSound" hidden="false" >
             <OnClicked>XLGB_UI:DepositSet(self)</OnClicked>
-            <Dimensions x="150" y="50" />                                
+            <Dimensions x="120" y="40" />                                
             <Anchor point="BOTTOMLEFT" relativeTo="$(parent)" relativePoint="BOTTOMLEFT" offsetX="0" offsetY="0"  />
             <Textures
                 normal    ="/esoui/art/buttons/button_xlarge_mouseup.dds"
@@ -143,8 +143,8 @@
               />  
             <Controls>
               <Label name="$(parent)_Label" font="ZoFontWinH4" text="Deposit">
-                <Anchor point="TOPLEFT" relativeTo="$(parent)" relativePoint="TOPLEFT" offsetX="5" offsetY="-5" />
-                <Anchor point="BOTTOMRIGHT" relativeTo="$(parent)" relativePoint="BOTTOMRIGHT" offsetX="-5" offsetY="5" />
+                <Anchor point="TOPLEFT" relativeTo="$(parent)" relativePoint="TOPLEFT" offsetX="10" offsetY="-10" />
+                <Anchor point="BOTTOMRIGHT" relativeTo="$(parent)" relativePoint="BOTTOMRIGHT" offsetX="-10" offsetY="10" />
               </Label>
             </Controls>
           </Button> 
@@ -152,7 +152,7 @@
         <!-- Withdraw Set Button -->
           <Button name="$(parent)_Withdraw" inherits="ZO_ButtonBehaviorClickSound" hidden="false" >
             <OnClicked>XLGB_UI:WithdrawSet(self)</OnClicked>
-            <Dimensions x="150" y="50" />                                
+            <Dimensions x="120" y="40" />                                
             <Anchor point="BOTTOMRIGHT" relativeTo="$(parent)" relativePoint="BOTTOMRIGHT" offsetX="0" offsetY="0"  />
             <Textures
                 normal    ="/esoui/art/buttons/button_xlarge_mouseup.dds"
@@ -161,8 +161,8 @@
               />
             <Controls>
               <Label name="$(parent)_Label" font="ZoFontWinH4" text="Withdraw">
-                <Anchor point="TOPLEFT" relativeTo="$(parent)" relativePoint="TOPLEFT" offsetX="5" offsetY="-5" />
-                <Anchor point="BOTTOMRIGHT" relativeTo="$(parent)" relativePoint="BOTTOMRIGHT" offsetX="-5" offsetY="5" />
+                <Anchor point="TOPLEFT" relativeTo="$(parent)" relativePoint="TOPLEFT" offsetX="10" offsetY="-10" />
+                <Anchor point="BOTTOMRIGHT" relativeTo="$(parent)" relativePoint="BOTTOMRIGHT" offsetX="-10" offsetY="10" />
               </Label> 
             </Controls>
           </Button> 
