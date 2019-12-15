@@ -235,6 +235,7 @@ local function withdrawGearESOPlus(gearSet)
       BAG_BANK, regularBankItemsToMove,
       BAG_SUBSCRIBER_BANK, ESOPlusItemsToMove,
       BAG_BACKPACK, availableBagSpaces)
+  return true
 end
 
 local function withdrawItemsNonESOPlus(itemsToWithdraw)
