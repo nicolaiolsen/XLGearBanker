@@ -16,6 +16,7 @@ function XLGB_Banking.OnBankOpenEvent(event, bankBag)
   if not XLGB_Banking.bankOpen then
     XLGB_Banking.bankOpen = IsBankOpen()
     XLGB_Banking.currentBankBag = bankBag
+    XLGB_UI:OnBankOpen()
     if (bankBag ~= BAG_BANK) then
       KEYBIND_STRIP:AddKeybindButtonGroup(XLGB_Banking.storageChestButtonGroup)
     end
@@ -27,6 +28,7 @@ function XLGB_Banking.OnBankCloseEvent(event)
   if XLGB_Banking.bankOpen then
     XLGB_Banking.bankOpen = IsBankOpen()
     XLGB_Banking.currentBankBag = XLGB.NO_BAG
+    XLGB_UI:OnBankClosed()
     KEYBIND_STRIP:RemoveKeybindButtonGroup(XLGB_Banking.storageChestButtonGroup)
     easyDebug("Bank closed")
   end

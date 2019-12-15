@@ -24,6 +24,38 @@ function XLGB_UI:HideUI()
   XLGB_Window_Control:SetHidden(true)
 end
 
+function XLGB_UI:OnBankOpen()
+  local depositControl = XLGB_Window_Control_ListView:GetNamedChild("_Deposit")
+  local withdrawControl = XLGB_Window_Control_ListView:GetNamedChild("_Withdraw")
+  local itemAmountControl = XLGB_Window_Control_ListView:GetNamedChild("_ItemAmount")
+
+  itemAmountControl:SetAnchor(BOTTOMLEFT, depositControl, TOPLEFT, 0, -10)
+  itemAmountControl:SetAnchor(BOTTOMRIGHT, withdrawControl, TOPRIGHT, 0, -10)
+
+  depositControl:SetHidden(false)
+  depositControl:SetMouseEnabled(true)
+
+  withdrawControl:SetHidden(false)
+  withdrawControl:SetMouseEnabled(true)
+  XLGB_UI:ShowUI()
+end
+
+function XLGB_UI:OnBankClosed()
+  local depositControl = XLGB_Window_Control_ListView:GetNamedChild("_Deposit")
+  local withdrawControl = XLGB_Window_Control_ListView:GetNamedChild("_Withdraw")
+  local itemAmountControl = XLGB_Window_Control_ListView:GetNamedChild("_ItemAmount")
+
+  itemAmountControl:SetAnchor(BOTTOMLEFT, XLGB_Window_Control_ListView, BOTTOMLEFT, 0, 0)
+  itemAmountControl:SetAnchor(BOTTOMRIGHT, XLGB_Window_Control_ListView, BOTTOMRIGHT, 0, 0)
+
+  depositControl:SetHidden(true)
+  depositControl:SetMouseEnabled(false)
+
+  withdrawControl:SetHidden(true)
+  withdrawControl:SetMouseEnabled(false)
+  XLGB_UI:HideUI()
+end
+
 function XLGB_UI:SelectEntireTextbox(gearTitleControl)
   gearTitleControl:SelectAll()
 end

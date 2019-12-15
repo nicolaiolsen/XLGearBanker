@@ -132,7 +132,7 @@
             </EditBox>
 
         <!-- Deposit Set Button -->
-          <Button name="$(parent)_Deposit" inherits="ZO_ButtonBehaviorClickSound" hidden="false" >
+          <Button name="$(parent)_Deposit" inherits="ZO_ButtonBehaviorClickSound" hidden="true" >
             <OnClicked>XLGB_UI:DepositSet(self)</OnClicked>
             <Dimensions x="120" y="40" />                                
             <Anchor point="BOTTOMLEFT" relativeTo="$(parent)" relativePoint="BOTTOMLEFT" offsetX="0" offsetY="0"  />
@@ -151,7 +151,7 @@
           </Button> 
 
         <!-- Withdraw Set Button -->
-          <Button name="$(parent)_Withdraw" inherits="ZO_ButtonBehaviorClickSound" hidden="false" >
+          <Button name="$(parent)_Withdraw" inherits="ZO_ButtonBehaviorClickSound" hidden="true" >
             <OnClicked>XLGB_UI:WithdrawSet(self)</OnClicked>
             <Dimensions x="120" y="40" />                                
             <Anchor point="BOTTOMRIGHT" relativeTo="$(parent)" relativePoint="BOTTOMRIGHT" offsetX="0" offsetY="0"  />
