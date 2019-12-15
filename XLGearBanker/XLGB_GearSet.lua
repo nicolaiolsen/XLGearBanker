@@ -97,15 +97,12 @@ function XLGB_GearSet:EditGearSetName(gearSetName, gearSetNumber)
     d("[XLGB_ERROR] A set named ".. gearSetName .." does already exist! Set names should be unique.")
     return false
   end
-  local gearSet = copy(XLGB_GearSet:GetGearSet(gearSetNumber))
   XLGearBanker.savedVariables.gearSetList[gearSetNumber].name = "" .. gearSetName
-  XLGB_Events:OnGearSetNameUpdate(gearSet, XLGearBanker.savedVariables.gearSetList[gearSetNumber])
   return true
 end
 
 function XLGB_GearSet:RemoveGearSet(gearSetNumber)
   local gearSet = XLGB_GearSet:GetGearSet(gearSetNumber)
-  XLGB_Events:OnGearSetRemove(gearSet)
   table.remove(XLGearBanker.savedVariables.gearSetList, gearSetNumber)
   d("[XLGB] Removed set: " .. gearSet.name)
 end
