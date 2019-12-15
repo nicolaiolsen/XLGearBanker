@@ -340,12 +340,14 @@ end
 
 function XLGB_UI:DepositSet()
   XLGB_Banking:DepositGear(XLGearBanker.displayingSet)
-  PlaySound(SOUNDS.SMITHING_ITEM_TO_EXTRACT_PLACED)
+  -- PlaySound(SOUNDS.SMITHING_ITEM_TO_EXTRACT_PLACED)
+  PlaySound(SOUNDS.RETRAITING_ITEM_TO_RETRAIT_PLACED)
 end
 
 function XLGB_UI:WithdrawSet()
   XLGB_Banking:WithdrawGear(XLGearBanker.displayingSet)
-  PlaySound(SOUNDS.SMITHING_ITEM_TO_EXTRACT_REMOVED)
+  -- PlaySound(SOUNDS.SMITHING_ITEM_TO_EXTRACT_REMOVED)
+  PlaySound(SOUNDS.RETRAITING_ITEM_TO_RETRAIT_REMOVED)
 end
 
 
