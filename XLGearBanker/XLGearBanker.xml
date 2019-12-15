@@ -141,7 +141,8 @@
                 pressed    ="/esoui/art/buttons/button_xlarge_mousedown.dds"
                 mouseOver  ="/esoui/art/buttons/button_xlarge_mouseover.dds"
               />
-            <NormalOffset y="-20"/>  
+            <NormalOffset x="0" y="-200"/> 
+            <PressedOffset x="0" y="-200"/> 
             <Controls>
               <Label name="$(parent)_Label" font="ZoFontWinH4" text="Deposit">
                 <Anchor point="CENTER" relativeTo="$(parent)" relativePoint="CENTER'" offsetX="0" offsetY="0"  />
