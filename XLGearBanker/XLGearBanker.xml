@@ -143,7 +143,7 @@
               />
             <Controls>
               <Label name="$(parent)_Label" font="ZoFontWinH4" text="Deposit">
-                <Anchor point="CENTER" relativeTo="$(parent)" relativePoint="TOP'" offsetX="0" offsetY="0"  />
+                <Anchor point="CENTER" relativeTo="$(parent)" relativePoint="TOP" offsetX="0" offsetY="0"  />
                 <!-- <Anchor point="TOPLEFT" relativeTo="$(parent)" relativePoint="TOPLEFT" offsetX="10" offsetY="-10" />
                 <Anchor point="BOTTOMRIGHT" relativeTo="$(parent)" relativePoint="BOTTOMRIGHT" offsetX="-10" offsetY="10" /> -->
               </Label>
