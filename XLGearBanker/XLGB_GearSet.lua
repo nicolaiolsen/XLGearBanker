@@ -117,7 +117,7 @@ local function createItemData(itemLink, itemID)
 end
 
 local function compareItems(itemA, itemB)
-  return itemA.name > itemB.name
+  return itemA.name < itemB.name
 end
 
 function XLGB_GearSet:AddItemToGearSet(itemLink, itemID, gearSetNumber)
