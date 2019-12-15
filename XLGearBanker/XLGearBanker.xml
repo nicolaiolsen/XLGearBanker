@@ -3,7 +3,7 @@
     <!-- Every control's name must be _unique_. -->
     <TopLevelControl name="XLGB_Window_Control" clampedToScreen="true" movable="true" mouseEnabled="true" hidden="true" resizeHandleSize="10">
       <Dimensions x="350" y="600"/>
-      <DimensionConstraints  minX="350" minY="200"/>
+      <DimensionConstraints  minX="350" minY="400"/>
       <Anchor point="CENTER" relativeTo="GUI_ROOT" relativePoint="CENTER" offsetX="-125" offsetY="-140" />
       <OnMoveStop> XLGB_UI:XLGB_Window_Control_OnMoveStop()</OnMoveStop>
       <Controls>

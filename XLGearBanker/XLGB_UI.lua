@@ -339,11 +339,11 @@ function XLGB_UI:RemoveItem(removeItemControl)
 end
 
 function XLGB_UI:DepositSet()
-  d("Deposit!")
+  XLGB_Banking:DepositGear(XLGearBanker.displayingSet)
 end
 
 function XLGB_UI:WithdrawSet()
-  d("Withdraw!")
+  XLGB_Banking:WithdrawGear(XLGearBanker.displayingSet)
 end
 
 
