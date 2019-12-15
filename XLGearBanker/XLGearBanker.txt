@@ -3,7 +3,7 @@
 ## APIVersion: 100029
 ## Version: 0.8
 ## SavedVariables: XLGearBankerSavedVariables
-## DependsOn: LibCustomMenu LibDialog LibShifterBox
+## DependsOn: LibCustomMenu LibDialog
 
 XLGearBanker.xml
 bindings.xml
