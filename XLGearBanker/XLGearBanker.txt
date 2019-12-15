@@ -14,7 +14,6 @@ XLGB_GearSet.lua
 XLGB_Banking.lua
 XLGB_MenuOverwriter.lua
 XLGB_UI.lua
-XLGB_Banking.lua
 XLGB_Events.lua
 bindings.lua
 XLGearBanker.lua

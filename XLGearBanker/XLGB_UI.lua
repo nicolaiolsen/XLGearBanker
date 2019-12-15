@@ -15,6 +15,15 @@ function XLGB_UI:RestorePosition()
   XLGB_Window_Control:SetAnchor(TOPLEFT, GuiRoot, TOPLEFT, left, top)
 end
 
+function XLGB_UI:ShowUI()
+  XLGB_UI:ChangeDisplayedGearSet(XLGearBanker.displayingSet)
+  XLGB_Window_Control:SetHidden(false)
+end
+
+function XLGB_UI:HideUI()
+  XLGB_Window_Control:SetHidden(true)
+end
+
 function XLGB_UI:SelectEntireTextbox(gearTitleControl)
   gearTitleControl:SelectAll()
 end
@@ -249,15 +258,6 @@ function XLGB_UI:ChangeDisplayedGearSet(gearSetNumber)
   end
 end
 
-function XLGB_UI:ShowUI()
-  XLGB_UI:ChangeDisplayedGearSet(XLGearBanker.displayingSet)
-  XLGB_Window_Control:SetHidden(false)
-end
-
-function XLGB_UI:HideUI()
-  XLGB_Window_Control:SetHidden(true)
-end
-
 local function isItemMarkedForRemoval(itemID)
   for _, markedID in pairs(XLGearBanker.UI_ItemsMarkedForRemoval) do
       if itemID == markedID then
@@ -305,6 +305,15 @@ function XLGB_UI:RemoveItem(removeItemControl)
   end
   toggleToBeRemoved(itemRowControl)
 end
+
+function XLGB_UI:DepositSet()
+  d("Deposit!")
+end
+
+function XLGB_UI:WithdrawSet()
+  d("Withdraw!")
+end
+
 
 function XLGB_UI:UpdateScrollList()
   local scrollList = XLGB_Window_Control_ListView:GetNamedChild("_ScrollList")

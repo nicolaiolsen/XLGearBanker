@@ -11,7 +11,6 @@ function XLGearBanker.OnAddOnLoaded(event, addonName)
       XLGB_Banking:Initialize()
       XLGB_MenuOverWriter:Initialize()
       XLGB_UI:Initialize()
-      XLGB_Banking_UI:Initialize()
     end
 end
 
@@ -43,7 +42,7 @@ end
 
 SLASH_COMMANDS["/xlgb_help"] = function (argsv)
   d("[XLGB] Commands")
-  --d("\'/xlgb_sets\': Prints out saved sets to chat.")
+  -- d("\'/xlgb_sets\': Prints out saved sets to chat.")
   -- d("\'/xlgb_items setNumber\': Prints out set #(setNumber)s items to chat.")
   -- d("\'/xlgb_addset setName\': Creates a new set named (setName).")
   -- d("\'/xlgb_removeset setNumber\': Removes set #(setNumber).")
