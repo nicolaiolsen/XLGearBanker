@@ -71,12 +71,12 @@ end
 local function getAvailableBagSpaces(bag)
   easyDebug("Finding available bagspaces in bag: " .. bag)
   local availableBagSpaces = {}
-  local slot = ZO_GetNextBagSlotIndex(bag)
+  local slot = FindFirstEmptySlotInBag(bag)
   while slot do
     if GetItemName(bag, i) == "" then
       table.insert(availableBagSpaces, i)
     end
-    slot = ZO_GetNextBagSlotIndex(bag)
+    slot = ZO_GetNextBagSlotIndex(bag, slot)
   end
   -- for i = firstEmptySlot, GetBagSize(bag) do
   --   if GetItemName(bag, i) == "" then
