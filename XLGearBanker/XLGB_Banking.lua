@@ -73,8 +73,8 @@ local function getAvailableBagSpaces(bag)
   local availableBagSpaces = {}
   local slot = FindFirstEmptySlotInBag(bag)
   while slot do
-    if GetItemName(bag, i) == "" then
-      table.insert(availableBagSpaces, i)
+    if GetItemName(bag, slot) == "" then
+      table.insert(availableBagSpaces, slot)
     end
     slot = ZO_GetNextBagSlotIndex(bag, slot)
   end
