@@ -79,10 +79,10 @@ local function OverWriteInventoryShowContextMenuHandler()
         if slotType == SLOT_TYPE_ITEM
         or slotType == SLOT_TYPE_EQUIPMENT
         or slotType == SLOT_TYPE_BANK_ITEM then
-          bag, index = ZO_Inventory_GetBagAndIndex(inventorySlot)
-          itemLink = GetItemLink(bag, index)
-          itemType = GetItemLinkItemType(itemLink)
-          itemID = Id64ToString(GetItemUniqueId(bag, index))
+          local bag, index = ZO_Inventory_GetBagAndIndex(inventorySlot)
+          local itemLink = GetItemLink(bag, index)
+          local itemType = GetItemLinkItemType(itemLink)
+          local itemID = Id64ToString(GetItemUniqueId(bag, index))
           easyDebug("Item ID of " .. itemLink .. ": " .. itemID)
 
           -- Item should be armor or weapon.
