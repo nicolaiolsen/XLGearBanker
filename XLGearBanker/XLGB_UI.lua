@@ -349,7 +349,7 @@ local function addEquippedItemsToGearSet()
 end
 
 function XLGB_UI:AddEquippedItemsToSet()
-  libDialog:ShowDialog("XL Gear Banker", "AddEquippedItemsToSet", nil)
+  libDialog:ShowDialog("XLGearBanker", "AddEquippedItemsToSet", nil)
   XLGB_UI:UpdateScrollList()
 end
 
