@@ -213,7 +213,7 @@ function XLGB_UI:ToggleEdit(editControl)
       discardChanges()
     end
   else
-    XLGearBanker.copyOfSet = LGB_GearSet:CopyGearSet(XLGearBanker.displayingSet)
+    XLGearBanker.copyOfSet = XLGB_GearSet:CopyGearSet(XLGearBanker.displayingSet)
     setEditTrue()
   end
 end
