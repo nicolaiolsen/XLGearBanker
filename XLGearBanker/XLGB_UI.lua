@@ -167,6 +167,7 @@ end
 
 local function acceptChanges()
   XLGearBanker.copyOfSet = {}
+  setEditFalse()
   d("[XLGB] Gear set changes accepted!")
 end
 
@@ -486,7 +487,7 @@ function XLGB_UI:SetupDialogs()
     "XLGearBanker", 
     "DiscardChangesDialog", 
     "XL Gear Banker", 
-    "Looks like you've edited the current set and are about to discard any changes you've made including recently added/removed items.\n\nAre you sure you?", 
+    "Looks like you've edited the current set and are about to discard any changes you've made including recently added/removed items.\n\nAre you sure?", 
     discardChanges, 
     nil,
     nil)
