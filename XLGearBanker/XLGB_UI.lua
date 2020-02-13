@@ -386,9 +386,9 @@ end
 --   toggleToBeRemoved(itemRowControl)
 -- end
 
-function XLGB_UI:RemoveItem()
+function XLGB_UI:RemoveItem(removeItemControl)
   easyDebug("Removing item")
-  itemRowControl = removeItemControl:GetParent()
+  local itemRowControl = removeItemControl:GetParent()
   XLGB_GearSet:RemoveItemFromGearSet()
 end
 
@@ -435,7 +435,6 @@ local function fillItemRowWithData(control, data)
   control.data = data
   control:GetNamedChild("_Name"):SetText(data.itemLink)
   if XLGearBanker.UI_Editable then
-    -- toggleToBeRemoved(control)
     control:GetNamedChild("_Remove"):SetHidden(false)
   else 
     control:GetNamedChild("_Remove"):SetHidden(true)
