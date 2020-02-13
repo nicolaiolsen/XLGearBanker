@@ -39,9 +39,10 @@ These libraries are ***required*** to run the addon.
 
 ***
 
-## Changes (version 0.8 & 0.9)
+## Changes (version 0.9 + 0.9.3)
 
-Christmas is coming early with these 2? new updates (version 0.8 & 0.9). An XL change that alot of people I've talked to have asked for (including myself). The XLGB addon is getting its UI and is now not a complete mess to setup and use anymore! What this UI update includes is a UI that would help you track your sets, create new sets, edit current sets, deposit and withdraw sets easier than ever before! It's simple to use, just look at "How to use" section!
+On top of the UI changes XLGB now supports "Add currently equipped items to set"! This means that your favourite Dressing Room/Alpha Gear setups can now be used to E A S I L Y create a new set for XLGB! Also the remove item function has been reworked and is now not bugged :angel_smiley_face:
+
 
 ## Roadmap
 
@@ -59,12 +60,13 @@ This is not the only change planned for the XLGB addon. I will further improve t
 1. Either open your bank/storage or type '/xlgb' in chat to bring up the UI.
 2. Use the arrows to browse your current sets
 
-### Edit sets (change name/remove items from set)
+### Edit sets (change name & add/remove items to/from set)
 
 1. Either open your bank/storage or type '/xlgb' in chat to bring up the UI.
 2. Press the edit icon (pen and paper thingy)
     - Now you can edit the name label to a choice of your own! (Press the label and edit away!)
-    - Mark items for removal by using the 'X' icon to the right of the item you want removed. (If you regret your choice, press the cancel button to unmark it again!)
+    - Add items you currently wear using the bottom that states it does literally this.
+    - Remove items using the 'X' icon to the right of the item you want removed. (If you regret your choice, you can discard your changes!)
 3. Now you have a choice:
     1. Discard changes by clicking the "cancel icon" that replaced the edit icon. (If you've made changes a dialog will pop up to confirm)
     2. Accept changes by clicking the "accept icon". (If you've marked items for removal a dialog will pop up to confirm)
@@ -81,6 +83,9 @@ This is not the only change planned for the XLGB addon. I will further improve t
 See "Edit sets" above at 3.3.
 
 ### Add items to a gear set
+
+(New in version 0.9.3+)
+You can now add all your currently equipped items by opening the ui with "/xlgb", press the edit icon, and press the button "Add equipped items to set".
 
 If you have atleast 1 set you can right-click any armor or weapon in your bank, inventory or even equipped items, an extra item in the drop-down menu will appear reading 'XLGB add >'.
 If you hover over this menu you'll see all your sets, and if you click on of the sets the item you've right-clicked will be added to that set.
