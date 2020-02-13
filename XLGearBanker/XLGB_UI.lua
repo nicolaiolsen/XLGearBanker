@@ -344,8 +344,13 @@ function XLGB_UI:RemoveItem(removeItemControl)
   toggleToBeRemoved(itemRowControl)
 end
 
-function XLGB_UI:AddEquippedToSet()
+local function addEquippedItemsToGearSet()
   XLGB_GearSet:AddEquippedItemsToGearSet(XLGearBanker.displayingSet)
+end
+
+function XLGB_UI:AddEquippedItemsToSet()
+  libDialog:ShowDialog("XL Gear Banker", "AddEquippedItemsToSet", nil)
+  XLGB_UI:UpdateScrollList()
 end
 
 function XLGB_UI:DepositSet()
@@ -433,6 +438,16 @@ function XLGB_UI:SetupDialogs()
     discardChangesAndCycle, 
     nil,
     nil)
+
+  libDialog:RegisterDialog(
+    "XLGearBanker", 
+    "AddEquippedItemsToSet", 
+    "XL Gear Banker", 
+    "You're about to add all of your your currently equipped items to this item set.\n\nAre you sure?", 
+    addEquippedItemsToGearSet, 
+    nil,
+    nil) 
+   
 
 end
 
