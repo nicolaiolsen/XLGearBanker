@@ -378,7 +378,8 @@ function XLGB_UI:RemoveItem(removeItemControl)
   if isItemMarkedForRemoval(itemRowControl.data.itemID) then
     unmarkItemFromRemoval(itemRowControl.data.itemID)
   else
-    table.insert(XLGearBanker.UI_ItemsMarkedForRemoval, itemRowControl.data.itemID)
+    local markedID = itemRowControl.data.itemID
+    table.insert(XLGearBanker.UI_ItemsMarkedForRemoval, markedID)
   end
   toggleToBeRemoved(itemRowControl)
 end
