@@ -35,10 +35,13 @@ end
 function XLGB_UI:OnBankOpen()
   local depositControl = XLGB_Window_Control_ListView:GetNamedChild("_Deposit")
   local withdrawControl = XLGB_Window_Control_ListView:GetNamedChild("_Withdraw")
-  local addEquippedControl = XLGB_Window_Control_ListView:GetNamedChild("_AddEquipped")
+  local itemAmountControl = XLGB_Window_Control_ListView:GetNamedChild("_ItemAmount")
 
-  addEquippedControl:SetAnchor(BOTTOMLEFT, depositControl, TOPLEFT, 0, -10)
-  addEquippedControl:SetAnchor(BOTTOMRIGHT, withdrawControl, TOPRIGHT, 0, -10)
+  if(XLGearBanker.UI_Editable) then 
+  else
+    itemAmountControl:SetAnchor(BOTTOMLEFT, depositControl, TOPLEFT, 0, -10)
+    itemAmountControl:SetAnchor(BOTTOMRIGHT, withdrawControl, TOPRIGHT, 0, -10)
+  end
 
   depositControl:SetHidden(false)
   depositControl:SetMouseEnabled(true)
@@ -51,11 +54,16 @@ end
 function XLGB_UI:OnBankClosed()
   local depositControl = XLGB_Window_Control_ListView:GetNamedChild("_Deposit")
   local withdrawControl = XLGB_Window_Control_ListView:GetNamedChild("_Withdraw")
+  local itemAmountControl = XLGB_Window_Control_ListView:GetNamedChild("_ItemAmount")
   local addEquippedControl = XLGB_Window_Control_ListView:GetNamedChild("_AddEquipped")
 
-  addEquippedControl:SetAnchor(BOTTOMLEFT, XLGB_Window_Control_ListView, BOTTOMLEFT, 0, -10)
-  addEquippedControl:SetAnchor(BOTTOMRIGHT, XLGB_Window_Control_ListView, BOTTOMRIGHT, 0, -10)
-
+  if(XLGearBanker.UI_Editable) then 
+    itemAmountControl:SetAnchor(BOTTOMLEFT, depositControl, TOPLEFT, 0, -10)
+    itemAmountControl:SetAnchor(BOTTOMRIGHT, withdrawControl, TOPRIGHT, 0, -10)
+  else
+    itemAmountControl:SetAnchor(BOTTOMLEFT, XLGB_Window_Control_ListView, BOTTOMLEFT, 0, -10)
+    itemAmountControl:SetAnchor(BOTTOMRIGHT, XLGB_Window_Control_ListView, BOTTOMRIGHT, 0, -10)
+  end
   depositControl:SetHidden(true)
   depositControl:SetMouseEnabled(false)
 
@@ -82,6 +90,7 @@ local function setEditFalse()
   local gearTitleControl = XLGB_Window_Control_ListView:GetNamedChild("_GearTitle")
   local acceptControl = XLGB_Window_Control_ListView:GetNamedChild("_AcceptEdit")
   local removeControl = XLGB_Window_Control_ListView:GetNamedChild("_RemoveSet")
+  local addEquippedControl = XLGB_Window_Control_ListView:GetNamedChild("_AddEquipped")
 
   XLGearBanker.UI_Editable = false
   gearTitleControl:ClearSelection()
@@ -95,6 +104,7 @@ local function setEditFalse()
   editControl:SetMouseOverTexture("/esoui/art/buttons/edit_over.dds")
   acceptControl:SetHidden(true)
   removeControl:SetHidden(true)
+  addEquippedControl:SetHidden(true)
   ZO_ScrollList_RefreshVisible(XLGB_Window_Control_ListView.scrollList)
 end
 
@@ -103,6 +113,7 @@ local function setEditTrue()
   local gearTitleControl = XLGB_Window_Control_ListView:GetNamedChild("_GearTitle")
   local acceptControl = XLGB_Window_Control_ListView:GetNamedChild("_AcceptEdit")
   local removeControl = XLGB_Window_Control_ListView:GetNamedChild("_RemoveSet")
+  local addEquippedControl = XLGB_Window_Control_ListView:GetNamedChild("_AddEquipped")
 
   XLGearBanker.UI_Editable = true
   XLGearBanker.UI_GearSetNameBefore = gearTitleControl:GetText()
@@ -116,6 +127,16 @@ local function setEditTrue()
   editControl:SetMouseOverTexture("/esoui/art/buttons/edit_cancel_over.dds")
   acceptControl:SetHidden(false)
   removeControl:SetHidden(false)
+
+  addEquippedControl:SetHidden(false)
+  if(XLGB_Banking.bankOpen) then
+    addEquippedControl:SetAnchor(BOTTOMLEFT, depositControl, TOPLEFT, 0, -10)
+    addEquippedControl:SetAnchor(BOTTOMRIGHT, withdrawControl, TOPRIGHT, 0, -10)
+  else 
+    addEquippedControl:SetAnchor(BOTTOMLEFT, XLGB_Window_Control_ListView, BOTTOMLEFT, 0, -10)
+    addEquippedControl:SetAnchor(BOTTOMRIGHT, XLGB_Window_Control_ListView, BOTTOMRIGHT, 0, -10)
+  end
+
   ZO_ScrollList_RefreshVisible(XLGB_Window_Control_ListView.scrollList)
 end
 
