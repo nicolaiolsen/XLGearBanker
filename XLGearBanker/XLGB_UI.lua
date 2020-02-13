@@ -389,7 +389,9 @@ end
 function XLGB_UI:RemoveItem(removeItemControl)
   easyDebug("Removing item")
   local itemRowControl = removeItemControl:GetParent()
-  XLGB_GearSet:RemoveItemFromGearSet()
+  local itemLink = itemRowControl.data.itemLink
+  local itemID = itemRowControl.data.itemID
+  XLGB_GearSet:RemoveItemFromGearSet(itemLink, itemID, XLGearBanker.displayingSet)
 end
 
 local function addEquippedItemsToGearSet()
