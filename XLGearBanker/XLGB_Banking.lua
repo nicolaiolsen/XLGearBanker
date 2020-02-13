@@ -97,7 +97,7 @@ local function moveItem(sourceBag, itemIndex, targetBag, availableSpace)
 end
 
 local function moveItemDelayed(sourceBag, itemIndex, targetBag, availableSpace)
-  zo_callLater(function () moveItem(sourceBag, itemIndex, targetBag, availableSpace) end, 2000)
+  zo_callLater(function () moveItem(sourceBag, itemIndex, targetBag, availableSpace) end, 5000)
 end
 
 local function moveGear(sourceBag, itemsToMove, targetBag, availableBagSpaces)
