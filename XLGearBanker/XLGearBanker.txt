@@ -10,6 +10,7 @@ bindings.xml
 
 XLGB_Constants.lua
 XLGB_Events.lua
+XLGB_Inventory.lua
 XLGB_GearSet.lua
 XLGB_Banking.lua
 XLGB_MenuOverwriter.lua
