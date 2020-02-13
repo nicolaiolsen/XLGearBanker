@@ -192,7 +192,8 @@ end
 local function discardChanges()
   local gearTitleControl = XLGB_Window_Control_ListView:GetNamedChild("_GearTitle")
 
-  XLGearBanker.UI_ItemsMarkedForRemoval = {}
+  XLGearBanker.savedVariables.gearSetList[XLGearBanker.displayingSet] = XLGearBanker.copyOfSet
+  XLGearBanker.copyOfSet = {}
   setEditFalse()
   gearTitleControl:SetText(XLGearBanker.UI_GearSetNameBefore)
   gearTitleControl:SetCursorPosition(0)
@@ -212,6 +213,7 @@ function XLGB_UI:ToggleEdit(editControl)
       discardChanges()
     end
   else
+    XLGearBanker.copyOfSet = LGB_GearSet:CopyGearSet(XLGearBanker.displayingSet)
     setEditTrue()
   end
 end
@@ -335,62 +337,64 @@ function XLGB_UI:ChangeDisplayedGearSet(gearSetNumber)
   end
 end
 
-local function isItemMarkedForRemoval(itemID)
-  for _, markedID in pairs(XLGearBanker.UI_ItemsMarkedForRemoval) do
-    if itemID == markedID then
-      return true
-    end
-  end
-  return false
-end
+-- local function isItemMarkedForRemoval(itemID)
+--   for _, markedID in pairs(XLGearBanker.UI_ItemsMarkedForRemoval) do
+--     if itemID == markedID then
+--       return true
+--     end
+--   end
+--   return false
+-- end
 
-local function toggleToBeRemoved(itemRowControl)
-  local itemNameControl = itemRowControl:GetNamedChild("_Name")
-  local removeItemControl = itemRowControl:GetNamedChild("_Remove")
-  if isItemMarkedForRemoval(itemRowControl.data.itemID) then
-    itemNameControl:SetText(itemRowControl.data.itemName)
-    itemNameControl:SetColor(155, 0, 0, 100)
+-- local function toggleToBeRemoved(itemRowControl)
+--   local itemNameControl = itemRowControl:GetNamedChild("_Name")
+--   local removeItemControl = itemRowControl:GetNamedChild("_Remove")
+--   if isItemMarkedForRemoval(itemRowControl.data.itemID) then
+--     itemNameControl:SetText(itemRowControl.data.itemName)
+--     itemNameControl:SetColor(155, 0, 0, 100)
     
-    removeItemControl:SetNormalTexture("/esoui/art/buttons/edit_cancel_up.dds")
-    removeItemControl:SetPressedTexture("/esoui/art/buttons/edit_cancel_down.dds")
-    removeItemControl:SetMouseOverTexture("/esoui/art/buttons/edit_cancel_over.dds")
-  else
-    itemNameControl:SetText(itemRowControl.data.itemLink)
+--     removeItemControl:SetNormalTexture("/esoui/art/buttons/edit_cancel_up.dds")
+--     removeItemControl:SetPressedTexture("/esoui/art/buttons/edit_cancel_down.dds")
+--     removeItemControl:SetMouseOverTexture("/esoui/art/buttons/edit_cancel_over.dds")
+--   else
+--     itemNameControl:SetText(itemRowControl.data.itemLink)
     
-    removeItemControl:SetNormalTexture("/esoui/art/buttons/decline_up.dds")
-    removeItemControl:SetPressedTexture("/esoui/art/buttons/decline_down.dds")
-    removeItemControl:SetMouseOverTexture("/esoui/art/buttons/decline_over.dds")
-  end
-end
+--     removeItemControl:SetNormalTexture("/esoui/art/buttons/decline_up.dds")
+--     removeItemControl:SetPressedTexture("/esoui/art/buttons/decline_down.dds")
+--     removeItemControl:SetMouseOverTexture("/esoui/art/buttons/decline_over.dds")
+--   end
+-- end
 
-local function unmarkItemFromRemoval(itemID)
-  for i, markedID in pairs(XLGearBanker.UI_ItemsMarkedForRemoval) do
-    if itemID == markedID then
-      table.remove(XLGearBanker.UI_ItemsMarkedForRemoval, i)
-      return
-    end
-  end
-end
+-- local function unmarkItemFromRemoval(itemID)
+--   for i, markedID in pairs(XLGearBanker.UI_ItemsMarkedForRemoval) do
+--     if itemID == markedID then
+--       table.remove(XLGearBanker.UI_ItemsMarkedForRemoval, i)
+--       return
+--     end
+--   end
+-- end
 
--- credit: https://gist.github.com/tylerneylon/81333721109155b2d244
-local function copy(obj, seen)
-  if type(obj) ~= 'table' then return obj end
-  if seen and seen[obj] then return seen[obj] end
-  local s = seen or {}
-  local res = setmetatable({}, getmetatable(obj))
-  s[obj] = res
-  for k, v in pairs(obj) do res[copy(k, s)] = copy(v, s) end
-  return res
-end
+-- function XLGB_UI:RemoveItem(removeItemControl)
+--   easyDebug("Removing item")
+--   itemRowControl = removeItemControl:GetParent()
+--   if isItemMarkedForRemoval(itemRowControl.data.itemID) then
+--     unmarkItemFromRemoval(itemRowControl.data.itemID)
+--   else
+--     local markedID = itemRowControl.data.itemID
+--     table.insert(XLGearBanker.UI_ItemsMarkedForRemoval, markedID)
+--   end
+--   toggleToBeRemoved(itemRowControl)
+-- end
 
-function XLGB_UI:RemoveItem(removeItemControl)
+function XLGB_UI:RemoveItem()
   easyDebug("Removing item")
   itemRowControl = removeItemControl:GetParent()
+  XLGB_GearSet:RemoveItemFromGearSet()
   if isItemMarkedForRemoval(itemRowControl.data.itemID) then
     unmarkItemFromRemoval(itemRowControl.data.itemID)
   else
-    local itemRowDataCopy = copy(itemRowControl.data)
-    table.insert(XLGearBanker.UI_ItemsMarkedForRemoval, itemRowDataCopy.itemID)
+    local markedID = itemRowControl.data.itemID
+    table.insert(XLGearBanker.UI_ItemsMarkedForRemoval, markedID)
   end
   toggleToBeRemoved(itemRowControl)
 end
@@ -505,6 +509,7 @@ end
 function XLGB_UI:Initialize()
   XLGearBanker.displayingSet = 1
   XLGearBanker.UI_Editable = false
+  XLGearBanker.copyOfSet = {}
   XLGearBanker.UI_ItemsMarkedForRemoval = {}
   XLGB_UI:RestorePosition()
   XLGB_UI:InitializeScrollList()
