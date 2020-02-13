@@ -139,7 +139,7 @@ end
 function XLGB_GearSet:AddItemsToGearSet(itemsToBeAdded, gearSetNumber)
   local gearSet = XLGB_GearSet:GetGearSet(gearSetNumber)  
   for _, itemData in pairs(itemsToBeAdded) do
-    if (XLGB_GearSet:GetItemIndexInGearSet(itemID, gearSetNumber) == XLGB.ITEM_NOT_IN_SET) then
+    if (XLGB_GearSet:GetItemIndexInGearSet(itemData.itemID, gearSetNumber) == XLGB.ITEM_NOT_IN_SET) then
       table.insert(XLGearBanker.savedVariables.gearSetList[gearSetNumber].items, itemData)
     end
   end
