@@ -167,10 +167,29 @@
             </Controls>
           </Button> 
 
+          <Button name="$(parent)_AddEquipped" inherits="ZO_ButtonBehaviorClickSound" hidden="true" >
+            <OnClicked>XLGB_UI:AddEquippedSet(self)</OnClicked>
+            <Dimensions x="300" y="40" />                                
+            <Anchor point="BOTTOMLEFT" relativeTo="$(parent)" relativePoint="BOTTOMLEFT" offsetX="0" offsetY="0"  />
+            <Anchor point="BOTTOMRIGHT" relativeTo="$(parent)" relativePoint="BOTTOMRIGHT" offsetX="0" offsetY="0"  />
+            <Textures
+                normal    ="/esoui/art/buttons/button_xlarge_mouseup.dds"
+                pressed    ="/esoui/art/buttons/button_xlarge_mousedown.dds"
+                mouseOver  ="/esoui/art/buttons/button_xlarge_mouseover.dds"
+              />
+            <Controls>
+              <Label name="$(parent)_Label" font="ZoFontWinH4" text="Add equipped items to set">
+                <Anchor point="CENTER" relativeTo="$(parent)" relativePoint="CENTER" offsetX="0" offsetY="-8"  />
+                <!-- <Anchor point="TOPLEFT" relativeTo="$(parent)" relativePoint="TOPLEFT" offsetX="10" offsetY="-10" />
+                <Anchor point="BOTTOMRIGHT" relativeTo="$(parent)" relativePoint="BOTTOMRIGHT" offsetX="-10" offsetY="10" /> -->
+              </Label>
+            </Controls>
+          </Button> 
+
         <!-- Item Amount -->
             <Label name="$(parent)_ItemAmount" font="ZoFontWinT2" text="Total items in set: 0" linkEnabled="true">
-              <Anchor point="BOTTOMLEFT" relativeTo="$(parent)" relativePoint="BOTTOMLEFT" offsetX="0" offsetY="-10" />
-              <Anchor point="BOTTOMRIGHT" relativeTo="$(parent)" relativePoint="BOTTOMRIGHT" offsetX="0" offsetY="-10" />
+              <Anchor point="BOTTOMLEFT" relativeTo="$(parent)_AddEquipped" relativePoint="TOPLEFT" offsetX="0" offsetY="-10" />
+              <Anchor point="BOTTOMRIGHT" relativeTo="$(parent)_AddEquipped" relativePoint="TOPRIGHT" offsetX="0" offsetY="-10" />
             </Label>
 
         <!-- Scroll List -->

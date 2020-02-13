@@ -107,7 +107,7 @@ function XLGB_GearSet:RemoveGearSet(gearSetNumber)
   d("[XLGB] Removed set: " .. gearSet.name)
 end
 
-local function createItemData(itemLink, itemID)
+function XLGB_GearSet:CreateItemData(itemLink, itemID)
   local itemData = {}
   itemData.link = itemLink
   itemData.name = GetItemLinkName(itemLink)
@@ -121,7 +121,7 @@ local function compareItems(itemA, itemB)
 end
 
 function XLGB_GearSet:AddItemToGearSet(itemLink, itemID, gearSetNumber)
-  local itemData = createItemData(itemLink, itemID)
+  local itemData = XLGB_GearSet:CreateItemData(itemLink, itemID)
   local gearSet = XLGB_GearSet:GetGearSet(gearSetNumber)
 
   table.insert(XLGearBanker.savedVariables.gearSetList[gearSetNumber].items, itemData)
@@ -129,6 +129,23 @@ function XLGB_GearSet:AddItemToGearSet(itemLink, itemID, gearSetNumber)
 
   XLGB_Events:OnGearSetItemAdd(gearSet, XLGearBanker.savedVariables.gearSetList[gearSetNumber])
   d("[XLGB] Added item " .. itemLink .. " to " .. gearSet.name)
+end
+
+function XLGB_GearSet:AddEquippedItemsToGearSet(gearSetNumber)
+  local itemsToBeAdded = XLGB_Inventory:GetEquippedItems()
+  XLGB_GearSet:AddItemsToGearSet(itemsToBeAdded, gearSetNumber)
+end
+
+function XLGB_GearSet:AddItemsToGearSet(itemsToBeAdded, gearSetNumber)
+  local gearSet = XLGB_GearSet:GetGearSet(gearSetNumber)  
+  for _, itemData in pairs(itemsToBeAdded) do
+    if (XLGB_GearSet:GetItemIndexInGearSet(itemID, gearSetNumber) == XLGB.ITEM_NOT_IN_SET) then
+      table.insert(XLGearBanker.savedVariables.gearSetList[gearSetNumber].items, itemData)
+    end
+  end
+  table.sort(XLGearBanker.savedVariables.gearSetList[gearSetNumber].items, compareItems)
+
+  d("[XLGB] Added items to " .. gearSet.name)
 end
 
 function XLGB_GearSet:RemoveItemFromGearSet(itemLink, itemID, gearSetNumber)

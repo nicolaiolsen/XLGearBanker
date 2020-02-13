@@ -32,10 +32,8 @@ function XLGB_UI:HideUI()
   XLGB_Window_Control:SetHidden(true)
 end
 
-function XLGB_UI:OnBankOpen()
-  local depositControl = XLGB_Window_Control_ListView:GetNamedChild("_Deposit")
-  local withdrawControl = XLGB_Window_Control_ListView:GetNamedChild("_Withdraw")
-  local itemAmountControl = XLGB_Window_Control_ListView:GetNamedChild("_ItemAmount")
+function XLGB_UI:OnInventoryOpen()
+  
 
   itemAmountControl:SetAnchor(BOTTOMLEFT, depositControl, TOPLEFT, 0, -10)
   itemAmountControl:SetAnchor(BOTTOMRIGHT, withdrawControl, TOPRIGHT, 0, -10)
@@ -48,13 +46,29 @@ function XLGB_UI:OnBankOpen()
   XLGB_UI:ShowUI()
 end
 
+function XLGB_UI:OnBankOpen()
+  local depositControl = XLGB_Window_Control_ListView:GetNamedChild("_Deposit")
+  local withdrawControl = XLGB_Window_Control_ListView:GetNamedChild("_Withdraw")
+  local addEquippedControl = XLGB_Window_Control_ListView:GetNamedChild("_AddEquipped")
+
+  addEquippedControl:SetAnchor(BOTTOMLEFT, depositControl, TOPLEFT, 0, -10)
+  addEquippedControl:SetAnchor(BOTTOMRIGHT, withdrawControl, TOPRIGHT, 0, -10)
+
+  depositControl:SetHidden(false)
+  depositControl:SetMouseEnabled(true)
+
+  withdrawControl:SetHidden(false)
+  withdrawControl:SetMouseEnabled(true)
+  XLGB_UI:ShowUI()
+end
+
 function XLGB_UI:OnBankClosed()
   local depositControl = XLGB_Window_Control_ListView:GetNamedChild("_Deposit")
   local withdrawControl = XLGB_Window_Control_ListView:GetNamedChild("_Withdraw")
-  local itemAmountControl = XLGB_Window_Control_ListView:GetNamedChild("_ItemAmount")
+  local addEquippedControl = XLGB_Window_Control_ListView:GetNamedChild("_AddEquipped")
 
-  itemAmountControl:SetAnchor(BOTTOMLEFT, XLGB_Window_Control_ListView, BOTTOMLEFT, 0, -10)
-  itemAmountControl:SetAnchor(BOTTOMRIGHT, XLGB_Window_Control_ListView, BOTTOMRIGHT, 0, -10)
+  addEquippedControl:SetAnchor(BOTTOMLEFT, XLGB_Window_Control_ListView, BOTTOMLEFT, 0, -10)
+  addEquippedControl:SetAnchor(BOTTOMRIGHT, XLGB_Window_Control_ListView, BOTTOMRIGHT, 0, -10)
 
   depositControl:SetHidden(true)
   depositControl:SetMouseEnabled(false)
@@ -342,6 +356,10 @@ function XLGB_UI:RemoveItem(removeItemControl)
     table.insert(XLGearBanker.UI_ItemsMarkedForRemoval, itemRowControl.data.itemID)
   end
   toggleToBeRemoved(itemRowControl)
+end
+
+function XLGB_UI:AddEquippedToSet()
+  XLGB_GearSet:AddEquippedToSet(XLGearBanker.displayingSet)
 end
 
 function XLGB_UI:DepositSet()

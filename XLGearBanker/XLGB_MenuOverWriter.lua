@@ -80,9 +80,9 @@ local function OverWriteInventoryShowContextMenuHandler()
         or slotType == SLOT_TYPE_EQUIPMENT
         or slotType == SLOT_TYPE_BANK_ITEM then
           local bag, index = ZO_Inventory_GetBagAndIndex(inventorySlot)
-          local itemLink = GetItemLink(bag, index)
+          itemLink = GetItemLink(bag, index)
+          itemID = Id64ToString(GetItemUniqueId(bag, index))
           local itemType = GetItemLinkItemType(itemLink)
-          local itemID = Id64ToString(GetItemUniqueId(bag, index))
           easyDebug("Item ID of " .. itemLink .. ": " .. itemID)
 
           -- Item should be armor or weapon.
