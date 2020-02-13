@@ -89,7 +89,7 @@ end
 local function areThereAnyChanges()
   local gearTitleControl = XLGB_Window_Control_ListView:GetNamedChild("_GearTitle")
   if (gearTitleControl:GetText() == XLGearBanker.UI_GearSetNameBefore) 
-  and #XLGearBanker.UI_ItemsMarkedForRemoval == 0 then 
+  and not(XLGearBanker.itemChanges) then 
     return false
   end
   return true
@@ -215,6 +215,8 @@ function XLGB_UI:ToggleEdit(editControl)
     end
   else
     XLGearBanker.copyOfSet = XLGB_GearSet:CopyGearSet(XLGearBanker.displayingSet)
+    XLGearBanker.itemChanges = false
+    XLGearBanker.nameChanges = false
     setEditTrue()
   end
 end
@@ -392,6 +394,7 @@ function XLGB_UI:RemoveItem(removeItemControl)
   local itemRowControl = removeItemControl:GetParent()
   local itemLink = itemRowControl.data.itemLink
   local itemID = itemRowControl.data.itemID
+  XLGearBanker.itemChanges = true
   XLGB_GearSet:RemoveItemFromGearSet(itemLink, itemID, XLGearBanker.displayingSet)
 end
 
@@ -505,6 +508,8 @@ function XLGB_UI:Initialize()
   XLGearBanker.displayingSet = 1
   XLGearBanker.UI_Editable = false
   XLGearBanker.copyOfSet = {}
+  XLGearBanker.itemChanges = false
+  XLGearBanker.nameChanges = false
   XLGearBanker.UI_ItemsMarkedForRemoval = {}
   XLGB_UI:RestorePosition()
   XLGB_UI:InitializeScrollList()
