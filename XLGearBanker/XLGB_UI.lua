@@ -158,11 +158,16 @@ local function setEditTrue()
   ZO_ScrollList_RefreshVisible(XLGB_Window_Control_ListView.scrollList)
 end
 
-local function removeItemsMarkedForRemoval()
-  XLGB_GearSet:RemoveItemsFromGearSet(XLGearBanker.UI_ItemsMarkedForRemoval ,XLGearBanker.displayingSet)
-  XLGearBanker.UI_ItemsMarkedForRemoval = {}
-  XLGB_UI:ChangeDisplayedGearSet(XLGearBanker.displayingSet)
-  setEditFalse()
+-- local function removeItemsMarkedForRemoval()
+--   XLGB_GearSet:RemoveItemsFromGearSet(XLGearBanker.UI_ItemsMarkedForRemoval ,XLGearBanker.displayingSet)
+--   XLGearBanker.UI_ItemsMarkedForRemoval = {}
+--   XLGB_UI:ChangeDisplayedGearSet(XLGearBanker.displayingSet)
+--   setEditFalse()
+-- end
+
+local function acceptChanges()
+  XLGearBanker.copyOfSet = {}
+  d("[XLGB] Gear set changes accepted!")
 end
 
 function XLGB_UI:AcceptEdit(acceptControl)
@@ -170,19 +175,19 @@ function XLGB_UI:AcceptEdit(acceptControl)
   local newGearName = gearTitleControl:GetText()
 
   if newGearName == XLGearBanker.UI_GearSetNameBefore then
-    if #XLGearBanker.UI_ItemsMarkedForRemoval == 0 then
+    if not(XLGearBanker.itemChanges) then
       setEditFalse()
     else
-      libDialog:ShowDialog("XLGearBanker", "RemoveMarkedItems", nil)
+      libDialog:ShowDialog("XLGearBanker", "AcceptChanges", nil)
     end
   else
     if XLGB_GearSet:EditGearSetName(newGearName, XLGearBanker.displayingSet) then
       setEditFalse()
       d("[XLGB] Gearset renamed to '" .. newGearName .. "'.")
-      if #XLGearBanker.UI_ItemsMarkedForRemoval == 0 then
+      if not(XLGearBanker.itemChanges) then
         setEditFalse()
       else
-        libDialog:ShowDialog("XLGearBanker", "RemoveMarkedItems", nil)
+        libDialog:ShowDialog("XLGearBanker", "AcceptChanges", nil)
       end
     end
   end
@@ -467,10 +472,10 @@ function XLGB_UI:SetupDialogs()
 
   libDialog:RegisterDialog(
     "XLGearBanker", 
-    "RemoveMarkedItems", 
+    "AcceptChanges", 
     "XL Gear Banker", 
-    "You have marked items for removal from this set.\n\nAre you sure you want these items removed?", 
-    removeItemsMarkedForRemoval, 
+    "You have added/removed items to/from this set.\n\nAre you sure you want to keep these changes?", 
+    acceptChanges, 
     nil,
     nil)
 
@@ -478,7 +483,7 @@ function XLGB_UI:SetupDialogs()
     "XLGearBanker", 
     "DiscardChangesDialog", 
     "XL Gear Banker", 
-    "Looks like you've edited the current set and are about to discard any changes you've made.\n\nAre you sure?", 
+    "Looks like you've edited the current set and are about to discard any changes you've made including recently added/removed items.\n\nAre you sure you?", 
     discardChanges, 
     nil,
     nil)
@@ -487,7 +492,7 @@ function XLGB_UI:SetupDialogs()
     "XLGearBanker", 
     "DiscardChangesAndCycleDialog", 
     "XL Gear Banker", 
-    "Looks like you've edited the current set and are about to discard any changes you've made.\n\nAre you sure?", 
+    "Looks like you've edited the current set and are about to discard any changes you've made including recently added/removed items.\n\nAre you sure?", 
     discardChangesAndCycle, 
     nil,
     nil)
