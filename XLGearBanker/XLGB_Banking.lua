@@ -90,7 +90,7 @@ end
 
 local function moveItem(sourceBag, itemIndex, targetBag, availableSpace)
   local moveSuccesful = false
-  moveSuccesful = CallSecureProtected("RequestMoveItem", sourceBag, itemIndex, targetBag, availableSpace, 1)
+  moveSuccesful = zo_callLater(CallSecureProtected("RequestMoveItem", sourceBag, itemIndex, targetBag, availableSpace, 1), 200)
   if moveSuccesful then
     easyDebug("Item move: Success!")
   end
