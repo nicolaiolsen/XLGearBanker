@@ -372,14 +372,25 @@ local function unmarkItemFromRemoval(itemID)
   end
 end
 
+-- credit: https://gist.github.com/tylerneylon/81333721109155b2d244
+local function copy(obj, seen)
+  if type(obj) ~= 'table' then return obj end
+  if seen and seen[obj] then return seen[obj] end
+  local s = seen or {}
+  local res = setmetatable({}, getmetatable(obj))
+  s[obj] = res
+  for k, v in pairs(obj) do res[copy(k, s)] = copy(v, s) end
+  return res
+end
+
 function XLGB_UI:RemoveItem(removeItemControl)
   easyDebug("Removing item")
   itemRowControl = removeItemControl:GetParent()
   if isItemMarkedForRemoval(itemRowControl.data.itemID) then
     unmarkItemFromRemoval(itemRowControl.data.itemID)
   else
-    local markedID = itemRowControl.data.itemID
-    table.insert(XLGearBanker.UI_ItemsMarkedForRemoval, markedID)
+    local itemRowDataCopy = copy(itemRowControl.data)
+    table.insert(XLGearBanker.UI_ItemsMarkedForRemoval, itemRowDataCopy.itemID)
   end
   toggleToBeRemoved(itemRowControl)
 end
