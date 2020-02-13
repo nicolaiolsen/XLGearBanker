@@ -64,7 +64,7 @@ This is not the only change planned for the XLGB addon. I will further improve t
 1. Either open your bank/storage or type '/xlgb' in chat to bring up the UI.
 2. Press the edit icon (pen and paper thingy)
     - Now you can edit the name label to a choice of your own! (Press the label and edit away!)
-    - Add items you currently wear using the bottom that states it does literally this.
+    - Add items you currently wear using the button that states it does literally this.
     - Remove items using the 'X' icon to the right of the item you want removed. (If you regret your choice, you can discard your changes!)
 3. Now you have a choice:
     1. Discard changes by clicking the "cancel icon" that replaced the edit icon. (If you've made changes a dialog will pop up to confirm)
