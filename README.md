@@ -43,7 +43,6 @@ These libraries are ***required*** to run the addon.
 
 On top of the UI changes XLGB now supports "Add currently equipped items to set"! This means that your favourite Dressing Room/Alpha Gear setups can now be used to E A S I L Y create a new set for XLGB! Also the remove item function has been reworked and is now not bugged :angel_smiley_face:
 
-
 ## Roadmap
 
 This is not the only change planned for the XLGB addon. I will further improve the user experience down the road with UI 2.0 as the next big goal that will assist in depositing/withdrawing sets easier (Which will phase out the confusing assigned set to chest thingy), as an alternative to depositing/withdrawing sets via keybinds. Below is a roadmap with features and improvements planned for the addon:
