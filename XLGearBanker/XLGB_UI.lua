@@ -435,7 +435,7 @@ local function fillItemRowWithData(control, data)
   control.data = data
   control:GetNamedChild("_Name"):SetText(data.itemLink)
   if XLGearBanker.UI_Editable then
-    toggleToBeRemoved(control)
+    -- toggleToBeRemoved(control)
     control:GetNamedChild("_Remove"):SetHidden(false)
   else 
     control:GetNamedChild("_Remove"):SetHidden(true)
