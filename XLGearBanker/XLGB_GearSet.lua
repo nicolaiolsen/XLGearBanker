@@ -92,6 +92,10 @@ function XLGB_GearSet:FindGearSet(gearSetName)
   return nil
 end
 
+function XLGB_GearSet:CopyGearSet(gearSetNumber)
+  return copy(XLGB_GearSet:GetGearSet(gearSetNumber))
+end
+
 function XLGB_GearSet:EditGearSetName(gearSetName, gearSetNumber)
   if (not isNameUnique(gearSetName)) then
     d("[XLGB_ERROR] A set named ".. gearSetName .." does already exist! Set names should be unique.")

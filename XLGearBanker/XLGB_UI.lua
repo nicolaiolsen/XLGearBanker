@@ -89,7 +89,7 @@ end
 local function areThereAnyChanges()
   local gearTitleControl = XLGB_Window_Control_ListView:GetNamedChild("_GearTitle")
   if (gearTitleControl:GetText() == XLGearBanker.UI_GearSetNameBefore) 
-  and #XLGearBanker.UI_ItemsMarkedForRemoval == 0 then 
+  and not(XLGearBanker.itemChanges) then 
     return false
   end
   return true
@@ -158,11 +158,10 @@ local function setEditTrue()
   ZO_ScrollList_RefreshVisible(XLGB_Window_Control_ListView.scrollList)
 end
 
-local function removeItemsMarkedForRemoval()
-  XLGB_GearSet:RemoveItemsFromGearSet(XLGearBanker.UI_ItemsMarkedForRemoval ,XLGearBanker.displayingSet)
-  XLGearBanker.UI_ItemsMarkedForRemoval = {}
-  XLGB_UI:ChangeDisplayedGearSet(XLGearBanker.displayingSet)
+local function acceptChanges()
+  XLGearBanker.copyOfSet = {}
   setEditFalse()
+  d("[XLGB] Gear set changes accepted!")
 end
 
 function XLGB_UI:AcceptEdit(acceptControl)
@@ -170,19 +169,19 @@ function XLGB_UI:AcceptEdit(acceptControl)
   local newGearName = gearTitleControl:GetText()
 
   if newGearName == XLGearBanker.UI_GearSetNameBefore then
-    if #XLGearBanker.UI_ItemsMarkedForRemoval == 0 then
+    if not(XLGearBanker.itemChanges) then
       setEditFalse()
     else
-      libDialog:ShowDialog("XLGearBanker", "RemoveMarkedItems", nil)
+      libDialog:ShowDialog("XLGearBanker", "AcceptChanges", nil)
     end
   else
     if XLGB_GearSet:EditGearSetName(newGearName, XLGearBanker.displayingSet) then
       setEditFalse()
       d("[XLGB] Gearset renamed to '" .. newGearName .. "'.")
-      if #XLGearBanker.UI_ItemsMarkedForRemoval == 0 then
+      if not(XLGearBanker.itemChanges) then
         setEditFalse()
       else
-        libDialog:ShowDialog("XLGearBanker", "RemoveMarkedItems", nil)
+        libDialog:ShowDialog("XLGearBanker", "AcceptChanges", nil)
       end
     end
   end
@@ -192,10 +191,12 @@ end
 local function discardChanges()
   local gearTitleControl = XLGB_Window_Control_ListView:GetNamedChild("_GearTitle")
 
-  XLGearBanker.UI_ItemsMarkedForRemoval = {}
+  XLGearBanker.savedVariables.gearSetList[XLGearBanker.displayingSet] = XLGearBanker.copyOfSet
+  XLGearBanker.copyOfSet = {}
   setEditFalse()
   gearTitleControl:SetText(XLGearBanker.UI_GearSetNameBefore)
   gearTitleControl:SetCursorPosition(0)
+  XLGB_UI:UpdateScrollList()
 end
 
 local function discardChangesAndCycle(dialog)
@@ -212,6 +213,9 @@ function XLGB_UI:ToggleEdit(editControl)
       discardChanges()
     end
   else
+    XLGearBanker.copyOfSet = XLGB_GearSet:CopyGearSet(XLGearBanker.displayingSet)
+    XLGearBanker.itemChanges = false
+    XLGearBanker.nameChanges = false
     setEditTrue()
   end
 end
@@ -335,52 +339,15 @@ function XLGB_UI:ChangeDisplayedGearSet(gearSetNumber)
   end
 end
 
-local function isItemMarkedForRemoval(itemID)
-  for _, markedID in pairs(XLGearBanker.UI_ItemsMarkedForRemoval) do
-    if itemID == markedID then
-      return true
-    end
-  end
-  return false
-end
 
-local function toggleToBeRemoved(itemRowControl)
-  local itemNameControl = itemRowControl:GetNamedChild("_Name")
-  local removeItemControl = itemRowControl:GetNamedChild("_Remove")
-  if isItemMarkedForRemoval(itemRowControl.data.itemID) then
-    itemNameControl:SetText(itemRowControl.data.itemName)
-    itemNameControl:SetColor(155, 0, 0, 100)
-    
-    removeItemControl:SetNormalTexture("/esoui/art/buttons/edit_cancel_up.dds")
-    removeItemControl:SetPressedTexture("/esoui/art/buttons/edit_cancel_down.dds")
-    removeItemControl:SetMouseOverTexture("/esoui/art/buttons/edit_cancel_over.dds")
-  else
-    itemNameControl:SetText(itemRowControl.data.itemLink)
-    
-    removeItemControl:SetNormalTexture("/esoui/art/buttons/decline_up.dds")
-    removeItemControl:SetPressedTexture("/esoui/art/buttons/decline_down.dds")
-    removeItemControl:SetMouseOverTexture("/esoui/art/buttons/decline_over.dds")
-  end
-end
-
-local function unmarkItemFromRemoval(itemID)
-  for i, markedID in pairs(XLGearBanker.UI_ItemsMarkedForRemoval) do
-    if itemID == markedID then
-      table.remove(XLGearBanker.UI_ItemsMarkedForRemoval, i)
-      return
-    end
-  end
-end
 
 function XLGB_UI:RemoveItem(removeItemControl)
   easyDebug("Removing item")
   local itemRowControl = removeItemControl:GetParent()
-  if isItemMarkedForRemoval(itemRowControl.data.itemID) then
-    unmarkItemFromRemoval(itemRowControl.data.itemID)
-  else
-    table.insert(XLGearBanker.UI_ItemsMarkedForRemoval, itemRowControl.data.itemID)
-  end
-  toggleToBeRemoved(itemRowControl)
+  local itemLink = itemRowControl.data.itemLink
+  local itemID = itemRowControl.data.itemID
+  XLGearBanker.itemChanges = true
+  XLGB_GearSet:RemoveItemFromGearSet(itemLink, itemID, XLGearBanker.displayingSet)
 end
 
 local function addEquippedItemsToGearSet()
@@ -389,7 +356,10 @@ local function addEquippedItemsToGearSet()
 end
 
 function XLGB_UI:AddEquippedItemsToSet()
-  libDialog:ShowDialog("XLGearBanker", "AddEquippedItemsToSet", nil)
+  -- libDialog:ShowDialog("XLGearBanker", "AddEquippedItemsToSet", nil)
+  XLGearBanker.itemChanges = true
+  XLGB_GearSet:AddEquippedItemsToGearSet(XLGearBanker.displayingSet)
+  XLGB_UI:UpdateScrollList()
 end
 
 function XLGB_UI:DepositSet()
@@ -426,7 +396,6 @@ local function fillItemRowWithData(control, data)
   control.data = data
   control:GetNamedChild("_Name"):SetText(data.itemLink)
   if XLGearBanker.UI_Editable then
-    toggleToBeRemoved(control)
     control:GetNamedChild("_Remove"):SetHidden(false)
   else 
     control:GetNamedChild("_Remove"):SetHidden(true)
@@ -453,10 +422,10 @@ function XLGB_UI:SetupDialogs()
 
   libDialog:RegisterDialog(
     "XLGearBanker", 
-    "RemoveMarkedItems", 
+    "AcceptChanges", 
     "XL Gear Banker", 
-    "You have marked items for removal from this set.\n\nAre you sure you want these items removed?", 
-    removeItemsMarkedForRemoval, 
+    "You have added/removed items to/from this set.\n\nAre you sure you want to keep these changes?", 
+    acceptChanges, 
     nil,
     nil)
 
@@ -464,7 +433,7 @@ function XLGB_UI:SetupDialogs()
     "XLGearBanker", 
     "DiscardChangesDialog", 
     "XL Gear Banker", 
-    "Looks like you've edited the current set and are about to discard any changes you've made.\n\nAre you sure?", 
+    "Looks like you've edited the current set and are about to discard any changes you've made including recently added/removed items.\n\nAre you sure?", 
     discardChanges, 
     nil,
     nil)
@@ -473,7 +442,7 @@ function XLGB_UI:SetupDialogs()
     "XLGearBanker", 
     "DiscardChangesAndCycleDialog", 
     "XL Gear Banker", 
-    "Looks like you've edited the current set and are about to discard any changes you've made.\n\nAre you sure?", 
+    "Looks like you've edited the current set and are about to discard any changes you've made including recently added/removed items.\n\nAre you sure?", 
     discardChangesAndCycle, 
     nil,
     nil)
@@ -493,6 +462,9 @@ end
 function XLGB_UI:Initialize()
   XLGearBanker.displayingSet = 1
   XLGearBanker.UI_Editable = false
+  XLGearBanker.copyOfSet = {}
+  XLGearBanker.itemChanges = false
+  XLGearBanker.nameChanges = false
   XLGearBanker.UI_ItemsMarkedForRemoval = {}
   XLGB_UI:RestorePosition()
   XLGB_UI:InitializeScrollList()
