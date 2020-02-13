@@ -167,7 +167,7 @@
             </Controls>
           </Button> 
 
-          <Button name="$(parent)_AddEquipped" inherits="ZO_ButtonBehaviorClickSound" hidden="true" >
+          <Button name="$(parent)_AddEquipped" inherits="ZO_ButtonBehaviorClickSound" hidden="false" >
             <OnClicked>XLGB_UI:AddEquippedSet(self)</OnClicked>
             <Dimensions x="300" y="40" />                                
             <Anchor point="BOTTOMLEFT" relativeTo="$(parent)" relativePoint="BOTTOMLEFT" offsetX="0" offsetY="0"  />
