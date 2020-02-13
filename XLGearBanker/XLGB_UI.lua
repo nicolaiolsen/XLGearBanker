@@ -390,13 +390,6 @@ function XLGB_UI:RemoveItem()
   easyDebug("Removing item")
   itemRowControl = removeItemControl:GetParent()
   XLGB_GearSet:RemoveItemFromGearSet()
-  if isItemMarkedForRemoval(itemRowControl.data.itemID) then
-    unmarkItemFromRemoval(itemRowControl.data.itemID)
-  else
-    local markedID = itemRowControl.data.itemID
-    table.insert(XLGearBanker.UI_ItemsMarkedForRemoval, markedID)
-  end
-  toggleToBeRemoved(itemRowControl)
 end
 
 local function addEquippedItemsToGearSet()
