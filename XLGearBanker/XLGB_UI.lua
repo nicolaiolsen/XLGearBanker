@@ -37,7 +37,7 @@ function XLGB_UI:OnBankOpen()
   local withdrawControl = XLGB_Window_Control_ListView:GetNamedChild("_Withdraw")
   local itemAmountControl = XLGB_Window_Control_ListView:GetNamedChild("_ItemAmount")
   local addEquippedControl = XLGB_Window_Control_ListView:GetNamedChild("_AddEquipped")
-  
+
   if(XLGearBanker.UI_Editable) then 
     itemAmountControl:SetAnchor(BOTTOMLEFT, addEquippedControl, TOPLEFT, 0, -10)
     itemAmountControl:SetAnchor(BOTTOMRIGHT, addEquippedControl, TOPRIGHT, 0, -10)
@@ -67,6 +67,10 @@ function XLGB_UI:OnBankClosed()
     itemAmountControl:SetAnchor(BOTTOMLEFT, XLGB_Window_Control_ListView, BOTTOMLEFT, 0, -10)
     itemAmountControl:SetAnchor(BOTTOMRIGHT, XLGB_Window_Control_ListView, BOTTOMRIGHT, 0, -10)
   end
+
+  addEquippedControl:SetAnchor(BOTTOMLEFT, XLGB_Window_Control_ListView, BOTTOMLEFT, 0, -10)
+  addEquippedControl:SetAnchor(BOTTOMRIGHT, XLGB_Window_Control_ListView, BOTTOMRIGHT, 0, -10)
+
   depositControl:SetHidden(true)
   depositControl:SetMouseEnabled(false)
 
