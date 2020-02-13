@@ -89,13 +89,21 @@ local function getAvailableBagSpaces(bag)
 end
 
 local function moveItem(sourceBag, itemIndex, targetBag, availableSpace)
-  zo_callLater(CallSecureProtected("RequestMoveItem", sourceBag, itemIndex, targetBag, availableSpace, 1), 200)
+  local moveSuccesful = false
+  moveSuccesful = CallSecureProtected("RequestMoveItem", sourceBag, itemIndex, targetBag, availableSpace, 1)
+  if moveSuccesful then
+    easyDebug("Item move: Success!")
+  end
+end
+
+local function moveItemDelayed(sourceBag, itemIndex, targetBag, availableSpace)
+  zo_callLater(function () moveItem(sourceBag, itemIndex, targetBag, availableSpace) end, 200)
 end
 
 local function moveGear(sourceBag, itemsToMove, targetBag, availableBagSpaces)
   --Move each item of the specified gearset from sourceBag to targetBag
   for i, itemEntry in ipairs(itemsToMove) do
-    moveItem(sourceBag, itemEntry.index, targetBag, availableBagSpaces[i])
+    moveItemDelayed(sourceBag, itemEntry.index, targetBag, availableBagSpaces[i])
   end
 end
 
@@ -104,13 +112,13 @@ local function moveGearFromTwoBags(sourceBagOne, itemsToMoveOne, sourceBagTwo, i
     -- Stop when there are no more bag spaces,
     -- return bag and index of item that was to be moved next.
     if (#availableBagSpaces < i) then return sourceBagOne, i end
-    moveItem(sourceBagOne, itemEntry.index, targetBag, availableBagSpaces[i])
+    moveItemDelayed(sourceBagOne, itemEntry.index, targetBag, availableBagSpaces[i])
   end
   for i, itemEntry in ipairs(itemsToMoveTwo) do
     -- Stop when there are no more bag spaces,
     -- return bag and index of item that was to be moved next.
     if (#availableBagSpaces < i + #itemsToMoveOne) then return sourceBagTwo, i end
-    moveItem(sourceBagTwo, itemEntry.index, targetBag, availableBagSpaces[i + #itemsToMoveOne])
+    moveItemDelayed(sourceBagTwo, itemEntry.index, targetBag, availableBagSpaces[i + #itemsToMoveOne])
   end
 end
 
