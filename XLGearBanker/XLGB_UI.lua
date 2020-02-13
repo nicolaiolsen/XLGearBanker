@@ -197,6 +197,7 @@ local function discardChanges()
   setEditFalse()
   gearTitleControl:SetText(XLGearBanker.UI_GearSetNameBefore)
   gearTitleControl:SetCursorPosition(0)
+  XLGB_UI:UpdateScrollList()
 end
 
 local function discardChangesAndCycle(dialog)
