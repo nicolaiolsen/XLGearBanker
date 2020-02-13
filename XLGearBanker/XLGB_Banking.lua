@@ -103,7 +103,10 @@ end
 local function moveGear(sourceBag, itemsToMove, targetBag, availableBagSpaces)
   --Move each item of the specified gearset from sourceBag to targetBag
   for i, itemEntry in ipairs(itemsToMove) do
-    moveItemDelayed(sourceBag, itemEntry.index, targetBag, availableBagSpaces[i])
+    zo_callLater(function()
+      moveItem(sourceBag, itemEntry.index, targetBag, availableBagSpaces[i]) end,
+      200
+    )
   end
 end
 
@@ -112,13 +115,19 @@ local function moveGearFromTwoBags(sourceBagOne, itemsToMoveOne, sourceBagTwo, i
     -- Stop when there are no more bag spaces,
     -- return bag and index of item that was to be moved next.
     if (#availableBagSpaces < i) then return sourceBagOne, i end
-    moveItemDelayed(sourceBagOne, itemEntry.index, targetBag, availableBagSpaces[i])
+    zo_callLater(function()
+      moveItem(sourceBagOne, itemEntry.index, targetBag, availableBagSpaces[i]) end,
+      200
+    )
   end
   for i, itemEntry in ipairs(itemsToMoveTwo) do
     -- Stop when there are no more bag spaces,
     -- return bag and index of item that was to be moved next.
     if (#availableBagSpaces < i + #itemsToMoveOne) then return sourceBagTwo, i end
-    moveItemDelayed(sourceBagTwo, itemEntry.index, targetBag, availableBagSpaces[i + #itemsToMoveOne])
+    zo_callLater(function()
+      moveItem(sourceBagTwo, itemEntry.index, targetBag, availableBagSpaces[i + #itemsToMoveOne]) end,
+      200
+    )
   end
 end
 
