@@ -345,7 +345,7 @@ function XLGB_UI:RemoveItem(removeItemControl)
 end
 
 function XLGB_UI:AddEquippedToSet()
-  XLGB_GearSet:AddEquippedToSet(XLGearBanker.displayingSet)
+  XLGB_GearSet:AddEquippedItemsToGearSet(XLGearBanker.displayingSet)
 end
 
 function XLGB_UI:DepositSet()
