@@ -46,6 +46,9 @@ function XLGB_UI:OnBankOpen()
     itemAmountControl:SetAnchor(BOTTOMRIGHT, withdrawControl, TOPRIGHT, 0, -10)
   end
 
+  addEquippedControl:SetAnchor(BOTTOMLEFT, depositControl, TOPLEFT, 0, -10)
+  addEquippedControl:SetAnchor(BOTTOMRIGHT, withdrawControl, TOPRIGHT, 0, -10)
+
   depositControl:SetHidden(false)
   depositControl:SetMouseEnabled(true)
 
@@ -151,15 +154,6 @@ local function setEditTrue()
   itemAmountControl:SetAnchor(BOTTOMRIGHT, addEquippedControl, TOPRIGHT, 0, -10)
 
   addEquippedControl:SetHidden(false)
-  if(XLGB_Banking.bankOpen) then
-    local depositControl = XLGB_Window_Control_ListView:GetNamedChild("_Deposit")
-    local withdrawControl = XLGB_Window_Control_ListView:GetNamedChild("_Withdraw")
-    addEquippedControl:SetAnchor(BOTTOMLEFT, depositControl, TOPLEFT, 0, -10)
-    addEquippedControl:SetAnchor(BOTTOMRIGHT, withdrawControl, TOPRIGHT, 0, -10)
-  else 
-    addEquippedControl:SetAnchor(BOTTOMLEFT, XLGB_Window_Control_ListView, BOTTOMLEFT, 0, -10)
-    addEquippedControl:SetAnchor(BOTTOMRIGHT, XLGB_Window_Control_ListView, BOTTOMRIGHT, 0, -10)
-  end
 
   ZO_ScrollList_RefreshVisible(XLGB_Window_Control_ListView.scrollList)
 end
