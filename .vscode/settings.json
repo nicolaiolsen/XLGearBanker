@@ -79,7 +79,10 @@
         "LibShifterBox",
         "XLGB_Banking_Control",
         "PlaySound",
-        "SOUNDS"
+        "SOUNDS",
+        "ZO_GetNextBagSlotIndex",
+        "CATEGORY_LATE",
+        "LibCustomMenu"
     ],
     "Lua.diagnostics.disable": [
         "lowercase-global",

@@ -70,34 +70,34 @@ end
 
 
 local function OverWriteInventoryShowContextMenuHandler()
-  ZO_PreHook('ZO_InventorySlot_ShowContextMenu', 
-      function(inventorySlot)
-        local slotType = ZO_InventorySlot_GetType(inventorySlot)
-        local itemLink = nil
-        local itemID = nil
+  LibCustomMenu:RegisterContextMenu(
+      function(inventorySlot, slotActions)
         -- Inventory slot should either be the player bag, equipment slots, or the bank.
-        if slotType == SLOT_TYPE_ITEM
-        or slotType == SLOT_TYPE_EQUIPMENT
-        or slotType == SLOT_TYPE_BANK_ITEM then
-          local bag, index = ZO_Inventory_GetBagAndIndex(inventorySlot)
-          itemLink = GetItemLink(bag, index)
-          itemID = Id64ToString(GetItemUniqueId(bag, index))
-          local itemType = GetItemLinkItemType(itemLink)
-          easyDebug("Item ID of " .. itemLink .. ": " .. itemID)
-
-          -- Item should be armor or weapon.
-          if itemType ~= ITEMTYPE_ARMOR
-          and itemType ~= ITEMTYPE_WEAPON then
-            itemLink = nil
-            itemID = nil
-          end
-        end
-        if (itemLink ~= nil) and (itemID ~= nil) then
-          AddContextMenuEntries(itemLink, itemID, inventorySlot)
-        end
-      end
+        local slotTypesAllowed = {
+          [SLOT_TYPE_ITEM] = true,
+          [SLOT_TYPE_EQUIPMENT] = true,
+          [SLOT_TYPE_BANK_ITEM] = true,
+        }
+        local slotType = ZO_InventorySlot_GetType(inventorySlot)
+        if not slotTypesAllowed[slotType] then return end
+        local bag, index = ZO_Inventory_GetBagAndIndex(inventorySlot)
+        if not bag or not index then return end
+        local itemLink = GetItemLink(bag, index)
+        local itemID = Id64ToString(GetItemUniqueId(bag, index))
+        if not itemLink or itemLink == "" or not itemID then return end
+        easyDebug("Item ID of " .. itemLink .. ": " .. itemID)
+        local itemType = GetItemLinkItemType(itemLink)
+        local itemTypesAllowed = {
+          [ITEMTYPE_ARMOR] = true,
+          [ITEMTYPE_WEAPON] = true,
+        }
+        -- Item should be armor or weapon.
+        if not itemTypesAllowed[itemType] then return end
+        AddContextMenuEntries(itemLink, itemID, inventorySlot)
+      end,
+      CATEGORY_LATE
     )
-end
+  end
 
 function XLGB_MenuOverWriter:Initialize()
   OverWriteInventoryShowContextMenuHandler()
