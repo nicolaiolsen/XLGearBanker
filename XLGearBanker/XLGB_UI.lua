@@ -220,7 +220,7 @@ function XLGB_UI:ToggleEdit(editControl)
   end
 end
 
-function XLGB_UI:AddSet(addControl) 
+function XLGB_UI:AddSet(addControl)
   local editControl = XLGB_Window_Control_ListView:GetNamedChild("_Edit")
   if XLGearBanker.UI_Editable then 
     XLGB_UI:ToggleEdit(editControl)
@@ -229,7 +229,7 @@ function XLGB_UI:AddSet(addControl)
   XLGB_GearSet:GenerateNewSet()
   XLGearBanker.displayingSet = XLGB_GearSet:GetNumberOfGearSets()
   XLGB_UI:ChangeDisplayedGearSet(XLGearBanker.displayingSet)
-  
+
   XLGB_UI:ToggleEdit(editControl)
 end
 
@@ -260,7 +260,7 @@ function XLGB_UI:CycleLeft()
     if previousSet <= 0 then
       previousSet = totalSets
     end
-    
+
     if XLGearBanker.UI_Editable then
       if areThereAnyChanges() then
         libDialog:ShowDialog("XLGearBanker", "DiscardChangesAndCycleDialog", previousSet)
@@ -316,7 +316,7 @@ function XLGB_UI:ChangeDisplayedGearSet(gearSetNumber)
   local editControl = XLGB_Window_Control_ListView:GetNamedChild("_Edit")
   local gearTitleControl =  XLGB_Window_Control_ListView:GetNamedChild("_GearTitle")
   local setXofYControl = XLGB_Window_Control_ListView:GetNamedChild("_SetXofY")
-  
+
 
   if totalGearSets == 0 then
     editControl:SetHidden(true)
@@ -370,6 +370,14 @@ function XLGB_UI:WithdrawSet()
   XLGB_Banking:WithdrawGear(XLGearBanker.displayingSet)
 end
 
+local function ShowTooltip(self)
+  InitializeTooltip(ItemTooltip, self)
+  ItemTooltip:SetLink(self.itemLink)
+end
+
+local function HideTooltip(self)
+  ClearTooltip(ItemTooltip)
+end
 
 function XLGB_UI:UpdateScrollList()
   local scrollList = XLGB_Window_Control_ListView:GetNamedChild("_ScrollList")
@@ -385,6 +393,8 @@ function XLGB_UI:UpdateScrollList()
         itemLink = item.link,
         itemID = item.ID
       })
+      dataEntry:SetHandler("OnMouseEnter", ShowTooltip)
+      dataEntry:SetHandler("OnMouseExit", HideTooltip)
       table.insert(scrollData, dataEntry)
     end
     itemAmountControl:SetText("Total items in set: ".. #XLGB_GearSet:GetGearSet(XLGearBanker.displayingSet).items)

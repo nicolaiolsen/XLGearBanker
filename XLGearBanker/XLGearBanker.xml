@@ -41,9 +41,9 @@
               <Dimensions x="30" y="30" />                  
               <Anchor point="TOPRIGHT" relativeTo="$(parent)" relativePoint="TOPRIGHT"  offsetX="-45" offsetY="0" />
               <Textures
-                  normal     ="/esoui/art/buttons/rightarrow_up.dds"
-                  pressed    ="/esoui/art/buttons/rightarrow_down.dds"
-                  mouseOver  ="/esoui/art/buttons/rightarrow_over.dds"
+                  normal     ="/esoui/art/buttons/dropbox_arrow_normal.dds"
+                  pressed    ="/esoui/art/buttons/dropbox_arrow_mousedown.dds"
+                  mouseOver  ="/esoui/art/buttons/dropbox_arrow_mouseover.dds"
                 />  
             </Button>
 

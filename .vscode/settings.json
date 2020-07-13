@@ -82,7 +82,10 @@
         "SOUNDS",
         "ZO_GetNextBagSlotIndex",
         "CATEGORY_LATE",
-        "LibCustomMenu"
+        "LibCustomMenu",
+        "ClearTooltip",
+        "ItemTooltip",
+        "InitializeTooltip"
     ],
     "Lua.diagnostics.disable": [
         "lowercase-global",
