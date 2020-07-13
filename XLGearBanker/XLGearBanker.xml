@@ -74,8 +74,8 @@
         </Button>
 
         <Control name="$(parent)_Page" inherits="ZO_ComboBox">
-          <Anchor point="TOPLEFT" relativeTo="$(parent)" relativePoint="TOPLEFT" offsetX="0" offsetY="10" />
-          <Anchor point="TOPRIGHT" relativeTo="$(parent)_AddPage" relativePoint="TOPLEFT" offsetX="-10" offsetY="-5" />
+          <Anchor point="TOPLEFT" relativeTo="$(parent)" relativePoint="TOPLEFT" offsetX="10" offsetY="10" />
+          <Anchor point="TOPRIGHT" relativeTo="$(parent)_EditPage" relativePoint="TOPLEFT" offsetX="-10" offsetY="-5" />
         </Control>
 
       </Controls>
