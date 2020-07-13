@@ -21,7 +21,7 @@
 
         <!-- Title -->
         <Label name="$(parent)_Title" font="ZoFontAnnounceMedium" text="XL Gear Banker" mouseEnabled="true">
-          <Anchor point="TOP" relativeTo="$(parent)" relativePoint="TOPLEFT" offsetX="10" offsetY="10"  />
+          <Anchor point="TOPLEFT" relativeTo="$(parent)" relativePoint="TOPLEFT" offsetX="10" offsetY="10"  />
         </Label>
 
         <!-- Escape button:-->
@@ -45,7 +45,7 @@
     <Control name="$(parent)_PageRow" mouseEnabled="true" resizeToFitDescendents="false">
       <DimensionConstraints  minY="30"/>
       <Anchor point="TOPLEFT" relativeTo="$(parent)_TitleRow" relativePoint="BOTTOMLEFT" offsetX="0" offsetY="20"/>
-      <Anchor point="TOPRIGHT" relativeTo="$(parent)" relativePoint="BOTTOMRIGHT" offsetX="0" offsetY="20"/>
+      <Anchor point="TOPRIGHT" relativeTo="$(parent)_TitleRow" relativePoint="BOTTOMRIGHT" offsetX="0" offsetY="20"/>
       <Controls>
 
         <Control name="$(parent)_Page" inherits="ZO_ComboBox">
@@ -92,12 +92,12 @@
     -->
     <Control name="$(parent)_BankRow" mouseEnabled="true" resizeToFitDescendents="false">
       <DimensionConstraints  minY="30"/>
-      <Anchor point="BOTTOMLEFT" relativeTo="$(parent)_TotalPageItemsRow" relativePoint="TOPLEFT" offsetX="0" offsetY="20"/>
-      <Anchor point="BOTTOMRIGHT" relativeTo="$(parent)" relativePoint="TOPRIGHT" offsetX="0" offsetY="20"/>
+      <Anchor point="BOTTOMLEFT" relativeTo="$(parent)_TotalPageItemsRow" relativePoint="TOPLEFT" offsetX="0" offsetY="-20"/>
+      <Anchor point="BOTTOMRIGHT" relativeTo="$(parent)_TotalPageItemsRow" relativePoint="TOPRIGHT" offsetX="0" offsetY="-20"/>
       <Controls>
 
         <!-- Deposit Set Button -->
-        <Button name="$(parent)_DepositAll" inherits="ZO_ButtonBehaviorClickSound" hidden="true" >
+        <Button name="$(parent)_DepositAll" inherits="ZO_ButtonBehaviorClickSound" hidden="false" >
           <OnClicked></OnClicked>
           <Dimensions x="120" y="40" />                                
           <Anchor point="BOTTOMLEFT" relativeTo="$(parent)" relativePoint="BOTTOMLEFT" offsetX="0" offsetY="0"  />
@@ -116,7 +116,7 @@
         </Button> 
 
         <!-- Withdraw Set Button -->
-        <Button name="$(parent)_WithdrawAll" inherits="ZO_ButtonBehaviorClickSound" hidden="true" >
+        <Button name="$(parent)_WithdrawAll" inherits="ZO_ButtonBehaviorClickSound" hidden="false" >
           <OnClicked></OnClicked>
           <Dimensions x="120" y="40" />                                
           <Anchor point="BOTTOMRIGHT" relativeTo="$(parent)" relativePoint="BOTTOMRIGHT" offsetX="0" offsetY="0"  />
