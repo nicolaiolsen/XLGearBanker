@@ -321,7 +321,7 @@ function XLGB_UI:ChangeDisplayedGearSet(gearSetNumber)
     XLGB_UI:UpdateScrollList()
   else
     if XLGB_GearSet:ValidGearSetNumber(gearSetNumber, totalGearSets) then
-      XLGB_UI:SetGearNameLabel(tonumber(gearSetNumber))
+      -- XLGB_UI:SetGearNameLabel(tonumber(gearSetNumber))
       if not(XLGearBanker.UI_Editable) then
       end
       editSet:SetHidden(false)
