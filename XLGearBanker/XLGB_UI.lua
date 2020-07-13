@@ -393,8 +393,6 @@ function XLGB_UI:UpdateScrollList()
         itemLink = item.link,
         itemID = item.ID
       })
-      dataEntry:SetHandler("OnMouseEnter", ShowTooltip)
-      dataEntry:SetHandler("OnMouseExit", HideTooltip)
       table.insert(scrollData, dataEntry)
     end
     itemAmountControl:SetText("Total items in set: ".. #XLGB_GearSet:GetGearSet(XLGearBanker.displayingSet).items)
@@ -405,6 +403,8 @@ end
 local function fillItemRowWithData(control, data)
   control.data = data
   control:GetNamedChild("_Name"):SetText(data.itemLink)
+  control:SetHandler("OnMouseEnter", ShowTooltip)
+  control:SetHandler("OnMouseExit", HideTooltip)
   if XLGearBanker.UI_Editable then
     control:GetNamedChild("_Remove"):SetHidden(false)
   else 
