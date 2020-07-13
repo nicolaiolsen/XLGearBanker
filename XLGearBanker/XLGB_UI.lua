@@ -371,7 +371,7 @@ local function HideItemTooltip(control)
 end
 
 function XLGB_UI:UpdateScrollList()
-  local scrollList = XLGB_SetWindow_ScrollList
+  local scrollList = XLGB_SetWindow.scrollList
   local totalSetItems = XLGB_SetWindow_TotalSetItemsRow_TotalSetItems
   local scrollData = ZO_ScrollList_GetDataList(scrollList)
   ZO_ScrollList_Clear(scrollList)
@@ -405,7 +405,7 @@ local function fillItemRowWithData(control, data)
 end
 
 function XLGB_UI:InitializeScrollList()
-  XLGB_SetWindow.scrollList = XLGB_SetWindow_ScrollList
+  XLGB_SetWindow.scrollList = XLGB_SetWindow:GetNamedChild("_ScrollList")
   ZO_ScrollList_AddDataType(XLGB_SetWindow.scrollList, XLGB_Constants.ITEM_ROW, "XLGB_Item_Row_Template", 35, fillItemRowWithData)
   ZO_ScrollList_EnableHighlight(XLGB_SetWindow.scrollList, "ZO_ThinListHighlight")
   XLGB_UI:UpdateScrollList()
