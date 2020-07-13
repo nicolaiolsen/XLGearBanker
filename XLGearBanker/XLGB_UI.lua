@@ -33,52 +33,52 @@ function XLGB_UI:HideUI()
 end
 
 function XLGB_UI:OnBankOpen()
-  local depositControl = XLGB_SetWindow_ListView:GetNamedChild("_Deposit")
-  local withdrawControl = XLGB_SetWindow_ListView:GetNamedChild("_Withdraw")
-  local itemAmountControl = XLGB_SetWindow_ListView:GetNamedChild("_ItemAmount")
-  local addEquippedControl = XLGB_SetWindow_ListView:GetNamedChild("_AddEquipped")
+  -- local depositControl = XLGB_SetWindow_ListView:GetNamedChild("_Deposit")
+  -- local withdrawControl = XLGB_SetWindow_ListView:GetNamedChild("_Withdraw")
+  -- local itemAmountControl = XLGB_SetWindow_ListView:GetNamedChild("_ItemAmount")
+  -- local addEquippedControl = XLGB_SetWindow_ListView:GetNamedChild("_AddEquipped")
 
-  if(XLGearBanker.UI_Editable) then 
-    itemAmountControl:SetAnchor(BOTTOMLEFT, addEquippedControl, TOPLEFT, 0, -10)
-    itemAmountControl:SetAnchor(BOTTOMRIGHT, addEquippedControl, TOPRIGHT, 0, -10)
-  else
-    itemAmountControl:SetAnchor(BOTTOMLEFT, depositControl, TOPLEFT, 0, -10)
-    itemAmountControl:SetAnchor(BOTTOMRIGHT, withdrawControl, TOPRIGHT, 0, -10)
-  end
+  -- if(XLGearBanker.UI_Editable) then 
+  --   itemAmountControl:SetAnchor(BOTTOMLEFT, addEquippedControl, TOPLEFT, 0, -10)
+  --   itemAmountControl:SetAnchor(BOTTOMRIGHT, addEquippedControl, TOPRIGHT, 0, -10)
+  -- else
+  --   itemAmountControl:SetAnchor(BOTTOMLEFT, depositControl, TOPLEFT, 0, -10)
+  --   itemAmountControl:SetAnchor(BOTTOMRIGHT, withdrawControl, TOPRIGHT, 0, -10)
+  -- end
 
-  addEquippedControl:SetAnchor(BOTTOMLEFT, depositControl, TOPLEFT, 0, -10)
-  addEquippedControl:SetAnchor(BOTTOMRIGHT, withdrawControl, TOPRIGHT, 0, -10)
+  -- addEquippedControl:SetAnchor(BOTTOMLEFT, depositControl, TOPLEFT, 0, -10)
+  -- addEquippedControl:SetAnchor(BOTTOMRIGHT, withdrawControl, TOPRIGHT, 0, -10)
 
-  depositControl:SetHidden(false)
-  depositControl:SetMouseEnabled(true)
+  -- depositControl:SetHidden(false)
+  -- depositControl:SetMouseEnabled(true)
 
-  withdrawControl:SetHidden(false)
-  withdrawControl:SetMouseEnabled(true)
+  -- withdrawControl:SetHidden(false)
+  -- withdrawControl:SetMouseEnabled(true)
   XLGB_UI:ShowUI()
 end
 
 function XLGB_UI:OnBankClosed()
-  local depositControl = XLGB_SetWindow_ListView:GetNamedChild("_Deposit")
-  local withdrawControl = XLGB_SetWindow_ListView:GetNamedChild("_Withdraw")
-  local itemAmountControl = XLGB_SetWindow_ListView:GetNamedChild("_ItemAmount")
-  local addEquippedControl = XLGB_SetWindow_ListView:GetNamedChild("_AddEquipped")
+  -- local depositControl = XLGB_SetWindow_ListView:GetNamedChild("_Deposit")
+  -- local withdrawControl = XLGB_SetWindow_ListView:GetNamedChild("_Withdraw")
+  -- local itemAmountControl = XLGB_SetWindow_ListView:GetNamedChild("_ItemAmount")
+  -- local addEquippedControl = XLGB_SetWindow_ListView:GetNamedChild("_AddEquipped")
 
-  if(XLGearBanker.UI_Editable) then 
-    itemAmountControl:SetAnchor(BOTTOMLEFT, addEquippedControl, TOPLEFT, 0, -10)
-    itemAmountControl:SetAnchor(BOTTOMRIGHT, addEquippedControl, TOPRIGHT, 0, -10)
-  else
-    itemAmountControl:SetAnchor(BOTTOMLEFT, XLGB_SetWindow_ListView, BOTTOMLEFT, 0, -10)
-    itemAmountControl:SetAnchor(BOTTOMRIGHT, XLGB_SetWindow_ListView, BOTTOMRIGHT, 0, -10)
-  end
+  -- if(XLGearBanker.UI_Editable) then 
+  --   itemAmountControl:SetAnchor(BOTTOMLEFT, addEquippedControl, TOPLEFT, 0, -10)
+  --   itemAmountControl:SetAnchor(BOTTOMRIGHT, addEquippedControl, TOPRIGHT, 0, -10)
+  -- else
+  --   itemAmountControl:SetAnchor(BOTTOMLEFT, XLGB_SetWindow_ListView, BOTTOMLEFT, 0, -10)
+  --   itemAmountControl:SetAnchor(BOTTOMRIGHT, XLGB_SetWindow_ListView, BOTTOMRIGHT, 0, -10)
+  -- end
 
-  addEquippedControl:SetAnchor(BOTTOMLEFT, XLGB_SetWindow_ListView, BOTTOMLEFT, 0, -10)
-  addEquippedControl:SetAnchor(BOTTOMRIGHT, XLGB_SetWindow_ListView, BOTTOMRIGHT, 0, -10)
+  -- addEquippedControl:SetAnchor(BOTTOMLEFT, XLGB_SetWindow_ListView, BOTTOMLEFT, 0, -10)
+  -- addEquippedControl:SetAnchor(BOTTOMRIGHT, XLGB_SetWindow_ListView, BOTTOMRIGHT, 0, -10)
 
-  depositControl:SetHidden(true)
-  depositControl:SetMouseEnabled(false)
+  -- depositControl:SetHidden(true)
+  -- depositControl:SetMouseEnabled(false)
 
-  withdrawControl:SetHidden(true)
-  withdrawControl:SetMouseEnabled(false)
+  -- withdrawControl:SetHidden(true)
+  -- withdrawControl:SetMouseEnabled(false)
   XLGB_UI:HideUI()
 end
 
@@ -380,11 +380,11 @@ local function HideItemTooltip(control)
 end
 
 function XLGB_UI:UpdateScrollList()
-  local scrollList = XLGB_SetWindow_ListView:GetNamedChild("_ScrollList")
-  local itemAmountControl = XLGB_SetWindow_ListView:GetNamedChild("_ItemAmount")
+  local scrollList = XLGB_SetWindow_ScrollList
+  local totalSetItems = XLGB_SetWindow_TotalSetItemsRow_TotalSetItems
   local scrollData = ZO_ScrollList_GetDataList(scrollList)
   ZO_ScrollList_Clear(scrollList)
-  itemAmountControl:SetText("Total items in set: 0")
+  totalSetItems:SetText("Total items in set: 0")
   if XLGB_GearSet:GetNumberOfGearSets() > 0 then
     local gearSet = XLGB_GearSet:GetGearSet(XLGearBanker.displayingSet)
     for _, item in pairs(gearSet.items) do
@@ -395,9 +395,9 @@ function XLGB_UI:UpdateScrollList()
       })
       table.insert(scrollData, dataEntry)
     end
-    itemAmountControl:SetText("Total items in set: ".. #XLGB_GearSet:GetGearSet(XLGearBanker.displayingSet).items)
+    totalSetItems:SetText("Total items in set: ".. #XLGB_GearSet:GetGearSet(XLGearBanker.displayingSet).items)
   end
-  ZO_ScrollList_Commit(XLGB_SetWindow_ListView.scrollList)
+  ZO_ScrollList_Commit(XLGB_SetWindow.scrollList)
 end
 
 local function fillItemRowWithData(control, data)
@@ -414,9 +414,9 @@ local function fillItemRowWithData(control, data)
 end
 
 function XLGB_UI:InitializeScrollList()
-  XLGB_SetWindow_ListView.scrollList = XLGB_SetWindow_ListView:GetNamedChild("_ScrollList")
-  ZO_ScrollList_AddDataType(XLGB_SetWindow_ListView.scrollList, XLGB_Constants.ITEM_ROW, "XLGB_Item_Row_Template", 35, fillItemRowWithData)
-  ZO_ScrollList_EnableHighlight(XLGB_SetWindow_ListView.scrollList, "ZO_ThinListHighlight")
+  XLGB_SetWindow.scrollList = XLGB_SetWindow_ScrollList
+  ZO_ScrollList_AddDataType(XLGB_SetWindow.scrollList, XLGB_Constants.ITEM_ROW, "XLGB_Item_Row_Template", 35, fillItemRowWithData)
+  ZO_ScrollList_EnableHighlight(XLGB_SetWindow.scrollList, "ZO_ThinListHighlight")
   XLGB_UI:UpdateScrollList()
 end
 
