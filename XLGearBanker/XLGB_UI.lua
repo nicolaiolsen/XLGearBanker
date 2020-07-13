@@ -372,7 +372,7 @@ end
 
 local function ShowTooltip(self)
   InitializeTooltip(ItemTooltip, self)
-  ItemTooltip:SetLink(self.itemLink)
+  ItemTooltip:SetLink(self.data.itemLink)
 end
 
 local function HideTooltip(self)
