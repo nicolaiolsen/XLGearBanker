@@ -318,7 +318,7 @@
 
     <Control name="$(parent)_ScrollList" inherits="ZO_ScrollList">
       <Anchor point="TOPLEFT" relativeTo="$(parent)_SetRow" relativePoint="BOTTOMLEFT" offsetX="0" offsetY="10" />
-      <Anchor point="BOTTOMRIGHT" relativeTo="$(parent)_BankRow" relativePoint="TOPRIGHT" offsetX="20" offsetY="-10" />
+      <Anchor point="BOTTOMRIGHT" relativeTo="$(parent)_AddItemsRow" relativePoint="TOPRIGHT" offsetX="20" offsetY="-10" />
     </Control>
 
   </Controls>
