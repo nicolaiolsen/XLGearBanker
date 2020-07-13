@@ -89,8 +89,8 @@
     -->
     <Control name="$(parent)_TotalPageItemsRow" mouseEnabled="true" resizeToFitDescendents="false">
       <DimensionConstraints  minY="30"/>
-      <Anchor point="BOTTOMLEFT" relativeTo="$(parent)" relativePoint="BOTTOMLEFT" offsetX="0" offsetY="20"/>
-      <Anchor point="BOTTOMRIGHT" relativeTo="$(parent)" relativePoint="BOTTOMRIGHT" offsetX="0" offsetY="20"/>
+      <Anchor point="BOTTOMLEFT" relativeTo="$(parent)" relativePoint="BOTTOMLEFT" offsetX="0" offsetY="0"/>
+      <Anchor point="BOTTOMRIGHT" relativeTo="$(parent)" relativePoint="BOTTOMRIGHT" offsetX="0" offsetY="0"/>
       <Controls>
 
         <Label name="$(parent)_TotalPageItems" font="ZoFontWinT2" text="Total items: 0" linkEnabled="true">
@@ -268,6 +268,23 @@
     <!-- Scroll List  is on the bottom !!! -->
 
     <!-- 
+      TOTAL SET ITEMS ROW 
+    -->
+    <Control name="$(parent)_TotalSetItemsRow" mouseEnabled="true" resizeToFitDescendents="false">
+      <DimensionConstraints  minY="30"/>
+      <Anchor point="BOTTOMLEFT" relativeTo="$(parent)" relativePoint="BOTTOMLEFT" offsetX="0" offsetY="0"/>
+      <Anchor point="BOTTOMRIGHT" relativeTo="$(parent)" relativePoint="BOTTOMRIGHT" offsetX="0" offsetY="0"/>
+      <Controls>
+
+        <Label name="$(parent)_TotalSetItems" font="ZoFontWinT2" text="Total items: 0" linkEnabled="true">
+          <Anchor point="TOPLEFT" relativeTo="$(parent)" relativePoint="TOPLEFT" offsetX="30" offsetY="-10" />
+        </Label>
+
+      </Controls>
+    </Control>
+    <!-- Total Set Items Row end -->
+
+    <!-- 
       ADD ITEMS ROW 
     -->
     <Control name="$(parent)_AddItemsRow" mouseEnabled="true" resizeToFitDescendents="false">
@@ -298,23 +315,6 @@
       </Controls>
     </Control> 
     <!-- Add Items Row end-->
-
-    <!-- 
-      TOTAL SET ITEMS ROW 
-    -->
-    <Control name="$(parent)_TotalSetItemsRow" mouseEnabled="true" resizeToFitDescendents="false">
-      <DimensionConstraints  minY="30"/>
-      <Anchor point="BOTTOMLEFT" relativeTo="$(parent)" relativePoint="BOTTOMLEFT" offsetX="0" offsetY="20"/>
-      <Anchor point="BOTTOMRIGHT" relativeTo="$(parent)" relativePoint="BOTTOMRIGHT" offsetX="0" offsetY="20"/>
-      <Controls>
-
-        <Label name="$(parent)_TotalSetItems" font="ZoFontWinT2" text="Total items: 0" linkEnabled="true">
-          <Anchor point="TOPLEFT" relativeTo="$(parent)" relativePoint="TOPLEFT" offsetX="30" offsetY="-10" />
-        </Label>
-
-      </Controls>
-    </Control>
-    <!-- Total Set Items Row end -->
 
     <Control name="$(parent)_ScrollList" inherits="ZO_ScrollList">
       <Anchor point="TOPLEFT" relativeTo="$(parent)_SetRow" relativePoint="BOTTOMLEFT" offsetX="0" offsetY="10" />
