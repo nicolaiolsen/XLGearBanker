@@ -396,7 +396,7 @@
     <Control name="XLGB_Item_Row_Template" virtual="true" >
       <Controls>
 
-        <Label name="$(parent)_Name" font="ZoFontWinT2" text="Some Test Label" linkEnabled="true" mouseEnabled="true">
+        <Label name="$(parent)_Name" font="ZoFontWinT2" text="Some Test Label" linkEnabled="true" mouseEnabled="false">
               <Anchor point="TOPLEFT" offsetX="10" offsetY="10" />
         </Label>
 
