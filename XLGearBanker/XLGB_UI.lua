@@ -2,21 +2,21 @@ XLGB_UI = {}
 
 local libDialog = LibDialog
 
-function XLGB_UI:XLGB_Window_Control_OnMoveStop()
-  XLGearBanker.savedVariables.main_ui_left = XLGB_Window_Control:GetLeft()
-  XLGearBanker.savedVariables.main_ui_top = XLGB_Window_Control:GetTop()
+function XLGB_UI:XLGB_SetWindow_OnMoveStop()
+  XLGearBanker.savedVariables.main_ui_left = XLGB_SetWindow:GetLeft()
+  XLGearBanker.savedVariables.main_ui_top = XLGB_SetWindow:GetTop()
 end
 
 function XLGB_UI:RestorePosition()
   local left = XLGearBanker.savedVariables.main_ui_left
   local top = XLGearBanker.savedVariables.main_ui_top
 
-  XLGB_Window_Control:ClearAnchors()
-  XLGB_Window_Control:SetAnchor(TOPLEFT, GuiRoot, TOPLEFT, left, top)
+  XLGB_SetWindow:ClearAnchors()
+  XLGB_SetWindow:SetAnchor(TOPLEFT, GuiRoot, TOPLEFT, left, top)
 end
 
 function XLGB_UI:ToggleUI()
-  if XLGB_Window_Control:IsHidden() then
+  if XLGB_SetWindow:IsHidden() then
     XLGB_UI:ShowUI()
   else
     XLGB_UI:HideUI()
@@ -25,18 +25,18 @@ end
 
 function XLGB_UI:ShowUI()
   XLGB_UI:ChangeDisplayedGearSet(XLGearBanker.displayingSet)
-  XLGB_Window_Control:SetHidden(false)
+  XLGB_SetWindow:SetHidden(false)
 end
 
 function XLGB_UI:HideUI()
-  XLGB_Window_Control:SetHidden(true)
+  XLGB_SetWindow:SetHidden(true)
 end
 
 function XLGB_UI:OnBankOpen()
-  local depositControl = XLGB_Window_Control_ListView:GetNamedChild("_Deposit")
-  local withdrawControl = XLGB_Window_Control_ListView:GetNamedChild("_Withdraw")
-  local itemAmountControl = XLGB_Window_Control_ListView:GetNamedChild("_ItemAmount")
-  local addEquippedControl = XLGB_Window_Control_ListView:GetNamedChild("_AddEquipped")
+  local depositControl = XLGB_SetWindow_ListView:GetNamedChild("_Deposit")
+  local withdrawControl = XLGB_SetWindow_ListView:GetNamedChild("_Withdraw")
+  local itemAmountControl = XLGB_SetWindow_ListView:GetNamedChild("_ItemAmount")
+  local addEquippedControl = XLGB_SetWindow_ListView:GetNamedChild("_AddEquipped")
 
   if(XLGearBanker.UI_Editable) then 
     itemAmountControl:SetAnchor(BOTTOMLEFT, addEquippedControl, TOPLEFT, 0, -10)
@@ -58,21 +58,21 @@ function XLGB_UI:OnBankOpen()
 end
 
 function XLGB_UI:OnBankClosed()
-  local depositControl = XLGB_Window_Control_ListView:GetNamedChild("_Deposit")
-  local withdrawControl = XLGB_Window_Control_ListView:GetNamedChild("_Withdraw")
-  local itemAmountControl = XLGB_Window_Control_ListView:GetNamedChild("_ItemAmount")
-  local addEquippedControl = XLGB_Window_Control_ListView:GetNamedChild("_AddEquipped")
+  local depositControl = XLGB_SetWindow_ListView:GetNamedChild("_Deposit")
+  local withdrawControl = XLGB_SetWindow_ListView:GetNamedChild("_Withdraw")
+  local itemAmountControl = XLGB_SetWindow_ListView:GetNamedChild("_ItemAmount")
+  local addEquippedControl = XLGB_SetWindow_ListView:GetNamedChild("_AddEquipped")
 
   if(XLGearBanker.UI_Editable) then 
     itemAmountControl:SetAnchor(BOTTOMLEFT, addEquippedControl, TOPLEFT, 0, -10)
     itemAmountControl:SetAnchor(BOTTOMRIGHT, addEquippedControl, TOPRIGHT, 0, -10)
   else
-    itemAmountControl:SetAnchor(BOTTOMLEFT, XLGB_Window_Control_ListView, BOTTOMLEFT, 0, -10)
-    itemAmountControl:SetAnchor(BOTTOMRIGHT, XLGB_Window_Control_ListView, BOTTOMRIGHT, 0, -10)
+    itemAmountControl:SetAnchor(BOTTOMLEFT, XLGB_SetWindow_ListView, BOTTOMLEFT, 0, -10)
+    itemAmountControl:SetAnchor(BOTTOMRIGHT, XLGB_SetWindow_ListView, BOTTOMRIGHT, 0, -10)
   end
 
-  addEquippedControl:SetAnchor(BOTTOMLEFT, XLGB_Window_Control_ListView, BOTTOMLEFT, 0, -10)
-  addEquippedControl:SetAnchor(BOTTOMRIGHT, XLGB_Window_Control_ListView, BOTTOMRIGHT, 0, -10)
+  addEquippedControl:SetAnchor(BOTTOMLEFT, XLGB_SetWindow_ListView, BOTTOMLEFT, 0, -10)
+  addEquippedControl:SetAnchor(BOTTOMRIGHT, XLGB_SetWindow_ListView, BOTTOMRIGHT, 0, -10)
 
   depositControl:SetHidden(true)
   depositControl:SetMouseEnabled(false)
@@ -87,7 +87,7 @@ function XLGB_UI:SelectEntireTextbox(gearTitleControl)
 end
 
 local function areThereAnyChanges()
-  local gearTitleControl = XLGB_Window_Control_ListView:GetNamedChild("_GearTitle")
+  local gearTitleControl = XLGB_SetWindow_ListView:GetNamedChild("_GearTitle")
   if (gearTitleControl:GetText() == XLGearBanker.UI_GearSetNameBefore) 
   and not(XLGearBanker.itemChanges) then 
     return false
@@ -96,12 +96,12 @@ local function areThereAnyChanges()
 end
 
 local function setEditFalse()
-  local editControl = XLGB_Window_Control_ListView:GetNamedChild("_Edit")
-  local gearTitleControl = XLGB_Window_Control_ListView:GetNamedChild("_GearTitle")
-  local acceptControl = XLGB_Window_Control_ListView:GetNamedChild("_AcceptEdit")
-  local removeControl = XLGB_Window_Control_ListView:GetNamedChild("_RemoveSet")
-  local addEquippedControl = XLGB_Window_Control_ListView:GetNamedChild("_AddEquipped")
-  local itemAmountControl = XLGB_Window_Control_ListView:GetNamedChild("_ItemAmount")
+  local editControl = XLGB_SetWindow_ListView:GetNamedChild("_Edit")
+  local gearTitleControl = XLGB_SetWindow_ListView:GetNamedChild("_GearTitle")
+  local acceptControl = XLGB_SetWindow_ListView:GetNamedChild("_AcceptEdit")
+  local removeControl = XLGB_SetWindow_ListView:GetNamedChild("_RemoveSet")
+  local addEquippedControl = XLGB_SetWindow_ListView:GetNamedChild("_AddEquipped")
+  local itemAmountControl = XLGB_SetWindow_ListView:GetNamedChild("_ItemAmount")
 
   XLGearBanker.UI_Editable = false
   gearTitleControl:ClearSelection()
@@ -118,24 +118,24 @@ local function setEditFalse()
   addEquippedControl:SetHidden(true)
 
   if(XLGB_Banking.bankOpen) then
-    local depositControl = XLGB_Window_Control_ListView:GetNamedChild("_Deposit")
-    local withdrawControl = XLGB_Window_Control_ListView:GetNamedChild("_Withdraw")
+    local depositControl = XLGB_SetWindow_ListView:GetNamedChild("_Deposit")
+    local withdrawControl = XLGB_SetWindow_ListView:GetNamedChild("_Withdraw")
     itemAmountControl:SetAnchor(BOTTOMLEFT, depositControl, TOPLEFT, 0, -10)
     itemAmountControl:SetAnchor(BOTTOMRIGHT, withdrawControl, TOPRIGHT, 0, -10)
   else
-    itemAmountControl:SetAnchor(BOTTOMLEFT, XLGB_Window_Control_ListView, BOTTOMLEFT, 0, -10)
-    itemAmountControl:SetAnchor(BOTTOMRIGHT, XLGB_Window_Control_ListView, BOTTOMRIGHT, 0, -10)
+    itemAmountControl:SetAnchor(BOTTOMLEFT, XLGB_SetWindow_ListView, BOTTOMLEFT, 0, -10)
+    itemAmountControl:SetAnchor(BOTTOMRIGHT, XLGB_SetWindow_ListView, BOTTOMRIGHT, 0, -10)
   end
-  ZO_ScrollList_RefreshVisible(XLGB_Window_Control_ListView.scrollList)
+  ZO_ScrollList_RefreshVisible(XLGB_SetWindow_ListView.scrollList)
 end
 
 local function setEditTrue()
-  local editControl = XLGB_Window_Control_ListView:GetNamedChild("_Edit")
-  local gearTitleControl = XLGB_Window_Control_ListView:GetNamedChild("_GearTitle")
-  local acceptControl = XLGB_Window_Control_ListView:GetNamedChild("_AcceptEdit")
-  local removeControl = XLGB_Window_Control_ListView:GetNamedChild("_RemoveSet")
-  local addEquippedControl = XLGB_Window_Control_ListView:GetNamedChild("_AddEquipped")
-  local itemAmountControl = XLGB_Window_Control_ListView:GetNamedChild("_ItemAmount")
+  local editControl = XLGB_SetWindow_ListView:GetNamedChild("_Edit")
+  local gearTitleControl = XLGB_SetWindow_ListView:GetNamedChild("_GearTitle")
+  local acceptControl = XLGB_SetWindow_ListView:GetNamedChild("_AcceptEdit")
+  local removeControl = XLGB_SetWindow_ListView:GetNamedChild("_RemoveSet")
+  local addEquippedControl = XLGB_SetWindow_ListView:GetNamedChild("_AddEquipped")
+  local itemAmountControl = XLGB_SetWindow_ListView:GetNamedChild("_ItemAmount")
 
   XLGearBanker.UI_Editable = true
   XLGearBanker.UI_GearSetNameBefore = gearTitleControl:GetText()
@@ -155,7 +155,7 @@ local function setEditTrue()
 
   addEquippedControl:SetHidden(false)
 
-  ZO_ScrollList_RefreshVisible(XLGB_Window_Control_ListView.scrollList)
+  ZO_ScrollList_RefreshVisible(XLGB_SetWindow_ListView.scrollList)
 end
 
 local function acceptChanges()
@@ -165,7 +165,7 @@ local function acceptChanges()
 end
 
 function XLGB_UI:AcceptEdit(acceptControl)
-  local gearTitleControl = XLGB_Window_Control_ListView:GetNamedChild("_GearTitle")
+  local gearTitleControl = XLGB_SetWindow_ListView:GetNamedChild("_GearTitle")
   local newGearName = gearTitleControl:GetText()
 
   if newGearName == XLGearBanker.UI_GearSetNameBefore then
@@ -185,11 +185,11 @@ function XLGB_UI:AcceptEdit(acceptControl)
       end
     end
   end
-  ZO_ScrollList_RefreshVisible(XLGB_Window_Control_ListView.scrollList)
+  ZO_ScrollList_RefreshVisible(XLGB_SetWindow_ListView.scrollList)
 end
 
 local function discardChanges()
-  local gearTitleControl = XLGB_Window_Control_ListView:GetNamedChild("_GearTitle")
+  local gearTitleControl = XLGB_SetWindow_ListView:GetNamedChild("_GearTitle")
 
   XLGearBanker.savedVariables.gearSetList[XLGearBanker.displayingSet] = XLGearBanker.copyOfSet
   XLGearBanker.copyOfSet = {}
@@ -221,7 +221,7 @@ function XLGB_UI:ToggleEdit(editControl)
 end
 
 function XLGB_UI:AddSet(addControl)
-  local editControl = XLGB_Window_Control_ListView:GetNamedChild("_Edit")
+  local editControl = XLGB_SetWindow_ListView:GetNamedChild("_Edit")
   if XLGearBanker.UI_Editable then 
     XLGB_UI:ToggleEdit(editControl)
   end
@@ -307,15 +307,15 @@ function XLGB_UI:SetGearNameLabel(gearSetNumber)
     local gearSetName = XLGB_GearSet:GetGearSet(gearSetNumber).name
 
     easyDebug("Setting gear name label to: " .. gearSetName)
-    XLGB_Window_Control_ListView_GearTitle:SetText(gearSetName)
+    XLGB_SetWindow_ListView_GearTitle:SetText(gearSetName)
   end
 end
 
 function XLGB_UI:ChangeDisplayedGearSet(gearSetNumber)
   local totalGearSets = XLGB_GearSet:GetNumberOfGearSets()
-  local editControl = XLGB_Window_Control_ListView:GetNamedChild("_Edit")
-  local gearTitleControl =  XLGB_Window_Control_ListView:GetNamedChild("_GearTitle")
-  local setXofYControl = XLGB_Window_Control_ListView:GetNamedChild("_SetXofY")
+  local editControl = XLGB_SetWindow_ListView:GetNamedChild("_Edit")
+  local gearTitleControl =  XLGB_SetWindow_ListView:GetNamedChild("_GearTitle")
+  local setXofYControl = XLGB_SetWindow_ListView:GetNamedChild("_SetXofY")
 
 
   if totalGearSets == 0 then
@@ -380,8 +380,8 @@ local function HideItemTooltip(control)
 end
 
 function XLGB_UI:UpdateScrollList()
-  local scrollList = XLGB_Window_Control_ListView:GetNamedChild("_ScrollList")
-  local itemAmountControl = XLGB_Window_Control_ListView:GetNamedChild("_ItemAmount")
+  local scrollList = XLGB_SetWindow_ListView:GetNamedChild("_ScrollList")
+  local itemAmountControl = XLGB_SetWindow_ListView:GetNamedChild("_ItemAmount")
   local scrollData = ZO_ScrollList_GetDataList(scrollList)
   ZO_ScrollList_Clear(scrollList)
   itemAmountControl:SetText("Total items in set: 0")
@@ -397,7 +397,7 @@ function XLGB_UI:UpdateScrollList()
     end
     itemAmountControl:SetText("Total items in set: ".. #XLGB_GearSet:GetGearSet(XLGearBanker.displayingSet).items)
   end
-  ZO_ScrollList_Commit(XLGB_Window_Control_ListView.scrollList)
+  ZO_ScrollList_Commit(XLGB_SetWindow_ListView.scrollList)
 end
 
 local function fillItemRowWithData(control, data)
@@ -414,9 +414,9 @@ local function fillItemRowWithData(control, data)
 end
 
 function XLGB_UI:InitializeScrollList()
-  XLGB_Window_Control_ListView.scrollList = XLGB_Window_Control_ListView:GetNamedChild("_ScrollList")
-  ZO_ScrollList_AddDataType(XLGB_Window_Control_ListView.scrollList, XLGB_Constants.ITEM_ROW, "XLGB_Item_Row_Template", 35, fillItemRowWithData)
-  ZO_ScrollList_EnableHighlight(XLGB_Window_Control_ListView.scrollList, "ZO_ThinListHighlight")
+  XLGB_SetWindow_ListView.scrollList = XLGB_SetWindow_ListView:GetNamedChild("_ScrollList")
+  ZO_ScrollList_AddDataType(XLGB_SetWindow_ListView.scrollList, XLGB_Constants.ITEM_ROW, "XLGB_Item_Row_Template", 35, fillItemRowWithData)
+  ZO_ScrollList_EnableHighlight(XLGB_SetWindow_ListView.scrollList, "ZO_ThinListHighlight")
   XLGB_UI:UpdateScrollList()
 end
 

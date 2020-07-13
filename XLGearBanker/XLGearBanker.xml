@@ -114,7 +114,7 @@
         <Button name="$(parent)_DepositAll" inherits="ZO_ButtonBehaviorClickSound" hidden="false" >
           <OnClicked></OnClicked>
           <Dimensions x="120" y="40" />                                
-          <Anchor point="BOTTOMLEFT" relativeTo="$(parent)" relativePoint="BOTTOMLEFT" offsetX="0" offsetY="0"  />
+          <Anchor point="BOTTOMLEFT" relativeTo="$(parent)" relativePoint="BOTTOMLEFT" offsetX="10" offsetY="0"  />
           <Textures
               normal    ="/esoui/art/buttons/button_xlarge_mouseup.dds"
               pressed    ="/esoui/art/buttons/button_xlarge_mousedown.dds"
@@ -133,7 +133,7 @@
         <Button name="$(parent)_WithdrawAll" inherits="ZO_ButtonBehaviorClickSound" hidden="false" >
           <OnClicked></OnClicked>
           <Dimensions x="120" y="40" />                                
-          <Anchor point="BOTTOMRIGHT" relativeTo="$(parent)" relativePoint="BOTTOMRIGHT" offsetX="0" offsetY="0"  />
+          <Anchor point="BOTTOMRIGHT" relativeTo="$(parent)" relativePoint="BOTTOMRIGHT" offsetX="-10" offsetY="0"  />
           <Textures
               normal    ="/esoui/art/buttons/button_xlarge_mouseup.dds"
               pressed    ="/esoui/art/buttons/button_xlarge_mousedown.dds"
@@ -160,11 +160,11 @@
 <!--                -->
 <!-- XLGB_GearSet   -->
 <!--                -->
-<TopLevelControl name="XLGB_Window_Control" clampedToScreen="true" movable="true" mouseEnabled="true" hidden="false" resizeHandleSize="10">
+<TopLevelControl name="XLGB_SetWindow" clampedToScreen="true" movable="true" mouseEnabled="true" hidden="false" resizeHandleSize="10">
   <Dimensions x="350" y="600"/>
   <DimensionConstraints  minX="350" minY="400"/>
   <Anchor point="CENTER" relativeTo="GUI_ROOT" relativePoint="CENTER" offsetX="-125" offsetY="-140" />
-  <OnMoveStop> XLGB_UI:XLGB_Window_Control_OnMoveStop()</OnMoveStop>
+  <OnMoveStop> XLGB_UI:XLGB_SetWindow_OnMoveStop()</OnMoveStop>
   <Controls>
 
     <Backdrop name="$(parent)_BG" inherits="ZO_DefaultBackdrop"><AnchorFill/></Backdrop>
