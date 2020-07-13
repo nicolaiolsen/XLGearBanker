@@ -89,8 +89,8 @@
     -->
     <Control name="$(parent)_TotalPageItemsRow" mouseEnabled="true" resizeToFitDescendents="false">
       <DimensionConstraints  minY="30"/>
-      <Anchor point="BOTTOMLEFT" relativeTo="$(parent)" relativePoint="BOTTOMLEFT" offsetX="0" offsetY="10"/>
-      <Anchor point="BOTTOMRIGHT" relativeTo="$(parent)" relativePoint="BOTTOMRIGHT" offsetX="0" offsetY="10"/>
+      <Anchor point="BOTTOMLEFT" relativeTo="$(parent)" relativePoint="BOTTOMLEFT" offsetX="0" offsetY="20"/>
+      <Anchor point="BOTTOMRIGHT" relativeTo="$(parent)" relativePoint="BOTTOMRIGHT" offsetX="0" offsetY="20"/>
       <Controls>
 
         <Label name="$(parent)_TotalPageItems" font="ZoFontWinT2" text="Total items: 0" linkEnabled="true">
@@ -272,11 +272,11 @@
     -->
     <Control name="$(parent)_AddItemsRow" mouseEnabled="true" resizeToFitDescendents="false">
       <DimensionConstraints  minY="30"/>
-      <Anchor point="TOPLEFT" relativeTo="$(parent)_TitleRow" relativePoint="BOTTOMLEFT" offsetX="0" offsetY="20"/>
-      <Anchor point="TOPRIGHT" relativeTo="$(parent)_TitleRow" relativePoint="BOTTOMRIGHT" offsetX="0" offsetY="20"/>
+      <Anchor point="BOTTOMLEFT" relativeTo="$(parent)_TotalSetItemsRow" relativePoint="TOLEFT" offsetX="0" offsetY="10"/>
+      <Anchor point="BOTTOMRIGHT" relativeTo="$(parent)_TotalSetItemsRow" relativePoint="TOPRIGHT" offsetX="0" offsetY="10"/>
       <Controls>
 
-        <Button name="$(parent)_AddEquipped" inherits="ZO_ButtonBehaviorClickSound" hidden="true" >
+        <Button name="$(parent)_AddEquipped" inherits="ZO_ButtonBehaviorClickSound" hidden="false" >
           <OnClicked>XLGB_UI:AddEquippedItemsToSet()</OnClicked>
           <Dimensions x="300" y="40" />                                
           <Anchor point="BOTTOMLEFT" relativeTo="$(parent)" relativePoint="BOTTOMLEFT" offsetX="0" offsetY="0"  />
@@ -304,8 +304,8 @@
     -->
     <Control name="$(parent)_TotalSetItemsRow" mouseEnabled="true" resizeToFitDescendents="false">
       <DimensionConstraints  minY="30"/>
-      <Anchor point="BOTTOMLEFT" relativeTo="$(parent)" relativePoint="BOTTOMLEFT" offsetX="0" offsetY="10"/>
-      <Anchor point="BOTTOMRIGHT" relativeTo="$(parent)" relativePoint="BOTTOMRIGHT" offsetX="0" offsetY="10"/>
+      <Anchor point="BOTTOMLEFT" relativeTo="$(parent)" relativePoint="BOTTOMLEFT" offsetX="0" offsetY="20"/>
+      <Anchor point="BOTTOMRIGHT" relativeTo="$(parent)" relativePoint="BOTTOMRIGHT" offsetX="0" offsetY="20"/>
       <Controls>
 
         <Label name="$(parent)_TotalSetItems" font="ZoFontWinT2" text="Total items: 0" linkEnabled="true">
@@ -352,7 +352,7 @@
 </Control>
 <!-- Item Row Template end-->
 
-<!-- Item Row Template-->
+<!-- PageSet Row Template-->
 <Control name="XLGB_Set_Row_Template" virtual="true">
   <Dimensions y="25"/> 
   <Controls>
@@ -374,7 +374,7 @@
 
   </Controls>
 </Control>
-<!-- Item Row Template end -->
+<!-- PageSet Row Template end -->
 <!-- Templates end -->
 
 </Controls>
