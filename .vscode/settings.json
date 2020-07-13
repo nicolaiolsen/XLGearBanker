@@ -88,7 +88,8 @@
         "InitializeTooltip",
         "XLGB_SetWindow",
         "XLGB_SetWindow_ScrollList",
-        "XLGB_SetWindow_TotalSetItemsRow_TotalSetItems"
+        "XLGB_SetWindow_TotalSetItemsRow_TotalSetItems",
+        "XLGB_SetWindow_SetRow"
     ],
     "Lua.diagnostics.disable": [
         "lowercase-global",

@@ -313,27 +313,18 @@ end
 
 function XLGB_UI:ChangeDisplayedGearSet(gearSetNumber)
   local totalGearSets = XLGB_GearSet:GetNumberOfGearSets()
-  local editControl = XLGB_SetWindow_ListView:GetNamedChild("_Edit")
-  local gearTitleControl =  XLGB_SetWindow_ListView:GetNamedChild("_GearTitle")
-  local setXofYControl = XLGB_SetWindow_ListView:GetNamedChild("_SetXofY")
-
+  local setRow = XLGB_SetWindow_SetRow
+  local editSet = setRow:GetNamedChild("_EditSet")
 
   if totalGearSets == 0 then
-    editControl:SetHidden(true)
-    gearTitleControl:SetText("No sets found")
-    gearTitleControl:SetCursorPosition(0)
-    gearTitleControl:SetAnchor(TOPRIGHT, editControl, TOPLEFT, -10, 0)
-    setXofYControl:SetText("[0/0]")
+    editSet:SetHidden(true)
     XLGB_UI:UpdateScrollList()
   else
     if XLGB_GearSet:ValidGearSetNumber(gearSetNumber, totalGearSets) then
       XLGB_UI:SetGearNameLabel(tonumber(gearSetNumber))
-      gearTitleControl:SetCursorPosition(0)
       if not(XLGearBanker.UI_Editable) then
-        gearTitleControl:SetAnchor(TOPRIGHT, editControl, TOPLEFT, -10, 0)
       end
-      editControl:SetHidden(false)
-      setXofYControl:SetText("[".. gearSetNumber .."/".. XLGB_GearSet:GetNumberOfGearSets() .."]")
+      editSet:SetHidden(false)
       XLGB_UI:UpdateScrollList()
     end
   end
