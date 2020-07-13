@@ -49,11 +49,6 @@
       <Anchor point="TOPRIGHT" relativeTo="$(parent)_TitleRow" relativePoint="BOTTOMRIGHT" offsetX="0" offsetY="20"/>
       <Controls>
 
-        <Control name="$(parent)_Page" inherits="ZO_ComboBox">
-          <Anchor point="TOPLEFT" relativeTo="$(parent)" relativePoint="TOPLEFT" offsetX="0" offsetY="10" />
-          <Anchor point="TOPRIGHT" relativeTo="$(parent)_AddPage" relativePoint="TOPLEFT" offsetX="-10" offsetY="-5" />
-        </Control>
-
         <!-- Add New Page Button -->
         <Button name="$(parent)_AddPage" inherits="ZO_ButtonBehaviorClickSound" >
           <OnClicked></OnClicked>
@@ -78,15 +73,33 @@
             />  
         </Button>
 
+        <Control name="$(parent)_Page" inherits="ZO_ComboBox">
+          <Anchor point="TOPLEFT" relativeTo="$(parent)" relativePoint="TOPLEFT" offsetX="0" offsetY="10" />
+          <Anchor point="TOPRIGHT" relativeTo="$(parent)_AddPage" relativePoint="TOPLEFT" offsetX="-10" offsetY="-5" />
+        </Control>
+
       </Controls>
     </Control> 
     <!-- Page Row end-->
 
     <!-- Scroll List  is on the bottom !!! -->
-    <Control name="$(parent)_ScrollList" inherits="ZO_ScrollList">
-      <Anchor point="TOPLEFT" relativeTo="$(parent)_PageRow" relativePoint="BOTTOMLEFT" offsetX="0" offsetY="10" />
-      <Anchor point="BOTTOMRIGHT" relativeTo="$(parent)_BankRow" relativePoint="TOPRIGHT" offsetX="20" offsetY="-10" />
+
+    <!-- 
+      TOTAL PAGE ITEMS ROW 
+    -->
+    <Control name="$(parent)_TotalPageItemsRow" mouseEnabled="true" resizeToFitDescendents="false">
+      <DimensionConstraints  minY="30"/>
+      <Anchor point="BOTTOMLEFT" relativeTo="$(parent)" relativePoint="BOTTOMLEFT" offsetX="0" offsetY="10"/>
+      <Anchor point="BOTTOMRIGHT" relativeTo="$(parent)" relativePoint="BOTTOMRIGHT" offsetX="0" offsetY="10"/>
+      <Controls>
+
+        <Label name="$(parent)_TotalPageItems" font="ZoFontWinT2" text="Total items: 0" linkEnabled="true">
+          <Anchor point="TOPLEFT" relativeTo="$(parent)" relativePoint="TOPLEFT" offsetX="30" offsetY="-10" />
+        </Label>
+
+      </Controls>
     </Control>
+    <!-- Total Page Items Row end -->
 
     <!-- 
       BANK ROW 
@@ -136,22 +149,11 @@
     </Control>
     <!-- Bank Row end -->
 
-    <!-- 
-      TOTAL PAGE ITEMS ROW 
-    -->
-    <Control name="$(parent)_TotalPageItemsRow" mouseEnabled="true" resizeToFitDescendents="false">
-      <DimensionConstraints  minY="30"/>
-      <Anchor point="BOTTOMLEFT" relativeTo="$(parent)" relativePoint="BOTTOMLEFT" offsetX="0" offsetY="10"/>
-      <Anchor point="BOTTOMRIGHT" relativeTo="$(parent)" relativePoint="BOTTOMRIGHT" offsetX="0" offsetY="10"/>
-      <Controls>
-
-        <Label name="$(parent)_TotalPageItems" font="ZoFontWinT2" text="Total items: 0" linkEnabled="true">
-          <Anchor point="TOPLEFT" relativeTo="$(parent)" relativePoint="TOPLEFT" offsetX="30" offsetY="-10" />
-        </Label>
-
-      </Controls>
+    <Control name="$(parent)_ScrollList" inherits="ZO_ScrollList">
+      <Anchor point="TOPLEFT" relativeTo="$(parent)_PageRow" relativePoint="BOTTOMLEFT" offsetX="0" offsetY="10" />
+      <Anchor point="BOTTOMRIGHT" relativeTo="$(parent)_BankRow" relativePoint="TOPRIGHT" offsetX="20" offsetY="-10" />
     </Control>
-    <!-- Total Page Items Row end -->
+
   </Controls>
 </TopLevelControl>
 
