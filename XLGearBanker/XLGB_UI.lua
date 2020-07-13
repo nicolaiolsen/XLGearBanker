@@ -370,9 +370,9 @@ function XLGB_UI:WithdrawSet()
   XLGB_Banking:WithdrawGear(XLGearBanker.displayingSet)
 end
 
-local function ShowItemTooltip(control)
-  InitializeTooltip(ItemTooltip, control)
-  ItemTooltip:SetLink(control.data.itemLink)
+local function ShowItemTooltip(self)
+  InitializeTooltip(ItemTooltip, self)
+  ItemTooltip:SetLink(self.data.itemLink)
 end
 
 local function HideItemTooltip(control)
@@ -404,8 +404,8 @@ local function fillItemRowWithData(control, data)
   control.data = data
   control:GetNamedChild("_Name"):SetText(data.itemLink)
   control:SetMouseEnabled(true)
-  control:SetHandler("OnMouseEnter", ShowItemTooltip(control))
-  control:SetHandler("OnMouseExit", HideItemTooltip(control))
+  control:SetHandler("OnMouseEnter", ShowItemTooltip)
+  control:SetHandler("OnMouseExit", HideItemTooltip)
   if XLGearBanker.UI_Editable then
     control:GetNamedChild("_Remove"):SetHidden(false)
   else 
