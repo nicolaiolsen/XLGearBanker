@@ -415,8 +415,8 @@ end
 
 function XLGB_UI:InitializeScrollList()
   XLGB_Window_Control_ListView.scrollList = XLGB_Window_Control_ListView:GetNamedChild("_ScrollList")
-  ZO_ScrollList_EnableHighlight(XLGB_Window_Control_ListView.scrollList, "ZO_ThinListHighlight")
   ZO_ScrollList_AddDataType(XLGB_Window_Control_ListView.scrollList, XLGB_Constants.ITEM_ROW, "XLGB_Item_Row_Template", 35, fillItemRowWithData)
+  ZO_ScrollList_EnableHighlight(XLGB_Window_Control_ListView.scrollList, "ZO_ThinListHighlight")
   XLGB_UI:UpdateScrollList()
 end
 
@@ -426,7 +426,7 @@ function XLGB_UI:SetupDialogs()
     "XLGearBanker", 
     "RemoveSetDialog", 
     "XL Gear Banker", 
-    "You are about to remove the set.\n\nAre you sure you want the set removed?", 
+    "You are about to remove the set.\n\nAre you sure you want the set removed?",
     removeSetConfirmed, 
     nil,
     nil)
