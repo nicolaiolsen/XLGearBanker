@@ -393,7 +393,7 @@
     </TopLevelControl>
 
 <!-- Templates -->
-    <Control name="XLGB_Item_Row_Template" virtual="true" >
+    <Control name="XLGB_Item_Row_Template" virtual="true" resizeToFitDescendents="true">
       <Controls>
 
         <Label name="$(parent)_Name" font="ZoFontWinT2" text="Some Test Label">
