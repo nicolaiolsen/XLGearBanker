@@ -190,7 +190,7 @@
       </Controls>
     </TopLevelControl>
 
-    <TopLevelControl name="XLGB_Window_Control" clampedToScreen="true" movable="true" mouseEnabled="true" hidden="true" resizeHandleSize="10">
+    <TopLevelControl name="XLGB_Window_Control" clampedToScreen="true" movable="true" mouseEnabled="true" hidden="false" resizeHandleSize="10">
       <Dimensions x="350" y="600"/>
       <DimensionConstraints  minX="350" minY="400"/>
       <Anchor point="CENTER" relativeTo="GUI_ROOT" relativePoint="CENTER" offsetX="-125" offsetY="-140" />
@@ -396,7 +396,7 @@
     <Control name="XLGB_Item_Row_Template" virtual="true" >
       <Controls>
 
-        <Label name="$(parent)_Name" font="ZoFontWinT2" text="Some Test Label" linkEnabled="true" mouseEnabled="false">
+        <Label name="$(parent)_Name" font="ZoFontWinT2" text="Some Test Label">
               <Anchor point="TOPLEFT" offsetX="10" offsetY="10" />
         </Label>
 
