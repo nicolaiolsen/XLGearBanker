@@ -403,6 +403,7 @@ end
 local function fillItemRowWithData(control, data)
   control.data = data
   control:GetNamedChild("_Name"):SetText(data.itemLink)
+  control:SetMouseEnabled(true)
   control:SetHandler("OnMouseEnter", ShowTooltip)
   control:SetHandler("OnMouseExit", HideTooltip)
   if XLGearBanker.UI_Editable then
