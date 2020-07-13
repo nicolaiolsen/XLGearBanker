@@ -89,12 +89,12 @@
     -->
     <Control name="$(parent)_TotalPageItemsRow" mouseEnabled="true" resizeToFitDescendents="false">
       <DimensionConstraints  minY="30"/>
-      <Anchor point="BOTTOMLEFT" relativeTo="$(parent)" relativePoint="BOTTOMLEFT" offsetX="0" offsetY="0"/>
-      <Anchor point="BOTTOMRIGHT" relativeTo="$(parent)" relativePoint="BOTTOMRIGHT" offsetX="0" offsetY="0"/>
+      <Anchor point="BOTTOMLEFT" relativeTo="$(parent)" relativePoint="BOTTOMLEFT" offsetX="0" offsetY="-10"/>
+      <Anchor point="BOTTOMRIGHT" relativeTo="$(parent)" relativePoint="BOTTOMRIGHT" offsetX="0" offsetY="-10"/>
       <Controls>
 
         <Label name="$(parent)_TotalPageItems" font="ZoFontWinT2" text="Total items: 0" linkEnabled="true">
-          <Anchor point="TOPLEFT" relativeTo="$(parent)" relativePoint="TOPLEFT" offsetX="30" offsetY="-10" />
+          <Anchor point="TOPLEFT" relativeTo="$(parent)" relativePoint="TOPLEFT" offsetX="20" offsetY="0" />
         </Label>
 
       </Controls>
@@ -106,15 +106,15 @@
     -->
     <Control name="$(parent)_BankRow" mouseEnabled="true" resizeToFitDescendents="false">
       <DimensionConstraints  minY="30"/>
-      <Anchor point="BOTTOMLEFT" relativeTo="$(parent)_TotalPageItemsRow" relativePoint="TOPLEFT" offsetX="0" offsetY="-20"/>
-      <Anchor point="BOTTOMRIGHT" relativeTo="$(parent)_TotalPageItemsRow" relativePoint="TOPRIGHT" offsetX="0" offsetY="-20"/>
+      <Anchor point="BOTTOMLEFT" relativeTo="$(parent)_TotalPageItemsRow" relativePoint="TOPLEFT" offsetX="0" offsetY="-10"/>
+      <Anchor point="BOTTOMRIGHT" relativeTo="$(parent)_TotalPageItemsRow" relativePoint="TOPRIGHT" offsetX="0" offsetY="-10"/>
       <Controls>
 
         <!-- Deposit Page Button -->
         <Button name="$(parent)_DepositAll" inherits="ZO_ButtonBehaviorClickSound" hidden="false" >
           <OnClicked></OnClicked>
           <Dimensions x="120" y="40" />                                
-          <Anchor point="BOTTOMLEFT" relativeTo="$(parent)" relativePoint="BOTTOMLEFT" offsetX="10" offsetY="0"  />
+          <Anchor point="BOTTOMLEFT" relativeTo="$(parent)" relativePoint="BOTTOMLEFT" offsetX="20" offsetY="0"  />
           <Textures
               normal    ="/esoui/art/buttons/button_xlarge_mouseup.dds"
               pressed    ="/esoui/art/buttons/button_xlarge_mousedown.dds"
@@ -133,7 +133,7 @@
         <Button name="$(parent)_WithdrawAll" inherits="ZO_ButtonBehaviorClickSound" hidden="false" >
           <OnClicked></OnClicked>
           <Dimensions x="120" y="40" />                                
-          <Anchor point="BOTTOMRIGHT" relativeTo="$(parent)" relativePoint="BOTTOMRIGHT" offsetX="-10" offsetY="0"  />
+          <Anchor point="BOTTOMRIGHT" relativeTo="$(parent)" relativePoint="BOTTOMRIGHT" offsetX="-20" offsetY="0"  />
           <Textures
               normal    ="/esoui/art/buttons/button_xlarge_mouseup.dds"
               pressed    ="/esoui/art/buttons/button_xlarge_mousedown.dds"
@@ -272,12 +272,12 @@
     -->
     <Control name="$(parent)_TotalSetItemsRow" mouseEnabled="true" resizeToFitDescendents="false">
       <DimensionConstraints  minY="30"/>
-      <Anchor point="BOTTOMLEFT" relativeTo="$(parent)" relativePoint="BOTTOMLEFT" offsetX="0" offsetY="0"/>
-      <Anchor point="BOTTOMRIGHT" relativeTo="$(parent)" relativePoint="BOTTOMRIGHT" offsetX="0" offsetY="0"/>
+      <Anchor point="BOTTOMLEFT" relativeTo="$(parent)" relativePoint="BOTTOMLEFT" offsetX="0" offsetY="-10"/>
+      <Anchor point="BOTTOMRIGHT" relativeTo="$(parent)" relativePoint="BOTTOMRIGHT" offsetX="0" offsetY="-10"/>
       <Controls>
 
         <Label name="$(parent)_TotalSetItems" font="ZoFontWinT2" text="Total items: 0" linkEnabled="true">
-          <Anchor point="TOPLEFT" relativeTo="$(parent)" relativePoint="TOPLEFT" offsetX="30" offsetY="-10" />
+          <Anchor point="TOPLEFT" relativeTo="$(parent)" relativePoint="TOPLEFT" offsetX="20" offsetY="0" />
         </Label>
 
       </Controls>
@@ -289,15 +289,15 @@
     -->
     <Control name="$(parent)_AddItemsRow" mouseEnabled="true" resizeToFitDescendents="false">
       <DimensionConstraints  minY="30"/>
-      <Anchor point="BOTTOMLEFT" relativeTo="$(parent)_TotalSetItemsRow" relativePoint="TOLEFT" offsetX="0" offsetY="10"/>
-      <Anchor point="BOTTOMRIGHT" relativeTo="$(parent)_TotalSetItemsRow" relativePoint="TOPRIGHT" offsetX="0" offsetY="10"/>
+      <Anchor point="BOTTOMLEFT" relativeTo="$(parent)_TotalSetItemsRow" relativePoint="TOLEFT" offsetX="0" offsetY="-10"/>
+      <Anchor point="BOTTOMRIGHT" relativeTo="$(parent)_TotalSetItemsRow" relativePoint="TOPRIGHT" offsetX="0" offsetY="-0"/>
       <Controls>
 
         <Button name="$(parent)_AddEquipped" inherits="ZO_ButtonBehaviorClickSound" hidden="false" >
           <OnClicked>XLGB_UI:AddEquippedItemsToSet()</OnClicked>
           <Dimensions x="300" y="40" />                                
-          <Anchor point="BOTTOMLEFT" relativeTo="$(parent)" relativePoint="BOTTOMLEFT" offsetX="0" offsetY="0"  />
-          <Anchor point="BOTTOMRIGHT" relativeTo="$(parent)" relativePoint="BOTTOMRIGHT" offsetX="0" offsetY="0"  />
+          <Anchor point="BOTTOMLEFT" relativeTo="$(parent)" relativePoint="BOTTOMLEFT" offsetX="20" offsetY="0"  />
+          <Anchor point="BOTTOMRIGHT" relativeTo="$(parent)" relativePoint="BOTTOMRIGHT" offsetX="-40" offsetY="0"  />
           <Textures
               normal    ="/esoui/art/buttons/button_xlarge_mouseup.dds"
               pressed    ="/esoui/art/buttons/button_xlarge_mousedown.dds"
@@ -318,7 +318,7 @@
 
     <Control name="$(parent)_ScrollList" inherits="ZO_ScrollList">
       <Anchor point="TOPLEFT" relativeTo="$(parent)_SetRow" relativePoint="BOTTOMLEFT" offsetX="0" offsetY="10" />
-      <Anchor point="BOTTOMRIGHT" relativeTo="$(parent)_AddItemsRow" relativePoint="TOPRIGHT" offsetX="20" offsetY="-10" />
+      <Anchor point="BOTTOMRIGHT" relativeTo="$(parent)_AddItemsRow" relativePoint="TOPRIGHT" offsetX="-21" offsetY="-20" />
     </Control>
 
   </Controls>
