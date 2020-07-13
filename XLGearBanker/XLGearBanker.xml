@@ -110,7 +110,7 @@
       <Anchor point="BOTTOMRIGHT" relativeTo="$(parent)_TotalPageItemsRow" relativePoint="TOPRIGHT" offsetX="0" offsetY="-20"/>
       <Controls>
 
-        <!-- Deposit Set Button -->
+        <!-- Deposit Page Button -->
         <Button name="$(parent)_DepositAll" inherits="ZO_ButtonBehaviorClickSound" hidden="false" >
           <OnClicked></OnClicked>
           <Dimensions x="120" y="40" />                                
@@ -129,7 +129,7 @@
           </Controls>
         </Button> 
 
-        <!-- Withdraw Set Button -->
+        <!-- Withdraw Page Button -->
         <Button name="$(parent)_WithdrawAll" inherits="ZO_ButtonBehaviorClickSound" hidden="false" >
           <OnClicked></OnClicked>
           <Dimensions x="120" y="40" />                                
@@ -158,7 +158,7 @@
 </TopLevelControl>
 
 <!--                -->
-<!-- XLGB_GearSet   -->
+<!-- XLGB_SetWindow -->
 <!--                -->
 <TopLevelControl name="XLGB_SetWindow" clampedToScreen="true" movable="true" mouseEnabled="true" hidden="false" resizeHandleSize="10">
   <Dimensions x="350" y="600"/>
@@ -166,205 +166,169 @@
   <Anchor point="CENTER" relativeTo="GUI_ROOT" relativePoint="CENTER" offsetX="-125" offsetY="-140" />
   <OnMoveStop> XLGB_UI:XLGB_SetWindow_OnMoveStop()</OnMoveStop>
   <Controls>
-
     <Backdrop name="$(parent)_BG" inherits="ZO_DefaultBackdrop"><AnchorFill/></Backdrop>
 
-  <!-- Escape button:-->
-      <Button name="$(parent)_Hide" inherits="ZO_ButtonBehaviorClickSound" >
-
-        <OnClicked>XLGB_UI:HideUI()</OnClicked>
-
-        <Dimensions x="30" y="30" />                                
-        <Anchor point="TOPRIGHT" relativeTo="$(parent)" relativePoint="TOPRIGHT" offsetX="-10" offsetY="10"  />
-        <Textures
-            normal    ="/esoui/art/buttons/decline_up.dds"
-            pressed    ="/esoui/art/buttons/decline_down.dds"
-            mouseOver  ="/esoui/art/buttons/decline_over.dds"
-          />  
-      </Button>
-    
-<!-- Toolbar -->
-    <Control name="$(parent)_ToolBar" mouseEnabled="true" resizeToFitDescendents="false">
+    <!-- 
+      TITLE ROW 
+    -->
+    <Control name="$(parent)_TitleRow" mouseEnabled="true" resizeToFitDescendents="false">
       <Dimensions x="350" />
-      <Anchor point="TOPLEFT" relativeTo="$(parent)" relativePoint="TOPLEFT" offsetX="10" offsetY="30"/>
-      <Anchor point="BOTTOMRIGHT" relativeTo="$(parent)" relativePoint="TOPRIGHT" offsetX="-10" offsetY="60"/>
+      <DimensionConstraints  minY="30"/>
+      <Anchor point="TOPLEFT" relativeTo="$(parent)" relativePoint="TOPLEFT" offsetX="10" offsetY="10"/>
+      <Anchor point="TOPRIGHT" relativeTo="$(parent)" relativePoint="TOPRIGHT" offsetX="-10" offsetY="10"/>
       <Controls>
 
-<!-- Cycle left button:-->
-        <Button name="$(parent)_PreviousSet" inherits="ZO_ButtonBehaviorClickSound" >
-
-          <OnClicked>XLGB_UI:CycleLeft()</OnClicked>
-          <Dimensions x="30" y="30" />                  
-          <Anchor point="TOPLEFT" relativeTo="$(parent)" relativePoint="TOPLEFT"  offsetX="15" offsetY="0" />
-          <Textures
-              normal     ="/esoui/art/buttons/leftarrow_up.dds"
-              pressed    ="/esoui/art/buttons/leftarrow_down.dds"
-              mouseOver  ="/esoui/art/buttons/leftarrow_over.dds"
-            />  
-        </Button>
-
-<!-- Title -->
-        <Label name="$(parent)_Title" font="ZoFontAnnounceMedium" text="XL Gear Banker" mouseEnabled="true">
-          <Anchor point="TOP" relativeTo="$(parent)" relativePoint="TOP" offsetX="-15" offsetY="0"  />
+        <!-- Title -->
+        <Label name="$(parent)_Title" font="ZoFontAnnounceMedium" text="XLGB - Sets">
+          <Anchor point="TOPLEFT" relativeTo="$(parent)" relativePoint="TOPLEFT" offsetX="10" offsetY="10"  />
         </Label>
 
-<!-- Cycle right button:-->
-        <Button name="$(parent)_NextSet" inherits="ZO_ButtonBehaviorClickSound" >
-          <OnClicked>XLGB_UI:CycleRight()</OnClicked>
-          <Dimensions x="30" y="30" />                  
-          <Anchor point="TOPRIGHT" relativeTo="$(parent)" relativePoint="TOPRIGHT"  offsetX="-45" offsetY="0" />
+        <!-- Escape button:-->
+        <Button name="$(parent)_Hide" inherits="ZO_ButtonBehaviorClickSound" >
+          <OnClicked></OnClicked>
+          <Dimensions x="30" y="30" />                                
+          <Anchor point="TOPRIGHT" relativeTo="$(parent)" relativePoint="TOPRIGHT" offsetX="-10" offsetY="10"  />
           <Textures
-              normal     ="/esoui/art/buttons/rightarrow_up.dds"
-              pressed    ="/esoui/art/buttons/rightarrow_down.dds"
-              mouseOver  ="/esoui/art/buttons/rightarrow_over.dds"
-            />  
+              normal    ="/esoui/art/buttons/decline_up.dds"
+              pressed    ="/esoui/art/buttons/decline_down.dds"
+              mouseOver  ="/esoui/art/buttons/decline_over.dds"
+            />
         </Button>
 
       </Controls>
     </Control>
+    <!-- Title Row end-->
 
-      <Control name="$(parent)_ListView" mouseEnabled="true" resizeToFitDescendents="false">
-        <DimensionConstraints  minY="30"/>
-        <Anchor point="TOPLEFT" relativeTo="$(parent)_ToolBar" relativePoint="BOTTOMLEFT" offsetX="20" offsetY="20"/>
-        <Anchor point="BOTTOMRIGHT" relativeTo="$(parent)" relativePoint="BOTTOMRIGHT" offsetX="-35" offsetY="-10"/>
+    <!-- 
+      SET ROW 
+    -->
+    <Control name="$(parent)_SetRow" mouseEnabled="true" resizeToFitDescendents="false">
+      <DimensionConstraints  minY="30"/>
+      <Anchor point="TOPLEFT" relativeTo="$(parent)_TitleRow" relativePoint="BOTTOMLEFT" offsetX="0" offsetY="20"/>
+      <Anchor point="TOPRIGHT" relativeTo="$(parent)_TitleRow" relativePoint="BOTTOMRIGHT" offsetX="0" offsetY="20"/>
       <Controls>
 
-  <!-- Gear set x of y -->
-      <Label name="$(parent)_SetXofY" font="ZoFontWinH4" text="[0/0]" linkEnabled="true">
-        <Anchor point="TOPLEFT" relativeTo="$(parent)" relativePoint="TOPLEFT" offsetX="0" offsetY="0" />
-      </Label>
+        <!-- Add New Page Button -->
+        <Button name="$(parent)_AddSet" inherits="ZO_ButtonBehaviorClickSound" >
+          <OnClicked></OnClicked>
+          <Dimensions x="20" y="20" />                                
+          <Anchor point="TOPRIGHT" relativeTo="$(parent)" relativePoint="TOPRIGHT" offsetX="-10" offsetY="0"  />
+          <Textures
+              normal    ="/esoui/art/buttons/pointsplus_up.dds"
+              pressed    ="/esoui/art/buttons/pointsplus_down.dds"
+              mouseOver  ="/esoui/art/buttons/pointsplus_over.dds"
+            />  
+        </Button> 
 
-  <!-- Add New Set Button -->
-      <Button name="$(parent)_AddSet" inherits="ZO_ButtonBehaviorClickSound" >
-        <OnClicked>XLGB_UI:AddSet(self)</OnClicked>
-        <Dimensions x="20" y="20" />                                
-        <Anchor point="TOPRIGHT" relativeTo="$(parent)" relativePoint="TOPRIGHT" offsetX="22" offsetY="0"  />
-        <Textures
-            normal    ="/esoui/art/buttons/pointsplus_up.dds"
-            pressed    ="/esoui/art/buttons/pointsplus_down.dds"
-            mouseOver  ="/esoui/art/buttons/pointsplus_over.dds"
-          />  
-      </Button> 
+        <!-- Edit Button -->
+        <Button name="$(parent)_EditSet" inherits="ZO_ButtonBehaviorClickSound" hidden="false">
+          <OnClicked></OnClicked>
+          <Dimensions x="20" y="20" />                                
+          <Anchor point="TOPRIGHT" relativeTo="$(parent)_AddSet" relativePoint="TOPLEFT" offsetX="-10" offsetY="0"  />
+          <Textures
+              normal    ="/esoui/art/buttons/edit_up.dds"
+              pressed    ="/esoui/art/buttons/edit_down.dds"
+              mouseOver  ="/esoui/art/buttons/edit_over.dds"
+            />  
+        </Button>
 
-  <!-- Edit Button -->
-      <Button name="$(parent)_Edit" inherits="ZO_ButtonBehaviorClickSound" hidden="true">
-        <OnClicked>XLGB_UI:ToggleEdit(self)</OnClicked>
-        <Dimensions x="20" y="20" />                                
-        <Anchor point="TOPRIGHT" relativeTo="$(parent)_AddSet" relativePoint="TOPLEFT" offsetX="-18" offsetY="0"  />
-        <Textures
-            normal    ="/esoui/art/buttons/edit_up.dds"
-            pressed    ="/esoui/art/buttons/edit_down.dds"
-            mouseOver  ="/esoui/art/buttons/edit_over.dds"
-          />  
-      </Button>
+        <!-- Accept Edit Button -->
+        <Button name="$(parent)_AcceptSet" inherits="ZO_ButtonBehaviorClickSound" hidden="true" >
+          <OnClicked>XLGB_UI:AcceptEdit(self)</OnClicked>
+          <Dimensions x="20" y="20" />                                
+          <Anchor point="TOPRIGHT" relativeTo="$(parent)_EditSet" relativePoint="TOPLEFT" offsetX="-18" offsetY="0"  />
+          <Textures
+              normal    ="/esoui/art/buttons/accept_up.dds"
+              pressed    ="/esoui/art/buttons/accept_down.dds"
+              mouseOver  ="/esoui/art/buttons/accept_over.dds"
+            />  
+        </Button> 
 
-  <!-- Accept Edit Button -->
-      <Button name="$(parent)_AcceptEdit" inherits="ZO_ButtonBehaviorClickSound" hidden="true" >
-        <OnClicked>XLGB_UI:AcceptEdit(self)</OnClicked>
-        <Dimensions x="20" y="20" />                                
-        <Anchor point="TOPRIGHT" relativeTo="$(parent)_Edit" relativePoint="TOPLEFT" offsetX="-18" offsetY="0"  />
-        <Textures
-            normal    ="/esoui/art/buttons/accept_up.dds"
-            pressed    ="/esoui/art/buttons/accept_down.dds"
-            mouseOver  ="/esoui/art/buttons/accept_over.dds"
-          />  
-      </Button> 
+        <!-- Remove Set Button -->
+        <Button name="$(parent)_RemoveSet" inherits="ZO_ButtonBehaviorClickSound" hidden="true" >
+          <OnClicked>XLGB_UI:RemoveSet(self)</OnClicked>
+          <Dimensions x="20" y="20" />                                
+          <Anchor point="TOPRIGHT" relativeTo="$(parent)_AcceptEdit" relativePoint="TOPLEFT" offsetX="-18" offsetY="0"  />
+          <Textures
+              normal    ="/esoui/art/buttons/pointsminus_up.dds"
+              pressed    ="/esoui/art/buttons/pointsminus_down.dds"
+              mouseOver  ="/esoui/art/buttons/pointsminus_over.dds"
+            />  
+        </Button>
 
-  <!-- Remove Set Button -->
-      <Button name="$(parent)_RemoveSet" inherits="ZO_ButtonBehaviorClickSound" hidden="true" >
-        <OnClicked>XLGB_UI:RemoveSet(self)</OnClicked>
-        <Dimensions x="20" y="20" />                                
-        <Anchor point="TOPRIGHT" relativeTo="$(parent)_AcceptEdit" relativePoint="TOPLEFT" offsetX="-18" offsetY="0"  />
-        <Textures
-            normal    ="/esoui/art/buttons/pointsminus_up.dds"
-            pressed    ="/esoui/art/buttons/pointsminus_down.dds"
-            mouseOver  ="/esoui/art/buttons/pointsminus_over.dds"
-          />  
-      </Button> 
-
-    <!-- Gear Title -->
-        <EditBox name="$(parent)_GearTitle" inherits="ZO_DefaultEdit ZO_EditDefaultText" text="No sets found" mouseEnabled="false">
-          <Anchor point="TOPLEFT" relativeTo="$(parent)_SetXofY" relativePoint="TOPRIGHT" offsetX="10" offsetY="0"  />
-          <Anchor point="TOPRIGHT" relativeTo="$(parent)_RemoveSet" relativePoint="TOPLEFT" offsetX="-10" offsetY="0"  />
-          <Dimensions y="30" />
-            <OnFocusGained>XLGB_UI:SelectEntireTextbox(self)</OnFocusGained>
-        </EditBox>
-
-    <!-- Deposit Set Button -->
-      <Button name="$(parent)_Deposit" inherits="ZO_ButtonBehaviorClickSound" hidden="true" >
-        <OnClicked>XLGB_UI:DepositSet(self)</OnClicked>
-        <Dimensions x="120" y="40" />                                
-        <Anchor point="BOTTOMLEFT" relativeTo="$(parent)" relativePoint="BOTTOMLEFT" offsetX="0" offsetY="0"  />
-        <Textures
-            normal    ="/esoui/art/buttons/button_xlarge_mouseup.dds"
-            pressed    ="/esoui/art/buttons/button_xlarge_mousedown.dds"
-            mouseOver  ="/esoui/art/buttons/button_xlarge_mouseover.dds"
-          />
-        <Controls>
-          <Label name="$(parent)_Label" font="ZoFontWinH4" text="Deposit">
-            <Anchor point="CENTER" relativeTo="$(parent)" relativePoint="CENTER" offsetX="0" offsetY="-8"  />
-            <!-- <Anchor point="TOPLEFT" relativeTo="$(parent)" relativePoint="TOPLEFT" offsetX="10" offsetY="-10" />
-            <Anchor point="BOTTOMRIGHT" relativeTo="$(parent)" relativePoint="BOTTOMRIGHT" offsetX="-10" offsetY="10" /> -->
-          </Label>
-        </Controls>
-      </Button> 
-
-    <!-- Withdraw Set Button -->
-      <Button name="$(parent)_Withdraw" inherits="ZO_ButtonBehaviorClickSound" hidden="true" >
-        <OnClicked>XLGB_UI:WithdrawSet(self)</OnClicked>
-        <Dimensions x="120" y="40" />                                
-        <Anchor point="BOTTOMRIGHT" relativeTo="$(parent)" relativePoint="BOTTOMRIGHT" offsetX="0" offsetY="0"  />
-        <Textures
-            normal    ="/esoui/art/buttons/button_xlarge_mouseup.dds"
-            pressed    ="/esoui/art/buttons/button_xlarge_mousedown.dds"
-            mouseOver  ="/esoui/art/buttons/button_xlarge_mouseover.dds"
-          />
-        <Controls>
-          <Label name="$(parent)_Label" font="ZoFontWinH4" text="Withdraw">
-           <Anchor point="CENTER" relativeTo="$(parent)" relativePoint="CENTER'" offsetX="0" offsetY="-8"  />
-          </Label> 
-        </Controls>
-      </Button> 
-
-      <Button name="$(parent)_AddEquipped" inherits="ZO_ButtonBehaviorClickSound" hidden="true" >
-        <OnClicked>XLGB_UI:AddEquippedItemsToSet()</OnClicked>
-        <Dimensions x="300" y="40" />                                
-        <Anchor point="BOTTOMLEFT" relativeTo="$(parent)" relativePoint="BOTTOMLEFT" offsetX="0" offsetY="0"  />
-        <Anchor point="BOTTOMRIGHT" relativeTo="$(parent)" relativePoint="BOTTOMRIGHT" offsetX="0" offsetY="0"  />
-        <Textures
-            normal    ="/esoui/art/buttons/button_xlarge_mouseup.dds"
-            pressed    ="/esoui/art/buttons/button_xlarge_mousedown.dds"
-            mouseOver  ="/esoui/art/buttons/button_xlarge_mouseover.dds"
-          />
-        <Controls>
-          <Label name="$(parent)_Label" font="ZoFontWinH4" text="Add equipped items to set">
-            <Anchor point="CENTER" relativeTo="$(parent)" relativePoint="CENTER" offsetX="0" offsetY="-8"  />
-            <!-- <Anchor point="TOPLEFT" relativeTo="$(parent)" relativePoint="TOPLEFT" offsetX="10" offsetY="-10" />
-            <Anchor point="BOTTOMRIGHT" relativeTo="$(parent)" relativePoint="BOTTOMRIGHT" offsetX="-10" offsetY="10" /> -->
-          </Label>
-        </Controls>
-      </Button> 
-
-    <!-- Item Amount -->
-        <Label name="$(parent)_ItemAmount" font="ZoFontWinT2" text="Total items in set: 0" linkEnabled="true">
-          <Anchor point="BOTTOMLEFT" relativeTo="$(parent)" relativePoint="BOTTOMLEFT" offsetX="0" offsetY="-10" />
-          <Anchor point="BOTTOMRIGHT" relativeTo="$(parent)" relativePoint="BOTTOMRIGHT" offsetX="0" offsetY="-10" />
-        </Label>
-
-    <!-- Scroll List -->
-        <Control name="$(parent)_ScrollList" inherits="ZO_ScrollList">
-          <Anchor point="TOPLEFT" relativeTo="$(parent)_SetXofY" relativePoint="BOTTOMLEFT" offsetX="0" offsetY="10" />
-          <Anchor point="BOTTOMRIGHT" relativeTo="$(parent)_ItemAmount" relativePoint="TOPRIGHT" offsetX="20" offsetY="-10" />
+        <Control name="$(parent)_Set" inherits="ZO_ComboBox">
+          <Anchor point="TOPLEFT" relativeTo="$(parent)" relativePoint="TOPLEFT" offsetX="10" offsetY="10" />
+          <Anchor point="TOPRIGHT" relativeTo="$(parent)_EditSet" relativePoint="TOPLEFT" offsetX="-10" offsetY="-5" />
         </Control>
 
-			</Controls>
-		</Control>
+      </Controls>
+    </Control> 
+    <!-- Set Row end-->
+
+    <!-- Scroll List  is on the bottom !!! -->
+
+    <!-- 
+      ADD ITEMS ROW 
+    -->
+    <Control name="$(parent)_AddItemsRow" mouseEnabled="true" resizeToFitDescendents="false">
+      <DimensionConstraints  minY="30"/>
+      <Anchor point="TOPLEFT" relativeTo="$(parent)_TitleRow" relativePoint="BOTTOMLEFT" offsetX="0" offsetY="20"/>
+      <Anchor point="TOPRIGHT" relativeTo="$(parent)_TitleRow" relativePoint="BOTTOMRIGHT" offsetX="0" offsetY="20"/>
+      <Controls>
+
+        <Button name="$(parent)_AddEquipped" inherits="ZO_ButtonBehaviorClickSound" hidden="true" >
+          <OnClicked>XLGB_UI:AddEquippedItemsToSet()</OnClicked>
+          <Dimensions x="300" y="40" />                                
+          <Anchor point="BOTTOMLEFT" relativeTo="$(parent)" relativePoint="BOTTOMLEFT" offsetX="0" offsetY="0"  />
+          <Anchor point="BOTTOMRIGHT" relativeTo="$(parent)" relativePoint="BOTTOMRIGHT" offsetX="0" offsetY="0"  />
+          <Textures
+              normal    ="/esoui/art/buttons/button_xlarge_mouseup.dds"
+              pressed    ="/esoui/art/buttons/button_xlarge_mousedown.dds"
+              mouseOver  ="/esoui/art/buttons/button_xlarge_mouseover.dds"
+            />
+          <Controls>
+            <Label name="$(parent)_Label" font="ZoFontWinH4" text="Add equipped items to set">
+              <Anchor point="CENTER" relativeTo="$(parent)" relativePoint="CENTER" offsetX="0" offsetY="-8"  />
+              <!-- <Anchor point="TOPLEFT" relativeTo="$(parent)" relativePoint="TOPLEFT" offsetX="10" offsetY="-10" />
+              <Anchor point="BOTTOMRIGHT" relativeTo="$(parent)" relativePoint="BOTTOMRIGHT" offsetX="-10" offsetY="10" /> -->
+            </Label>
+          </Controls>
+        </Button>
+
+      </Controls>
+    </Control> 
+    <!-- Add Items Row end-->
+
+    <!-- 
+      TOTAL SET ITEMS ROW 
+    -->
+    <Control name="$(parent)_TotalSetItemsRow" mouseEnabled="true" resizeToFitDescendents="false">
+      <DimensionConstraints  minY="30"/>
+      <Anchor point="BOTTOMLEFT" relativeTo="$(parent)" relativePoint="BOTTOMLEFT" offsetX="0" offsetY="10"/>
+      <Anchor point="BOTTOMRIGHT" relativeTo="$(parent)" relativePoint="BOTTOMRIGHT" offsetX="0" offsetY="10"/>
+      <Controls>
+
+        <Label name="$(parent)_TotalSetItems" font="ZoFontWinT2" text="Total items: 0" linkEnabled="true">
+          <Anchor point="TOPLEFT" relativeTo="$(parent)" relativePoint="TOPLEFT" offsetX="30" offsetY="-10" />
+        </Label>
+
+      </Controls>
+    </Control>
+    <!-- Total Set Items Row end -->
+
+    <Control name="$(parent)_ScrollList" inherits="ZO_ScrollList">
+      <Anchor point="TOPLEFT" relativeTo="$(parent)_SetRow" relativePoint="BOTTOMLEFT" offsetX="0" offsetY="10" />
+      <Anchor point="BOTTOMRIGHT" relativeTo="$(parent)_BankRow" relativePoint="TOPRIGHT" offsetX="20" offsetY="-10" />
+    </Control>
+
   </Controls>
 </TopLevelControl>
 
 
-
-<!-- Templates -->
+<!-- 
+  TEMPLATES 
+-->
+<!-- Item Row Template-->
 <Control name="XLGB_Item_Row_Template" virtual="true">
   <Dimensions y="25"/> 
   <Controls>
@@ -386,6 +350,32 @@
 
   </Controls>
 </Control>
+<!-- Item Row Template end-->
+
+<!-- Item Row Template-->
+<Control name="XLGB_Set_Row_Template" virtual="true">
+  <Dimensions y="25"/> 
+  <Controls>
+
+    <Label name="$(parent)_Name" font="ZoFontWinT2" text="Some Test Label">
+          <Anchor point="TOPLEFT" offsetX="10" offsetY="10" />
+    </Label>
+
+    <Button name="$(parent)_Remove" inherits="ZO_ButtonBehaviorClickSound" >
+      <OnClicked>XLGB_UI:RemoveItem(self)</OnClicked>
+      <Dimensions x="20" y="20" />                                
+      <Anchor point="TOPRIGHT" relativeTo="$(parent)" relativePoint="TOPRIGHT" offsetX="-20" offsetY="5"  />
+      <Textures
+          normal    ="/esoui/art/buttons/decline_up.dds"
+          pressed    ="/esoui/art/buttons/decline_down.dds"
+          mouseOver  ="/esoui/art/buttons/decline_over.dds"
+        />  
+    </Button>
+
+  </Controls>
+</Control>
+<!-- Item Row Template end -->
+<!-- Templates end -->
 
 </Controls>
 </GuiXml>
