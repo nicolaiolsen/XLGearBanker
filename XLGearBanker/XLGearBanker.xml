@@ -394,7 +394,7 @@
 
 <!-- Templates -->
     <Control name="XLGB_Item_Row_Template" virtual="true">
-      <Dimensions y="35"/> 
+      <Dimensions y="25"/> 
       <Controls>
 
         <Label name="$(parent)_Name" font="ZoFontWinT2" text="Some Test Label">
