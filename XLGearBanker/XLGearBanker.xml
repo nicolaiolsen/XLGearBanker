@@ -222,7 +222,7 @@
 
         <!-- Edit Button -->
         <Button name="$(parent)_EditSet" inherits="ZO_ButtonBehaviorClickSound" hidden="false">
-          <OnClicked>XLGB_UI:ToggleEdit(self)</OnClicked>
+          <OnClicked>XLGB_UI:ToggleSetEdit(self)</OnClicked>
           <Dimensions x="20" y="20" />                                
           <Anchor point="TOPRIGHT" relativeTo="$(parent)_AddRemoveSet" relativePoint="TOPLEFT" offsetX="-10" offsetY="0"  />
           <Textures
@@ -234,7 +234,7 @@
 
         <!-- Accept Edit Button -->
         <Button name="$(parent)_AcceptSet" inherits="ZO_ButtonBehaviorClickSound" hidden="true" >
-          <OnClicked>XLGB_UI:AcceptEdit(self)</OnClicked>
+          <OnClicked>XLGB_UI:AcceptSetEdit(self)</OnClicked>
           <Dimensions x="20" y="20" />                                
           <Anchor point="TOPRIGHT" relativeTo="$(parent)_EditSet" relativePoint="TOPLEFT" offsetX="-10" offsetY="0"  />
           <Textures

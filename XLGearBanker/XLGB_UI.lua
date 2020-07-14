@@ -219,7 +219,7 @@ local function discardSetChangesAndCycle(dialog)
   XLGB_UI:SelectSet(dialog.data)
 end
 
-function XLGB_UI:ToggleEdit()
+function XLGB_UI:ToggleSetEdit()
   if XLGearBanker.UI_Editable then
     if areThereAnyChanges() then
       libDialog:ShowDialog("XLGearBanker", "DiscardChangesDialog", nil)
@@ -234,11 +234,15 @@ function XLGB_UI:ToggleEdit()
   end
 end
 
-function XLGB_UI:AddSet()
+function XLGB_UI:AddRemoveSet()
   if XLGearBanker.UI_Editable then
-    XLGB_UI:ToggleEdit()
+    XLGB_UI:AddSet()
+  else
+    XLGB_UI:RemoveSet()
   end
+end
 
+function XLGB_UI:AddSet()
   XLGB_GearSet:GenerateNewSet()
   XLGearBanker.displayingSet = XLGB_GearSet:GetNumberOfGearSets()
   XLGB_UI:SelectSet(XLGearBanker.displayingSet)
