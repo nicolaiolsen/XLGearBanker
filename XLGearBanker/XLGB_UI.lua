@@ -247,12 +247,14 @@ function XLGB_UI:AddSet()
   XLGB_UI:SelectSet(sV.displayingSet)
 
   XLGB_UI:ToggleSetEdit()
+  ui.set.setRow.addRemoveSet:OnMouseEnter()
   XLGB_UI:UpdateSetDropdown()
 end
 
 local function removeSetConfirmed()
   XLGB_GearSet:RemoveGearSet(sV.displayingSet)
   setEditSetFalse()
+  ui.set.setRow.addRemoveSet:OnMouseEnter()
   XLGB_UI:SelectSet(sV.displayingSet - 1)
   XLGB_UI:UpdateSetDropdown()
 end
