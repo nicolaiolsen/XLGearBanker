@@ -1,7 +1,7 @@
 XLGB_UI = {}
 
 local libDialog = LibDialog
-local ui
+local ui = {}
 
 function XLGB_UI:XLGB_SetWindow_OnMoveStop()
   XLGearBanker.savedVariables.main_ui_left = XLGB_SetWindow:GetLeft()
@@ -453,7 +453,7 @@ end
 
 local function InitUISetVariables()
   ui.set                          = XLGB_SetWindow
-  
+
   ui.set.setRow                   = XLGB_SetWindow_SetRow
   ui.set.setRow.edit              = XLGB_SetWindow_SetRow_EditSet
   ui.set.setRow.editName          = XLGB_SetWindow_SetRow_EditSetName
