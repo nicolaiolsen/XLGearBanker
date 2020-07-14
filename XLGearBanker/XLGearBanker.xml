@@ -222,9 +222,9 @@
 
         <!-- Edit Button -->
         <Button name="$(parent)_EditSet" inherits="ZO_ButtonBehaviorClickSound" hidden="false">
-          <OnClicked></OnClicked>
+          <OnClicked>XLGB_UI:ToggleEdit(self)</OnClicked>
           <Dimensions x="20" y="20" />                                
-          <Anchor point="TOPRIGHT" relativeTo="$(parent)_AddSet" relativePoint="TOPLEFT" offsetX="-10" offsetY="0"  />
+          <Anchor point="TOPRIGHT" relativeTo="$(parent)_AddRemoveSet" relativePoint="TOPLEFT" offsetX="-10" offsetY="0"  />
           <Textures
               normal    ="/esoui/art/buttons/edit_up.dds"
               pressed    ="/esoui/art/buttons/edit_down.dds"
