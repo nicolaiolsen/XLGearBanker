@@ -370,6 +370,25 @@ local function HideItemTooltip(control)
   ClearTooltip(ItemTooltip)
 end
 
+function XLGB_UI:SelectSet(setNumber)
+  XLGearBanker.displayingSet = setNumber
+  XLGB_UI:UpdateScrollList()
+end
+
+function XLGB_UI:UpdateSetDropdown()
+  local dd = XLGB_UI.set.dropdown
+  dd:ClearItems()
+  for i = 1, XLGB_GearSet:GetNumberOfGearSets() do
+      local entry = ZO_ComboBox:CreateItemEntry(XLGB_GearSet:GetGearSet(i).name, XLGB_UI:SelectSet(i))
+      dd:AddItem(entry, ZO_COMBOBOX_SUPRESS_UPDATE)
+  end
+end
+
+function XLGB:InitializeDropdown()
+  XLGB_UI.set = XLGB_SetWindow_SetRow_Set
+  XLGB_UI.set.dropdown = ZO_ComboBox_ObjectFromContainer(XLGB_UI.set)
+end
+
 function XLGB_UI:UpdateScrollList()
   local scrollList = XLGB_SetWindow.scrollList
   local totalSetItems = XLGB_SetWindow_TotalSetItemsRow_TotalSetItems
