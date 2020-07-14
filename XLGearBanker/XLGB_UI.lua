@@ -370,13 +370,14 @@ end
 
 function XLGB_UI:SelectSet(setNumber)
   XLGearBanker.displayingSet = setNumber
+  XLGB_UI:UpdateScrollList()
 end
 
 function XLGB_UI:UpdateSetDropdown()
   local dd = XLGB_UI.set.dropdown
   dd:ClearItems()
   for i = 1, XLGB_GearSet:GetNumberOfGearSets() do
-      local entry = ZO_ComboBox:CreateItemEntry(XLGB_GearSet:GetGearSet(i).name, XLGB_UI:SelectSet(i))
+      local entry = ZO_ComboBox:CreateItemEntry(XLGB_GearSet:GetGearSet(i).name, function () XLGB_UI:SelectSet(i) end)
       dd:AddItem(entry, ZO_COMBOBOX_SUPRESS_UPDATE)
   end
 end
@@ -488,8 +489,7 @@ function XLGB_UI:Initialize()
   XLGB_UI:InitializeScrollList()
   XLGB_UI:InitializeDropdown()
   XLGB_UI:UpdateSetDropdown()
-  XLGB_UI:SelectSet(1)
-  XLGB_UI:UpdateScrollList()
+  XLGB_UI:SelectSet(XLGearBanker.displayingSet)
   -- XLGB_UI:ChangeDisplayedGearSet(XLGearBanker.displayingSet)
   XLGB_UI:SetupDialogs()
   if XLGearBanker.debug then
