@@ -179,7 +179,7 @@
       <Controls>
 
         <!-- Title -->
-        <Label name="$(parent)_Title" font="ZoFontAnnounceMedium" text="XLGB - Set Editor">
+        <Label name="$(parent)_Title" font="ZoFontAnnounceMedium" text="XLGB - Sets">
           <Anchor point="TOPLEFT" relativeTo="$(parent)" relativePoint="TOPLEFT" offsetX="10" offsetY="10"  />
         </Label>
 
