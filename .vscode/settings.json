@@ -103,7 +103,9 @@
         "XLGB_SetWindow_AddItemsRow_AddEquipped",
         "XLGB_SetWindow_SetRow_EditBox",
         "XLGB_SetWindow_TitleRow",
-        "XLGB_SetWindow_TitleRow_Title"
+        "XLGB_SetWindow_TitleRow_Title",
+        "InformationTooltip",
+        "SetTooltipText"
     ],
     "Lua.diagnostics.disable": [
         "lowercase-global",

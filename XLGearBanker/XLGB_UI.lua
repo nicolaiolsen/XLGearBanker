@@ -420,14 +420,31 @@ local function InitUISetVariables()
   ui.set.totalSetItemsRow.text    = XLGB_SetWindow_TotalSetItemsRow_TotalSetItems
 end
 
+local function SetGenericTooltip(control, text)
+  control.tooltipText = text
+
+  local function ShowTooltip(self)
+    InitializeTooltip(InformationTooltip, self, TOPRIGHT, 0, 5, BOTTOMRIGHT)
+    SetTooltipText(InformationTooltip, self.tooltipText)
+  end
+
+  local function HideTooltip(self)
+    ClearTooltip(InformationTooltip)
+  end
+
+  control:SetHandler("OnMouseEnter", ShowTooltip)
+  control:SetHandler("OnMouseExit", HideTooltip)
+end
+
 local function InitSetWindowTooltips()
   ui.set.setRow.edit.tooltipText = "Edit current set."
   ui.set.setRow.edit:SetHandler("OnMouseEnter", ZO_Options_OnMouseEnter)
   ui.set.setRow.edit:SetHandler("OnMouseExit", ZO_Options_OnMouseExit)
 
-  ui.set.setRow.accept.tooltipText = "Accept changes."
-  ui.set.setRow.accept:SetHandler("OnMouseEnter", ZO_Options_OnMouseEnter)
-  ui.set.setRow.accept:SetHandler("OnMouseExit", ZO_Options_OnMouseExit)
+  SetGenericTooltip(ui.set.setRow.accept, "Accept changes.")
+  -- ui.set.setRow.accept.tooltipText = "Accept changes."
+  -- ui.set.setRow.accept:SetHandler("OnMouseEnter", ZO_Options_OnMouseEnter)
+  -- ui.set.setRow.accept:SetHandler("OnMouseExit", ZO_Options_OnMouseExit)
 
   ui.set.setRow.addRemoveSet.tooltipText = "Create new set."
   ui.set.setRow.addRemoveSet:SetHandler("OnMouseEnter", ZO_Options_OnMouseEnter)
