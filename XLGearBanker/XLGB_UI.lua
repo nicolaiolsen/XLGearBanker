@@ -290,6 +290,34 @@ local function HideItemTooltip(control)
   ClearTooltip(ItemTooltip)
 end
 
+local function CreateSetTooltip(control, text, editText)
+  control.tooltipText = text
+  control.tooltipEditText = editText or text -- If no special edit text tooltip, then use default.
+
+  local function ShowTooltip(self)
+    InitializeTooltip(InformationTooltip, self, TOPRIGHT, 0, 5, BOTTOMRIGHT)
+    if not xl.UI_Editable then
+      SetTooltipText(InformationTooltip, self.tooltipText)
+    else
+      SetTooltipText(InformationTooltip, self.tooltipEditText)
+    end
+  end
+
+  local function HideTooltip(self)
+    ClearTooltip(InformationTooltip)
+  end
+
+  control:SetHandler("OnMouseEnter", ShowTooltip)
+  control:SetHandler("OnMouseExit", HideTooltip)
+end
+
+local function InitSetWindowTooltips()
+  CreateSetTooltip(ui.set.setRow.edit, "Edit current set", "Discard changes")
+  CreateSetTooltip(ui.set.setRow.accept, "Accept changes")
+  CreateSetTooltip(ui.set.setRow.addRemoveSet, "Create new set", "Remove current set")
+  CreateSetTooltip(ui.set.addItemsRow.addEquipped, "Add the items you're currently wearing to this set")
+end
+
 function XLGB_UI:SelectSet(setNumber)
   local totalSets = XLGB_GearSet:GetNumberOfGearSets()
 
@@ -351,6 +379,7 @@ local function fillSetItemRowWithData(control, data)
   else 
     control:GetNamedChild("_Remove"):SetHidden(true)
   end
+  CreateSetTooltip(control:GetNamedChild("_Remove"), "Remove item from set")
 end
 
 function XLGB_UI:InitializeSetScrollList()
@@ -418,41 +447,6 @@ local function InitUISetVariables()
 
   ui.set.totalSetItemsRow         = XLGB_SetWindow_TotalSetItemsRow
   ui.set.totalSetItemsRow.text    = XLGB_SetWindow_TotalSetItemsRow_TotalSetItems
-end
-
-local function SetGenericTooltip(control, text)
-  control.tooltipText = text
-
-  local function ShowTooltip(self)
-    InitializeTooltip(InformationTooltip, self, TOPRIGHT, 0, 5, BOTTOMRIGHT)
-    SetTooltipText(InformationTooltip, self.tooltipText)
-  end
-
-  local function HideTooltip(self)
-    ClearTooltip(InformationTooltip)
-  end
-
-  control:SetHandler("OnMouseEnter", ShowTooltip)
-  control:SetHandler("OnMouseExit", HideTooltip)
-end
-
-local function InitSetWindowTooltips()
-  ui.set.setRow.edit.tooltipText = "Edit current set."
-  ui.set.setRow.edit:SetHandler("OnMouseEnter", ZO_Options_OnMouseEnter)
-  ui.set.setRow.edit:SetHandler("OnMouseExit", ZO_Options_OnMouseExit)
-
-  SetGenericTooltip(ui.set.setRow.accept, "Accept changes.")
-  -- ui.set.setRow.accept.tooltipText = "Accept changes."
-  -- ui.set.setRow.accept:SetHandler("OnMouseEnter", ZO_Options_OnMouseEnter)
-  -- ui.set.setRow.accept:SetHandler("OnMouseExit", ZO_Options_OnMouseExit)
-
-  ui.set.setRow.addRemoveSet.tooltipText = "Create new set."
-  ui.set.setRow.addRemoveSet:SetHandler("OnMouseEnter", ZO_Options_OnMouseEnter)
-  ui.set.setRow.addRemoveSet:SetHandler("OnMouseExit", ZO_Options_OnMouseExit)
-  
-  ui.set.addItemsRow.addEquipped.tooltipText = "Add the items you're currently wearing to this set."
-  ui.set.addItemsRow.addEquipped:SetHandler("OnMouseEnter", ZO_Options_OnMouseEnter)
-  ui.set.addItemsRow.addEquipped:SetHandler("OnMouseExit", ZO_Options_OnMouseExit)
 end
 
 function XLGB_UI:Initialize()
