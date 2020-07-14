@@ -191,12 +191,12 @@ local function setEditSetTrue()
 
   s.setRow.set:SetHidden(true) -- Hide dropdown
 
-  -- s.setRow.editName:SetHidden(false) -- Make editName visible
-  -- s.setRow.editName:SetEditEnabled(true)
-  -- s.setRow.editName:SetText(XLGearBanker.UI_GearSetNameBefore)
-  -- s.setRow.editName:SelectAll()
-  -- s.setRow.editName:TakeFocus()
-  -- s.setRow.editName:SetMouseEnabled(true)
+  s.setRow.editName:SetHidden(false) -- Make editName visible
+  s.setRow.editName:SetEditEnabled(true)
+  s.setRow.editName:SetText(XLGearBanker.UI_GearSetNameBefore)
+  s.setRow.editName:SelectAll()
+  s.setRow.editName:TakeFocus()
+  s.setRow.editName:SetMouseEnabled(true)
 
   s.setRow.accept:SetHidden(false)
 
@@ -456,7 +456,7 @@ local function InitUISetVariables()
 
   ui.set.setRow                   = XLGB_SetWindow_SetRow
   ui.set.setRow.edit              = XLGB_SetWindow_SetRow_EditSet
-  ui.set.setRow.editName          = XLGB_SetWindow_SetRow_EditSetName
+  ui.set.setRow.editName          = XLGB_SetWindow_SetRow_EditBox
   ui.set.setRow.set               = XLGB_SetWindow_SetRow_Set
   ui.set.setRow.accept            = XLGB_SetWindow_SetRow_AcceptSet
   ui.set.setRow.addRemoveSet      = XLGB_SetWindow_SetRow_AddRemoveSet

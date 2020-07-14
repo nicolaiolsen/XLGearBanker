@@ -100,7 +100,8 @@
         "XLGB_SetWindow_SetRow_AcceptSet",
         "XLGB_SetWindow_AddItemsRow",
         "XLGB_SetWindow_TotalSetItemsRow",
-        "XLGB_SetWindow_AddItemsRow_AddEquipped"
+        "XLGB_SetWindow_AddItemsRow_AddEquipped",
+        "XLGB_SetWindow_SetRow_EditBox"
     ],
     "Lua.diagnostics.disable": [
         "lowercase-global",

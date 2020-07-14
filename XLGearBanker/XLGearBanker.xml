@@ -256,7 +256,7 @@
             />  
         </Button>
 
-        <EditBox name="(parent)_EditSetName" inherits="ZO_DefaultEdit ZO_EditDefaultText" text="Empty" mouseEnabled="false" hidden="true">
+        <EditBox name="(parent)_EditBox" inherits="ZO_DefaultEdit ZO_EditDefaultText" text="Empty" mouseEnabled="false" hidden="true">
           <Anchor point="TOPLEFT" relativeTo="$(parent)" relativePoint="TOPLEFT" offsetX="10" offsetY="10" />
           <Anchor point="TOPRIGHT" relativeTo="$(parent)_RemoveSet" relativePoint="TOPLEFT" offsetX="-10" offsetY="-5" />
           <Dimensions y="30"/>
