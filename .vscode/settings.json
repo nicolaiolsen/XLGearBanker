@@ -93,7 +93,14 @@
         "XLGB_SetWindow_SetRow_Set",
         "ZO_ComboBox_ObjectFromContainer",
         "ZO_COMBOBOX_SUPRESS_UPDATE",
-        "ZO_ComboBox"
+        "ZO_ComboBox",
+        "XLGB_SetWindow_SetRow_AddRemoveSet",
+        "XLGB_SetWindow_SetRow_EditSetName",
+        "XLGB_SetWindow_SetRow_EditSet",
+        "XLGB_SetWindow_SetRow_AcceptSet",
+        "XLGB_SetWindow_AddItemsRow",
+        "XLGB_SetWindow_TotalSetItemsRow",
+        "XLGB_SetWindow_AddItemsRow_AddEquipped"
     ],
     "Lua.diagnostics.disable": [
         "lowercase-global",
