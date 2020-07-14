@@ -452,6 +452,7 @@ function XLGB_UI:SetupDialogs()
 end
 
 local function InitUISetVariables()
+  ui.set                          = XLGB_SetWindow
   ui.set.setRow                   = XLGB_SetWindow_SetRow
   ui.set.setRow.edit              = XLGB_SetWindow_SetRow_EditSet
   ui.set.setRow.editName          = XLGB_SetWindow_SetRow_EditSetName
