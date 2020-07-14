@@ -385,7 +385,7 @@ end
 function XLGB_UI:InitializeDropdown()
   XLGB_UI.set = XLGB_SetWindow_SetRow_Set
   XLGB_UI.set.dropdown = ZO_ComboBox_ObjectFromContainer(XLGB_UI.set)
-  XLGB_UI.set:SetSelectedItemText(XLGB_GearSet:GetGearSet(XLGearBanker.displayingSet).name)
+  XLGB_UI.set:SelectItem(XLGB_GearSet:GetGearSet(XLGearBanker.displayingSet))
 end
 
 function XLGB_UI:UpdateScrollList()
