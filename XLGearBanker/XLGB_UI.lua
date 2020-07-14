@@ -200,6 +200,7 @@ function XLGB_UI:AcceptSetEdit()
       end
     end
   end
+  XLGB_UI:UpdateSetDropdown()
   ZO_ScrollList_RefreshVisible(ui.set.scrollList)
 end
 
@@ -247,7 +248,6 @@ function XLGB_UI:AddSet()
 
   XLGB_UI:ToggleSetEdit()
   XLGB_UI:UpdateSetDropdown()
-  
 end
 
 local function removeSetConfirmed()
