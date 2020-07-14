@@ -245,7 +245,7 @@ function XLGB_UI:AddSet()
   sV.displayingSet = XLGB_GearSet:GetNumberOfGearSets()
   XLGB_UI:SelectSet(sV.displayingSet)
 
-  XLGB_UI:ToggleEdit()
+  XLGB_UI:ToggleSetEdit()
 end
 
 local function removeSetConfirmed()
