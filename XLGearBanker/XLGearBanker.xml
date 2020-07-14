@@ -257,8 +257,8 @@
         </Button>
 
         <EditBox name="$(parent)_EditSetName" inherits="ZO_DefaultEdit ZO_EditDefaultText" text="Empty" mouseEnabled="false" hidden="true">
-          <Anchor point="TOPLEFT" relativeTo="$(parent)" relativePoint="TOPLEFT" offsetX="10" offsetY="10" />
-          <Anchor point="TOPRIGHT" relativeTo="$(parent)_RemoveSet" relativePoint="TOPLEFT" offsetX="-10" offsetY="-5" />
+          <Anchor point="TOPLEFT" relativeTo="$(parent)" relativePoint="TOPLEFT" offsetX="18" offsetY="0" />
+          <Anchor point="TOPRIGHT" relativeTo="$(parent)_RemoveSet" relativePoint="TOPLEFT" offsetX="-10" offsetY="-1" />
           <Dimensions y="30"/>
           <OnFocusGained>XLGB_UI:SelectEntireTextbox(self)</OnFocusGained>
         </EditBox>
@@ -347,7 +347,7 @@
     <Button name="$(parent)_Remove" inherits="ZO_ButtonBehaviorClickSound" >
       <OnClicked>XLGB_UI:RemoveItem(self)</OnClicked>
       <Dimensions x="20" y="20" />                                
-      <Anchor point="TOPRIGHT" relativeTo="$(parent)" relativePoint="TOPRIGHT" offsetX="-12" offsetY="10"  />
+      <Anchor point="TOPRIGHT" relativeTo="$(parent)" relativePoint="TOPRIGHT" offsetX="-12" offsetY="8"  />
       <Textures
           normal    ="/esoui/art/buttons/decline_up.dds"
           pressed    ="/esoui/art/buttons/decline_down.dds"
