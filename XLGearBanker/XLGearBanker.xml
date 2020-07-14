@@ -294,7 +294,7 @@
     <!-- 
       ADD ITEMS ROW 
     -->
-    <Control name="$(parent)_AddItemsRow" mouseEnabled="true" resizeToFitDescendents="false">
+    <Control name="$(parent)_AddItemsRow" mouseEnabled="true" resizeToFitDescendents="false" hidden="true">
       <DimensionConstraints  minY="30"/>
       <Anchor point="BOTTOMLEFT" relativeTo="$(parent)_TotalSetItemsRow" relativePoint="TOLEFT" offsetX="0" offsetY="-10"/>
       <Anchor point="BOTTOMRIGHT" relativeTo="$(parent)_TotalSetItemsRow" relativePoint="TOPRIGHT" offsetX="0" offsetY="-0"/>
@@ -325,7 +325,7 @@
 
     <Control name="$(parent)_ScrollList" inherits="ZO_ScrollList">
       <Anchor point="TOPLEFT" relativeTo="$(parent)_SetRow" relativePoint="BOTTOMLEFT" offsetX="0" offsetY="10" />
-      <Anchor point="BOTTOMRIGHT" relativeTo="$(parent)_AddItemsRow" relativePoint="TOPRIGHT" offsetX="-21" offsetY="-20" />
+      <Anchor point="BOTTOMRIGHT" relativeTo="$(parent)_TotalSetItemsRow" relativePoint="TOPRIGHT" offsetX="-21" offsetY="-20" />
     </Control>
 
   </Controls>
@@ -347,7 +347,7 @@
     <Button name="$(parent)_Remove" inherits="ZO_ButtonBehaviorClickSound" >
       <OnClicked>XLGB_UI:RemoveItem(self)</OnClicked>
       <Dimensions x="20" y="20" />                                
-      <Anchor point="TOPRIGHT" relativeTo="$(parent)" relativePoint="TOPRIGHT" offsetX="-20" offsetY="5"  />
+      <Anchor point="TOPRIGHT" relativeTo="$(parent)" relativePoint="TOPRIGHT" offsetX="-12" offsetY="10"  />
       <Textures
           normal    ="/esoui/art/buttons/decline_up.dds"
           pressed    ="/esoui/art/buttons/decline_down.dds"

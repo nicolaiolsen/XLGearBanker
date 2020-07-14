@@ -165,7 +165,6 @@ end
 local function setEditSetFalse()
   local s = ui.set
   XLGearBanker.UI_Editable = false
-  XLGearBanker.UI_GearSetNameBefore = ui.set.setRow.set.dropdown:GetSelectItemText()
 
   s.setRow.set:SetHidden(false) -- Make dropdown visible
 
