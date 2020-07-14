@@ -420,6 +420,24 @@ local function InitUISetVariables()
   ui.set.totalSetItemsRow.text    = XLGB_SetWindow_TotalSetItemsRow_TotalSetItems
 end
 
+local function InitSetWindowTooltips()
+  ui.set.setRow.edit.tooltipText = "Edit current set."
+  ui.set.setRow.edit:SetHandler("OnMouseEnter", ZO_Options_OnMouseEnter)
+  ui.set.setRow.edit:SetHandler("OnMouseExit", ZO_Options_OnMouseExit)
+
+  ui.set.setRow.accept.tooltipText = "Accept changes."
+  ui.set.setRow.accept:SetHandler("OnMouseEnter", ZO_Options_OnMouseEnter)
+  ui.set.setRow.accept:SetHandler("OnMouseExit", ZO_Options_OnMouseExit)
+
+  ui.set.setRow.addRemoveSet.tooltipText = "Create new set."
+  ui.set.setRow.addRemoveSet:SetHandler("OnMouseEnter", ZO_Options_OnMouseEnter)
+  ui.set.setRow.addRemoveSet:SetHandler("OnMouseExit", ZO_Options_OnMouseExit)
+  
+  ui.set.addItemsRow.addEquipped.tooltipText = "Add the items you're currently wearing to this set."
+  ui.set.addItemsRow.addEquipped:SetHandler("OnMouseEnter", ZO_Options_OnMouseEnter)
+  ui.set.addItemsRow.addEquipped:SetHandler("OnMouseExit", ZO_Options_OnMouseExit)
+end
+
 function XLGB_UI:Initialize()
   xl = XLGearBanker or {}
   sV = XLGearBanker.savedVariables or {}
@@ -432,6 +450,7 @@ function XLGB_UI:Initialize()
   xl.UI_ItemsMarkedForRemoval = {}
 
   InitUISetVariables()
+  InitSetWindowTooltips()
 
   XLGB_UI:RestorePosition()
   XLGB_UI:InitializeSetScrollList()
