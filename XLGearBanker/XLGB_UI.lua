@@ -330,8 +330,6 @@ function XLGB_UI:ChangeDisplayedGearSet(gearSetNumber)
   end
 end
 
-
-
 function XLGB_UI:RemoveItem(removeItemControl)
   easyDebug("Removing item")
   local itemRowControl = removeItemControl:GetParent()
@@ -372,7 +370,6 @@ end
 
 function XLGB_UI:SelectSet(setNumber)
   XLGearBanker.displayingSet = setNumber
-  XLGB_UI:UpdateScrollList()
 end
 
 function XLGB_UI:UpdateSetDropdown()
@@ -387,8 +384,6 @@ end
 function XLGB_UI:InitializeDropdown()
   XLGB_UI.set = XLGB_SetWindow_SetRow_Set
   XLGB_UI.set.dropdown = ZO_ComboBox_ObjectFromContainer(XLGB_UI.set)
-  XLGB_UI:UpdateSetDropdown()
-  XLGB_UI:SelectSet(XLGearBanker.displayingSet)
 end
 
 function XLGB_UI:UpdateScrollList()
@@ -492,7 +487,10 @@ function XLGB_UI:Initialize()
   XLGB_UI:RestorePosition()
   XLGB_UI:InitializeScrollList()
   XLGB_UI:InitializeDropdown()
-  XLGB_UI:ChangeDisplayedGearSet(XLGearBanker.displayingSet)
+  XLGB_UI:UpdateSetDropdown()
+  XLGB_UI:SelectSet(XLGearBanker.displayingSet)
+  XLGB_UI:UpdateScrollList()
+  -- XLGB_UI:ChangeDisplayedGearSet(XLGearBanker.displayingSet)
   XLGB_UI:SetupDialogs()
   if XLGearBanker.debug then
     XLGB_UI:ShowUI()
