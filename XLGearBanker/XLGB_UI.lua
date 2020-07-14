@@ -396,9 +396,8 @@ local function fillSetItemRowWithData(control, data)
 end
 
 function XLGB_UI:InitializeSetScrollList()
-  XLGB_SetWindow.scrollList = XLGB_SetWindow:GetNamedChild("_ScrollList")
-  ZO_ScrollList_AddDataType(XLGB_SetWindow.scrollList, XLGB_Constants.ITEM_ROW, "XLGB_Item_Row_Template", 35, fillSetItemRowWithData)
-  ZO_ScrollList_EnableHighlight(XLGB_SetWindow.scrollList, "ZO_ThinListHighlight")
+  ZO_ScrollList_AddDataType(ui.set.scrollList, XLGB_Constants.ITEM_ROW, "XLGB_Item_Row_Template", 35, fillSetItemRowWithData)
+  ZO_ScrollList_EnableHighlight(ui.set.scrollList, "ZO_ThinListHighlight")
   XLGB_UI:UpdateSetScrollList()
 end
 
@@ -452,6 +451,23 @@ function XLGB_UI:SetupDialogs()
 
 end
 
+local function InitUISetVariables()
+  ui.set.setRow                   = XLGB_SetWindow_SetRow
+  ui.set.setRow.edit              = XLGB_SetWindow_SetRow_EditSet
+  ui.set.setRow.editName          = XLGB_SetWindow_SetRow_EditSetName
+  ui.set.setRow.set               = XLGB_SetWindow_SetRow_Set
+  ui.set.setRow.accept            = XLGB_SetWindow_SetRow_AcceptSet
+  ui.set.setRow.addRemoveSet      = XLGB_SetWindow_SetRow_AddRemoveSet
+
+  ui.set.scrollList               = XLGB_SetWindow_ScrollList
+
+  ui.set.addItemsRow              = XLGB_SetWindow_AddItemsRow
+  ui.set.addItemsRow.addEquipped  = XLGB_SetWindow_AddItemsRow_AddEquipped
+
+  ui.set.totalSetItemsRow         = XLGB_SetWindow_TotalSetItemsRow
+  ui.set.totalSetItemsRow.text    = XLGB_SetWindow_TotalSetItemsRow_TotalSetItems
+end
+
 function XLGB_UI:Initialize()
   XLGearBanker.displayingSet = 1
   XLGearBanker.UI_Editable = false
@@ -459,6 +475,9 @@ function XLGB_UI:Initialize()
   XLGearBanker.itemChanges = false
   XLGearBanker.nameChanges = false
   XLGearBanker.UI_ItemsMarkedForRemoval = {}
+
+  InitUISetVariables()
+
   XLGB_UI:RestorePosition()
   XLGB_UI:InitializeSetScrollList()
   XLGB_UI:InitializeSetDropdown()
@@ -470,18 +489,5 @@ function XLGB_UI:Initialize()
     XLGB_UI:ShowUI()
   end
 
-  ui.set.setRow               = XLGB_SetWindow_SetRow
-  ui.set.setRow.edit          = XLGB_SetWindow_SetRow_EditSet
-  ui.set.setRow.editName      = XLGB_SetWindow_SetRow_EditSetName
-  ui.set.setRow.set           = XLGB_SetWindow_SetRow_Set
-  ui.set.setRow.accept        = XLGB_SetWindow_SetRow_AcceptSet
-  ui.set.setRow.addRemoveSet  = XLGB_SetWindow_SetRow_AddRemoveSet
-
-  ui.set.setScrollList        = XLGB_SetWindow_ScrollList
-
-  ui.set.addItemsRow              = XLGB_SetWindow_AddItemsRow
-  ui.set.addItemsRow.addEquipped  = XLGB_SetWindow_AddItemsRow_AddEquipped
-
-  ui.set.totalSetItemsRow       = XLGB_SetWindow_TotalSetItemsRow
-  ui.set.totalSetItemsRow.text  = XLGB_SetWindow_TotalSetItemsRow_TotalSetItems
+  
 end
