@@ -384,7 +384,7 @@ function XLGB_UI:UpdateSetDropdown()
   end
 end
 
-function XLGB:InitializeDropdown()
+function XLGB_UI:InitializeDropdown()
   XLGB_UI.set = XLGB_SetWindow_SetRow_Set
   XLGB_UI.set.dropdown = ZO_ComboBox_ObjectFromContainer(XLGB_UI.set)
 end
@@ -489,6 +489,7 @@ function XLGB_UI:Initialize()
   XLGearBanker.UI_ItemsMarkedForRemoval = {}
   XLGB_UI:RestorePosition()
   XLGB_UI:InitializeScrollList()
+  XLGB_UI:InitializeDropdown()
   XLGB_UI:ChangeDisplayedGearSet(XLGearBanker.displayingSet)
   XLGB_UI:SetupDialogs()
   if XLGearBanker.debug then
