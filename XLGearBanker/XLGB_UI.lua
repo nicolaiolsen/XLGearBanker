@@ -343,7 +343,7 @@ end
 
 function XLGB_UI:SelectSet(setNumber)
   XLGearBanker.displayingSet = setNumber
-  XLGB_UI:UpdateScrollList()
+  XLGB_UI:UpdateSetScrollList()
 end
 
 function XLGB_UI:UpdateSetDropdown()
@@ -362,8 +362,8 @@ function XLGB_UI:InitializeSetDropdown()
 end
 
 function XLGB_UI:UpdateSetScrollList()
-  local scrollList = XLGB_SetWindow.scrollList
-  local totalSetItems = XLGB_SetWindow_TotalSetItemsRow_TotalSetItems
+  local scrollList = ui.set.scrollList
+  local totalSetItems = ui.set.totalSetItemsRow.text
   local scrollData = ZO_ScrollList_GetDataList(scrollList)
   ZO_ScrollList_Clear(scrollList)
   totalSetItems:SetText("Total items in set: 0")
@@ -482,5 +482,6 @@ function XLGB_UI:Initialize()
   ui.set.addItemsRow              = XLGB_SetWindow_AddItemsRow
   ui.set.addItemsRow.addEquipped  = XLGB_SetWindow_AddItemsRow_AddEquipped
 
-  ui.set.totalSetItemsRow     = XLGB_SetWindow_TotalSetItemsRow
+  ui.set.totalSetItemsRow       = XLGB_SetWindow_TotalSetItemsRow
+  ui.set.totalSetItemsRow.text  = XLGB_SetWindow_TotalSetItemsRow_TotalSetItems
 end
