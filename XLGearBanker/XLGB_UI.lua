@@ -191,12 +191,12 @@ local function setEditSetTrue()
 
   s.setRow.set:SetHidden(true) -- Hide dropdown
 
-  s.setRow.editName:SetHidden(false) -- Make editName visible
-  s.setRow.editName:SetEditEnabled(true)
-  s.setRow.editName:SetText(XLGearBanker.UI_GearSetNameBefore)
-  s.setRow.editName:SelectAll()
-  s.setRow.editName:TakeFocus()
-  s.setRow.editName:SetMouseEnabled(true)
+  -- s.setRow.editName:SetHidden(false) -- Make editName visible
+  -- s.setRow.editName:SetEditEnabled(true)
+  -- s.setRow.editName:SetText(XLGearBanker.UI_GearSetNameBefore)
+  -- s.setRow.editName:SelectAll()
+  -- s.setRow.editName:TakeFocus()
+  -- s.setRow.editName:SetMouseEnabled(true)
 
   s.setRow.accept:SetHidden(false)
 
