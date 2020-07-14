@@ -143,9 +143,10 @@ local function setEditSetFalse()
   refreshAddRemoveIcon(s.setRow.addRemoveSet)
 
   s.addItemsRow:SetHidden(true)
-  reanchorScrollList(s.scrollList, s.setRow, s.totalSetItemsRow)
 
+  reanchorScrollList(s.scrollList, s.setRow, s.totalSetItemsRow)
   ZO_ScrollList_RefreshVisible(s.scrollList)
+  ClearTooltip(InformationTooltip)
 end
 
 local function setEditSetTrue()
@@ -170,9 +171,10 @@ local function setEditSetTrue()
   refreshAddRemoveIcon(s.setRow.addRemoveSet)
 
   s.addItemsRow:SetHidden(false)
-  reanchorScrollList(s.scrollList, s.setRow, s.addItemsRow)
 
+  reanchorScrollList(s.scrollList, s.setRow, s.addItemsRow)
   ZO_ScrollList_RefreshVisible(s.scrollList)
+  ClearTooltip(InformationTooltip)
 end
 
 local function acceptSetChanges()
@@ -247,14 +249,12 @@ function XLGB_UI:AddSet()
   XLGB_UI:SelectSet(sV.displayingSet)
 
   XLGB_UI:ToggleSetEdit()
-  ui.set.setRow.addRemoveSet:OnMouseEnter()
   XLGB_UI:UpdateSetDropdown()
 end
 
 local function removeSetConfirmed()
   XLGB_GearSet:RemoveGearSet(sV.displayingSet)
   setEditSetFalse()
-  ui.set.setRow.addRemoveSet:OnMouseEnter()
   XLGB_UI:SelectSet(sV.displayingSet - 1)
   XLGB_UI:UpdateSetDropdown()
 end
