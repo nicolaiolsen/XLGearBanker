@@ -233,7 +233,7 @@ function XLGB_UI:ToggleSetEdit()
 end
 
 function XLGB_UI:AddRemoveSet()
-  if xl.UI_Editable then
+  if not xl.UI_Editable then
     XLGB_UI:AddSet()
   else
     XLGB_UI:RemoveSet()
