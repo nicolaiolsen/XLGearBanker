@@ -380,6 +380,7 @@ function XLGB_UI:UpdateSetDropdown()
       local entry = ZO_ComboBox:CreateItemEntry(XLGB_GearSet:GetGearSet(i).name, function () XLGB_UI:SelectSet(i) end)
       dd:AddItem(entry, ZO_COMBOBOX_SUPRESS_UPDATE)
   end
+  dd:SelectItemByIndex(XLGearBanker.displayingSet, true)
 end
 
 function XLGB_UI:InitializeDropdown()
@@ -489,7 +490,6 @@ function XLGB_UI:Initialize()
   XLGB_UI:InitializeScrollList()
   XLGB_UI:InitializeDropdown()
   XLGB_UI:UpdateSetDropdown()
-  XLGB_UI.set.dropdown:SelectItemByIndex(XLGearBanker.displayingSet, true)
   XLGB_UI:SelectSet(XLGearBanker.displayingSet)
   -- XLGB_UI:ChangeDisplayedGearSet(XLGearBanker.displayingSet)
   XLGB_UI:SetupDialogs()
