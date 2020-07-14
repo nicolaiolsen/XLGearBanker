@@ -185,7 +185,7 @@
 
         <!-- Escape button:-->
         <Button name="$(parent)_Hide" inherits="ZO_ButtonBehaviorClickSound" >
-          <OnClicked></OnClicked>
+          <OnClicked>XLGB_UI:HideSetWindow()</OnClicked>
           <Dimensions x="30" y="30" />                                
           <Anchor point="TOPRIGHT" relativeTo="$(parent)" relativePoint="TOPRIGHT" offsetX="-10" offsetY="10"  />
           <Textures
@@ -210,7 +210,7 @@
 
         <!-- Add New Page Button -->
         <Button name="$(parent)_AddRemoveSet" inherits="ZO_ButtonBehaviorClickSound" >
-          <OnClicked></OnClicked>
+          <OnClicked>XLGB_UI:AddRemoveSet()</OnClicked>
           <Dimensions x="20" y="20" />                                
           <Anchor point="TOPRIGHT" relativeTo="$(parent)" relativePoint="TOPRIGHT" offsetX="-10" offsetY="0"  />
           <Textures

@@ -2,18 +2,17 @@ XLGB_UI = {}
 
 local libDialog = LibDialog
 local ui = {}
+local sV = {}
+local xl = {}
 
 function XLGB_UI:XLGB_SetWindow_OnMoveStop()
-  XLGearBanker.savedVariables.main_ui_left = XLGB_SetWindow:GetLeft()
-  XLGearBanker.savedVariables.main_ui_top = XLGB_SetWindow:GetTop()
+  sV.setWindow_x = XLGB_SetWindow:GetLeft()
+  sV.setWindow_y = XLGB_SetWindow:GetTop()
 end
 
 function XLGB_UI:RestorePosition()
-  local left = XLGearBanker.savedVariables.main_ui_left
-  local top = XLGearBanker.savedVariables.main_ui_top
-
   XLGB_SetWindow:ClearAnchors()
-  XLGB_SetWindow:SetAnchor(TOPLEFT, GuiRoot, TOPLEFT, left, top)
+  XLGB_SetWindow:SetAnchor(TOPLEFT, GuiRoot, TOPLEFT, sV.setWindow_x, sV.setWindow_y)
 end
 
 function XLGB_UI:ToggleUI()
@@ -24,12 +23,13 @@ function XLGB_UI:ToggleUI()
   end
 end
 
-function XLGB_UI:ShowUI()
-  XLGB_UI:ChangeDisplayedGearSet(XLGearBanker.displayingSet)
+function XLGB_UI:ShowSetWindow(number)
+  sV.displayingSet = number or sV.displayingSet
+  XLGB_UI:SelectSet(sV.displayingSet)
   XLGB_SetWindow:SetHidden(false)
 end
 
-function XLGB_UI:HideUI()
+function XLGB_UI:HideSetWindow()
   XLGB_SetWindow:SetHidden(true)
 end
 
@@ -55,7 +55,6 @@ function XLGB_UI:OnBankOpen()
 
   -- withdrawControl:SetHidden(false)
   -- withdrawControl:SetMouseEnabled(true)
-  XLGB_UI:ShowUI()
 end
 
 function XLGB_UI:OnBankClosed()
@@ -64,7 +63,7 @@ function XLGB_UI:OnBankClosed()
   -- local itemAmountControl = XLGB_SetWindow_ListView:GetNamedChild("_ItemAmount")
   -- local addEquippedControl = XLGB_SetWindow_ListView:GetNamedChild("_AddEquipped")
 
-  -- if(XLGearBanker.UI_Editable) then 
+  -- if(xl.UI_Editable) then 
   --   itemAmountControl:SetAnchor(BOTTOMLEFT, addEquippedControl, TOPLEFT, 0, -10)
   --   itemAmountControl:SetAnchor(BOTTOMRIGHT, addEquippedControl, TOPRIGHT, 0, -10)
   -- else
@@ -80,7 +79,6 @@ function XLGB_UI:OnBankClosed()
 
   -- withdrawControl:SetHidden(true)
   -- withdrawControl:SetMouseEnabled(false)
-  XLGB_UI:HideUI()
 end
 
 function XLGB_UI:SelectEntireTextbox(editBoxControl)
@@ -88,15 +86,15 @@ function XLGB_UI:SelectEntireTextbox(editBoxControl)
 end
 
 local function areThereAnyChanges()
-  if (ui.set.setRow.editName:GetText() == XLGearBanker.UI_GearSetNameBefore)
-  and not(XLGearBanker.itemChanges) then
+  if (ui.set.setRow.editName:GetText() == xl.UI_GearSetNameBefore)
+  and not(xl.itemChanges) then
     return false
   end
   return true
 end
 
 local function refreshAddRemoveIcon(addRemoveControl)
-  if XLGearBanker.UI_Editable then
+  if xl.UI_Editable then
     addRemoveControl:SetNormalTexture("/esoui/art/buttons/pointsminus_up.dds")
     addRemoveControl:SetPressedTexture("/esoui/art/buttons/pointsminus_down.dds")
     addRemoveControl:SetMouseOverTexture("/esoui/art/buttons/pointsminus_over.dds")
@@ -108,7 +106,7 @@ local function refreshAddRemoveIcon(addRemoveControl)
 end
 
 local function refreshEditIcon(editControl)
-  if XLGearBanker.UI_Editable then
+  if xl.UI_Editable then
     editControl:SetNormalTexture("/esoui/art/buttons/edit_cancel_up.dds")
     editControl:SetPressedTexture("/esoui/art/buttons/edit_cancel_down.dds")
     editControl:SetMouseOverTexture("/esoui/art/buttons/edit_cancel_over.dds")
@@ -128,7 +126,7 @@ end
 
 local function setEditSetFalse()
   local s = ui.set
-  XLGearBanker.UI_Editable = false
+  xl.UI_Editable = false
 
   s.titleRow.title:SetText("XLGB - Sets")
 
@@ -152,8 +150,8 @@ end
 
 local function setEditSetTrue()
   local s = ui.set
-  XLGearBanker.UI_Editable = true
-  XLGearBanker.UI_GearSetNameBefore = XLGB_GearSet:GetGearSet(XLGearBanker.displayingSet).name
+  xl.UI_Editable = true
+  xl.UI_GearSetNameBefore = XLGB_GearSet:GetGearSet(sV.displayingSet).name
 
   s.titleRow.title:SetText("XLGB - Sets (Edit Mode)")
 
@@ -161,7 +159,7 @@ local function setEditSetTrue()
 
   s.setRow.editName:SetHidden(false) -- Make editName visible
   s.setRow.editName:SetEditEnabled(true)
-  s.setRow.editName:SetText(XLGearBanker.UI_GearSetNameBefore)
+  s.setRow.editName:SetText(xl.UI_GearSetNameBefore)
   s.setRow.editName:SelectAll()
   s.setRow.editName:TakeFocus()
   s.setRow.editName:SetMouseEnabled(true)
@@ -178,7 +176,7 @@ local function setEditSetTrue()
 end
 
 local function acceptSetChanges()
-  XLGearBanker.copyOfSet = {}
+  xl.copyOfSet = {}
   setEditSetFalse()
   d("[XLGB] Gear set changes accepted!")
 end
@@ -186,16 +184,16 @@ end
 function XLGB_UI:AcceptSetEdit()
   local newGearName = ui.set.setRow.editName:GetText()
 
-  if newGearName == XLGearBanker.UI_GearSetNameBefore then
-    if not(XLGearBanker.itemChanges) then
+  if newGearName == xl.UI_GearSetNameBefore then
+    if not(xl.itemChanges) then
       setEditSetFalse()
     else
       libDialog:ShowDialog("XLGearBanker", "AcceptChanges", nil)
     end
   else
-    if XLGB_GearSet:EditGearSetName(newGearName, XLGearBanker.displayingSet) then
+    if XLGB_GearSet:EditGearSetName(newGearName, sV.displayingSet) then
       d("[XLGB] Gearset renamed to '" .. newGearName .. "'.")
-      if not(XLGearBanker.itemChanges) then
+      if not(xl.itemChanges) then
         setEditSetFalse()
       else
         libDialog:ShowDialog("XLGearBanker", "AcceptChanges", nil)
@@ -206,8 +204,8 @@ function XLGB_UI:AcceptSetEdit()
 end
 
 local function discardSetChanges()
-  XLGearBanker.savedVariables.gearSetList[XLGearBanker.displayingSet] = XLGearBanker.copyOfSet
-  XLGearBanker.copyOfSet = {}
+  sV.gearSetList[sV.displayingSet] = xl.copyOfSet
+  xl.copyOfSet = {}
   setEditSetFalse()
   
   XLGB_UI:UpdateSetScrollList()
@@ -215,27 +213,27 @@ end
 
 local function discardSetChangesAndCycle(dialog)
   discardSetChanges()
-  XLGearBanker.displayingSet = dialog.data
+  sV.displayingSet = dialog.data
   XLGB_UI:SelectSet(dialog.data)
 end
 
 function XLGB_UI:ToggleSetEdit()
-  if XLGearBanker.UI_Editable then
+  if xl.UI_Editable then
     if areThereAnyChanges() then
       libDialog:ShowDialog("XLGearBanker", "DiscardChangesDialog", nil)
     else
       discardSetChanges()
     end
   else
-    XLGearBanker.copyOfSet = XLGB_GearSet:CopyGearSet(XLGearBanker.displayingSet)
-    XLGearBanker.itemChanges = false
-    XLGearBanker.nameChanges = false
+    xl.copyOfSet = XLGB_GearSet:CopyGearSet(sV.displayingSet)
+    xl.itemChanges = false
+    xl.nameChanges = false
     setEditSetTrue()
   end
 end
 
 function XLGB_UI:AddRemoveSet()
-  if XLGearBanker.UI_Editable then
+  if xl.UI_Editable then
     XLGB_UI:AddSet()
   else
     XLGB_UI:RemoveSet()
@@ -244,20 +242,20 @@ end
 
 function XLGB_UI:AddSet()
   XLGB_GearSet:GenerateNewSet()
-  XLGearBanker.displayingSet = XLGB_GearSet:GetNumberOfGearSets()
-  XLGB_UI:SelectSet(XLGearBanker.displayingSet)
+  sV.displayingSet = XLGB_GearSet:GetNumberOfGearSets()
+  XLGB_UI:SelectSet(sV.displayingSet)
 
   XLGB_UI:ToggleEdit()
 end
 
 local function removeSetConfirmed()
-  XLGB_GearSet:RemoveGearSet(XLGearBanker.displayingSet)
+  XLGB_GearSet:RemoveGearSet(sV.displayingSet)
   setEditSetFalse()
-  XLGB_UI:SelectSet(XLGearBanker.displayingSet - 1)
+  XLGB_UI:SelectSet(sV.displayingSet - 1)
 end
 
 function XLGB_UI:RemoveSet() 
-  if #XLGB_GearSet:GetGearSet(XLGearBanker.displayingSet).items == 0 then
+  if #XLGB_GearSet:GetGearSet(sV.displayingSet).items == 0 then
     removeSetConfirmed()
   else
     libDialog:ShowDialog("XLGearBanker", "RemoveSetDialog", nil)
@@ -269,14 +267,14 @@ function XLGB_UI:RemoveItem(removeItemControl)
   local itemRowControl = removeItemControl:GetParent()
   local itemLink = itemRowControl.data.itemLink
   local itemID = itemRowControl.data.itemID
-  XLGearBanker.itemChanges = true
-  XLGB_GearSet:RemoveItemFromGearSet(itemLink, itemID, XLGearBanker.displayingSet)
+  xl.itemChanges = true
+  XLGB_GearSet:RemoveItemFromGearSet(itemLink, itemID, sV.displayingSet)
 end
 
 function XLGB_UI:AddEquippedItemsToSet()
   -- libDialog:ShowDialog("XLGearBanker", "AddEquippedItemsToSet", nil)
-  XLGearBanker.itemChanges = true
-  XLGB_GearSet:AddEquippedItemsToGearSet(XLGearBanker.displayingSet)
+  xl.itemChanges = true
+  XLGB_GearSet:AddEquippedItemsToGearSet(sV.displayingSet)
   XLGB_UI:UpdateSetScrollList()
 end
 
@@ -293,11 +291,11 @@ function XLGB_UI:SelectSet(setNumber)
   local totalSets = XLGB_GearSet:GetNumberOfGearSets()
 
   if setNumber < 1 then
-    XLGearBanker.displayingSet = 1
+    sV.displayingSet = 1
   elseif setNumber > totalSets then
-    XLGearBanker.displayingSet = totalSets
+    sV.displayingSet = totalSets
   else
-    XLGearBanker.displayingSet = setNumber
+    sV.displayingSet = setNumber
   end
 
   XLGB_UI:UpdateSetScrollList()
@@ -310,7 +308,7 @@ function XLGB_UI:UpdateSetDropdown()
       local entry = ZO_ComboBox:CreateItemEntry(XLGB_GearSet:GetGearSet(i).name, function () XLGB_UI:SelectSet(i) end)
       dd:AddItem(entry, ZO_COMBOBOX_SUPRESS_UPDATE)
   end
-  dd:SelectItemByIndex(XLGearBanker.displayingSet, true)
+  dd:SelectItemByIndex(sV.displayingSet, true)
 end
 
 function XLGB_UI:InitializeSetDropdown()
@@ -325,7 +323,7 @@ function XLGB_UI:UpdateSetScrollList()
   ZO_ScrollList_Clear(scrollList)
   totalSetItems:SetText("Total items in set: 0")
   if XLGB_GearSet:GetNumberOfGearSets() > 0 then
-    local gearSet = XLGB_GearSet:GetGearSet(XLGearBanker.displayingSet)
+    local gearSet = XLGB_GearSet:GetGearSet(sV.displayingSet)
     for _, item in pairs(gearSet.items) do
       local dataEntry = ZO_ScrollList_CreateDataEntry(XLGB_Constants.ITEM_ROW, {
         itemName = item.name,
@@ -334,7 +332,7 @@ function XLGB_UI:UpdateSetScrollList()
       })
       table.insert(scrollData, dataEntry)
     end
-    totalSetItems:SetText("Total items in set: ".. #XLGB_GearSet:GetGearSet(XLGearBanker.displayingSet).items)
+    totalSetItems:SetText("Total items in set: ".. #XLGB_GearSet:GetGearSet(sV.displayingSet).items)
   end
   ZO_ScrollList_Commit(XLGB_SetWindow.scrollList)
 end
@@ -345,7 +343,7 @@ local function fillSetItemRowWithData(control, data)
   control:SetMouseEnabled(true)
   control:SetHandler("OnMouseEnter", ShowItemTooltip)
   control:SetHandler("OnMouseExit", HideItemTooltip)
-  if XLGearBanker.UI_Editable then
+  if xl.UI_Editable then
     control:GetNamedChild("_Remove"):SetHidden(false)
   else 
     control:GetNamedChild("_Remove"):SetHidden(true)
@@ -420,12 +418,15 @@ local function InitUISetVariables()
 end
 
 function XLGB_UI:Initialize()
-  XLGearBanker.displayingSet = 1
-  XLGearBanker.UI_Editable = false
-  XLGearBanker.copyOfSet = {}
-  XLGearBanker.itemChanges = false
-  XLGearBanker.nameChanges = false
-  XLGearBanker.UI_ItemsMarkedForRemoval = {}
+  xl = XLGearBanker or {}
+  sV = XLGearBanker.savedVariables or {}
+  sV.displayingSet = sV.displayingSet or 1
+
+  xl.UI_Editable = false
+  xl.copyOfSet = {}
+  xl.itemChanges = false
+  xl.nameChanges = false
+  xl.UI_ItemsMarkedForRemoval = {}
 
   InitUISetVariables()
 
@@ -433,10 +434,10 @@ function XLGB_UI:Initialize()
   XLGB_UI:InitializeSetScrollList()
   XLGB_UI:InitializeSetDropdown()
   XLGB_UI:UpdateSetDropdown()
-  XLGB_UI:SelectSet(XLGearBanker.displayingSet)
-  -- XLGB_UI:ChangeDisplayedGearSet(XLGearBanker.displayingSet)
+  XLGB_UI:SelectSet(sV.displayingSet)
+  -- XLGB_UI:ChangeDisplayedGearSet(sV.displayingSet)
   XLGB_UI:SetupDialogs()
-  if XLGearBanker.debug then
+  if xl.debug then
     XLGB_UI:ShowUI()
   end
 
