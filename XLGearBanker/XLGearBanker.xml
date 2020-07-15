@@ -454,11 +454,10 @@
     <Backdrop name="$(parent)_BG" inherits="ZO_DefaultBackdrop">
       <AnchorFill/>
     </Backdrop>
-    </Control>
-      <Label name="$(parent)_Name" font="ZoFontWinT1" text="Some Test Label">
-            <Anchor point="TOPLEFT" offsetX="10" offsetY="10" />
-      </Label>
     
+    <Label name="$(parent)_Name" font="ZoFontWinT1" text="Some Test Label">
+          <Anchor point="TOPLEFT" offsetX="10" offsetY="10" />
+    </Label>
   </Controls>
 </Control>
 <!-- PageSet Row Template end -->
