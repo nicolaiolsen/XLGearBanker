@@ -25,6 +25,7 @@ end
 function XLGearBanker:Initialize()
   self.debug = false
   self.savedVariables = ZO_SavedVars:NewAccountWide("XLGearBankerSavedVariables", 1, nil, {})
+  sV = self.savedVariables
   sV.debug = sV.debug or false
 end
 
