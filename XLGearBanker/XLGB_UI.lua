@@ -213,7 +213,7 @@ end
 local function acceptPageChanges()
   local newPageName = ui.page.pageRow.editName:GetText()
   if XLGB_Page:SetPageName(xl.oldPageName, newPageName) then
-    d("[XLGB] Page Successfully changed!")
+    d("[XLGB] Page succesfully changed!")
     xl.copyOfPageSet = {}
     setEditPageFalse()
     XLGB_UI:UpdatePageDropdown()
