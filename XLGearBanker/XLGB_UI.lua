@@ -178,11 +178,11 @@ function XLGB_UI:InitializePageShifterBox()
 
   s.shifterBox = libSB.Create(XLGearBanker.name, "XLGB_Page_ShifterBox", ui.page, customSettings)
   s.shifterBox:SetAnchor(BOTTOM, ui.page.shifterRow, TOP, 0, -10)
-  s.shifterBox:SetDimensions(310, 400)
+  s.shifterBox:SetDimensions(310, 380)
   -- Temp fix for library
   local leftAllButton = XLGearBanker_XLGB_Page_ShifterBoxLeftAllButton
   leftAllButton:ClearAnchors()
-  leftAllButton:SetAnchor(BOTTOM, XLGearBanker_XLGB_Page_ShifterBoxLeftButton, TOP, 0, -10)
+  leftAllButton:SetAnchor(BOTTOM, XLGearBanker_XLGB_Page_ShifterBoxLeftButton, TOP, 0, -51)
   -----------------------
   s.shifterBox:SetHidden(true)
 end
