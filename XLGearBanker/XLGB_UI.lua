@@ -442,21 +442,23 @@ local function fillPageItemRowWithData(control, data)
   control:GetNamedChild("_Name"):SetText("|cffecbc" .. data.setName .. "|r")
   control:GetNamedChild("_ItemsInSet"):SetText("Items: " .. tostring(#gearSet.items))
 
+  --
   local function toggleSetUI(self)
-
-    XLGB_UI:SelectSet(XLGB_GearSet:GetGearSetIndex(self.data.setName))
-    XLGB_UI:ToggleSetUI()
-    XLGB_UI:UpdateSetDropdown()
+    local gearSetIndex = XLGB_GearSet:GetGearSetIndex(self.data.setName)
+    if gearSetIndex == xl.displayingSet then
+      XLGB_UI:HideSetUI()
+    else
+      XLGB_UI:SelectSet(gearSetIndex)
+      XLGB_UI:ShowSetUI()
+      XLGB_UI:UpdateSetDropdown()
+    end
   end
   control:SetMouseEnabled(true)
   control:SetHandler("OnMouseUp", toggleSetUI)
+  --
 
-  if xl.isPageEditable then
-    -- control:GetNamedChild("_Remove"):SetHidden(false)
-  else 
-    -- control:GetNamedChild("_Remove"):SetHidden(true)
-  end
-  -- CreateSetTooltip(control:GetNamedChild("_Remove"), "Remove item from set")
+  CreatePageTooltip(control:GetNamedChild("_Withdraw"), "Withdraw " .. data.setName)
+  CreatePageTooltip(control:GetNamedChild("_Deposit"), "Deposit " .. data.setName)
 end
 
 function XLGB_UI:InitializePageScrollList()
