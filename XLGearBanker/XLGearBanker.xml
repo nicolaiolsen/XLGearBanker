@@ -450,7 +450,7 @@
 <Control name="XLGB_Page_SetEntry_Template" virtual="true">
   <Dimensions y="50"/> 
   <Controls>
-    <Backdrop name="$(parent)_BG" inherits="ZO_InsetBackdrop"><AnchorFill/></Backdrop>
+    <Backdrop name="$(parent)_BG" inherits="ZO_InsetTexture"><AnchorFill/></Backdrop>
     <Label name="$(parent)_Name" font="ZoFontWinT2" text="Some Test Label">
           <Anchor point="TOPLEFT" offsetX="10" offsetY="10" />
     </Label>
