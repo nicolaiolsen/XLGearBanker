@@ -434,6 +434,18 @@ function XLGB_UI:UpdatePageScrollList()
   ZO_ScrollList_Commit(scrollList)
 end
 
+function XLGB_UI:WithdrawSet(withdrawControl)
+  local data = withdrawControl:GetParent().data
+  local gearSetIndex = XLGB_GearSet:GetGearSetIndex(data.setName)
+  XLGB_Banking:WithdrawGear(gearSetIndex)
+end
+
+function XLGB_UI:DepositSet(depositControl)
+  local data = depositControl:GetParent().data
+  local gearSetIndex = XLGB_GearSet:GetGearSetIndex(data.setName)
+  XLGB_Banking:DepositGear(gearSetIndex)
+end
+
 local function fillPageItemRowWithData(control, data)
   control.data = data
   local gearSet = XLGB_GearSet:FindGearSet(data.setName)
@@ -456,7 +468,6 @@ local function fillPageItemRowWithData(control, data)
   control:SetMouseEnabled(true)
   control:SetHandler("OnMouseUp", toggleSetUI)
   --
-
   CreatePageTooltip(control:GetNamedChild("_Withdraw"), "Withdraw " .. data.setName)
   CreatePageTooltip(control:GetNamedChild("_Deposit"), "Deposit " .. data.setName)
 end
