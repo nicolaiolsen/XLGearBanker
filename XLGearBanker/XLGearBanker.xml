@@ -472,7 +472,7 @@
         />  
     </Button>
 
-    <Label name="$(parent)_Name" font="ZoFontWinT3" text="Items: 10">
+    <Label name="$(parent)_ItemsInSet" font="ZoFontWinT3" text="Items: 10">
       <Anchor point="TOPRIGHT" relativeTo="$(parent)" relativePoint="TOPRIGHT" offsetX="-10" offsetY="10"  />
     </Label>
 
