@@ -134,7 +134,7 @@
         <Button name="$(parent)_DepositPage" inherits="ZO_ButtonBehaviorClickSound" hidden="false" >
           <OnClicked>XLGB_UI:DepositPage()</OnClicked>
           <Dimensions x="120" y="40" />                                
-          <Anchor point="BOTTOMLEFT" relativeTo="$(parent)" relativePoint="BOTTOMLEFT" offsetX="20" offsetY="0"  />
+          <Anchor point="BOTTOMRIGHT" relativeTo="$(parent)" relativePoint="BOTTOMRIGHT" offsetX="-20" offsetY="0"  />
           <Textures
               normal    ="/esoui/art/buttons/button_xlarge_mouseup.dds"
               pressed    ="/esoui/art/buttons/button_xlarge_mousedown.dds"
@@ -152,8 +152,8 @@
         <!-- Withdraw Page Button -->
         <Button name="$(parent)_WithdrawPage" inherits="ZO_ButtonBehaviorClickSound" hidden="false" >
           <OnClicked>XLGB_UI:WithdrawPage()</OnClicked>
-          <Dimensions x="120" y="40" />                                
-          <Anchor point="BOTTOMRIGHT" relativeTo="$(parent)" relativePoint="BOTTOMRIGHT" offsetX="-20" offsetY="0"  />
+          <Dimensions x="120" y="40" />
+          <Anchor point="BOTTOMLEFT" relativeTo="$(parent)" relativePoint="BOTTOMLEFT" offsetX="20" offsetY="0"  />                                
           <Textures
               normal    ="/esoui/art/buttons/button_xlarge_mouseup.dds"
               pressed    ="/esoui/art/buttons/button_xlarge_mousedown.dds"
