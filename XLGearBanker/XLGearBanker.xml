@@ -78,7 +78,7 @@
         <Button name="$(parent)_AcceptPage" inherits="ZO_ButtonBehaviorClickSound" hidden="true" >
           <OnClicked>XLGB_UI:AcceptPageEdit(self)</OnClicked>
           <Dimensions x="20" y="20" />                                
-          <Anchor point="TOPRIGHT" relativeTo="$(parent)_EditSet" relativePoint="TOPLEFT" offsetX="-10" offsetY="0"  />
+          <Anchor point="TOPRIGHT" relativeTo="$(parent)_EditPage" relativePoint="TOPLEFT" offsetX="-10" offsetY="0"  />
           <Textures
               normal    ="/esoui/art/buttons/accept_up.dds"
               pressed    ="/esoui/art/buttons/accept_down.dds"

@@ -282,7 +282,7 @@ local function removePageConfirmed()
 end
 
 function XLGB_UI:RemovePage() 
-  if #XLGB_Page:GetSetsInPage(XLGB_Page:GetPageByIndex(xl.displayingPage)) == 0 then
+  if #XLGB_Page:GetSetsInPage(XLGB_Page:GetPageByIndex(xl.displayingPage).name) == 0 then
     removePageConfirmed()
   else
     libDialog:ShowDialog("XLGearBanker", "RemovePageDialog", nil)
