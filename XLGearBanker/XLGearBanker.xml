@@ -2,7 +2,229 @@
 <Controls>
     <!-- Every control's name must be _unique_. -->
 
+<TopLevelControl name="XLGB_PageWindow" clampedToScreen="true" movable="true" mouseEnabled="true" hidden="false" resizeHandleSize="10">
+  <Dimensions x="350" y="600"/>
+  <DimensionConstraints  minX="350" minY="400"/>
+  <Anchor point="CENTER" relativeTo="GUI_ROOT" relativePoint="CENTER" offsetX="-125" offsetY="-140" />
+  <OnMoveStop> XLGB_UI:XLGB_PageWindow_OnMoveStop()</OnMoveStop>
+  <Controls>
+    <Backdrop name="$(parent)_BG" inherits="ZO_DefaultBackdrop"><AnchorFill/></Backdrop>
 
+    <!-- 
+      TITLE ROW 
+    -->
+    <Control name="$(parent)_TitleRow" mouseEnabled="false" resizeToFitDescendents="false">
+      <Dimensions x="350" />
+      <DimensionConstraints  minY="30"/>
+      <Anchor point="TOPLEFT" relativeTo="$(parent)" relativePoint="TOPLEFT" offsetX="10" offsetY="10"/>
+      <Anchor point="TOPRIGHT" relativeTo="$(parent)" relativePoint="TOPRIGHT" offsetX="-10" offsetY="10"/>
+      <Controls>
+
+        <!-- Title -->
+        <Label name="$(parent)_Title" font="ZoFontAnnounceMedium" text="XL Gear Banker">
+          <Anchor point="TOPLEFT" relativeTo="$(parent)" relativePoint="TOPLEFT" offsetX="10" offsetY="10"  />
+        </Label>
+
+        <!-- Escape button:-->
+        <Button name="$(parent)_Hide" inherits="ZO_ButtonBehaviorClickSound" >
+          <OnClicked>XLGB_UI:TogglePageUI()</OnClicked>
+          <Dimensions x="30" y="30" />                                
+          <Anchor point="TOPRIGHT" relativeTo="$(parent)" relativePoint="TOPRIGHT" offsetX="-10" offsetY="10"  />
+          <Textures
+              normal    ="/esoui/art/buttons/decline_up.dds"
+              pressed    ="/esoui/art/buttons/decline_down.dds"
+              mouseOver  ="/esoui/art/buttons/decline_over.dds"
+            />
+        </Button>
+
+      </Controls>
+    </Control>
+    <!-- Title Row end-->
+
+    <!-- 
+      Page ROW 
+    -->
+    <Control name="$(parent)_PageRow" mouseEnabled="true" resizeToFitDescendents="false">
+      <DimensionConstraints  minY="30"/>
+      <Anchor point="TOPLEFT" relativeTo="$(parent)_TitleRow" relativePoint="BOTTOMLEFT" offsetX="0" offsetY="20"/>
+      <Anchor point="TOPRIGHT" relativeTo="$(parent)_TitleRow" relativePoint="BOTTOMRIGHT" offsetX="0" offsetY="20"/>
+      <Controls>
+
+        <!-- Add New Page Button -->
+        <Button name="$(parent)_AddRemovePage" inherits="ZO_ButtonBehaviorClickSound" >
+          <OnClicked>XLGB_UI:AddRemovePage()</OnClicked>
+          <Dimensions x="20" y="20" />                                
+          <Anchor point="TOPRIGHT" relativeTo="$(parent)" relativePoint="TOPRIGHT" offsetX="-10" offsetY="0"  />
+          <Textures
+              normal    ="/esoui/art/buttons/pointsplus_up.dds"
+              pressed    ="/esoui/art/buttons/pointsplus_down.dds"
+              mouseOver  ="/esoui/art/buttons/pointsplus_over.dds"
+            />  
+        </Button> 
+
+        <!-- Edit Button -->
+        <Button name="$(parent)_EditPage" inherits="ZO_ButtonBehaviorClickSound" hidden="false">
+          <OnClicked>XLGB_UI:TogglePageEdit(self)</OnClicked>
+          <Dimensions x="20" y="20" />                                
+          <Anchor point="TOPRIGHT" relativeTo="$(parent)_AddRemoveSet" relativePoint="TOPLEFT" offsetX="-10" offsetY="0"  />
+          <Textures
+              normal    ="/esoui/art/buttons/edit_up.dds"
+              pressed    ="/esoui/art/buttons/edit_down.dds"
+              mouseOver  ="/esoui/art/buttons/edit_over.dds"
+            />  
+        </Button>
+
+        <!-- Accept Edit Button -->
+        <Button name="$(parent)_AcceptPage" inherits="ZO_ButtonBehaviorClickSound" hidden="true" >
+          <OnClicked>XLGB_UI:AcceptPageEdit(self)</OnClicked>
+          <Dimensions x="20" y="20" />                                
+          <Anchor point="TOPRIGHT" relativeTo="$(parent)_EditSet" relativePoint="TOPLEFT" offsetX="-10" offsetY="0"  />
+          <Textures
+              normal    ="/esoui/art/buttons/accept_up.dds"
+              pressed    ="/esoui/art/buttons/accept_down.dds"
+              mouseOver  ="/esoui/art/buttons/accept_over.dds"
+            />  
+        </Button> 
+
+        <EditBox name="$(parent)_EditPageName" inherits="ZO_DefaultEdit ZO_EditDefaultText" text="Empty" mouseEnabled="false" hidden="true">
+          <Anchor point="TOPLEFT" relativeTo="$(parent)" relativePoint="TOPLEFT" offsetX="18" offsetY="0" />
+          <Anchor point="TOPRIGHT" relativeTo="$(parent)_RemoveSet" relativePoint="TOPLEFT" offsetX="-10" offsetY="-1" />
+          <Dimensions y="30"/>
+          <OnFocusGained>XLGB_UI:SelectEntireTextbox(self)</OnFocusGained>
+        </EditBox>
+
+        <Control name="$(parent)_Page" inherits="ZO_ComboBox">
+          <Anchor point="TOPLEFT" relativeTo="$(parent)" relativePoint="TOPLEFT" offsetX="10" offsetY="10" />
+          <Anchor point="TOPRIGHT" relativeTo="$(parent)_EditSet" relativePoint="TOPLEFT" offsetX="-10" offsetY="-5" />
+        </Control>
+
+      </Controls>
+    </Control> 
+    <!-- Page Row end-->
+
+    <!-- Scroll List  is on the bottom !!! -->
+
+    <!-- 
+      TOTAL PAGE ITEMS ROW 
+    -->
+    <Control name="$(parent)_TotalPageItemsRow" mouseEnabled="false" resizeToFitDescendents="false">
+      <DimensionConstraints  minY="30"/>
+      <Anchor point="BOTTOMLEFT" relativeTo="$(parent)" relativePoint="BOTTOMLEFT" offsetX="0" offsetY="-10"/>
+      <Anchor point="BOTTOMRIGHT" relativeTo="$(parent)" relativePoint="BOTTOMRIGHT" offsetX="0" offsetY="-10"/>
+      <Controls>
+
+        <Label name="$(parent)_TotalPageItems" font="ZoFontWinT2" text="Total items: 0" linkEnabled="true">
+          <Anchor point="TOPLEFT" relativeTo="$(parent)" relativePoint="TOPLEFT" offsetX="20" offsetY="0" />
+        </Label>
+
+      </Controls>
+    </Control>
+    <!-- Total Page Items Row end -->
+
+    <!-- 
+      BANK ROW 
+    -->
+    <Control name="$(parent)_BankRow" mouseEnabled="true" resizeToFitDescendents="false" hidden="true">
+      <DimensionConstraints  minY="30"/>
+      <Anchor point="BOTTOMLEFT" relativeTo="$(parent)_TotalPageItemsRow" relativePoint="TOPLEFT" offsetX="0" offsetY="-10"/>
+      <Anchor point="BOTTOMRIGHT" relativeTo="$(parent)_TotalPageItemsRow" relativePoint="TOPRIGHT" offsetX="0" offsetY="-10"/>
+      <Controls>
+
+        <!-- Deposit Page Button -->
+        <Button name="$(parent)_DepositPage" inherits="ZO_ButtonBehaviorClickSound" hidden="false" >
+          <OnClicked></OnClicked>
+          <Dimensions x="120" y="40" />                                
+          <Anchor point="BOTTOMLEFT" relativeTo="$(parent)" relativePoint="BOTTOMLEFT" offsetX="20" offsetY="0"  />
+          <Textures
+              normal    ="/esoui/art/buttons/button_xlarge_mouseup.dds"
+              pressed    ="/esoui/art/buttons/button_xlarge_mousedown.dds"
+              mouseOver  ="/esoui/art/buttons/button_xlarge_mouseover.dds"
+            />
+          <Controls>
+            <Label name="$(parent)_Label" font="ZoFontWinH4" text="Deposit Page">
+              <Anchor point="CENTER" relativeTo="$(parent)" relativePoint="CENTER" offsetX="0" offsetY="-8"  />
+              <!-- <Anchor point="TOPLEFT" relativeTo="$(parent)" relativePoint="TOPLEFT" offsetX="10" offsetY="-10" />
+              <Anchor point="BOTTOMRIGHT" relativeTo="$(parent)" relativePoint="BOTTOMRIGHT" offsetX="-10" offsetY="10" /> -->
+            </Label>
+          </Controls>
+        </Button> 
+
+        <!-- Withdraw Page Button -->
+        <Button name="$(parent)_WithdrawPage" inherits="ZO_ButtonBehaviorClickSound" hidden="false" >
+          <OnClicked></OnClicked>
+          <Dimensions x="120" y="40" />                                
+          <Anchor point="BOTTOMRIGHT" relativeTo="$(parent)" relativePoint="BOTTOMRIGHT" offsetX="-20" offsetY="0"  />
+          <Textures
+              normal    ="/esoui/art/buttons/button_xlarge_mouseup.dds"
+              pressed    ="/esoui/art/buttons/button_xlarge_mousedown.dds"
+              mouseOver  ="/esoui/art/buttons/button_xlarge_mouseover.dds"
+            />
+          <Controls>
+            <Label name="$(parent)_Label" font="ZoFontWinH4" text="Withdraw Page">
+             <Anchor point="CENTER" relativeTo="$(parent)" relativePoint="CENTER" offsetX="0" offsetY="-8"  />
+            </Label> 
+          </Controls>
+        </Button> 
+
+      </Controls>
+    </Control>
+    <!-- Bank Row end -->
+
+    <!--
+      EDIT PAGE ROW
+    -->
+    <Control name="$(parent)_EditPageRow" mouseEnabled="true" resizeToFitDescendents="false" hidden="true">
+      <DimensionConstraints  minY="30"/>
+      <Anchor point="BOTTOMLEFT" relativeTo="$(parent)_TotalPageItemsRow" relativePoint="TOPLEFT" offsetX="0" offsetY="-10"/>
+      <Anchor point="BOTTOMRIGHT" relativeTo="$(parent)_TotalPageItemsRow" relativePoint="TOPRIGHT" offsetX="0" offsetY="-10"/>
+      <Controls>
+        <!-- Choose Sets Button -->
+        <Button name="$(parent)_ChooseSets" inherits="ZO_ButtonBehaviorClickSound" hidden="false" >
+          <OnClicked>XLGB_UI:ChooseSets()</OnClicked>
+          <Dimensions x="120" y="40" />                                
+          <Anchor point="BOTTOMLEFT" relativeTo="$(parent)" relativePoint="BOTTOMLEFT" offsetX="20" offsetY="0"  />
+          <Textures
+              normal    ="/esoui/art/buttons/button_xlarge_mouseup.dds"
+              pressed    ="/esoui/art/buttons/button_xlarge_mousedown.dds"
+              mouseOver  ="/esoui/art/buttons/button_xlarge_mouseover.dds"
+            />
+          <Controls>
+            <Label name="$(parent)_Label" font="ZoFontWinH4" text="Choose Sets In Page">
+              <Anchor point="CENTER" relativeTo="$(parent)" relativePoint="CENTER" offsetX="0" offsetY="-8"  />
+              <!-- <Anchor point="TOPLEFT" relativeTo="$(parent)" relativePoint="TOPLEFT" offsetX="10" offsetY="-10" />
+              <Anchor point="BOTTOMRIGHT" relativeTo="$(parent)" relativePoint="BOTTOMRIGHT" offsetX="-10" offsetY="10" /> -->
+            </Label>
+          </Controls>
+        </Button> 
+
+        <!-- Open Set Editor Button -->
+        <Button name="$(parent)_SetEditor" inherits="ZO_ButtonBehaviorClickSound" hidden="false" >
+          <OnClicked></OnClicked>
+          <Dimensions x="120" y="40" />                                
+          <Anchor point="BOTTOMRIGHT" relativeTo="$(parent)" relativePoint="BOTTOMRIGHT" offsetX="-20" offsetY="0"  />
+          <Textures
+              normal    ="/esoui/art/buttons/button_xlarge_mouseup.dds"
+              pressed    ="/esoui/art/buttons/button_xlarge_mousedown.dds"
+              mouseOver  ="/esoui/art/buttons/button_xlarge_mouseover.dds"
+            />
+          <Controls>
+            <Label name="$(parent)_Label" font="ZoFontWinH4" text="Open Set Editor">
+             <Anchor point="CENTER" relativeTo="$(parent)" relativePoint="CENTER" offsetX="0" offsetY="-8"  />
+            </Label> 
+          </Controls>
+        </Button> 
+
+      </Controls>
+    </Control>
+    <!-- Edit Page Row end -->
+
+    <Control name="$(parent)_ScrollList" inherits="ZO_ScrollList">
+      <Anchor point="TOPLEFT" relativeTo="$(parent)_PageRow" relativePoint="BOTTOMLEFT" offsetX="0" offsetY="10" />
+      <Anchor point="BOTTOMRIGHT" relativeTo="$(parent)_TotalPageItemsRow" relativePoint="TOPRIGHT" offsetX="20" offsetY="-10" />
+    </Control>
+
+  </Controls>
+</TopLevelControl>
 
 <!--                -->
 <!-- XLGB_SetWindow -->
@@ -214,7 +436,7 @@
     <Label name="$(parent)_Name" font="ZoFontWinT2" text="Some Test Label">
           <Anchor point="TOPLEFT" offsetX="10" offsetY="10" />
     </Label>
-
+  </Controls>
 </Control>
 <!-- PageSet Row Template end -->
 <!-- Templates end -->
