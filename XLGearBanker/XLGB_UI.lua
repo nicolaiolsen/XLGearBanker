@@ -97,18 +97,13 @@ local function updatePageShifterBoxEntries(pageNumber)
   s.shifterBox:ClearLeftList()
   s.shifterBox:ClearRightList()
 
-  s.left = XLGB_Page:GetSetsInPage(XLGB_Page:GetPageByIndex(sV.displayingPage).name)
   for i = 1, XLGB_GearSet:GetNumberOfGearSets() do
-      local setName = XLGB_GearSet:GetGearSet(i).name
-      local unique = true
-      for _, currentSetName in pairs(s.left) do
-          if currentSetName == setName then
-            unique = false
-          end
-      end
-      if unique then
-        table.insert(s.right, setName)
-      end
+    local setName = XLGB_GearSet:GetGearSet(i).name
+    if XLGB_Page:PageContainsSet(XLGB_Page:GetPageByIndex(sV.displayingPage).name, setName) then
+      table.insert(s.left, i, setName)
+    else
+      table.insert(s.right, i, setName)
+    end
   end
 
   s.shifterBox:AddEntriesToLeftList(s.left)
@@ -140,11 +135,7 @@ end
 function XLGB_UI:ToggleChooseSets()
   if xl.isChoosingSets then
     local chosenSets = ui.page.shifter.shifterBox:GetLeftListEntriesFull()
-    local newSets = {}
-    for _, set in pairs(chosenSets) do
-        table.insert(newSets, set)
-    end
-    XLGB_Page:SetPageSets(XLGB_Page:GetPageByIndex(sV.displayingPage).name, newSets)
+    XLGB_Page:SetPageSets(XLGB_Page:GetPageByIndex(sV.displayingPage).name, chosenSets)
     chooseSetsFalse()
     XLGB_UI:UpdatePageScrollList()
   else

@@ -84,6 +84,16 @@ function XLGB_Page:RemoveSetFromPage(setName, pageName)
   end
 end
 
+function XLGB_Page:PageContainsSet(pageName, setName)
+  local page = XLGB_Page:GetPage(pageName)
+  for _, set in pairs(page.sets) do
+    if setName == set.name then
+      return true
+    end
+  end
+  return false
+end
+
 function XLGB_Page:GetSetsInPage(pageName)
   local page = XLGB_Page:GetPage(pageName)
   return page.sets
