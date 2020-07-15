@@ -294,7 +294,7 @@ function XLGB_UI:InitializePageDropdown()
   p.dropdown = ZO_ComboBox_ObjectFromContainer(p)
 end
 
-function XLGB_UI:UpdateSetScrollList()
+function XLGB_UI:UpdatePageScrollList()
   local scrollList = ui.page.scrollList
   local scrollData = ZO_ScrollList_GetDataList(scrollList)
   ZO_ScrollList_Clear(scrollList)
