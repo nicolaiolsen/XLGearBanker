@@ -62,50 +62,6 @@ local function areThereAnyPageChanges()
   return true
 end
 
-function XLGB_UI:ShowPageUI()
-  XLGB_UI:ShowOrHideEditPage()
-  ui.page:SetHidden(false)
-end
-
-function XLGB_UI:ShowSetUI()
-  XLGB_UI:ShowOrHideEditSet()
-  ui.set:SetHidden(false)
-end
-
-function XLGB_UI:HidePageUI()
-  if xl.isPageEditable and areThereAnyPageChanges() then
-    libDialog:ShowDialog("XLGearBanker", "DiscardPageChangesDialog", nil)
-  else
-    xl.isPageEditable = false
-    ui.page:SetHidden(true)
-  end
-end
-
-function XLGB_UI:HideSetUI()
-  if xl.isSetEditable and areThereAnySetChanges() then
-    libDialog:ShowDialog("XLGearBanker", "DiscardSetChangesDialog", nil)
-  else
-    xl.isSetEditable = false
-    ui.set:SetHidden(true)
-  end
-end
-
-function XLGB_UI:TogglePageUI()
-  if ui.page:IsHidden() then
-    XLGB_UI:ShowPageUI()
-  else
-    XLGB_UI:HidePageUI()
-  end
-end
-
-function XLGB_UI:ToggleSetUI()
-  if ui.set:IsHidden() then
-    XLGB_UI:ShowSetUI()
-  else
-    XLGB_UI:HideSetUI()
-  end
-end
-
 function XLGB_UI:ShowOrHideEditPage()
   XLGB_UI:ShowOrHideEdit(ui.page.pageRow.edit, XLGB_Page:GetNumberOfPages())
 end
@@ -481,6 +437,94 @@ function XLGB_UI:InitializePageScrollList()
   XLGB_UI:UpdatePageScrollList()
 end
 
+function XLGB_UI:ShowPageUI()
+  XLGB_UI:ShowOrHideEditPage()
+  ui.page:SetHidden(false)
+end
+
+function XLGB_UI:HidePageUI()
+  if xl.isPageEditable and areThereAnyPageChanges() then
+    libDialog:ShowDialog("XLGearBanker", "DiscardPageChangesDialog", nil)
+  else
+    setEditPageFalse()
+    ui.page:SetHidden(true)
+  end
+end
+
+function XLGB_UI:TogglePageUI()
+  if ui.page:IsHidden() then
+    XLGB_UI:ShowPageUI()
+  else
+    XLGB_UI:HidePageUI()
+  end
+end
+
+function XLGB_UI:SetupPageDialogs()
+
+  libDialog:RegisterDialog(
+    "XLGearBanker", 
+    "RemovePageDialog", 
+    "XL Gear Banker", 
+    "You are about to remove the page.\n\nAre you sure?",
+    removePageConfirmed, 
+    nil,
+    nil)
+
+  libDialog:RegisterDialog(
+    "XLGearBanker", 
+    "AcceptPageChanges", 
+    "XL Gear Banker", 
+    "Are you sure you want to save the changes?", 
+    acceptPageChanges, 
+    nil,
+    nil)
+
+  libDialog:RegisterDialog(
+    "XLGearBanker", 
+    "DiscardPageChangesDialog", 
+    "XL Gear Banker", 
+    "You are about to discard any changes you made.\n\nAre you sure?", 
+    discardPageChanges, 
+    nil,
+    nil)
+end
+
+local function InitUIPageVariables()
+  ui.page                         = XLGB_PageWindow
+
+  ui.page.titleRow                = XLGB_PageWindow_TitleRow
+  ui.page.titleRow.title          = XLGB_PageWindow_TitleRow_Title
+
+  ui.page.pageRow                 = XLGB_PageWindow_PageRow
+  ui.page.pageRow.edit            = XLGB_PageWindow_PageRow_EditPage
+  ui.page.pageRow.editName        = XLGB_PageWindow_PageRow_EditPageName
+  ui.page.pageRow.page            = XLGB_PageWindow_PageRow_Page
+  ui.page.pageRow.accept          = XLGB_PageWindow_PageRow_AcceptPage
+  ui.page.pageRow.addRemovePage   = XLGB_PageWindow_PageRow_AddRemovePage
+
+  ui.page.scrollList              = XLGB_PageWindow_ScrollList
+
+  ui.page.bankRow                 = XLGB_PageWindow_BankRow
+  ui.page.bankRow.deposit         = XLGB_PageWindow_BankRow_DepositPage
+  ui.page.bankRow.withdraw        = XLGB_PageWindow_BankRow_WithdrawPage
+
+  ui.page.editPageRow             = XLGB_PageWindow_EditPageRow
+  ui.page.editPageRow.chooseSets  = XLGB_PageWindow_EditPageRow_ChooseSets
+  ui.page.editPageRow.setEditor   = XLGB_PageWindow_EditPageRow_SetEditor
+
+  ui.page.shifterRow              = XLGB_PageWindow_ShifterRow
+  ui.page.shifterRow.done         = XLGB_PageWindow_ShifterRow_Done
+
+  ui.page.totalPageItemsRow       = XLGB_PageWindow_TotalPageItemsRow
+  ui.page.totalPageItemsRow.text  = XLGB_PageWindow_TotalPageItemsRow_TotalPageItems
+end
+
+
+
+------------------------------------------------------------------------------------------------------
+
+
+
 local function setEditSetFalse()
   local s = ui.set
   xl.isSetEditable = false
@@ -745,34 +789,26 @@ function XLGB_UI:InitializeSetScrollList()
   XLGB_UI:UpdateSetScrollList()
 end
 
-function XLGB_UI:SetupPageDialogs()
+function XLGB_UI:ShowSetUI()
+  XLGB_UI:ShowOrHideEditSet()
+  ui.set:SetHidden(false)
+end
 
-  libDialog:RegisterDialog(
-    "XLGearBanker", 
-    "RemovePageDialog", 
-    "XL Gear Banker", 
-    "You are about to remove the page.\n\nAre you sure?",
-    removePageConfirmed, 
-    nil,
-    nil)
+function XLGB_UI:HideSetUI()
+  if xl.isSetEditable and areThereAnySetChanges() then
+    libDialog:ShowDialog("XLGearBanker", "DiscardSetChangesDialog", nil)
+  else
+    setEditSetFalse()
+    ui.set:SetHidden(true)
+  end
+end
 
-  libDialog:RegisterDialog(
-    "XLGearBanker", 
-    "AcceptPageChanges", 
-    "XL Gear Banker", 
-    "Are you sure you want to save the changes?", 
-    acceptPageChanges, 
-    nil,
-    nil)
-
-  libDialog:RegisterDialog(
-    "XLGearBanker", 
-    "DiscardPageChangesDialog", 
-    "XL Gear Banker", 
-    "You are about to discard any changes you made.\n\nAre you sure?", 
-    discardPageChanges, 
-    nil,
-    nil)
+function XLGB_UI:ToggleSetUI()
+  if ui.set:IsHidden() then
+    XLGB_UI:ShowSetUI()
+  else
+    XLGB_UI:HideSetUI()
+  end
 end
 
 function XLGB_UI:SetupSetDialogs()
@@ -825,36 +861,6 @@ local function InitUISetVariables()
 
   ui.set.totalSetItemsRow         = XLGB_SetWindow_TotalSetItemsRow
   ui.set.totalSetItemsRow.text    = XLGB_SetWindow_TotalSetItemsRow_TotalSetItems
-end
-
-local function InitUIPageVariables()
-  ui.page                         = XLGB_PageWindow
-
-  ui.page.titleRow                = XLGB_PageWindow_TitleRow
-  ui.page.titleRow.title          = XLGB_PageWindow_TitleRow_Title
-
-  ui.page.pageRow                 = XLGB_PageWindow_PageRow
-  ui.page.pageRow.edit            = XLGB_PageWindow_PageRow_EditPage
-  ui.page.pageRow.editName        = XLGB_PageWindow_PageRow_EditPageName
-  ui.page.pageRow.page            = XLGB_PageWindow_PageRow_Page
-  ui.page.pageRow.accept          = XLGB_PageWindow_PageRow_AcceptPage
-  ui.page.pageRow.addRemovePage   = XLGB_PageWindow_PageRow_AddRemovePage
-
-  ui.page.scrollList              = XLGB_PageWindow_ScrollList
-
-  ui.page.bankRow                 = XLGB_PageWindow_BankRow
-  ui.page.bankRow.deposit         = XLGB_PageWindow_BankRow_DepositPage
-  ui.page.bankRow.withdraw        = XLGB_PageWindow_BankRow_WithdrawPage
-
-  ui.page.editPageRow             = XLGB_PageWindow_EditPageRow
-  ui.page.editPageRow.chooseSets  = XLGB_PageWindow_EditPageRow_ChooseSets
-  ui.page.editPageRow.setEditor   = XLGB_PageWindow_EditPageRow_SetEditor
-
-  ui.page.shifterRow              = XLGB_PageWindow_ShifterRow
-  ui.page.shifterRow.done         = XLGB_PageWindow_ShifterRow_Done
-
-  ui.page.totalPageItemsRow       = XLGB_PageWindow_TotalPageItemsRow
-  ui.page.totalPageItemsRow.text  = XLGB_PageWindow_TotalPageItemsRow_TotalPageItems
 end
 
 function XLGB_UI:Initialize()
