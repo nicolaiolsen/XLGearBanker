@@ -50,7 +50,9 @@ function XLGB_Page:SetPageName(oldName, newName)
   local isUnique = not XLGB_Page:GetPage(newName)
   if isUnique then
     page.name = newName
+    return true
   end
+  return false
 end
 
 local function GetSetIndexInPage(setName, page)
