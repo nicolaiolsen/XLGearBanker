@@ -457,8 +457,8 @@
       <Anchor point="BOTTOMRIGHT" offsetX="-10" offsetY="0" />
     </Backdrop>
     
-    <Label name="$(parent)_Name" font="ZoFontWinT1" text="Some Test Label">
-          <Anchor point="TOPLEFT" offsetX="20" offsetY="12" />
+    <Label name="$(parent)_Name" font="ZoFontWinH4" text="Some Test Label">
+          <Anchor point="TOPLEFT" offsetX="20" offsetY="8" />
     </Label>
 
     <Button name="$(parent)_Deposit" inherits="ZO_ButtonBehaviorClickSound" >
@@ -472,10 +472,6 @@
         />  
     </Button>
 
-    <Label name="$(parent)_ItemsInSet" font="ZoFontWinT2" text="Items: 10">
-      <Anchor point="TOPRIGHT" relativeTo="$(parent)" relativePoint="TOPRIGHT" offsetX="-10" offsetY="10"  />
-    </Label>
-
     <Button name="$(parent)_Withdraw" inherits="ZO_ButtonBehaviorClickSound" >
       <OnClicked>XLGB_UI:WithdrawSet(self)</OnClicked>
       <Dimensions x="40" y="46" />                              
@@ -486,6 +482,10 @@
           mouseOver   ="/esoui/art/bank/bank_tabicon_withdraw_over.dds"
         />  
     </Button>
+
+    <Label name="$(parent)_ItemsInSet" font="ZoFontGameSmall" text="Items: 10">
+      <Anchor point="BOTTOMLEFT" relativeTo="$(parent)" relativePoint="BOTTOMLEFT" offsetX="20" offsetY="-5"  />
+    </Label>
     
   </Controls>
 </Control>
