@@ -426,7 +426,7 @@ function XLGB_UI:UpdatePageScrollList()
     local page = XLGB_Page:GetPageByIndex(sV.displayingPage)
     for _, set in pairs(XLGB_Page:GetSetsInPage(page.name)) do
       local dataEntry = ZO_ScrollList_CreateDataEntry(XLGB_Constants.PAGE_ITEM_ROW, {
-        setName = set.name,
+        setName = set,
       })
       table.insert(scrollData, dataEntry)
     end
