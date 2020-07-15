@@ -446,6 +446,7 @@ local function fillPageItemRowWithData(control, data)
 
     XLGB_UI:SelectSet(XLGB_GearSet:GetGearSetIndex(self.data.setName))
     XLGB_UI:ToggleSetUI()
+    XLGB_UI:UpdateSetDropdown()
   end
   control:SetMouseEnabled(true)
   control:SetHandler("OnMouseUp", toggleSetUI)
