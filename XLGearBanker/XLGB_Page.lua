@@ -106,17 +106,21 @@ end
 -- end
 function XLGB_Page:DepositPage(pageName)
   local page = XLGB_Page:GetPage(pageName)
-  for _, set in pairs(page.sets) do
-    XLGB_Banking:DepositGearSet(set)
+  for i, set in pairs(page.sets) do
+    d("[XLGB] Depositing Page '" .. pageName .. "' [" .. tostring(i) .. "/" .. tostring(#page.sets) .. "] - " .. set)
+    if not XLGB_Banking:DepositGearSet(XLGB_GearSet:FindGearSet(set)) then
+      d("[XLGB] Depositing Page '" .. pageName .. "' failed.")
+      return false
+    end
   end
   d("[XLGB] Page '" .. pageName .. "' deposited!")
-
+  return true
 end
 
 function XLGB_Page:WithdrawPage(pageName)
   local page = XLGB_Page:GetPage(pageName)
-  for _, set in pairs(page.sets) do
-    XLGB_Banking:WithdrawGearSet(set)
+  for i, set in pairs(page.sets) do
+    XLGB_Banking:WithdrawGearSet(XLGB_GearSet:FindGearSet(set))
   end
   d("[XLGB] Page '" .. pageName .. "' withdrawn!")
 

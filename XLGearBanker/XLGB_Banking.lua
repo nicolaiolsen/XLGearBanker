@@ -301,12 +301,17 @@ function XLGB_Banking:WithdrawGearSet(gearSet)
     if withdrawGearESOPlus(gearSet) then
       PlaySound(SOUNDS.RETRAITING_ITEM_TO_RETRAIT_REMOVED)
       d("[XLGB] Set \'" .. gearSet.name .. "\' withdrawn!")
-      return
+      return true
+    else
+      return false
     end
   else 
     if withdrawItemsNonESOPlus(gearSet.items) then
       PlaySound(SOUNDS.RETRAITING_ITEM_TO_RETRAIT_REMOVED)
       d("[XLGB] Set \'" .. gearSet.name .. "\' withdrawn!")
+      return true
+    else
+      return false
     end
   end
 
