@@ -334,7 +334,7 @@ function XLGB_UI:UpdatePageDropdown()
   local dd = ui.page.pageRow.page.dropdown
   dd:ClearItems()
   for i = 1, XLGB_Page:GetNumberOfPages() do
-      local entry = ZO_ComboBox:CreateItemEntry(XLGB_Page:GetPageByIndex(i), function () XLGB_UI:SelectPage(i) end)
+      local entry = ZO_ComboBox:CreateItemEntry(XLGB_Page:GetPageByIndex(i).name, function () XLGB_UI:SelectPage(i) end)
       dd:AddItem(entry, ZO_COMBOBOX_SUPRESS_UPDATE)
   end
   dd:SelectItemByIndex(sV.displayingPage, true)
