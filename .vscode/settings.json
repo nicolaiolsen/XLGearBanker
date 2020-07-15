@@ -123,7 +123,12 @@
         "XLGB_PageWindow_EditPageRow_ChooseSets",
         "XLGB_PageWindow_EditPageRow_SetEditor",
         "XLGB_PageWindow_TotalPageItemsRow",
-        "XLGB_PageWindow_TotalPageItemsRow_TotalPageItems"
+        "XLGB_PageWindow_TotalPageItemsRow_TotalPageItems",
+        "GetString",
+        "XLGB_PageWindow_ShifterRow",
+        "XLGB_PageWindow_ShifterRow_Accept",
+        "XLGB_PageWindow_ShifterRow_Discard",
+        "XLGB_PageWindow_ShifterRow_Done"
     ],
     "Lua.diagnostics.disable": [
         "lowercase-global",

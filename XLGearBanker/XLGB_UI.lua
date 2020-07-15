@@ -1,6 +1,7 @@
 XLGB_UI = {}
 
 local libDialog = LibDialog
+local libSB = LibShifterBox
 local ui = {}
 local sV = {}
 local xl = {}
@@ -129,6 +130,100 @@ function XLGB_UI:OnBankClosed()
   reanchorPageScrollList()
 end
 
+local function updatePageShifterBoxEntries(pageNumber)
+  local p = ui.page
+  local s = p.shifter
+
+  s.left = {}
+  s.right = {}
+  s.shifterBox:ClearLeftList()
+  s.shifterBox:ClearRightList()
+
+  s.left = XLGB_Page:GetSetsInPage(XLGB_Page:GetPageByIndex(sV.displayingPage).name)
+  for i = 1, XLGB_GearSet:GetNumberOfGearSets() do
+      local setName = XLGB_GearSet:GetGearSet(i).name
+      local unique = true
+      for _, currentSetName in pairs(s.left) do
+          if currentSetName == setName then
+            unique = false
+          end
+      end
+      if unique then
+        table.insert(s.right, setName)
+      end
+  end
+
+  s.shifterBox:AddEntriesToLeftList(s.left)
+  s.shifterBox:AddEntriesToRightList(s.right)
+end
+
+local function chooseSetsTrue()
+  local p = ui.page
+
+  updatePageShifterBoxEntries(sV.displayingPage)
+
+  p.shifterRow:SetHidden(false)
+  p.shifter.shifterBox:SetHidden(false)
+  p.editPageRow:SetHidden(true)
+
+  xl.isChoosingSets = true
+end
+
+local function chooseSetsFalse()
+  local p = ui.page
+
+  p.shifterRow:SetHidden(true)
+  p.shifter.shifterBox:SetHidden(true)
+  p.editPageRow:SetHidden(false)
+
+  xl.isChoosingSets = false
+end
+
+function XLGB_UI:ToggleChooseSets()
+  if xl.isChoosingSets then
+    local chosenSets = ui.page.shifter.shifterBox:GetLeftListEntriesFull()
+    XLGB_Page:SetPageSets(XLGB_Page:GetPageByIndex(sV.displayingPage).name, chosenSets)
+    chooseSetsFalse()
+    XLGB_UI:UpdatePageScrollList()
+  else
+    chooseSetsTrue()
+  end
+end
+
+function XLGB_UI:InitializePageShifterBox()
+  ui.page.shifter = {}
+  local s = ui.page.shifter
+
+  s.left = {}
+  s.right = {}
+
+  local customSettings = {
+    showMoveAllButtons = true,  -- the >> and << buttons to move all entries can be hidden if set to false
+    dragDropEnabled = true,     -- entries can be moved between lsit with drag-and-drop
+    sortEnabled = true,         -- sorting of the entries can be disabled
+    sortBy = "value",           -- sort the list by value or key (allowed are: "value" or "key")
+    leftList = {                -- list-specific settings that apply to the LEFT list
+        title = "Page",                                     -- the title/header of the list
+        rowHeight = 32,                                 -- the height of an individual row/entry
+        --rowTemplateName = "",    -- an individual XML (cirtual) control can be provided for the rows/entries
+        emptyListText = GetString("No Sets"), -- the text to be displayed if there are no entries left in the list
+        fontSize = 18,                                  -- size of the font
+    },
+    rightList = {               -- list-specific settings that apply to the RIGHT list
+        title = "",                                     -- the title/header of the list
+        rowHeight = 32,                                 -- the height of an individual row/entry
+        -- rowTemplateName = "Page_ShifterBoxEntry_Template",    -- an individual XML (cirtual) control can be provided for the rows/entries
+        emptyListText = GetString("All Sets"), -- the text to be displayed if there are no entries left in the list
+        fontSize = 18,                                  -- size of the font
+    }
+  }
+
+  s.shifterBox = libSB.Create(XLGearBanker.name, "XLGB_Page_ShifterBox", ui.page, customSettings)
+  s.shifterBox:SetAnchor(TOPLEFT, ui.page.pageRow, BOTTOMLEFT, 0, 10)
+  s.shifterBox:SetAnchor(BOTTOMRIGHT, ui.page.shifterRow, TOPRIGHT, 0, -10)
+  s.shifterBox:SetHidden(true)
+end
+
 function XLGB_UI:SelectEntireTextbox(editBoxControl)
   editBoxControl:SelectAll()
 end
@@ -159,6 +254,7 @@ end
 
 local function setEditPageFalse()
   local p = ui.page
+  chooseSetsFalse()
   xl.isPageEditable = false
 
   p.titleRow.title:SetText("XL Gear Banker")
@@ -378,7 +474,7 @@ local function fillPageItemRowWithData(control, data)
 end
 
 function XLGB_UI:InitializePageScrollList()
-  ZO_ScrollList_AddDataType(ui.page.scrollList, XLGB_Constants.PAGE_ITEM_ROW, "XLGB_PageItemRow_Template", 35, fillPageItemRowWithData)
+  ZO_ScrollList_AddDataType(ui.page.scrollList, XLGB_Constants.PAGE_ITEM_ROW, "XLGB_Page_SetEntry_Template", 35, fillPageItemRowWithData)
   ZO_ScrollList_EnableHighlight(ui.page.scrollList, "ZO_ThinListHighlight")
   XLGB_UI:UpdatePageScrollList()
 end
@@ -752,6 +848,9 @@ local function InitUIPageVariables()
   ui.page.editPageRow.chooseSets  = XLGB_PageWindow_EditPageRow_ChooseSets
   ui.page.editPageRow.setEditor   = XLGB_PageWindow_EditPageRow_SetEditor
 
+  ui.page.shifterRow              = XLGB_PageWindow_ShifterRow
+  ui.page.shifterRow.done         = XLGB_PageWindow_ShifterRow_Done
+
   ui.page.totalPageItemsRow       = XLGB_PageWindow_TotalPageItemsRow
   ui.page.totalPageItemsRow.text  = XLGB_PageWindow_TotalPageItemsRow_TotalPageItems
 end
@@ -764,6 +863,8 @@ function XLGB_UI:Initialize()
 
   xl.isSetEditable = false
   xl.isPageEditable = false
+  xl.isChoosingSets = false
+  xl.chooseSetsBefore = {}
   xl.copyOfSet = {}
   xl.itemChanges = false
   xl.nameChanges = false

@@ -55,6 +55,10 @@ function XLGB_Page:SetPageName(oldName, newName)
   return false
 end
 
+function XLGB_Page:SetPageSets(pageName, sets)
+  XLGB_Page:GetPage(pageName).sets = sets
+end
+
 local function GetSetIndexInPage(setName, page)
   for i, set in pairs(page.sets) do
     if set.name == setName then
