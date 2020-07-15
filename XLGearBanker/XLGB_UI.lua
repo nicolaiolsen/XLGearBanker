@@ -185,7 +185,7 @@ end
 local function setEditPageTrue()
   local p = ui.page
   xl.isPageEditable = true
-  xl.oldPageName = XLGB:GetPageByIndex(sV.displayingPage).name
+  xl.oldPageName = XLGB_Page:GetPageByIndex(sV.displayingPage).name
 
   p.titleRow.title:SetText("XL Gear Banker (Edit Mode)")
 
