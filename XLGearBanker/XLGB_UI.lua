@@ -216,6 +216,7 @@ local function acceptPageChanges()
     d("[XLGB] Page Successfully changed!")
     xl.copyOfPageSet = {}
     setEditPageFalse()
+    XLGB_UI:UpdatePageDropdown()
   else
     d("[XLGB] Name was not unique")
   end
@@ -227,6 +228,7 @@ function XLGB_UI:AcceptPageEdit()
 
   if not hasNameChanged then
     setEditPageFalse()
+    XLGB_UI:UpdatePageDropdown()
   else
     libDialog:ShowDialog("XLGearBanker", "AcceptPageChanges", nil)
   end
@@ -237,6 +239,7 @@ end
 
 local function discardPageChanges()
   setEditPageFalse()
+  XLGB_UI:UpdatePageDropdown()
   XLGB_UI:UpdatePageScrollList()
 end
 
