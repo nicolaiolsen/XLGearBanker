@@ -479,7 +479,7 @@
     <Button name="$(parent)_Withdraw" inherits="ZO_ButtonBehaviorClickSound" >
       <OnClicked>XLGB_UI:WithdrawSet(self)</OnClicked>
       <Dimensions x="40" y="46" />                              
-      <Anchor point="TOPRIGHT" relativeTo="$(parent)_Withdraw" relativePoint="TOPLEFT" offsetX="-5" offsetY="0"  />  
+      <Anchor point="TOPRIGHT" relativeTo="$(parent)_Deposit" relativePoint="TOPLEFT" offsetX="-5" offsetY="0"  />  
       <Textures
           normal      ="/esoui/art/bank/bank_tabicon_withdraw_up.dds"
           pressed     ="/esoui/art/bank/bank_tabicon_withdraw_down.dds"
