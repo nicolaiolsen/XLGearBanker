@@ -280,7 +280,7 @@ function XLGB_UI:SelectPage(pageNumber)
 end
 
 function XLGB_UI:UpdatePageDropdown()
-  local dd = XLGB_UI.page.dropdown
+  local dd = ui.page.pageRow.page.dropdown
   dd:ClearItems()
   for i = 1, XLGB_Page:GetNumberOfPages() do
       local entry = ZO_ComboBox:CreateItemEntry(XLGB_Page:GetPageByIndex(i), function () XLGB_UI:SelectPage(i) end)
@@ -290,7 +290,8 @@ function XLGB_UI:UpdatePageDropdown()
 end
 
 function XLGB_UI:InitializePageDropdown()
-  ui.page.dropdown = ZO_ComboBox_ObjectFromContainer(ui.page)
+  local p = ui.page.pageRow.page
+  p.dropdown = ZO_ComboBox_ObjectFromContainer(p)
 end
 
 function XLGB_UI:UpdateSetScrollList()
@@ -531,7 +532,7 @@ function XLGB_UI:SelectSet(setNumber)
 end
 
 function XLGB_UI:UpdateSetDropdown()
-  local dd = XLGB_UI.set.dropdown
+  local dd = ui.set.setRow.set.dropdown
   dd:ClearItems()
   for i = 1, XLGB_GearSet:GetNumberOfGearSets() do
       local entry = ZO_ComboBox:CreateItemEntry(XLGB_GearSet:GetGearSet(i).name, function () XLGB_UI:SelectSet(i) end)
