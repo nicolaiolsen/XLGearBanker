@@ -331,7 +331,7 @@ function XLGB_UI:AddPage()
 end
 
 local function removePageConfirmed()
-  XLGB_Page:RemovePage(XLGB_Page:GetPageByIndex(xl.displayingPage).name)
+  XLGB_Page:RemovePage(XLGB_Page:GetPageByIndex(sV.displayingPage).name)
   setEditPageFalse()
   XLGB_UI:SelectPage(sV.displayingPage - 1)
   XLGB_UI:ShowOrHideEditPage()
@@ -339,7 +339,7 @@ local function removePageConfirmed()
 end
 
 function XLGB_UI:RemovePage() 
-  if #XLGB_Page:GetSetsInPage(XLGB_Page:GetPageByIndex(xl.displayingPage).name) == 0 then
+  if #XLGB_Page:GetSetsInPage(XLGB_Page:GetPageByIndex(sV.displayingPage).name) == 0 then
     removePageConfirmed()
   else
     libDialog:ShowDialog("XLGearBanker", "RemovePageDialog", nil)
