@@ -446,8 +446,9 @@ local function fillPageItemRowWithData(control, data)
     XLGB_UI:SelectSet(gearSetIndex)
     XLGB_UI:ToggleSetUI()
   end
-  control:SetHandler("OnMouseUp", toggleSetUI())
-  
+  control:SetMouseEnabled(true)
+  control:SetHandler("OnMouseUp", toggleSetUI)
+
   if xl.isPageEditable then
     -- control:GetNamedChild("_Remove"):SetHidden(false)
   else 
