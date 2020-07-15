@@ -27,7 +27,7 @@
 
         <!-- Escape button:-->
         <Button name="$(parent)_Hide" inherits="ZO_ButtonBehaviorClickSound" >
-          <OnClicked>XLGB_UI:TogglePageUI()</OnClicked>
+          <OnClicked>XLGB_UI:HidePageUI()</OnClicked>
           <Dimensions x="30" y="30" />                                
           <Anchor point="TOPRIGHT" relativeTo="$(parent)" relativePoint="TOPRIGHT" offsetX="-10" offsetY="10"  />
           <Textures
@@ -254,7 +254,7 @@
 
         <!-- Escape button:-->
         <Button name="$(parent)_Hide" inherits="ZO_ButtonBehaviorClickSound" >
-          <OnClicked>XLGB_UI:ToggleSetUI()</OnClicked>
+          <OnClicked>XLGB_UI:HideSetUI()</OnClicked>
           <Dimensions x="30" y="30" />                                
           <Anchor point="TOPRIGHT" relativeTo="$(parent)" relativePoint="TOPRIGHT" offsetX="-10" offsetY="10"  />
           <Textures

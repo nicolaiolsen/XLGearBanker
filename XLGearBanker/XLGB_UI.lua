@@ -45,30 +45,6 @@ local function reanchorPageScrollList()
   end
 end
 
-function XLGB_UI:TogglePageUI()
-  ui.page:SetHidden(not ui.page:IsHidden())
-end
-
-function XLGB_UI:ToggleSetUI()
-  ui.set:SetHidden(not ui.set:IsHidden())
-end
-
-function XLGB_UI:OnBankOpen()
-  ui.page:SetHidden(false)
-  refreshBankAndEditPageRow()
-  reanchorPageScrollList()
-end
-
-function XLGB_UI:OnBankClosed()
-  ui.page:SetHidden(true)
-  refreshBankAndEditPageRow()
-  reanchorPageScrollList()
-end
-
-function XLGB_UI:SelectEntireTextbox(editBoxControl)
-  editBoxControl:SelectAll()
-end
-
 local function areThereAnySetChanges()
   if (ui.set.setRow.editName:GetText() == xl.oldSetName)
   and not(xl.itemChanges) then
@@ -83,6 +59,78 @@ local function areThereAnyPageChanges()
     return false
   end
   return true
+end
+
+function XLGB_UI:ShowPageUI()
+  XLGB_UI:ShowOrHideEditPage()
+  ui.page:SetHidden(false)
+end
+
+function XLGB_UI:ShowSetUI()
+  XLGB_UI:ShowOrHideEditSet()
+  ui.set:SetHidden(false)
+end
+
+function XLGB_UI:HidePageUI()
+  if xl.isPageEditable and areThereAnyPageChanges() then
+    libDialog:ShowDialog("XLGearBanker", "DiscardPageChangesDialog", nil)
+  else
+    ui.page:SetHidden(true)
+  end
+end
+
+function XLGB_UI:HideSetUI()
+  if xl.isSetEditable and areThereAnySetChanges() then
+    libDialog:ShowDialog("XLGearBanker", "DiscardSetChangesDialog", nil)
+  else
+    ui.set:SetHidden(true)
+  end
+end
+
+function XLGB_UI:TogglePageUI()
+  if ui.page:IsHidden() then
+    XLGB_UI:ShowPageUI()
+  else
+    XLGB_UI:HidePageUI()
+  end
+end
+
+function XLGB_UI:ToggleSetUI()
+  if ui.set:IsHidden() then
+    XLGB_UI:ShowSetUI()
+  else
+    XLGB_UI:HideSetUI()
+  end
+end
+
+function XLGB_UI:ShowOrHideEditPage()
+  XLGB_UI:ShowOrHideEdit(ui.page.pageRow.edit, XLGB_Page:GetNumberOfPages())
+end
+
+function XLGB_UI:ShowOrHideEditSet()
+  XLGB_UI:ShowOrHideEdit(ui.set.setRow.edit, XLGB_GearSet:GetNumberOfGearSets())
+end
+
+function XLGB_UI:ShowOrHideEdit(edit, numberOfPagesOrSets)
+  local isEmpty = numberOfPagesOrSets == 0
+  edit:SetHidden(isEmpty)
+end
+
+function XLGB_UI:OnBankOpen()
+  XLGB_UI:ShowPageUI()
+  refreshBankAndEditPageRow()
+  reanchorPageScrollList()
+end
+
+function XLGB_UI:OnBankClosed()
+  ui.page:SetHidden(not xl.isPageEditable)
+  ui.set:SetHidden(not xl.isSetEditable)
+  refreshBankAndEditPageRow()
+  reanchorPageScrollList()
+end
+
+function XLGB_UI:SelectEntireTextbox(editBoxControl)
+  editBoxControl:SelectAll()
 end
 
 local function refreshAddRemoveIcon(addRemoveControl, editable)
@@ -166,6 +214,7 @@ local function acceptPageChanges()
   local newPageName = ui.page.pageRow.editName:GetText()
   if XLGB_Page:SetPageName(xl.oldPageName, newPageName) then
     d("[XLGB] Page Successfully changed!")
+    xl.copyOfPageSet = {}
     setEditPageFalse()
   else
     d("[XLGB] Name was not unique")
@@ -227,6 +276,7 @@ local function removePageConfirmed()
   XLGB_Page:RemovePage(XLGB_Page:GetPageByIndex(xl.displayingPage))
   setEditPageFalse()
   XLGB_UI:SelectPage(sV.displayingPage - 1)
+  XLGB_UI:ShowOrHideEditPage()
   XLGB_UI:UpdatePageDropdown()
 end
 
@@ -262,7 +312,7 @@ end
 local function InitPageWindowTooltips()
   CreatePageTooltip(ui.page.pageRow.edit, "Edit current set", "Discard changes")
   CreatePageTooltip(ui.page.pageRow.accept, "Accept changes")
-  CreatePageTooltip(ui.page.pageRow.addRemovePage, "Create new set", "Remove current set")
+  CreatePageTooltip(ui.page.pageRow.addRemovePage, "Create new page", "Remove current page")
 end
 
 function XLGB_UI:SelectPage(pageNumber)
@@ -728,9 +778,8 @@ function XLGB_UI:Initialize()
   XLGB_UI:SelectPage(sV.displayingPage)
   XLGB_UI:SetupPageDialogs()
 
-  if xl.debug then
-    ui.page:SetHidden(false)
+  if sV.debug then
+    XLGB_UI:ShowPageUI()
   end
-
   
 end
