@@ -450,16 +450,10 @@
 <Control name="XLGB_Page_SetEntry_Template" virtual="true">
   <Dimensions y="50"/> 
   <Controls>
-    <Control name="$(parent)_Wrapper">
-      <Anchor point="TOPLEFT" offsetX="10" offsetY="0" />
-      <Anchor point="BOTTOMRIGHT" offsetX="-10" offsetY="0" />
-      <Controls>
       <!-- <Backdrop name="$(parent)_BG" edgeColor="FF0000" centerColor="6495ED" alpha="0.6" ><AnchorFill/><Insets top="5" bottom="5" left="0" right="0"/></Backdrop> -->
-        <Backdrop name="$(parent)_BG" inherits="ZO_DefaultBackdrop">
-          <Anchor point="TOPLEFT" offsetX="-10" offsetY="0" />
-          <Anchor point="BOTTOMRIGHT" offsetX="10" offsetY="0" />
-        </Backdrop>
-      </Controls>
+    <Backdrop name="$(parent)_BG" inherits="ZO_DefaultBackdrop">
+      <AnchorFill/>
+    </Backdrop>
     </Control>
       <Label name="$(parent)_Name" font="ZoFontWinT1" text="Some Test Label">
             <Anchor point="TOPLEFT" offsetX="10" offsetY="10" />
