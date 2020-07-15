@@ -317,6 +317,8 @@ local function InitPageWindowTooltips()
   CreatePageTooltip(ui.page.pageRow.edit, "Edit current set", "Discard changes")
   CreatePageTooltip(ui.page.pageRow.accept, "Accept changes")
   CreatePageTooltip(ui.page.pageRow.addRemovePage, "Create new page", "Remove current page")
+  CreatePageTooltip(ui.page.editPageRow.chooseSets, "Choose sets in current page")
+  CreatePageTooltip(ui.page.editPageRow.setEditor, "Open the Set Editor")
 end
 
 function XLGB_UI:SelectPage(pageNumber)
