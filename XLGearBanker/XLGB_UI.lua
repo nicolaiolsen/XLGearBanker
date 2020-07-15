@@ -445,7 +445,7 @@ local function fillPageItemRowWithData(control, data)
   --
   local function toggleSetUI(self)
     local gearSetIndex = XLGB_GearSet:GetGearSetIndex(self.data.setName)
-    if gearSetIndex == xl.displayingSet then
+    if gearSetIndex == sV.displayingSet then
       XLGB_UI:HideSetUI()
     else
       XLGB_UI:SelectSet(gearSetIndex)
