@@ -86,8 +86,8 @@ end
 
 function XLGB_Page:PageContainsSet(pageName, setName)
   local page = XLGB_Page:GetPage(pageName)
-  for _, set in pairs(page.sets) do
-    if setName == set.name then
+  for _, pageSetName in pairs(page.sets) do
+    if setName == pageSetName then
       return true
     end
   end
