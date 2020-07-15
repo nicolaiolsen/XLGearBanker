@@ -591,7 +591,7 @@ function XLGB_UI:SetupPageDialogs()
 
   libDialog:RegisterDialog(
     "XLGearBanker", 
-    "RemoveSetDialog", 
+    "RemovePageDialog", 
     "XL Gear Banker", 
     "You are about to remove the page.\n\nAre you sure?",
     removePageConfirmed, 
@@ -600,7 +600,7 @@ function XLGB_UI:SetupPageDialogs()
 
   libDialog:RegisterDialog(
     "XLGearBanker", 
-    "AcceptSetChanges", 
+    "AcceptPageChanges", 
     "XL Gear Banker", 
     "Are you sure you want to save the changes?", 
     acceptPageChanges, 
@@ -609,7 +609,7 @@ function XLGB_UI:SetupPageDialogs()
 
   libDialog:RegisterDialog(
     "XLGearBanker", 
-    "DiscardSetChangesDialog", 
+    "DiscardPageChangesDialog", 
     "XL Gear Banker", 
     "You are about to discard any changes you made.\n\nAre you sure?", 
     discardPageChanges, 
