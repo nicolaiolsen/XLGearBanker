@@ -76,6 +76,7 @@ function XLGB_UI:HidePageUI()
   if xl.isPageEditable and areThereAnyPageChanges() then
     libDialog:ShowDialog("XLGearBanker", "DiscardPageChangesDialog", nil)
   else
+    xl.isPageEditable = false
     ui.page:SetHidden(true)
   end
 end
@@ -84,6 +85,7 @@ function XLGB_UI:HideSetUI()
   if xl.isSetEditable and areThereAnySetChanges() then
     libDialog:ShowDialog("XLGearBanker", "DiscardSetChangesDialog", nil)
   else
+    xl.isSetEditable = false
     ui.set:SetHidden(true)
   end
 end
@@ -210,7 +212,7 @@ function XLGB_UI:InitializePageShifterBox()
         fontSize = 18,                                  -- size of the font
     },
     rightList = {               -- list-specific settings that apply to the RIGHT list
-        title = "",                                     -- the title/header of the list
+        title = "Unselected Sets",                                     -- the title/header of the list
         rowHeight = 32,                                 -- the height of an individual row/entry
         -- rowTemplateName = "Page_ShifterBoxEntry_Template",    -- an individual XML (cirtual) control can be provided for the rows/entries
         emptyListText = GetString("All Sets"), -- the text to be displayed if there are no entries left in the list

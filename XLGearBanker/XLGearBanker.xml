@@ -228,7 +228,7 @@
       <Controls>
         <!-- Close Button -->
         <Button name="$(parent)_Done" inherits="ZO_ButtonBehaviorClickSound" hidden="false" >
-          <OnClicked>XLGB_UI:PageShifterDone()</OnClicked>
+          <OnClicked>XLGB_UI:ToggleChooseSets()</OnClicked>
           <Dimensions x="120" y="40" />                                
           <Anchor point="CENTER" relativeTo="$(parent)" relativePoint="CENTER" offsetX="0" offsetY="0"  />
           <Textures
