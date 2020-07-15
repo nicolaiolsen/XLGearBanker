@@ -66,7 +66,7 @@
         <Button name="$(parent)_EditPage" inherits="ZO_ButtonBehaviorClickSound" hidden="false">
           <OnClicked>XLGB_UI:TogglePageEdit(self)</OnClicked>
           <Dimensions x="20" y="20" />                                
-          <Anchor point="TOPRIGHT" relativeTo="$(parent)_AddRemoveSet" relativePoint="TOPLEFT" offsetX="-10" offsetY="0"  />
+          <Anchor point="TOPRIGHT" relativeTo="$(parent)_AddRemovePage" relativePoint="TOPLEFT" offsetX="-10" offsetY="0"  />
           <Textures
               normal    ="/esoui/art/buttons/edit_up.dds"
               pressed    ="/esoui/art/buttons/edit_down.dds"
@@ -88,14 +88,14 @@
 
         <EditBox name="$(parent)_EditPageName" inherits="ZO_DefaultEdit ZO_EditDefaultText" text="Empty" mouseEnabled="false" hidden="true">
           <Anchor point="TOPLEFT" relativeTo="$(parent)" relativePoint="TOPLEFT" offsetX="18" offsetY="0" />
-          <Anchor point="TOPRIGHT" relativeTo="$(parent)_RemoveSet" relativePoint="TOPLEFT" offsetX="-10" offsetY="-1" />
+          <Anchor point="TOPRIGHT" relativeTo="$(parent)_AcceptPage" relativePoint="TOPLEFT" offsetX="-10" offsetY="-1" />
           <Dimensions y="30"/>
           <OnFocusGained>XLGB_UI:SelectEntireTextbox(self)</OnFocusGained>
         </EditBox>
 
         <Control name="$(parent)_Page" inherits="ZO_ComboBox">
           <Anchor point="TOPLEFT" relativeTo="$(parent)" relativePoint="TOPLEFT" offsetX="10" offsetY="10" />
-          <Anchor point="TOPRIGHT" relativeTo="$(parent)_EditSet" relativePoint="TOPLEFT" offsetX="-10" offsetY="-5" />
+          <Anchor point="TOPRIGHT" relativeTo="$(parent)_EditPage" relativePoint="TOPLEFT" offsetX="-10" offsetY="-5" />
         </Control>
 
       </Controls>
@@ -313,21 +313,9 @@
             />  
         </Button> 
 
-        <!-- Remove Set Button -->
-        <Button name="$(parent)_RemoveSet" inherits="ZO_ButtonBehaviorClickSound" hidden="true" >
-          <OnClicked>XLGB_UI:RemoveSet(self)</OnClicked>
-          <Dimensions x="20" y="20" />                                
-          <Anchor point="TOPRIGHT" relativeTo="$(parent)_AcceptSet" relativePoint="TOPLEFT" offsetX="-10" offsetY="0"  />
-          <Textures
-              normal    ="/esoui/art/buttons/pointsminus_up.dds"
-              pressed    ="/esoui/art/buttons/pointsminus_down.dds"
-              mouseOver  ="/esoui/art/buttons/pointsminus_over.dds"
-            />  
-        </Button>
-
         <EditBox name="$(parent)_EditSetName" inherits="ZO_DefaultEdit ZO_EditDefaultText" text="Empty" mouseEnabled="false" hidden="true">
           <Anchor point="TOPLEFT" relativeTo="$(parent)" relativePoint="TOPLEFT" offsetX="18" offsetY="0" />
-          <Anchor point="TOPRIGHT" relativeTo="$(parent)_RemoveSet" relativePoint="TOPLEFT" offsetX="-10" offsetY="-1" />
+          <Anchor point="TOPRIGHT" relativeTo="$(parent)_AcceptSet" relativePoint="TOPLEFT" offsetX="-10" offsetY="-1" />
           <Dimensions y="30"/>
           <OnFocusGained>XLGB_UI:SelectEntireTextbox(self)</OnFocusGained>
         </EditBox>
