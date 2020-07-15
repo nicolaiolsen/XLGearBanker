@@ -437,13 +437,14 @@ end
 local function fillPageItemRowWithData(control, data)
   control.data = data
   local gearSet = XLGB_GearSet:FindGearSet(data.setName)
-  local gearSetIndex = XLGB_GearSet:GetGearSetIndex(data.setName)
+  -- local gearSetIndex = XLGB_GearSet:GetGearSetIndex(data.setName)
 
   control:GetNamedChild("_Name"):SetText("|cffecbc" .. data.setName .. "|r")
   control:GetNamedChild("_ItemsInSet"):SetText("Items: " .. tostring(#gearSet.items))
 
-  local function toggleSetUI()
-    XLGB_UI:SelectSet(gearSetIndex)
+  local function toggleSetUI(self)
+
+    XLGB_UI:SelectSet(XLGB_GearSet:GetGearSetIndex(self.data.setName))
     XLGB_UI:ToggleSetUI()
   end
   control:SetMouseEnabled(true)
