@@ -141,7 +141,7 @@
               mouseOver  ="/esoui/art/buttons/button_xlarge_mouseover.dds"
             />
           <Controls>
-            <Label name="$(parent)_Label" font="ZoFontWinH4" text="Deposit Page">
+            <Label name="$(parent)_Label" font="ZoFontWinH5" text="Deposit Page">
               <Anchor point="CENTER" relativeTo="$(parent)" relativePoint="CENTER" offsetX="0" offsetY="-8"  />
               <!-- <Anchor point="TOPLEFT" relativeTo="$(parent)" relativePoint="TOPLEFT" offsetX="10" offsetY="-10" />
               <Anchor point="BOTTOMRIGHT" relativeTo="$(parent)" relativePoint="BOTTOMRIGHT" offsetX="-10" offsetY="10" /> -->
@@ -160,7 +160,7 @@
               mouseOver  ="/esoui/art/buttons/button_xlarge_mouseover.dds"
             />
           <Controls>
-            <Label name="$(parent)_Label" font="ZoFontWinH4" text="Withdraw Page">
+            <Label name="$(parent)_Label" font="ZoFontWinH5" text="Withdraw Page">
              <Anchor point="CENTER" relativeTo="$(parent)" relativePoint="CENTER" offsetX="0" offsetY="-8"  />
             </Label> 
           </Controls>
@@ -189,7 +189,7 @@
               mouseOver  ="/esoui/art/buttons/button_xlarge_mouseover.dds"
             />
           <Controls>
-            <Label name="$(parent)_Label" font="ZoFontWinH4" text="Choose Sets">
+            <Label name="$(parent)_Label" font="ZoFontWinH5" text="Choose Sets">
               <Anchor point="CENTER" relativeTo="$(parent)" relativePoint="CENTER" offsetX="0" offsetY="-8"  />
               <!-- <Anchor point="TOPLEFT" relativeTo="$(parent)" relativePoint="TOPLEFT" offsetX="10" offsetY="-10" />
               <Anchor point="BOTTOMRIGHT" relativeTo="$(parent)" relativePoint="BOTTOMRIGHT" offsetX="-10" offsetY="10" /> -->
@@ -208,7 +208,7 @@
               mouseOver  ="/esoui/art/buttons/button_xlarge_mouseover.dds"
             />
           <Controls>
-            <Label name="$(parent)_Label" font="ZoFontWinH4" text="Set Editor">
+            <Label name="$(parent)_Label" font="ZoFontWinH5" text="Set Editor">
              <Anchor point="CENTER" relativeTo="$(parent)" relativePoint="CENTER" offsetX="0" offsetY="-8"  />
             </Label> 
           </Controls>
@@ -237,7 +237,7 @@
               mouseOver  ="/esoui/art/buttons/button_xlarge_mouseover.dds"
             />
           <Controls>
-            <Label name="$(parent)_Label" font="ZoFontWinH4" text="Done">
+            <Label name="$(parent)_Label" font="ZoFontWinH5" text="Done">
               <Anchor point="CENTER" relativeTo="$(parent)" relativePoint="CENTER" offsetX="0" offsetY="-8"  />
               <!-- <Anchor point="TOPLEFT" relativeTo="$(parent)" relativePoint="TOPLEFT" offsetX="10" offsetY="-10" />
               <Anchor point="BOTTOMRIGHT" relativeTo="$(parent)" relativePoint="BOTTOMRIGHT" offsetX="-10" offsetY="10" /> -->
@@ -398,7 +398,7 @@
               mouseOver  ="/esoui/art/buttons/button_xlarge_mouseover.dds"
             />
           <Controls>
-            <Label name="$(parent)_Label" font="ZoFontWinH4" text="Add Equipped Items To Set">
+            <Label name="$(parent)_Label" font="ZoFontWinH5" text="Add Equipped Items To Set">
               <Anchor point="CENTER" relativeTo="$(parent)" relativePoint="CENTER" offsetX="0" offsetY="-8"  />
               <!-- <Anchor point="TOPLEFT" relativeTo="$(parent)" relativePoint="TOPLEFT" offsetX="10" offsetY="-10" />
               <Anchor point="BOTTOMRIGHT" relativeTo="$(parent)" relativePoint="BOTTOMRIGHT" offsetX="-10" offsetY="10" /> -->
@@ -457,7 +457,7 @@
       <Anchor point="BOTTOMRIGHT" offsetX="-10" offsetY="0" />
     </Backdrop>
     
-    <Label name="$(parent)_Name" font="ZoFontWinH4" text="Some Test Label">
+    <Label name="$(parent)_Name" font="ZoFontWinH5" text="Some Test Label">
           <Anchor point="TOPLEFT" offsetX="20" offsetY="8" />
     </Label>
 

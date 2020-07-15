@@ -436,7 +436,7 @@ end
 
 local function fillPageItemRowWithData(control, data)
   control.data = data
-  control:GetNamedChild("_Name"):SetText(data.setName)
+  control:GetNamedChild("_Name"):SetText("|c00ff00" .. data.setName .. "|r")
   if xl.isPageEditable then
     -- control:GetNamedChild("_Remove"):SetHidden(false)
   else 
