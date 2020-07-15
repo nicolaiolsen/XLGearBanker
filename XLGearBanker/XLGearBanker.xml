@@ -2,7 +2,7 @@
 <Controls>
     <!-- Every control's name must be _unique_. -->
 
-<TopLevelControl name="XLGB_PageWindow" clampedToScreen="true" movable="true" mouseEnabled="true" hidden="false" resizeHandleSize="10">
+<TopLevelControl name="XLGB_PageWindow" clampedToScreen="true" movable="true" mouseEnabled="true" hidden="true" resizeHandleSize="10">
   <Dimensions x="350" y="600"/>
   <DimensionConstraints  minX="350" minY="400"/>
   <Anchor point="CENTER" relativeTo="GUI_ROOT" relativePoint="CENTER" offsetX="-125" offsetY="-140" />
@@ -259,7 +259,7 @@
 <!--                -->
 <!-- XLGB_SetWindow -->
 <!--                -->
-<TopLevelControl name="XLGB_SetWindow" clampedToScreen="true" movable="true" mouseEnabled="true" hidden="false" resizeHandleSize="10">
+<TopLevelControl name="XLGB_SetWindow" clampedToScreen="true" movable="true" mouseEnabled="true" hidden="true" resizeHandleSize="10">
   <Dimensions x="350" y="600"/>
   <DimensionConstraints  minX="350" minY="400"/>
   <Anchor point="CENTER" relativeTo="GUI_ROOT" relativePoint="CENTER" offsetX="-125" offsetY="-140" />
