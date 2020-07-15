@@ -126,6 +126,7 @@ local function chooseSetsTrue()
   p.shifterRow:SetHidden(false)
   p.shifter.shifterBox:SetHidden(false)
   p.editPageRow:SetHidden(true)
+  p.scrollList:SetHidden(true)
 
   xl.isChoosingSets = true
 end
@@ -136,6 +137,7 @@ local function chooseSetsFalse()
   p.shifterRow:SetHidden(true)
   p.shifter.shifterBox:SetHidden(true)
   p.editPageRow:SetHidden(false)
+  p.scrollList:SetHidden(false)
 
   xl.isChoosingSets = false
 end
