@@ -199,7 +199,7 @@ function XLGB_UI:TogglePageEdit()
       discardPageChanges()
     end
   else
-    xl.copyOfPageSet = XLGB_Page:CopyPageSet(XLGB_Page:GetPageByIndex(sV.displayingPage))
+    xl.copyOfPageSet = XLGB_Page:CopyPageSet(XLGB_Page:GetPageByIndex(sV.displayingPage).name)
     xl.pageNameChange = false
     xl.pageSetChange = false
     setEditPageTrue()
