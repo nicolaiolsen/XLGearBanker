@@ -436,7 +436,18 @@ end
 
 local function fillPageItemRowWithData(control, data)
   control.data = data
-  control:GetNamedChild("_Name"):SetText("|cffecbc  " .. data.setName .. "|r")
+  local gearSet = XLGB_GearSet:FindGearSet(data.setName)
+  local gearSetIndex = XLGB_GearSet:GetGearSetIndex(data.setName)
+
+  control:GetNamedChild("_Name"):SetText("|cffecbc" .. data.setName .. "|r")
+  control:GetNamedChild("_ItemsInSet"):SetText("Items: " .. tostring(#gearSet.items))
+
+  local function toggleSetUI()
+    XLGB_UI:SelectSet(gearSetIndex)
+    XLGB_UI:ToggleSetUI()
+  end
+  control:SetHandler("OnMouseUp", toggleSetUI())
+  
   if xl.isPageEditable then
     -- control:GetNamedChild("_Remove"):SetHidden(false)
   else 

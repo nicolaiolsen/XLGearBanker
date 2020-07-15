@@ -447,7 +447,7 @@
 <!-- Item Row Template end-->
 
 <!-- PageSet Row Template-->
-<Control name="XLGB_Page_SetEntry_Template" virtual="true">
+<Control name="XLGB_Page_SetEntry_Template" virtual="true" mouseEnabled="true">
   <Dimensions y="60"/> 
   <Controls>
       <!-- <Backdrop name="$(parent)_BG" edgeColor="FF0000" centerColor="6495ED" alpha="0.6" ><AnchorFill/><Insets top="5" bottom="5" left="0" right="0"/></Backdrop> -->

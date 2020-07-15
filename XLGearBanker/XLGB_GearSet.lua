@@ -92,6 +92,16 @@ function XLGB_GearSet:FindGearSet(gearSetName)
   return nil
 end
 
+function XLGB_GearSet:GetGearSetIndex(gearSetName)
+  local gearSets = sV.gearSetList
+  for i, gearSet in pairs(gearSets) do
+      if gearSet.name == gearSetName then
+        return i
+      end
+  end
+  return nil
+end
+
 function XLGB_GearSet:CopyGearSet(gearSetNumber)
   return copy(XLGB_GearSet:GetGearSet(gearSetNumber))
 end
