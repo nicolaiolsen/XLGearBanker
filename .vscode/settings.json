@@ -128,7 +128,12 @@
         "XLGB_PageWindow_ShifterRow",
         "XLGB_PageWindow_ShifterRow_Accept",
         "XLGB_PageWindow_ShifterRow_Discard",
-        "XLGB_PageWindow_ShifterRow_Done"
+        "XLGB_PageWindow_ShifterRow_Done",
+        "XLGearBanker_XLGB_Page_ShifterBoxLeftAllButton",
+        "BOTTOM",
+        "XLGearBanker_XLGB_Page_ShifterBoxLeft",
+        "XLGearBanker_XLGB_Page_ShifterBoxLeftButton",
+        "TOP"
     ],
     "Lua.diagnostics.disable": [
         "lowercase-global",
