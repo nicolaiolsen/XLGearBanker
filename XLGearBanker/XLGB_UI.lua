@@ -888,6 +888,7 @@ function XLGB_UI:Initialize()
   XLGB_UI:UpdatePageDropdown()
   XLGB_UI:SelectPage(sV.displayingPage)
   XLGB_UI:SetupPageDialogs()
+  XLGB_UI:InitializePageShifterBox()
 
   if sV.debug then
     XLGB_UI:ShowPageUI()
