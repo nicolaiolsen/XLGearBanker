@@ -200,6 +200,28 @@ local function depositGearToBankESOPlus(gearSet)
   end
 end
 
+function XLGB_Banking:DepositGearSet(gearSet)
+  if not XLGB_Banking.bankOpen then
+    d("[XLGB_ERROR] Bank is not open, abort!")
+    return
+  end
+  d("[XLGB] Depositing " .. gearSet.name)
+
+  if IsESOPlusSubscriber() and (XLGB_Banking.currentBankBag == BAG_BANK) then
+    if depositGearToBankESOPlus(gearSet) then
+      PlaySound(SOUNDS.INVENTORY_ITEM_UNLOCKED)
+      d("[XLGB] Set \'" .. gearSet.name .. "\' deposited!")
+      return
+    end
+    
+  else
+    if depositItemsToBankNonESOPlus(gearSet.items) then
+      PlaySound(SOUNDS.INVENTORY_ITEM_UNLOCKED)
+      d("[XLGB] Set \'" .. gearSet.name .. "\' deposited!")
+    end
+  end
+end
+
 --[[
   function DepositGear
   Input:
@@ -268,12 +290,27 @@ local function withdrawItemsNonESOPlus(itemsToWithdraw)
   moveGear(XLGB_Banking.currentBankBag, itemsToMove, BAG_BACKPACK, availableBagSpaces)
   return true
 end
---[[
-  function WithdrawGear
-  Input:
 
-  Output:
-]]--
+function XLGB_Banking:WithdrawGearSet(gearSet)
+  if not XLGB_Banking.bankOpen then
+    d("[XLGB_ERROR] Bank is not open, abort!")
+    return
+  end
+  d("[XLGB] Withdrawing " .. gearSet.name)
+  if IsESOPlusSubscriber() and (XLGB_Banking.currentBankBag == BAG_BANK) then
+    if withdrawGearESOPlus(gearSet) then
+      PlaySound(SOUNDS.RETRAITING_ITEM_TO_RETRAIT_REMOVED)
+      d("[XLGB] Set \'" .. gearSet.name .. "\' withdrawn!")
+      return
+    end
+  else 
+    if withdrawItemsNonESOPlus(gearSet.items) then
+      PlaySound(SOUNDS.RETRAITING_ITEM_TO_RETRAIT_REMOVED)
+      d("[XLGB] Set \'" .. gearSet.name .. "\' withdrawn!")
+    end
+  end
+
+end
 function XLGB_Banking:WithdrawGear(gearSetNumber)
   --[[
   if XLGB_Banking.recentlyCalled then

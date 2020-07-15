@@ -105,7 +105,8 @@
         "XLGB_SetWindow_TitleRow",
         "XLGB_SetWindow_TitleRow_Title",
         "InformationTooltip",
-        "SetTooltipText"
+        "SetTooltipText",
+        "XLGB_PageWindow"
     ],
     "Lua.diagnostics.disable": [
         "lowercase-global",

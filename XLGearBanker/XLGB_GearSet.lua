@@ -1,11 +1,11 @@
 XLGB_GearSet = {}
 
 local XLGB = XLGB_Constants
+local sV
 
 function XLGB_GearSet:Initialize()
-  if XLGearBanker.savedVariables.gearSetList == nil then
-    XLGearBanker.savedVariables.gearSetList = {}
-  end
+  sV = XLGearBanker.savedVariables
+  sV.gearSetList = sV.gearSetList or {}
 
 end
 
@@ -44,11 +44,11 @@ function XLGB_GearSet:ValidGearSetName(gearSetName)
 end
 
 function XLGB_GearSet:GetGearSet(gearSetNumber)
-  return XLGearBanker.savedVariables.gearSetList[gearSetNumber]
+  return sV.gearSetList[gearSetNumber]
 end
 
 function XLGB_GearSet:GetNumberOfGearSets()
-  return #XLGearBanker.savedVariables.gearSetList
+  return #sV.gearSetList
 end
 
 local function isNameUnique(name)
@@ -77,13 +77,13 @@ function XLGB_GearSet:CreateNewGearSet(gearSetName)
   local gearSet = {}
   gearSet.name = "" .. gearSetName
   gearSet.items = {}
-  table.insert(XLGearBanker.savedVariables.gearSetList, gearSet)
+  table.insert(sV.gearSetList, gearSet)
   d("[XLGB] Created new set: " .. gearSetName)
   return true
 end
 
 function XLGB_GearSet:FindGearSet(gearSetName)
-  local gearSets = XLGearBanker.savedVariables.gearSetList
+  local gearSets = sV.gearSetList
   for _, gearSet in pairs(gearSets) do
       if gearSet.name == gearSetName then
         return gearSet
@@ -101,13 +101,13 @@ function XLGB_GearSet:EditGearSetName(gearSetName, gearSetNumber)
     d("[XLGB_ERROR] A set named ".. gearSetName .." does already exist! Set names should be unique.")
     return false
   end
-  XLGearBanker.savedVariables.gearSetList[gearSetNumber].name = "" .. gearSetName
+  sV.gearSetList[gearSetNumber].name = "" .. gearSetName
   return true
 end
 
 function XLGB_GearSet:RemoveGearSet(gearSetNumber)
   local gearSet = XLGB_GearSet:GetGearSet(gearSetNumber)
-  table.remove(XLGearBanker.savedVariables.gearSetList, gearSetNumber)
+  table.remove(sV.gearSetList, gearSetNumber)
   d("[XLGB] Removed set: " .. gearSet.name)
 end
 
@@ -128,10 +128,10 @@ function XLGB_GearSet:AddItemToGearSet(itemLink, itemID, gearSetNumber)
   local itemData = XLGB_GearSet:CreateItemData(itemLink, itemID)
   local gearSet = XLGB_GearSet:GetGearSet(gearSetNumber)
 
-  table.insert(XLGearBanker.savedVariables.gearSetList[gearSetNumber].items, itemData)
-  table.sort(XLGearBanker.savedVariables.gearSetList[gearSetNumber].items, compareItems)
+  table.insert(sV.gearSetList[gearSetNumber].items, itemData)
+  table.sort(sV.gearSetList[gearSetNumber].items, compareItems)
 
-  XLGB_Events:OnGearSetItemAdd(gearSet, XLGearBanker.savedVariables.gearSetList[gearSetNumber])
+  XLGB_Events:OnGearSetItemAdd(gearSet, sV.gearSetList[gearSetNumber])
   d("[XLGB] Added item " .. itemLink .. " to " .. gearSet.name)
 end
 
@@ -144,10 +144,10 @@ function XLGB_GearSet:AddItemsToGearSet(itemsToBeAdded, gearSetNumber)
   local gearSet = XLGB_GearSet:GetGearSet(gearSetNumber)  
   for _, itemData in pairs(itemsToBeAdded) do
     if (XLGB_GearSet:GetItemIndexInGearSet(itemData.ID, gearSetNumber) == XLGB.ITEM_NOT_IN_SET) then
-      table.insert(XLGearBanker.savedVariables.gearSetList[gearSetNumber].items, itemData)
+      table.insert(sV.gearSetList[gearSetNumber].items, itemData)
     end
   end
-  table.sort(XLGearBanker.savedVariables.gearSetList[gearSetNumber].items, compareItems)
+  table.sort(sV.gearSetList[gearSetNumber].items, compareItems)
 
   d("[XLGB] Added items to " .. gearSet.name)
 end
@@ -158,8 +158,8 @@ function XLGB_GearSet:RemoveItemFromGearSet(itemLink, itemID, gearSetNumber)
 
   for i, item in pairs(gearSet.items) do
     if item.ID == itemID then
-      table.remove(XLGearBanker.savedVariables.gearSetList[gearSetNumber].items, i)
-      XLGB_Events:OnGearSetItemRemove(gearSet, XLGearBanker.savedVariables.gearSetList[gearSetNumber])
+      table.remove(sV.gearSetList[gearSetNumber].items, i)
+      XLGB_Events:OnGearSetItemRemove(gearSet, sV.gearSetList[gearSetNumber])
       break
     end
   end
@@ -174,13 +174,13 @@ function XLGB_GearSet:RemoveItemsFromGearSet(itemsToBeRemoved, gearSetNumber)
   for _, itemToBeRemoved in pairs(itemsToBeRemoved) do
     for i, item in pairs(gearSet.items) do
       if item.ID == itemToBeRemoved then
-        table.remove(XLGearBanker.savedVariables.gearSetList[gearSetNumber].items, i)
+        table.remove(sV.gearSetList[gearSetNumber].items, i)
         break
       end
     end
 
   end
-  XLGB_Events:OnGearSetItemRemove(gearSet, XLGearBanker.savedVariables.gearSetList[gearSetNumber])
+  XLGB_Events:OnGearSetItemRemove(gearSet, sV.gearSetList[gearSetNumber])
   d("[XLGB] Removed items from " .. gearSetName)
 end
 
