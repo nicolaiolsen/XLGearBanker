@@ -710,8 +710,8 @@ function XLGB_UI:Initialize()
   InitUISetVariables()
   InitSetWindowTooltips()
 
-  InitUIPageVariables()
-  InitPageWindowTooltips()
+  -- InitUIPageVariables()
+  -- InitPageWindowTooltips()
 
   XLGB_UI:RestorePosition()
 
@@ -721,11 +721,11 @@ function XLGB_UI:Initialize()
   XLGB_UI:SelectSet(sV.displayingSet)
   XLGB_UI:SetupSetDialogs()
 
-  XLGB_UI:InitializePageScrollList()
-  XLGB_UI:InitializePageDropdown()
-  XLGB_UI:UpdatePageDropdown()
-  XLGB_UI:SelectPage(sV.displayingPage)
-  XLGB_UI:SetupPageDialogs()
+  -- XLGB_UI:InitializePageScrollList()
+  -- XLGB_UI:InitializePageDropdown()
+  -- XLGB_UI:UpdatePageDropdown()
+  -- XLGB_UI:SelectPage(sV.displayingPage)
+  -- XLGB_UI:SetupPageDialogs()
 
   if xl.debug then
     ui.page:SetHidden(false)
