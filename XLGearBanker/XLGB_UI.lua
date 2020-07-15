@@ -503,6 +503,7 @@ local function removeSetConfirmed()
   XLGB_GearSet:RemoveGearSet(sV.displayingSet)
   setEditSetFalse()
   XLGB_UI:SelectSet(sV.displayingSet - 1)
+  XLGB_UI:ShowOrHideEditSet()
   XLGB_UI:UpdateSetDropdown()
 end
 
