@@ -88,6 +88,14 @@ function XLGB_UI:OnBankClosed()
   reanchorPageScrollList()
 end
 
+function XLGB_UI:DepositPage()
+  XLGB_Page:DepositPage(XLGB_Page:GetPageByIndex(sV.displayingPage).name)
+end
+
+function XLGB_UI:WithdrawPage()
+  XLGB_Page:WithdrawPage(XLGB_Page:GetPageByIndex(sV.displayingPage).name)
+end
+
 local function updatePageShifterBoxEntries(pageNumber)
   local p = ui.page
   local s = p.shifter

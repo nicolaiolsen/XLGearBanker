@@ -132,7 +132,7 @@
 
         <!-- Deposit Page Button -->
         <Button name="$(parent)_DepositPage" inherits="ZO_ButtonBehaviorClickSound" hidden="false" >
-          <OnClicked></OnClicked>
+          <OnClicked>XLGB_UI:DepositPage()</OnClicked>
           <Dimensions x="120" y="40" />                                
           <Anchor point="BOTTOMLEFT" relativeTo="$(parent)" relativePoint="BOTTOMLEFT" offsetX="20" offsetY="0"  />
           <Textures
@@ -151,7 +151,7 @@
 
         <!-- Withdraw Page Button -->
         <Button name="$(parent)_WithdrawPage" inherits="ZO_ButtonBehaviorClickSound" hidden="false" >
-          <OnClicked></OnClicked>
+          <OnClicked>XLGB_UI:WithdrawPage()</OnClicked>
           <Dimensions x="120" y="40" />                                
           <Anchor point="BOTTOMRIGHT" relativeTo="$(parent)" relativePoint="BOTTOMRIGHT" offsetX="-20" offsetY="0"  />
           <Textures
