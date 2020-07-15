@@ -203,23 +203,27 @@ end
 function XLGB_Banking:DepositGearSet(gearSet)
   if not XLGB_Banking.bankOpen then
     d("[XLGB_ERROR] Bank is not open, abort!")
-    return
+    PlaySound(SOUNDS.ABILITY_FAILED)
+    return false
   end
-  d("[XLGB] Depositing " .. gearSet.name)
+  -- d("[XLGB] Depositing " .. gearSet.name)
 
   if IsESOPlusSubscriber() and (XLGB_Banking.currentBankBag == BAG_BANK) then
     if depositGearToBankESOPlus(gearSet) then
       PlaySound(SOUNDS.INVENTORY_ITEM_UNLOCKED)
       d("[XLGB] Set \'" .. gearSet.name .. "\' deposited!")
-      return
+      return true
     end
     
   else
     if depositItemsToBankNonESOPlus(gearSet.items) then
       PlaySound(SOUNDS.INVENTORY_ITEM_UNLOCKED)
       d("[XLGB] Set \'" .. gearSet.name .. "\' deposited!")
+      return true
     end
   end
+  PlaySound(SOUNDS.ABILITY_FAILED)
+  return false
 end
 
 --[[
@@ -238,7 +242,8 @@ function XLGB_Banking:DepositGear(gearSetNumber)
   ]]--
   if not XLGB_Banking.bankOpen then
     d("[XLGB_ERROR] Bank is not open, abort!")
-    return
+    PlaySound(SOUNDS.ABILITY_FAILED)
+    return false
   end
   local gearSet = XLGB_GearSet:GetGearSet(gearSetNumber)
 
@@ -246,16 +251,18 @@ function XLGB_Banking:DepositGear(gearSetNumber)
     if depositGearToBankESOPlus(gearSet) then
       PlaySound(SOUNDS.INVENTORY_ITEM_UNLOCKED)
       d("[XLGB] Set \'" .. gearSet.name .. "\' deposited!")
-      return
+      return true
     end
     
   else
     if depositItemsToBankNonESOPlus(gearSet.items) then
       PlaySound(SOUNDS.INVENTORY_ITEM_UNLOCKED)
       d("[XLGB] Set \'" .. gearSet.name .. "\' deposited!")
+      return true
     end
   end
-
+  PlaySound(SOUNDS.ABILITY_FAILED)
+  return false
   --[[
   zo_callLater(function()
     XLGB_Banking.recentlyCalled = false
@@ -293,25 +300,24 @@ end
 function XLGB_Banking:WithdrawGearSet(gearSet)
   if not XLGB_Banking.bankOpen then
     d("[XLGB_ERROR] Bank is not open, abort!")
-    return
+    PlaySound(SOUNDS.ABILITY_FAILED)
+    return false
   end
   if IsESOPlusSubscriber() and (XLGB_Banking.currentBankBag == BAG_BANK) then
     if withdrawGearESOPlus(gearSet) then
       PlaySound(SOUNDS.RETRAITING_ITEM_TO_RETRAIT_REMOVED)
       d("[XLGB] Set \'" .. gearSet.name .. "\' withdrawn!")
       return true
-    else
-      return false
     end
   else 
     if withdrawItemsNonESOPlus(gearSet.items) then
       PlaySound(SOUNDS.RETRAITING_ITEM_TO_RETRAIT_REMOVED)
       d("[XLGB] Set \'" .. gearSet.name .. "\' withdrawn!")
       return true
-    else
-      return false
     end
   end
+  PlaySound(SOUNDS.ABILITY_FAILED)
+  return false
 
 end
 function XLGB_Banking:WithdrawGear(gearSetNumber)
@@ -324,7 +330,8 @@ function XLGB_Banking:WithdrawGear(gearSetNumber)
   ]]--
   if not XLGB_Banking.bankOpen then
     d("[XLGB_ERROR] Bank is not open, abort!")
-    return
+    PlaySound(SOUNDS.ABILITY_FAILED)
+    return false
   end
   local gearSet = XLGB_GearSet:GetGearSet(gearSetNumber)
   d("[XLGB] Withdrawing " .. gearSet.name)
@@ -332,15 +339,17 @@ function XLGB_Banking:WithdrawGear(gearSetNumber)
     if withdrawGearESOPlus(gearSet) then
       PlaySound(SOUNDS.RETRAITING_ITEM_TO_RETRAIT_REMOVED)
       d("[XLGB] Set \'" .. gearSet.name .. "\' withdrawn!")
-      return
+      return true
     end
   else 
     if withdrawItemsNonESOPlus(gearSet.items) then
       PlaySound(SOUNDS.RETRAITING_ITEM_TO_RETRAIT_REMOVED)
       d("[XLGB] Set \'" .. gearSet.name .. "\' withdrawn!")
+      return true
     end
   end
-  
+  PlaySound(SOUNDS.ABILITY_FAILED)
+  return false
   --[[
   zo_callLater(function()
     XLGB_Banking.recentlyCalled = false
