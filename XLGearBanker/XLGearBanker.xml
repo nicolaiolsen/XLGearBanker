@@ -448,9 +448,9 @@
 
 <!-- PageSet Row Template-->
 <Control name="XLGB_Page_SetEntry_Template" virtual="true">
-  <Dimensions y="25"/> 
+  <Dimensions y="50"/> 
   <Controls>
-    <Backdrop name="$(parent)_BG" inherits="ZO_DefaultBackdrop"><AnchorFill/></Backdrop>
+    <Backdrop name="$(parent)_BG" inherits="ZO_ThinBackdrop"><AnchorFill/></Backdrop>
     <Label name="$(parent)_Name" font="ZoFontWinT2" text="Some Test Label">
           <Anchor point="TOPLEFT" offsetX="10" offsetY="10" />
     </Label>

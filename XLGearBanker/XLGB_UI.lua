@@ -446,7 +446,7 @@ local function fillPageItemRowWithData(control, data)
 end
 
 function XLGB_UI:InitializePageScrollList()
-  ZO_ScrollList_AddDataType(ui.page.scrollList, XLGB_Constants.PAGE_ITEM_ROW, "XLGB_Page_SetEntry_Template", 35, fillPageItemRowWithData)
+  ZO_ScrollList_AddDataType(ui.page.scrollList, XLGB_Constants.PAGE_ITEM_ROW, "XLGB_Page_SetEntry_Template", 60, fillPageItemRowWithData)
   ZO_ScrollList_EnableHighlight(ui.page.scrollList, "ZO_ThinListHighlight")
   XLGB_UI:UpdatePageScrollList()
 end
