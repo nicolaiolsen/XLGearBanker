@@ -453,11 +453,40 @@
       <!-- <Backdrop name="$(parent)_BG" edgeColor="FF0000" centerColor="6495ED" alpha="0.6" ><AnchorFill/><Insets top="5" bottom="5" left="0" right="0"/></Backdrop> -->
     <Backdrop name="$(parent)_BG" inherits="ZO_DefaultBackdrop">
       <AnchorFill/>
+      <Anchor point="TOPLEFT" offsetX="10" offsetY="0" />
+      <Anchor point="BOTTOMRIGHT" offsetX="-10" offsetY="0" />
     </Backdrop>
     
     <Label name="$(parent)_Name" font="ZoFontWinT1" text="Some Test Label">
-          <Anchor point="TOPLEFT" offsetX="10" offsetY="10" />
+          <Anchor point="TOPLEFT" offsetX="20" offsetY="12" />
     </Label>
+
+    <Button name="$(parent)_Withdraw" inherits="ZO_ButtonBehaviorClickSound" >
+      <OnClicked>XLGB_UI:WithdrawSet(self)</OnClicked>
+      <Dimensions x="20" y="20" />                                
+      <Anchor point="BOTTOMRIGHT" relativeTo="$(parent)" relativePoint="BOTTOMRIGHT" offsetX="-10" offsetY="-10"  />
+      <Textures
+          normal      ="/esoui/art/bank/bank_tabicon_withdraw_up.dds"
+          pressed     ="/esoui/art/bank/bank_tabicon_withdraw_down.dds"
+          mouseOver   ="/esoui/art/bank/bank_tabicon_withdraw_pressed.dds"
+        />  
+    </Button>
+
+    <Label name="$(parent)_Name" font="ZoFontWinT3" text="Items: 10">
+      <Anchor point="TOPRIGHT" relativeTo="$(parent)" relativePoint="TOPRIGHT" offsetX="-10" offsetY="10"  />
+    </Label>
+
+    <Button name="$(parent)_Deposit" inherits="ZO_ButtonBehaviorClickSound" >
+      <OnClicked>XLGB_UI:DepositSet(self)</OnClicked>
+      <Dimensions x="20" y="20" />                                
+      <Anchor point="TOPRIGHT" relativeTo="$(parent)_Withdraw" relativePoint="TOPLEFT" offsetX="-10" offsetY="0"  />
+      <Textures
+          normal      ="/esoui/art/bank/bank_tabicon_deposit_up.dds"
+          pressed     ="/esoui/art/bank/bank_tabicon_deposit_down.dds"
+          mouseOver   ="/esoui/art/bank/bank_tabicon_deposit_pressed.dds"
+        />  
+    </Button>
+    
   </Controls>
 </Control>
 <!-- PageSet Row Template end -->
