@@ -46,5 +46,5 @@ SLASH_COMMANDS["/xlgb_help"] = function (argsv)
   d("\'/xlgb_debug\': Toggles debug mode. (Note: quite verbose)")
 end
 
-SLASH_COMMANDS["/xlgb"] = function () XLGB_UI.ShowSetWindow() end
+SLASH_COMMANDS["/xlgb"] = function () XLGB_UI.TogglePageUI() end
 -------------------------------------------------------------------------------
