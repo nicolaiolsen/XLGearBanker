@@ -106,6 +106,12 @@ function XLGB_Page:WithdrawPage(pageName)
 
 end
 
+function XLGB_Page:OnRemoveSet(setName)
+  for _, page in pairs(XLGB_Page:GetAllPages()) do
+      XLGB_Page:RemoveSetFromPage(setName, page.name)
+  end
+end
+
 local function copy(obj, seen)
   if type(obj) ~= 'table' then return obj end
   if seen and seen[obj] then return seen[obj] end

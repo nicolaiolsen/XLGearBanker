@@ -269,11 +269,12 @@ function XLGB_UI:AddPage()
   XLGB_UI:SelectPage(sV.displayingPage)
 
   XLGB_UI:TogglePageEdit()
+  XLGB_UI:ShowOrHideEditPage()
   XLGB_UI:UpdatePageDropdown()
 end
 
 local function removePageConfirmed()
-  XLGB_Page:RemovePage(XLGB_Page:GetPageByIndex(xl.displayingPage))
+  XLGB_Page:RemovePage(XLGB_Page:GetPageByIndex(xl.displayingPage).name)
   setEditPageFalse()
   XLGB_UI:SelectPage(sV.displayingPage - 1)
   XLGB_UI:ShowOrHideEditPage()
@@ -496,16 +497,18 @@ function XLGB_UI:AddSet()
   XLGB_UI:SelectSet(sV.displayingSet)
 
   XLGB_UI:ToggleSetEdit()
+  XLGB_UI:ShowOrHideEditSet()
   XLGB_UI:UpdateSetDropdown()
 end
 
 local function removeSetConfirmed()
+  XLGB_Events:OnGearSetRemove(XLGB_GearSet:GetGearSet(sV.displayingSet))
   XLGB_GearSet:RemoveGearSet(sV.displayingSet)
   setEditSetFalse()
   XLGB_UI:SelectSet(sV.displayingSet - 1)
   XLGB_UI:ShowOrHideEditSet()
   XLGB_UI:UpdateSetDropdown()
-  XLGB_UI:UpdatePageScrollList()
+  
 end
 
 function XLGB_UI:RemoveSet() 
