@@ -241,7 +241,6 @@ function XLGB_Banking:DepositGear(gearSetNumber)
     return
   end
   local gearSet = XLGB_GearSet:GetGearSet(gearSetNumber)
-  d("[XLGB] Depositing " .. gearSet.name)
 
   if IsESOPlusSubscriber() and (XLGB_Banking.currentBankBag == BAG_BANK) then
     if depositGearToBankESOPlus(gearSet) then
@@ -296,7 +295,6 @@ function XLGB_Banking:WithdrawGearSet(gearSet)
     d("[XLGB_ERROR] Bank is not open, abort!")
     return
   end
-  d("[XLGB] Withdrawing " .. gearSet.name)
   if IsESOPlusSubscriber() and (XLGB_Banking.currentBankBag == BAG_BANK) then
     if withdrawGearESOPlus(gearSet) then
       PlaySound(SOUNDS.RETRAITING_ITEM_TO_RETRAIT_REMOVED)

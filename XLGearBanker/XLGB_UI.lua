@@ -143,7 +143,11 @@ end
 function XLGB_UI:ToggleChooseSets()
   if xl.isChoosingSets then
     local chosenSets = ui.page.shifter.shifterBox:GetLeftListEntriesFull()
-    XLGB_Page:SetPageSets(XLGB_Page:GetPageByIndex(sV.displayingPage).name, chosenSets)
+    local newSets = {}
+    for _, set in pairs(chosenSets) do
+        table.insert(newSets, set)
+    end
+    XLGB_Page:SetPageSets(XLGB_Page:GetPageByIndex(sV.displayingPage).name, newSets)
     chooseSetsFalse()
     XLGB_UI:UpdatePageScrollList()
   else
