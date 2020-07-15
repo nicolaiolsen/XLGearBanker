@@ -246,7 +246,7 @@ function XLGB_Banking:DepositGear(gearSetNumber)
     return false
   end
   local gearSet = XLGB_GearSet:GetGearSet(gearSetNumber)
-
+  d("[XLGB] Depositing " .. gearSet.name)
   if IsESOPlusSubscriber() and (XLGB_Banking.currentBankBag == BAG_BANK) then
     if depositGearToBankESOPlus(gearSet) then
       PlaySound(SOUNDS.INVENTORY_ITEM_UNLOCKED)

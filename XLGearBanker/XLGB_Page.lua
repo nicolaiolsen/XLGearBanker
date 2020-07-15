@@ -119,7 +119,7 @@ end
 
 function XLGB_Page:WithdrawPage(pageName)
   local page = XLGB_Page:GetPage(pageName)
-  for i, set in pairs(page.sets) do
+  for i, set in ipairs(page.sets) do
     d("[XLGB] Withdrawing Page '" .. pageName .. "' [" .. tostring(i) .. "/" .. tostring(#page.sets) .. "] - " .. set)
     if not XLGB_Banking:WithdrawGearSet(XLGB_GearSet:FindGearSet(set)) then
       d("[XLGB] Page '" .. pageName .. "' withdraw failed.")
