@@ -505,6 +505,7 @@ local function removeSetConfirmed()
   XLGB_UI:SelectSet(sV.displayingSet - 1)
   XLGB_UI:ShowOrHideEditSet()
   XLGB_UI:UpdateSetDropdown()
+  XLGB_UI:UpdatePageScrollList()
 end
 
 function XLGB_UI:RemoveSet() 
