@@ -671,6 +671,9 @@ function XLGB_UI:AddRemoveSet()
   else
     XLGB_UI:RemoveSet()
   end
+  if xl.isPageEditable then
+    initiatePageShifterBoxEntries()
+  end
 end
 
 function XLGB_UI:AddSet()
@@ -690,7 +693,6 @@ local function removeSetConfirmed()
   XLGB_UI:SelectSet(sV.displayingSet - 1)
   XLGB_UI:ShowOrHideEditSet()
   XLGB_UI:UpdateSetDropdown()
-  
 end
 
 function XLGB_UI:RemoveSet() 
