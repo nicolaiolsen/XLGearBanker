@@ -173,7 +173,7 @@ function XLGB_UI:InitializePageShifterBox()
 
   s.shifterBox = libSB.Create(XLGearBanker.name, "XLGB_Page_ShifterBox", ui.page, customSettings)
   s.shifterBox:SetAnchor(BOTTOM, ui.page.shifterRow, TOP, 0, -10)
-  s.shifterBox:SetDimensions(310, 400)
+  s.shifterBox:SetDimensions(310, 420)
 
   local function entryMoved(shifterBox, key, value, categoryId, isDestListLeftList)
     xl.pageSetChange = true

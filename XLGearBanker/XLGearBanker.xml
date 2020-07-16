@@ -4,7 +4,7 @@
 
 <TopLevelControl name="XLGB_PageWindow" clampedToScreen="true" movable="true" mouseEnabled="true" hidden="true" resizeHandleSize="10">
   <Dimensions x="350" y="600"/>
-  <DimensionConstraints  minX="350" minY="400"/>
+  <DimensionConstraints  minX="350" minY="600" maxX="350" maxY="600"/>
   <Anchor point="CENTER" relativeTo="GUI_ROOT" relativePoint="CENTER" offsetX="-125" offsetY="-140" />
   <OnMoveStop> XLGB_UI:XLGB_PageWindow_OnMoveStop()</OnMoveStop>
   <Controls>
