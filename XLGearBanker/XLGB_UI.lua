@@ -16,7 +16,7 @@ function XLGB_UI:XLGB_PageWindow_OnMoveStop()
   sV.pageWindow_y = ui.page:GetTop()
 end
 
-function XLGB_Events:OnPageSort(preSortList)
+function XLGB_UI:OnPageSort(preSortList)
   local pageName = preSortList[sV.displayingPage]
   local newPageIndex = XLGB_Page:GetIndexOfPage(pageName)
   sV.displayingPage = newPageIndex
