@@ -16,9 +16,15 @@ function XLGB_UI:XLGB_PageWindow_OnMoveStop()
   sV.pageWindow_y = ui.page:GetTop()
 end
 
+function XLGB_Events:OnPageSort(preSortList)
+  local pageName = preSortList[sV.displayingPage]
+  local newPageIndex = XLGB_Page:GetIndexOfPage(pageName)
+  sV.displayingPage = newPageIndex
+end
+
 function XLGB_UI:OnGearSetSort(preSortList)
   local setName = preSortList[sV.displayingSet]
-  local newSetIndex = XLGB_GearSet:FindGearSet(setName)
+  local newSetIndex = XLGB_GearSet:GetGearSetIndex(setName)
   sV.displayingSet = newSetIndex
 end
 

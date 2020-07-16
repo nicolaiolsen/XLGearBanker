@@ -5,6 +5,20 @@ function XLGB_Page:GetNumberOfPages()
   return #sV.pages
 end
 
+local function sortPages()
+  local function comparePages(pageA, pageB)
+    return pageA.name < pageB.name
+  end
+
+  local preSortList = {}
+  for i, page in pairs(sV.pages) do
+      preSortList[i] = page.name
+  end
+
+  XLGB_Events:OnPageSort(preSortList)
+  table.sort(sV.pages, comparePages)
+end
+
 function XLGB_Page:CreatePage()
   local x = "X"
   local pageName = "My " .. x .. "LGB Page"
@@ -17,6 +31,7 @@ function XLGB_Page:CreatePage()
     sets = {}
   }
   table.insert(sV.pages, newPage)
+  sortPages()
   return pageName
 end
 
@@ -65,6 +80,7 @@ function XLGB_Page:SetPageName(oldName, newName)
   local isUnique = not XLGB_Page:GetPage(newName)
   if isUnique then
     page.name = newName
+    sortPages()
     return true
   end
   return false

@@ -115,7 +115,7 @@ function XLGB_GearSet:GetGearSetIndex(gearSetName)
         return i
       end
   end
-  return nil
+  return -1
 end
 
 function XLGB_GearSet:CopyGearSet(gearSetNumber)
