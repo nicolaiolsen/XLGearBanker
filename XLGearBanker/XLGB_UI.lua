@@ -16,6 +16,12 @@ function XLGB_UI:XLGB_PageWindow_OnMoveStop()
   sV.pageWindow_y = ui.page:GetTop()
 end
 
+function XLGB_UI:OnGearSetSort(preSortList)
+  local setName = preSortList[sV.displayingSet]
+  local newSetIndex = XLGB_GearSet:FindGearSet(setName)
+  sV.displayingSet = newSetIndex
+end
+
 function XLGB_UI:RestorePosition()
   ui.set:ClearAnchors()
   ui.set:SetAnchor(TOPLEFT, GuiRoot, TOPLEFT, sV.setWindow_x, sV.setWindow_y)

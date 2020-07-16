@@ -70,6 +70,18 @@ function XLGB_GearSet:GenerateNewSet()
   end
 end
 
+local function sortGearSets()
+  local function compareSets(setA, setB)
+    return setA.name < setB.name
+  end
+  local preSortList = {}
+  for i, set in pairs(sV.gearSetList) do
+      preSortList[i] = set.name
+  end
+  table.sort(sV.gearSetList, compareSets)
+  XLGB_Events:OnGearSetSort(preSortList)
+end
+
 function XLGB_GearSet:CreateNewGearSet(gearSetName)
   if (not isNameUnique(gearSetName)) then
     return false
@@ -78,6 +90,7 @@ function XLGB_GearSet:CreateNewGearSet(gearSetName)
   gearSet.name = "" .. gearSetName
   gearSet.items = {}
   table.insert(sV.gearSetList, gearSet)
+  sortGearSets()
   d("[XLGB] Created new set: " .. gearSetName)
   return true
 end
@@ -112,6 +125,7 @@ function XLGB_GearSet:EditGearSetName(gearSetName, gearSetNumber)
     return false
   end
   sV.gearSetList[gearSetNumber].name = "" .. gearSetName
+  sortGearSets()
   return true
 end
 
