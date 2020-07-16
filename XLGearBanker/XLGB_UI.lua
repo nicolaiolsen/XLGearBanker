@@ -230,7 +230,7 @@ local function setEditPageFalse()
   p.pageRow.editName:SetCursorPosition(0)
 
   p.pageRow.accept:SetHidden(not xl.isPageEditable)
-  p.totalPageItemsRow:SetHidden(not xl.isPageEditable)
+  p.totalPageItemsRow:SetHidden(xl.isPageEditable)
 
   refreshEditIcon(p.pageRow.edit, xl.isPageEditable)
   refreshAddRemoveIcon(p.pageRow.addRemovePage, xl.isPageEditable)
@@ -263,7 +263,7 @@ local function setEditPageTrue()
   p.pageRow.editName:SetMouseEnabled(xl.isPageEditable)
 
   p.pageRow.accept:SetHidden(not xl.isPageEditable)
-  p.totalPageItemsRow:SetHidden(not xl.isPageEditable)
+  p.totalPageItemsRow:SetHidden(xl.isPageEditable)
 
   refreshEditIcon(p.pageRow.edit, xl.isPageEditable)
   refreshAddRemoveIcon(p.pageRow.addRemovePage, xl.isPageEditable)

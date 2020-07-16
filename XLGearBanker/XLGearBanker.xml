@@ -175,12 +175,12 @@
     -->
     <Control name="$(parent)_ShifterRow" mouseEnabled="true" resizeToFitDescendents="false" hidden="true">
       <DimensionConstraints  minY="30"/>
-      <Anchor point="BOTTOMLEFT" relativeTo="$(parent)" relativePoint="BOTTOMLEFT" offsetX="0" offsetY="-10"/>
-      <Anchor point="BOTTOMRIGHT" relativeTo="$(parent)" relativePoint="BOTTOMRIGHT" offsetX="0" offsetY="-10"/>
+      <Anchor point="BOTTOMLEFT" relativeTo="$(parent)" relativePoint="BOTTOMLEFT" offsetX="0" offsetY="-21"/>
+      <Anchor point="BOTTOMRIGHT" relativeTo="$(parent)" relativePoint="BOTTOMRIGHT" offsetX="0" offsetY="-21"/>
       <Controls>
         <!-- Close Button -->
         <Button name="$(parent)_SetEditor" inherits="ZO_ButtonBehaviorClickSound" hidden="false" >
-          <OnClicked>XLGB_UI:ShowSetUI()</OnClicked>
+          <OnClicked>XLGB_UI:ToggleSetUI()</OnClicked>
           <Dimensions x="120" y="40" />                                
           <Anchor point="CENTER" relativeTo="$(parent)" relativePoint="CENTER" offsetX="0" offsetY="10"  />
           <Textures
