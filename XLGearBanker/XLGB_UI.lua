@@ -257,7 +257,6 @@ local function setEditPageFalse()
 
   refreshEditIcon(p.pageRow.edit, xl.isPageEditable)
   refreshAddRemoveIcon(p.pageRow.addRemovePage, xl.isPageEditable)
-  
 
   refreshBankAndShifterRow()
   reanchorPageScrollList()
@@ -402,8 +401,7 @@ local function InitPageWindowTooltips()
   CreatePageTooltip(ui.page.pageRow.edit, "Edit current set", "Discard changes")
   CreatePageTooltip(ui.page.pageRow.accept, "Accept changes")
   CreatePageTooltip(ui.page.pageRow.addRemovePage, "Create new page", "Remove current page")
-  CreatePageTooltip(ui.page.editPageRow.chooseSets, "Choose sets in current page")
-  CreatePageTooltip(ui.page.editPageRow.setEditor, "Toggle the Set Editor")
+  CreatePageTooltip(ui.page.shifterRow.setEditor, "Toggle the Set Editor")
 end
 
 function XLGB_UI:SelectPage(pageNumber)
