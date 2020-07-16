@@ -110,7 +110,7 @@ end
 
 function XLGB_Page:RemoveSetFromPage(setName, pageName)
   local page = XLGB_Page:GetPage(pageName)
-  local setIndex = GetSetIndexInPage(setName, pageName)
+  local setIndex = GetSetIndexInPage(setName, page)
   table.remove(page.sets, setIndex)
 end
 
