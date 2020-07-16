@@ -96,7 +96,7 @@ local function GetSetIndexInPage(setName, page)
       return i
     end
   end
-  return false
+  return -1
 end
 
 function XLGB_Page:AddSetToPage(setName, pageName)
@@ -110,10 +110,8 @@ end
 
 function XLGB_Page:RemoveSetFromPage(setName, pageName)
   local page = XLGB_Page:GetPage(pageName)
-  local setIndex = GetSetIndexInPage(setName, page)
-  if setIndex then
-    table.remove(page.sets, setIndex)
-  end
+  local setIndex = GetSetIndexInPage(setName, pageName)
+  table.remove(page.sets, setIndex)
 end
 
 function XLGB_Page:PageContainsSet(pageName, setName)
