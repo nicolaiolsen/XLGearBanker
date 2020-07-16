@@ -693,7 +693,7 @@ end
 
 function XLGB_UI:AddSet()
   local newSetName = XLGB_GearSet:GenerateNewSet()
-  sV.displayingSet = XLGB_GearSet:FindGearSet(newSetName)
+  sV.displayingSet = XLGB_GearSet:GetGearSetIndex(newSetName)
   XLGB_UI:SelectSet(sV.displayingSet)
 
   XLGB_UI:ToggleSetEdit()
