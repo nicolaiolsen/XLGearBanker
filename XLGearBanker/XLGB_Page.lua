@@ -45,6 +45,11 @@ function XLGB_Page:RemovePage(name)
   end
 end
 
+function XLGB_Page:ClearPage(pageName)
+  local page = XLGB_Page:GetPage(pageName)
+  page.sets = {}
+end
+
 function XLGB_Page:SetPageName(oldName, newName)
   local page = XLGB_Page:GetPage(oldName)
   local isUnique = not XLGB_Page:GetPage(newName)
@@ -73,6 +78,7 @@ function XLGB_Page:AddSetToPage(setName, pageName)
   local isUnique = not GetSetIndexInPage(setName, page)
   if isUnique then
     table.insert(page.sets, setName)
+    table.sort(page.sets)
   end
 end
 
