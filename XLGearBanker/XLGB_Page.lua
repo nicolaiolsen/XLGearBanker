@@ -19,13 +19,22 @@ function XLGB_Page:CreatePage()
   table.insert(sV.pages, newPage)
 end
 
-function XLGB_Page:GetPage(name)
+function XLGB_Page:GetPage(pageName)
   for _, page in pairs(sV.pages) do
-      if page.name == name then
+      if page.name == pageName then
         return page
       end
   end
   return false
+end
+
+function XLGB_Page:GetIndexOfPage(pageName)
+  for i, page in pairs(sV.pages) do
+      if page.name == pageName then
+        return i
+      end
+  end
+  return -1
 end
 
 function XLGB_Page:GetPageByIndex(index)

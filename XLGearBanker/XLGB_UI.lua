@@ -341,8 +341,8 @@ function XLGB_UI:AddRemovePage()
 end
 
 function XLGB_UI:AddPage()
-  XLGB_Page:CreatePage()
-  sV.displayingPage = XLGB_Page:GetNumberOfPages()
+  local newPageName = XLGB_Page:CreatePage()
+  sV.displayingPage = XLGB_Page:GetIndexOfPage(XLGB_Page:GetPage(newPageName))
   XLGB_UI:SelectPage(sV.displayingPage)
 
   XLGB_UI:TogglePageEdit()
@@ -686,8 +686,8 @@ function XLGB_UI:AddRemoveSet()
 end
 
 function XLGB_UI:AddSet()
-  XLGB_GearSet:GenerateNewSet()
-  sV.displayingSet = XLGB_GearSet:GetNumberOfGearSets()
+  local newSetName = XLGB_GearSet:GenerateNewSet()
+  sV.displayingSet = XLGB_GearSet:FindGearSet(newSetName)
   XLGB_UI:SelectSet(sV.displayingSet)
 
   XLGB_UI:ToggleSetEdit()

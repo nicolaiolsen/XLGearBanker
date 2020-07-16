@@ -63,13 +63,6 @@ local function isNameUnique(name)
   return isUnique
 end
 
-function XLGB_GearSet:GenerateNewSet()
-  local xcounter = "X"
-  while not(XLGB_GearSet:CreateNewGearSet("My " .. xcounter .. "LGB Set")) do
-      xcounter = "X" .. xcounter
-  end
-end
-
 local function sortGearSets()
   local function compareSets(setA, setB)
     return setA.name < setB.name
@@ -93,6 +86,16 @@ function XLGB_GearSet:CreateNewGearSet(gearSetName)
   sortGearSets()
   d("[XLGB] Created new set: " .. gearSetName)
   return true
+end
+
+function XLGB_GearSet:GenerateNewSet()
+  local xcounter = "X"
+  local name = "My " .. xcounter .. "LGB Set"
+  while not(XLGB_GearSet:CreateNewGearSet(name)) do
+      xcounter = "X" .. xcounter
+      name = "My " .. xcounter .. "LGB Set"
+  end
+  return name
 end
 
 function XLGB_GearSet:FindGearSet(gearSetName)
