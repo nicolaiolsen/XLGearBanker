@@ -134,40 +134,12 @@ local function initiatePageShifterBoxEntries(pageNumber)
   s.shifterBox:AddEntriesToRightList(s.right)
 end
 
-local function chooseSetsTrue()
-  local p = ui.page
-
-  initiatePageShifterBoxEntries(sV.displayingPage)
-
-  p.shifterRow:SetHidden(false)
-  p.shifter.shifterBox:SetHidden(false)
-  p.scrollList:SetHidden(true)
-
-  xl.isChoosingSets = true
-end
-
-local function chooseSetsFalse()
-  local p = ui.page
-
-  p.shifterRow:SetHidden(true)
-  p.shifter.shifterBox:SetHidden(true)
-  p.scrollList:SetHidden(false)
-
-  xl.isChoosingSets = false
-end
-
-function XLGB_UI:ToggleChooseSets()
-  if xl.isChoosingSets then
-    local chosenSets = ui.page.shifter.shifterBox:GetLeftListEntriesFull()
-    local pageName = XLGB_Page:GetPageByIndex(sV.displayingPage).name
-    XLGB_Page:ClearPage(pageName)
-    for _, set in pairs(chosenSets) do
-        XLGB_Page:AddSetToPage(set, pageName)
-    end
-    chooseSetsFalse()
-    XLGB_UI:UpdatePageScrollList()
-  else
-    chooseSetsTrue()
+local function updatePageSetEntries()
+  local chosenSets = ui.page.shifter.shifterBox:GetLeftListEntriesFull()
+  local pageName = XLGB_Page:GetPageByIndex(sV.displayingPage).name
+  XLGB_Page:ClearPage(pageName)
+  for _, set in pairs(chosenSets) do
+      XLGB_Page:AddSetToPage(set, pageName)
   end
 end
 
@@ -201,12 +173,18 @@ function XLGB_UI:InitializePageShifterBox()
 
   s.shifterBox = libSB.Create(XLGearBanker.name, "XLGB_Page_ShifterBox", ui.page, customSettings)
   s.shifterBox:SetAnchor(BOTTOM, ui.page.shifterRow, TOP, 0, -10)
-  s.shifterBox:SetDimensions(310, 380)
+  s.shifterBox:SetDimensions(310, 400)
+
+  local function entryMoved(shifterBox, key, value, categoryId, isDestListLeftList)
+    xl.pageSetChange = true
+  end
+  s.shifterBox:RegisterCallback(libSB.EVENT_ENTRY_MOVED, entryMoved)
   -- Temp fix for library
   local leftAllButton = XLGearBanker_XLGB_Page_ShifterBoxLeftAllButton
   leftAllButton:ClearAnchors()
   leftAllButton:SetAnchor(BOTTOM, XLGearBanker_XLGB_Page_ShifterBoxLeftButton, TOP, 0, -51)
   -----------------------
+
   s.shifterBox:SetHidden(true)
 end
 
@@ -240,7 +218,6 @@ end
 
 local function setEditPageFalse()
   local p = ui.page
-  chooseSetsFalse()
   xl.isPageEditable = false
 
   p.titleRow.title:SetText("XL Gear Banker")
@@ -257,6 +234,10 @@ local function setEditPageFalse()
 
   refreshEditIcon(p.pageRow.edit, xl.isPageEditable)
   refreshAddRemoveIcon(p.pageRow.addRemovePage, xl.isPageEditable)
+
+  p.shifterRow:SetHidden(true)
+  p.shifter.shifterBox:SetHidden(true)
+  p.scrollList:SetHidden(false)
 
   refreshBankAndShifterRow()
   reanchorPageScrollList()
@@ -287,6 +268,10 @@ local function setEditPageTrue()
   refreshEditIcon(p.pageRow.edit, xl.isPageEditable)
   refreshAddRemoveIcon(p.pageRow.addRemovePage, xl.isPageEditable)
 
+  initiatePageShifterBoxEntries(sV.displayingPage)
+  p.shifter.shifterBox:SetHidden(false)
+  p.scrollList:SetHidden(true)
+
   refreshBankAndShifterRow()
   reanchorPageScrollList()
 
@@ -299,7 +284,9 @@ local function acceptPageChanges()
   if XLGB_Page:SetPageName(xl.oldPageName, newPageName) then
     d("[XLGB] Page succesfully changed!")
     xl.copyOfPageSet = {}
+    updatePageSetEntries()
     setEditPageFalse()
+    ZO_ScrollList_RefreshVisible(ui.page.scrollList)
     XLGB_UI:UpdatePageDropdown()
   else
     d("[XLGB] Name was not unique")
@@ -307,18 +294,11 @@ local function acceptPageChanges()
 end
 
 function XLGB_UI:AcceptPageEdit()
-  local newPageName = ui.page.pageRow.editName:GetText()
-  local hasNameChanged = newPageName ~= xl.oldPageName
-
-  if not hasNameChanged then
-    setEditPageFalse()
-    XLGB_UI:UpdatePageDropdown()
+  if not areThereAnyPageChanges() then
+    acceptPageChanges()
   else
     libDialog:ShowDialog("XLGearBanker", "AcceptPageChanges", nil)
   end
-
-  XLGB_UI:UpdatePageDropdown()
-  ZO_ScrollList_RefreshVisible(ui.page.scrollList)
 end
 
 local function discardPageChanges()
@@ -924,7 +904,6 @@ function XLGB_UI:Initialize()
 
   xl.isSetEditable = false
   xl.isPageEditable = false
-  xl.isChoosingSets = false
   xl.chooseSetsBefore = {}
   xl.copyOfSet = {}
   xl.itemChanges = false
