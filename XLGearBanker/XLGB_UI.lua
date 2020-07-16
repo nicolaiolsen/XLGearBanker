@@ -120,6 +120,7 @@ local function initiatePageShifterBoxEntries(pageNumber)
   s.right = {}
   s.shifterBox:ClearLeftList()
   s.shifterBox:ClearRightList()
+  s.shifterBox:UnselectAllEntries()
 
   for i = 1, XLGB_GearSet:GetNumberOfGearSets() do
     local setName = XLGB_GearSet:GetGearSet(i).name
@@ -135,7 +136,8 @@ local function initiatePageShifterBoxEntries(pageNumber)
 end
 
 local function updatePageSetEntries()
-  local chosenSets = ui.page.shifter.shifterBox:GetLeftListEntriesFull()
+  local sb = ui.page.shifter.shifterBox
+  local chosenSets = sb:GetLeftListEntriesFull()
   local pageName = XLGB_Page:GetPageByIndex(sV.displayingPage).name
   XLGB_Page:ClearPage(pageName)
   for _, set in pairs(chosenSets) do
@@ -181,8 +183,8 @@ function XLGB_UI:InitializePageShifterBox()
   s.shifterBox:RegisterCallback(libSB.EVENT_ENTRY_MOVED, entryMoved)
   -- Temp fix for library
   local leftAllButton = XLGearBanker_XLGB_Page_ShifterBoxLeftAllButton
-  leftAllButton:ClearAnchors()
-  leftAllButton:SetAnchor(BOTTOM, XLGearBanker_XLGB_Page_ShifterBoxLeftButton, TOP, 0, -51)
+  --leftAllButton:ClearAnchors()
+  --leftAllButton:SetAnchor(BOTTOM, XLGearBanker_XLGB_Page_ShifterBoxLeftButton, TOP, 0, -55)
   -----------------------
 
   s.shifterBox:SetHidden(true)
