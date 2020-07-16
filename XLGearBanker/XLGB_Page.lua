@@ -17,6 +17,7 @@ function XLGB_Page:CreatePage()
     sets = {}
   }
   table.insert(sV.pages, newPage)
+  return pageName
 end
 
 function XLGB_Page:GetPage(pageName)
