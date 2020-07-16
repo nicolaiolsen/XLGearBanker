@@ -134,6 +134,7 @@ end
 
 function XLGB_GearSet:RemoveGearSet(gearSetNumber)
   local gearSet = XLGB_GearSet:GetGearSet(gearSetNumber)
+  XLGB_Events:OnGearSetRemove(gearSet.name)
   table.remove(sV.gearSetList, gearSetNumber)
   d("[XLGB] Removed set: " .. gearSet.name)
 end

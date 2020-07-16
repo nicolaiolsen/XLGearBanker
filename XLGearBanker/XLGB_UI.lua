@@ -115,6 +115,7 @@ end
 local function initiatePageShifterBoxEntries(pageNumber)
   local p = ui.page
   local s = p.shifter
+  local pageName = XLGB_Page:GetPageByIndex(sV.displayingPage).name
 
   s.left = {}
   s.right = {}
@@ -124,7 +125,7 @@ local function initiatePageShifterBoxEntries(pageNumber)
 
   for i = 1, XLGB_GearSet:GetNumberOfGearSets() do
     local setName = XLGB_GearSet:GetGearSet(i).name
-    if XLGB_Page:PageContainsSet(XLGB_Page:GetPageByIndex(sV.displayingPage).name, setName) then
+    if XLGB_Page:PageContainsSet(pageName, setName) then
       table.insert(s.left, i, setName)
     else
       table.insert(s.right, i, setName)
@@ -687,11 +688,11 @@ function XLGB_UI:AddSet()
 end
 
 local function removeSetConfirmed()
-  XLGB_Events:OnGearSetRemove(XLGB_GearSet:GetGearSet(sV.displayingSet))
   XLGB_GearSet:RemoveGearSet(sV.displayingSet)
   setEditSetFalse()
   XLGB_UI:SelectSet(sV.displayingSet - 1)
   XLGB_UI:ShowOrHideEditSet()
+  XLGB_UI:UpdatePageScrollList()
   XLGB_UI:UpdateSetDropdown()
 end
 
@@ -908,7 +909,7 @@ function XLGB_UI:Initialize()
 
   xl.isSetEditable = false
   xl.isPageEditable = false
-  xl.chooseSetsBefore = {}
+  xl.pageSetEntriesBefore = {}
   xl.copyOfSet = {}
   xl.itemChanges = false
   xl.nameChanges = false
