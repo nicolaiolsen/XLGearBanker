@@ -88,16 +88,20 @@ function XLGB_UI:ShowOrHideEdit(edit, numberOfPagesOrSets)
 end
 
 function XLGB_UI:OnBankOpen()
-  XLGB_UI:ShowPageUI()
   refreshBankAndEditPageRow()
   reanchorPageScrollList()
+  XLGB_UI:ShowPageUI()
 end
 
 function XLGB_UI:OnBankClosed()
-  ui.page:SetHidden(not xl.isPageEditable)
-  ui.set:SetHidden(not xl.isSetEditable)
   refreshBankAndEditPageRow()
   reanchorPageScrollList()
+  if xl.isPageEditable then
+    XLGB_UI:HidePageUI()
+  end
+  if xl.isSetEditable then
+    XLGB_UI:HideSetUI()
+  end
 end
 
 function XLGB_UI:DepositPage()
@@ -493,6 +497,7 @@ end
 function XLGB_UI:ShowPageUI()
   XLGB_UI:ShowOrHideEditPage()
   ui.page:SetHidden(false)
+  XLGB_UI:UpdatePageScrollList()
 end
 
 function XLGB_UI:HidePageUI()

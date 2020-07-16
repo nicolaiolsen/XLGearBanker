@@ -14,7 +14,7 @@ local function sortPages()
   for i, page in pairs(sV.pages) do
       preSortList[i] = page.name
   end
-  
+
   table.sort(sV.pages, comparePages)
   XLGB_Events:OnPageSort(preSortList)
 end
