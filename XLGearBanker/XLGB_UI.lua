@@ -42,15 +42,15 @@ local function reanchorScrollList(scrollList, top, bottom)
   scrollList:SetAnchor(BOTTOMRIGHT, bottom, TOPRIGHT, -21, -20)
 end
 
-local function refreshBankAndEditPageRow()
-  ui.page.editPageRow:SetHidden(not xl.isPageEditable)
+local function refreshBankAndShifterRow()
+  ui.page.shifterRow:SetHidden(not xl.isPageEditable)
   ui.page.bankRow:SetHidden(xl.isPageEditable or (not XLGB_Banking.bankOpen))
 end
 
 local function reanchorPageScrollList()
   local p = ui.page
   if xl.isPageEditable then
-    reanchorScrollList(p.scrollList, p.pageRow, p.editPageRow)
+    reanchorScrollList(p.scrollList, p.pageRow, p.shifterRow)
   elseif XLGB_Banking.bankOpen then
     reanchorScrollList(p.scrollList, p.pageRow, p.bankRow)
   else
@@ -88,13 +88,13 @@ function XLGB_UI:ShowOrHideEdit(edit, numberOfPagesOrSets)
 end
 
 function XLGB_UI:OnBankOpen()
-  refreshBankAndEditPageRow()
+  refreshBankAndShifterRow()
   reanchorPageScrollList()
   XLGB_UI:ShowPageUI()
 end
 
 function XLGB_UI:OnBankClosed()
-  refreshBankAndEditPageRow()
+  refreshBankAndShifterRow()
   reanchorPageScrollList()
   if xl.isPageEditable then
     XLGB_UI:HidePageUI()
@@ -112,7 +112,7 @@ function XLGB_UI:WithdrawPage()
   XLGB_Page:WithdrawPage(XLGB_Page:GetPageByIndex(sV.displayingPage).name)
 end
 
-local function updatePageShifterBoxEntries(pageNumber)
+local function initiatePageShifterBoxEntries(pageNumber)
   local p = ui.page
   local s = p.shifter
 
@@ -137,11 +137,10 @@ end
 local function chooseSetsTrue()
   local p = ui.page
 
-  updatePageShifterBoxEntries(sV.displayingPage)
+  initiatePageShifterBoxEntries(sV.displayingPage)
 
   p.shifterRow:SetHidden(false)
   p.shifter.shifterBox:SetHidden(false)
-  p.editPageRow:SetHidden(true)
   p.scrollList:SetHidden(true)
 
   xl.isChoosingSets = true
@@ -152,7 +151,6 @@ local function chooseSetsFalse()
 
   p.shifterRow:SetHidden(true)
   p.shifter.shifterBox:SetHidden(true)
-  p.editPageRow:SetHidden(false)
   p.scrollList:SetHidden(false)
 
   xl.isChoosingSets = false
@@ -259,7 +257,7 @@ local function setEditPageFalse()
   refreshEditIcon(p.pageRow.edit, xl.isPageEditable)
   refreshAddRemoveIcon(p.pageRow.addRemovePage, xl.isPageEditable)
 
-  refreshBankAndEditPageRow()
+  refreshBankAndShifterRow()
   reanchorPageScrollList()
 
   ZO_ScrollList_RefreshVisible(p.scrollList)
@@ -287,7 +285,7 @@ local function setEditPageTrue()
   refreshEditIcon(p.pageRow.edit, xl.isPageEditable)
   refreshAddRemoveIcon(p.pageRow.addRemovePage, xl.isPageEditable)
 
-  refreshBankAndEditPageRow()
+  refreshBankAndShifterRow()
   reanchorPageScrollList()
 
   ZO_ScrollList_RefreshVisible(p.scrollList)
@@ -566,12 +564,8 @@ local function InitUIPageVariables()
   ui.page.bankRow.deposit         = XLGB_PageWindow_BankRow_DepositPage
   ui.page.bankRow.withdraw        = XLGB_PageWindow_BankRow_WithdrawPage
 
-  ui.page.editPageRow             = XLGB_PageWindow_EditPageRow
-  ui.page.editPageRow.chooseSets  = XLGB_PageWindow_EditPageRow_ChooseSets
-  ui.page.editPageRow.setEditor   = XLGB_PageWindow_EditPageRow_SetEditor
-
   ui.page.shifterRow              = XLGB_PageWindow_ShifterRow
-  ui.page.shifterRow.done         = XLGB_PageWindow_ShifterRow_Done
+  ui.page.shifterRow.setEditor    = XLGB_PageWindow_ShifterRow_SetEditor
 
   ui.page.totalPageItemsRow       = XLGB_PageWindow_TotalPageItemsRow
   ui.page.totalPageItemsRow.text  = XLGB_PageWindow_TotalPageItemsRow_TotalPageItems

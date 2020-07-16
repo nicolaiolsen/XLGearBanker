@@ -171,54 +171,6 @@
     <!-- Bank Row end -->
 
     <!--
-      EDIT PAGE ROW
-    -->
-    <Control name="$(parent)_EditPageRow" mouseEnabled="true" resizeToFitDescendents="false" hidden="true">
-      <DimensionConstraints  minY="30"/>
-      <Anchor point="BOTTOMLEFT" relativeTo="$(parent)_TotalPageItemsRow" relativePoint="TOPLEFT" offsetX="0" offsetY="-10"/>
-      <Anchor point="BOTTOMRIGHT" relativeTo="$(parent)_TotalPageItemsRow" relativePoint="TOPRIGHT" offsetX="0" offsetY="-10"/>
-      <Controls>
-        <!-- Choose Sets Button -->
-        <Button name="$(parent)_ChooseSets" inherits="ZO_ButtonBehaviorClickSound" hidden="false" >
-          <OnClicked>XLGB_UI:ToggleChooseSets()</OnClicked>
-          <Dimensions x="120" y="40" />                                
-          <Anchor point="BOTTOMLEFT" relativeTo="$(parent)" relativePoint="BOTTOMLEFT" offsetX="20" offsetY="0"  />
-          <Textures
-              normal    ="/esoui/art/buttons/button_xlarge_mouseup.dds"
-              pressed    ="/esoui/art/buttons/button_xlarge_mousedown.dds"
-              mouseOver  ="/esoui/art/buttons/button_xlarge_mouseover.dds"
-            />
-          <Controls>
-            <Label name="$(parent)_Label" font="ZoFontWinH5" text="Choose Sets">
-              <Anchor point="CENTER" relativeTo="$(parent)" relativePoint="CENTER" offsetX="0" offsetY="-8"  />
-              <!-- <Anchor point="TOPLEFT" relativeTo="$(parent)" relativePoint="TOPLEFT" offsetX="10" offsetY="-10" />
-              <Anchor point="BOTTOMRIGHT" relativeTo="$(parent)" relativePoint="BOTTOMRIGHT" offsetX="-10" offsetY="10" /> -->
-            </Label>
-          </Controls>
-        </Button> 
-
-        <!-- Open Set Editor Button -->
-        <Button name="$(parent)_SetEditor" inherits="ZO_ButtonBehaviorClickSound" hidden="false" >
-          <OnClicked>XLGB_UI:ToggleSetUI()</OnClicked>
-          <Dimensions x="120" y="40" />                                
-          <Anchor point="BOTTOMRIGHT" relativeTo="$(parent)" relativePoint="BOTTOMRIGHT" offsetX="-20" offsetY="0"  />
-          <Textures
-              normal    ="/esoui/art/buttons/button_xlarge_mouseup.dds"
-              pressed    ="/esoui/art/buttons/button_xlarge_mousedown.dds"
-              mouseOver  ="/esoui/art/buttons/button_xlarge_mouseover.dds"
-            />
-          <Controls>
-            <Label name="$(parent)_Label" font="ZoFontWinH5" text="Set Editor">
-             <Anchor point="CENTER" relativeTo="$(parent)" relativePoint="CENTER" offsetX="0" offsetY="-8"  />
-            </Label> 
-          </Controls>
-        </Button> 
-
-      </Controls>
-    </Control>
-    <!-- Edit Page Row end -->
-
-    <!--
       SHIFTER ROW
     -->
     <Control name="$(parent)_ShifterRow" mouseEnabled="true" resizeToFitDescendents="false" hidden="true">
@@ -227,8 +179,8 @@
       <Anchor point="BOTTOMRIGHT" relativeTo="$(parent)_TotalPageItemsRow" relativePoint="TOPRIGHT" offsetX="0" offsetY="-10"/>
       <Controls>
         <!-- Close Button -->
-        <Button name="$(parent)_Done" inherits="ZO_ButtonBehaviorClickSound" hidden="false" >
-          <OnClicked>XLGB_UI:ToggleChooseSets()</OnClicked>
+        <Button name="$(parent)_SetEditor" inherits="ZO_ButtonBehaviorClickSound" hidden="false" >
+          <OnClicked>XLGB_UI:ShowSetUI()</OnClicked>
           <Dimensions x="120" y="40" />                                
           <Anchor point="CENTER" relativeTo="$(parent)" relativePoint="CENTER" offsetX="0" offsetY="10"  />
           <Textures
@@ -237,7 +189,7 @@
               mouseOver  ="/esoui/art/buttons/button_xlarge_mouseover.dds"
             />
           <Controls>
-            <Label name="$(parent)_Label" font="ZoFontWinH5" text="Done">
+            <Label name="$(parent)_Label" font="ZoFontWinH5" text="Set Editor">
               <Anchor point="CENTER" relativeTo="$(parent)" relativePoint="CENTER" offsetX="0" offsetY="-8"  />
               <!-- <Anchor point="TOPLEFT" relativeTo="$(parent)" relativePoint="TOPLEFT" offsetX="10" offsetY="-10" />
               <Anchor point="BOTTOMRIGHT" relativeTo="$(parent)" relativePoint="BOTTOMRIGHT" offsetX="-10" offsetY="10" /> -->
