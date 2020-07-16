@@ -83,7 +83,7 @@ function XLGB_Page:SetPageName(oldName, newName)
     sortPages()
     return true
   end
-  return false
+  return oldName == newName -- If they were the same don't change and return true
 end
 
 function XLGB_Page:SetPageSets(pageName, sets)
