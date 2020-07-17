@@ -285,16 +285,17 @@ local function acceptPageChanges()
     setEditPageFalse()
     ZO_ScrollList_RefreshVisible(ui.page.scrollList)
     XLGB_UI:UpdatePageDropdown()
+    XLGB_UI:UpdatePageScrollList()
   else
     d("[XLGB] Name was not unique")
   end
 end
 
 function XLGB_UI:AcceptPageEdit()
-  if not areThereAnyPageChanges() then
-    acceptPageChanges()
-  else
+  if areThereAnyPageChanges() then
     libDialog:ShowDialog("XLGearBanker", "AcceptPageChanges", nil)
+  else
+    acceptPageChanges()
   end
 end
 
@@ -335,6 +336,7 @@ function XLGB_UI:AddPage()
   XLGB_UI:TogglePageEdit()
   XLGB_UI:ShowOrHideEditPage()
   XLGB_UI:UpdatePageDropdown()
+  XLGB_UI:UpdatePageScrollList()
 end
 
 local function removePageConfirmed()
@@ -342,6 +344,7 @@ local function removePageConfirmed()
   setEditPageFalse()
   XLGB_UI:SelectPage(sV.displayingPage - 1)
   XLGB_UI:ShowOrHideEditPage()
+  XLGB_UI:UpdatePageScrollList()
   XLGB_UI:UpdatePageDropdown()
 end
 
