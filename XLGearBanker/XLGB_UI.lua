@@ -628,7 +628,6 @@ local function acceptSetChanges()
 end
 
 function XLGB_UI:AcceptSetEdit()
-
   if areThereAnySetChanges() then
       libDialog:ShowDialog("XLGearBanker", "AcceptSetChanges", nil)
   else
