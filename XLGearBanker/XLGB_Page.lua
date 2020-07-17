@@ -90,7 +90,6 @@ local function GetSetIndexInPage(setName, page)
       return i
     end
   end
-  return -1
 end
 
 function XLGB_Page:AddSetToPage(setName, pageName)
