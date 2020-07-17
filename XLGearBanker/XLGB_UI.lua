@@ -114,30 +114,30 @@ end
 
 local function initiatePageShifterBoxEntries(pageNumber)
   local p = ui.page
-  local s = p.shifter
   local pageName = XLGB_Page:GetPageByIndex(sV.displayingPage).name
 
-  s.left = {}
-  s.right = {}
-  s.shifterBox:ClearLeftList()
-  s.shifterBox:ClearRightList()
-  s.shifterBox:UnselectAllEntries()
+  local left = {}
+  local right = {}
+
+  p.shifterBox:ClearLeftList()
+  p.shifterBox:ClearRightList()
+  p.shifterBox:UnselectAllEntries()
 
   for i = 1, XLGB_GearSet:GetNumberOfGearSets() do
     local setName = XLGB_GearSet:GetGearSet(i).name
     if XLGB_Page:PageContainsSet(pageName, setName) then
-      table.insert(s.left, i, setName)
+      table.insert(left, i, setName)
     else
-      table.insert(s.right, i, setName)
+      table.insert(right, i, setName)
     end
   end
 
-  s.shifterBox:AddEntriesToLeftList(s.left)
-  s.shifterBox:AddEntriesToRightList(s.right)
+  p.shifterBox:AddEntriesToLeftList(left)
+  p.shifterBox:AddEntriesToRightList(right)
 end
 
 local function updatePageSetEntries()
-  local sb = ui.page.shifter.shifterBox
+  local sb = ui.page.shifterBox
   local chosenSets = sb:GetLeftListEntriesFull()
   local pageName = XLGB_Page:GetPageByIndex(sV.displayingPage).name
   XLGB_Page:ClearPage(pageName)
@@ -147,12 +147,7 @@ local function updatePageSetEntries()
 end
 
 function XLGB_UI:InitializePageShifterBox()
-  ui.page.shifter = {}
-  local s = ui.page.shifter
-
-  s.left = {}
-  s.right = {}
-
+  local p = ui.page
   local customSettings = {
     showMoveAllButtons = true,  -- the >> and << buttons to move all entries can be hidden if set to false
     dragDropEnabled = true,     -- entries can be moved between lsit with drag-and-drop
@@ -174,21 +169,21 @@ function XLGB_UI:InitializePageShifterBox()
     }
   }
 
-  s.shifterBox = libSB.Create(XLGearBanker.name, "XLGB_Page_ShifterBox", ui.page, customSettings)
-  s.shifterBox:SetAnchor(BOTTOM, ui.page.shifterRow, TOP, 0, -10)
-  s.shifterBox:SetDimensions(310, 420)
+  p.shifterBox = libSB.Create(XLGearBanker.name, "XLGB_Page_ShifterBox", ui.page, customSettings)
+  p.shifterBox:SetAnchor(BOTTOM, ui.page.shifterRow, TOP, 0, -10)
+  p.shifterBox:SetDimensions(310, 420)
 
   local function entryMoved(shifterBox, key, value, categoryId, isDestListLeftList)
     xl.pageSetChange = true
   end
-  s.shifterBox:RegisterCallback(libSB.EVENT_ENTRY_MOVED, entryMoved)
+  p.shifterBox:RegisterCallback(libSB.EVENT_ENTRY_MOVED, entryMoved)
   -- Temp fix for library
-  local leftAllButton = XLGearBanker_XLGB_Page_ShifterBoxLeftAllButton
-  --leftAllButton:ClearAnchors()
-  --leftAllButton:SetAnchor(BOTTOM, XLGearBanker_XLGB_Page_ShifterBoxLeftButton, TOP, 0, -55)
+  -- local leftAllButton = XLGearBanker_XLGB_Page_ShifterBoxLeftAllButton
+  -- leftAllButton:ClearAnchors()
+  -- leftAllButton:SetAnchor(BOTTOM, XLGearBanker_XLGB_Page_ShifterBoxLeftButton, TOP, 0, -55)
   -----------------------
 
-  s.shifterBox:SetHidden(true)
+  p.shifterBox:SetHidden(true)
 end
 
 function XLGB_UI:SelectEntireTextbox(editBoxControl)
@@ -239,7 +234,7 @@ local function setEditPageFalse()
   refreshAddRemoveIcon(p.pageRow.addRemovePage, xl.isPageEditable)
 
   p.shifterRow:SetHidden(true)
-  p.shifter.shifterBox:SetHidden(true)
+  p.shifterBox:SetHidden(true)
   p.scrollList:SetHidden(false)
 
   refreshBankAndShifterRow()
@@ -272,7 +267,7 @@ local function setEditPageTrue()
   refreshAddRemoveIcon(p.pageRow.addRemovePage, xl.isPageEditable)
 
   initiatePageShifterBoxEntries(sV.displayingPage)
-  p.shifter.shifterBox:SetHidden(false)
+  p.shifterBox:SetHidden(false)
   p.scrollList:SetHidden(true)
 
   refreshBankAndShifterRow()
@@ -286,7 +281,6 @@ local function acceptPageChanges()
   local newPageName = ui.page.pageRow.editName:GetText()
   if XLGB_Page:SetPageName(xl.oldPageName, newPageName) then
     d("[XLGB] Page succesfully changed!")
-    xl.copyOfPageSet = {}
     updatePageSetEntries()
     setEditPageFalse()
     ZO_ScrollList_RefreshVisible(ui.page.scrollList)
@@ -351,7 +345,7 @@ local function removePageConfirmed()
   XLGB_UI:UpdatePageDropdown()
 end
 
-function XLGB_UI:RemovePage() 
+function XLGB_UI:RemovePage()
   if #XLGB_Page:GetSetsInPage(XLGB_Page:GetPageByIndex(sV.displayingPage).name) == 0 then
     removePageConfirmed()
   else
@@ -930,10 +924,11 @@ function XLGB_UI:Initialize()
 
   XLGB_UI:InitializePageScrollList()
   XLGB_UI:InitializePageDropdown()
+  XLGB_UI:InitializePageShifterBox()
   XLGB_UI:UpdatePageDropdown()
   XLGB_UI:SelectPage(sV.displayingPage)
   XLGB_UI:SetupPageDialogs()
-  XLGB_UI:InitializePageShifterBox()
+  
 
   if sV.debug then
     XLGB_UI:ShowPageUI()
