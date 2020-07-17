@@ -200,6 +200,21 @@
     </Control>
     <!-- Shifter Row end -->
 
+    <!--
+      EMPTY ROW
+    -->
+    <Control name="$(parent)_EmptyRow" mouseEnabled="true" resizeToFitDescendents="false" hidden="true">
+      <DimensionConstraints  minY="30"/>
+      <Anchor point="TOPLEFT" relativeTo="$(parent)_PageRow" relativePoint="BOTTOMLEFT" offsetX="0" offsetY="10" />
+      <Anchor point="BOTTOMRIGHT" relativeTo="$(parent)_TotalPageItemsRow" relativePoint="TOPRIGHT" offsetX="20" offsetY="-10" />
+      <Controls>
+        <Label name="$(parent)_Label" font="ZoFontWinH5" text="Page is empty.">
+          <Anchor point="CENTER" relativeTo="$(parent)" relativePoint="CENTER" offsetX="0" offsetY="-8"  />
+        </Label>
+      </Controls>
+    </Control>
+    <!-- Empty Row end -->
+
     <Control name="$(parent)_ScrollList" inherits="ZO_ScrollList">
       <Anchor point="TOPLEFT" relativeTo="$(parent)_PageRow" relativePoint="BOTTOMLEFT" offsetX="0" offsetY="10" />
       <Anchor point="BOTTOMRIGHT" relativeTo="$(parent)_TotalPageItemsRow" relativePoint="TOPRIGHT" offsetX="20" offsetY="-10" />
@@ -361,6 +376,21 @@
       </Controls>
     </Control> 
     <!-- Add Items Row end-->
+
+    <!--
+      EMPTY ROW
+    -->
+    <Control name="$(parent)_EmptyRow" mouseEnabled="true" resizeToFitDescendents="false" hidden="true">
+      <DimensionConstraints  minY="30"/>
+      <Anchor point="TOPLEFT" relativeTo="$(parent)_SetRow" relativePoint="BOTTOMLEFT" offsetX="0" offsetY="10" />
+      <Anchor point="BOTTOMRIGHT" relativeTo="$(parent)_TotalSetItemsRow" relativePoint="TOPRIGHT" offsetX="-21" offsetY="-20" />
+      <Controls>
+        <Label name="$(parent)_Label" font="ZoFontWinH5" text="Set is empty.">
+          <Anchor point="CENTER" relativeTo="$(parent)" relativePoint="CENTER" offsetX="0" offsetY="-8"  />
+        </Label>
+      </Controls>
+    </Control>
+    <!-- Empty Row end -->
 
     <Control name="$(parent)_ScrollList" inherits="ZO_ScrollList">
       <Anchor point="TOPLEFT" relativeTo="$(parent)_SetRow" relativePoint="BOTTOMLEFT" offsetX="0" offsetY="10" />

@@ -51,10 +51,13 @@ local function reanchorPageScrollList()
   local p = ui.page
   if xl.isPageEditable then
     reanchorScrollList(p.scrollList, p.pageRow, p.shifterRow)
+    reanchorScrollList(p.empty, p.pageRow, p.shifterRow)
   elseif XLGB_Banking.bankOpen then
     reanchorScrollList(p.scrollList, p.pageRow, p.bankRow)
+    reanchorScrollList(p.empty, p.pageRow, p.bankRow)
   else
     reanchorScrollList(p.scrollList, p.pageRow, p.totalPageItemsRow)
+    reanchorScrollList(p.empty, p.pageRow, p.totalPageItemsRow)
   end
 end
 
@@ -414,10 +417,11 @@ function XLGB_UI:InitializePageDropdown()
 end
 
 function XLGB_UI:UpdatePageScrollList()
-  local scrollList = ui.page.scrollList
-  local scrollData = ZO_ScrollList_GetDataList(scrollList)
-  ZO_ScrollList_Clear(scrollList)
+  local p = ui.page
+  local scrollData = ZO_ScrollList_GetDataList(p.scrollList)
+  ZO_ScrollList_Clear(p.scrollList)
   if XLGB_Page:GetNumberOfPages() > 0 then
+    p.empty:SetHidden(true)
     local page = XLGB_Page:GetPageByIndex(sV.displayingPage)
     for _, set in pairs(XLGB_Page:GetSetsInPage(page.name)) do
       local dataEntry = ZO_ScrollList_CreateDataEntry(XLGB_Constants.PAGE_ITEM_ROW, {
@@ -425,8 +429,10 @@ function XLGB_UI:UpdatePageScrollList()
       })
       table.insert(scrollData, dataEntry)
     end
+  else
+    p.empty:SetHidden(false)
   end
-  ZO_ScrollList_Commit(scrollList)
+  ZO_ScrollList_Commit(p.scrollList)
 end
 
 function XLGB_UI:WithdrawSet(withdrawControl)
@@ -541,6 +547,8 @@ local function InitUIPageVariables()
 
   ui.page.scrollList              = XLGB_PageWindow_ScrollList
 
+  ui.page.empty                   = XLGB_PageWindow_EmptyRow
+
   ui.page.bankRow                 = XLGB_PageWindow_BankRow
   ui.page.bankRow.deposit         = XLGB_PageWindow_BankRow_DepositPage
   ui.page.bankRow.withdraw        = XLGB_PageWindow_BankRow_WithdrawPage
@@ -579,6 +587,7 @@ local function setEditSetFalse()
   s.addItemsRow:SetHidden(true)
 
   reanchorScrollList(s.scrollList, s.setRow, s.totalSetItemsRow)
+  reanchorScrollList(s.empty, s.setRow, s.totalSetItemsRow)
   ZO_ScrollList_RefreshVisible(s.scrollList)
   ClearTooltip(InformationTooltip)
 end
@@ -607,6 +616,7 @@ local function setEditSetTrue()
   s.addItemsRow:SetHidden(false)
 
   reanchorScrollList(s.scrollList, s.setRow, s.addItemsRow)
+  reanchorScrollList(s.empty, s.setRow, s.addItemsRow)
   ZO_ScrollList_RefreshVisible(s.scrollList)
   ClearTooltip(InformationTooltip)
 end
@@ -779,12 +789,13 @@ function XLGB_UI:InitializeSetDropdown()
 end
 
 function XLGB_UI:UpdateSetScrollList()
-  local scrollList = ui.set.scrollList
+  local s = ui.set
   local totalSetItems = ui.set.totalSetItemsRow.text
-  local scrollData = ZO_ScrollList_GetDataList(scrollList)
-  ZO_ScrollList_Clear(scrollList)
+  local scrollData = ZO_ScrollList_GetDataList(s.scrollList)
+  ZO_ScrollList_Clear(s.scrollList)
   totalSetItems:SetText("Total items in set: 0")
   if XLGB_GearSet:GetNumberOfGearSets() > 0 then
+    s.empty:SetHidden(true)
     local gearSet = XLGB_GearSet:GetGearSet(sV.displayingSet)
     for _, item in pairs(gearSet.items) do
       local dataEntry = ZO_ScrollList_CreateDataEntry(XLGB_Constants.ITEM_ROW, {
@@ -795,8 +806,10 @@ function XLGB_UI:UpdateSetScrollList()
       table.insert(scrollData, dataEntry)
     end
     totalSetItems:SetText("Total items in set: ".. #XLGB_GearSet:GetGearSet(sV.displayingSet).items)
+  else
+    s.empty:SetHidden(false)
   end
-  ZO_ScrollList_Commit(XLGB_SetWindow.scrollList)
+  ZO_ScrollList_Commit(s.scrollList)
 end
 
 local function fillSetItemRowWithData(control, data)
@@ -885,6 +898,8 @@ local function InitUISetVariables()
   ui.set.setRow.addRemoveSet      = XLGB_SetWindow_SetRow_AddRemoveSet
 
   ui.set.scrollList               = XLGB_SetWindow_ScrollList
+
+  ui.set.empty                    = XLGB_SetWindow_EmptyRow
 
   ui.set.addItemsRow              = XLGB_SetWindow_AddItemsRow
   ui.set.addItemsRow.addEquipped  = XLGB_SetWindow_AddItemsRow_AddEquipped

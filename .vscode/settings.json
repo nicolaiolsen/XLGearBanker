@@ -134,7 +134,9 @@
         "XLGearBanker_XLGB_Page_ShifterBoxLeft",
         "XLGearBanker_XLGB_Page_ShifterBoxLeftButton",
         "TOP",
-        "XLGB_PageWindow_ShifterRow_SetEditor"
+        "XLGB_PageWindow_ShifterRow_SetEditor",
+        "XLGB_SetWindow_EmptyRow",
+        "XLGB_PageWindow_EmptyRow"
     ],
     "Lua.diagnostics.disable": [
         "lowercase-global",
