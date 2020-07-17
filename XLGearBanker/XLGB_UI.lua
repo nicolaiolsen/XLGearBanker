@@ -273,6 +273,8 @@ local function setEditPageTrue()
   p.shifterBox:SetHidden(false)
   p.scrollList:SetHidden(true)
 
+  p.empty:SetHidden(true)
+
   refreshBankAndShifterRow()
   reanchorPageScrollList()
 
@@ -428,7 +430,7 @@ function XLGB_UI:UpdatePageScrollList()
       })
       table.insert(scrollData, dataEntry)
     end
-    if #scrollData < 1 then
+    if (#scrollData < 1) and not xl.isPageEditable then
       p.empty:SetHidden(false)
     else
       p.empty:SetHidden(true)
@@ -616,6 +618,8 @@ local function setEditSetTrue()
   refreshAddRemoveIcon(s.setRow.addRemoveSet, xl.isSetEditable)
 
   s.addItemsRow:SetHidden(false)
+
+  s.empty:SetHidden(true)
 
   reanchorScrollList(s.scrollList, s.setRow, s.addItemsRow)
   reanchorScrollList(s.empty, s.setRow, s.addItemsRow)
@@ -808,7 +812,7 @@ function XLGB_UI:UpdateSetScrollList()
     end
     totalSetItems:SetText("Total items in set: ".. #XLGB_GearSet:GetGearSet(sV.displayingSet).items)
 
-    if #scrollData < 1 then
+    if (#scrollData < 1) and not xl.isSetEditable then
       s.empty:SetHidden(false)
     else
       s.empty:SetHidden(true)

@@ -367,7 +367,7 @@ function XLGB_Banking:Initialize()
     {
       name = "Toggle XLGB UI",
       keybind = "TOGGLE_XLGB_UI",
-      callback = function() XLGB_UI:ToggleUI() end,
+      callback = function() XLGB_UI:TogglePageUI() end,
     },
     alignment = KEYBIND_STRIP_ALIGN_CENTER,
   }
