@@ -41,7 +41,6 @@ function XLGB_Page:GetPage(pageName)
         return page
       end
   end
-  return false
 end
 
 function XLGB_Page:GetIndexOfPage(pageName)
@@ -50,7 +49,6 @@ function XLGB_Page:GetIndexOfPage(pageName)
         return i
       end
   end
-  return -1
 end
 
 function XLGB_Page:GetPageByIndex(index)
@@ -84,10 +82,6 @@ function XLGB_Page:SetPageName(oldName, newName)
     return true
   end
   return oldName == newName -- If they were the same don't change and return true
-end
-
-function XLGB_Page:SetPageSets(pageName, sets)
-  XLGB_Page:GetPage(pageName).sets = sets
 end
 
 local function GetSetIndexInPage(setName, page)
