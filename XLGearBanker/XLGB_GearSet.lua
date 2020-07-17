@@ -127,6 +127,7 @@ function XLGB_GearSet:EditGearSetName(gearSetName, gearSetNumber)
     d("[XLGB_ERROR] A set named ".. gearSetName .." does already exist! Set names should be unique.")
     return false
   end
+  XLGB_Events:OnGearSetNameChange(sV.gearSetList[gearSetNumber].name, gearSetName)
   sV.gearSetList[gearSetNumber].name = "" .. gearSetName
   sortGearSets()
   return true

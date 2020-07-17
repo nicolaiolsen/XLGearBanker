@@ -159,6 +159,16 @@ function XLGB_Page:OnRemoveSet(setName)
   end
 end
 
+function XLGB_Page:OnGearSetNameChange(oldName, newName)
+  for _, page in pairs(XLGB_Page:GetAllPages()) do
+    for i, setName in pairs(page.sets) do
+        if setName == oldName then
+          page.sets[i] = newName
+        end
+    end
+end
+end
+
 local function copy(obj, seen)
   if type(obj) ~= 'table' then return obj end
   if seen and seen[obj] then return seen[obj] end

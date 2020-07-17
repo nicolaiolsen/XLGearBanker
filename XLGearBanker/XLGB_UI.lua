@@ -280,12 +280,12 @@ end
 local function acceptPageChanges()
   local newPageName = ui.page.pageRow.editName:GetText()
   if XLGB_Page:SetPageName(xl.oldPageName, newPageName) then
-    d("[XLGB] Page succesfully changed!")
     updatePageSetEntries()
     setEditPageFalse()
     ZO_ScrollList_RefreshVisible(ui.page.scrollList)
     XLGB_UI:UpdatePageDropdown()
     XLGB_UI:UpdatePageScrollList()
+    d("[XLGB] Page succesfully changed!")
   else
     d("[XLGB] Name was not unique")
   end
@@ -612,32 +612,28 @@ local function setEditSetTrue()
 end
 
 local function acceptSetChanges()
-  xl.copyOfSet = {}
-  setEditSetFalse()
-  d("[XLGB] Gear set changes accepted!")
+  local newGearName = ui.set.setRow.editName:GetText()
+  if XLGB_GearSet:EditGearSetName(newGearName, sV.displayingSet) then
+    xl.copyOfSet = {}
+    setEditSetFalse()
+    initiatePageShifterBoxEntries()
+    ZO_ScrollList_RefreshVisible(ui.set.scrollList)
+    XLGB_UI:UpdateSetDropdown()
+    XLGB_UI:UpdateSetScrollList()
+    XLGB_UI:UpdatePageScrollList()
+    d("[XLGB] Set successfully changed!")
+  else
+    d("[XLGB] Set name was not unique")
+  end
 end
 
 function XLGB_UI:AcceptSetEdit()
-  local newGearName = ui.set.setRow.editName:GetText()
 
-  if newGearName == xl.oldSetName then
-    if not(xl.itemChanges) then
-      setEditSetFalse()
-    else
+  if areThereAnySetChanges() then
       libDialog:ShowDialog("XLGearBanker", "AcceptSetChanges", nil)
-    end
   else
-    if XLGB_GearSet:EditGearSetName(newGearName, sV.displayingSet) then
-      d("[XLGB] Gearset renamed to '" .. newGearName .. "'.")
-      if not(xl.itemChanges) then
-        setEditSetFalse()
-      else
-        libDialog:ShowDialog("XLGearBanker", "AcceptSetChanges", nil)
-      end
-    end
+    acceptSetChanges()
   end
-  XLGB_UI:UpdateSetDropdown()
-  ZO_ScrollList_RefreshVisible(ui.set.scrollList)
 end
 
 local function discardSetChanges()
