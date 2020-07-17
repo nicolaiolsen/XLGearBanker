@@ -797,7 +797,6 @@ function XLGB_UI:UpdateSetScrollList()
   ZO_ScrollList_Clear(s.scrollList)
   totalSetItems:SetText("Total items in set: 0")
   if XLGB_GearSet:GetNumberOfGearSets() > 0 then
-    s.empty:SetHidden(true)
     local gearSet = XLGB_GearSet:GetGearSet(sV.displayingSet)
     for _, item in pairs(gearSet.items) do
       local dataEntry = ZO_ScrollList_CreateDataEntry(XLGB_Constants.ITEM_ROW, {
@@ -808,8 +807,12 @@ function XLGB_UI:UpdateSetScrollList()
       table.insert(scrollData, dataEntry)
     end
     totalSetItems:SetText("Total items in set: ".. #XLGB_GearSet:GetGearSet(sV.displayingSet).items)
-  else
-    s.empty:SetHidden(false)
+
+    if #scrollData < 1 then
+      s.empty:SetHidden(false)
+    else
+      s.empty:SetHidden(true)
+    end
   end
   ZO_ScrollList_Commit(s.scrollList)
 end
