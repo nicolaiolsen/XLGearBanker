@@ -421,7 +421,6 @@ function XLGB_UI:UpdatePageScrollList()
   local scrollData = ZO_ScrollList_GetDataList(p.scrollList)
   ZO_ScrollList_Clear(p.scrollList)
   if XLGB_Page:GetNumberOfPages() > 0 then
-    p.empty:SetHidden(true)
     local page = XLGB_Page:GetPageByIndex(sV.displayingPage)
     for _, set in pairs(XLGB_Page:GetSetsInPage(page.name)) do
       local dataEntry = ZO_ScrollList_CreateDataEntry(XLGB_Constants.PAGE_ITEM_ROW, {
@@ -429,8 +428,11 @@ function XLGB_UI:UpdatePageScrollList()
       })
       table.insert(scrollData, dataEntry)
     end
-  else
-    p.empty:SetHidden(false)
+    if #scrollData < 1 then
+      p.empty:SetHidden(false)
+    else
+      p.empty:SetHidden(true)
+    end
   end
   ZO_ScrollList_Commit(p.scrollList)
 end
