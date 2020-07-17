@@ -8,8 +8,8 @@ function XLGB_Events:OnGearSetItemRemove(gearSetBefore, gearSetAfter)
   XLGB_UI:UpdateSetScrollList()
 end
 
-function XLGB_Events:OnGearSetRemove(gearSet)
-  XLGB_Page:OnRemoveSet(gearSet.name)
+function XLGB_Events:OnGearSetRemove(gearSetName)
+  XLGB_Page:OnRemoveSet(gearSetName)
 end
 
 function XLGB_Events:OnGearSetSort(preSortList)
