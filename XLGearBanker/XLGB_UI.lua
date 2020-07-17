@@ -381,7 +381,7 @@ local function CreatePageTooltip(control, text, editText)
 end
 
 local function InitPageWindowTooltips()
-  CreatePageTooltip(ui.page.pageRow.edit, "Edit current set", "Discard changes")
+  CreatePageTooltip(ui.page.pageRow.edit, "Edit current page", "Discard changes")
   CreatePageTooltip(ui.page.pageRow.accept, "Accept changes")
   CreatePageTooltip(ui.page.pageRow.addRemovePage, "Create new page", "Remove current page")
   CreatePageTooltip(ui.page.shifterRow.setEditor, "Toggle the Set Editor")
