@@ -405,6 +405,7 @@
   <DimensionConstraints  minX="350" minY="600" maxX="350" maxY="600"/>
   <Anchor point="CENTER" relativeTo="GUI_ROOT" relativePoint="CENTER" offsetX="" offsetY="" />
   <Controls>
+    <Backdrop name="$(parent)_BG" inherits="ZO_DefaultBackdrop"><AnchorFill/></Backdrop>
     <!-- 
       TITLE ROW 
     -->
@@ -430,8 +431,8 @@
     <Control name="$(parent)_ProgressRow" mouseEnabled="false" resizeToFitDescendents="false">
       <Dimensions x="350" />
       <DimensionConstraints  minY="30"/>
-      <Anchor point="TOPLEFT" relativeTo="$(parent)_TitleRow" relativePoint="TOPLEFT" offsetX="10" offsetY="10"/>
-      <Anchor point="TOPRIGHT" relativeTo="$(parent)_TitleRow" relativePoint="TOPRIGHT" offsetX="-10" offsetY="10"/>
+      <Anchor point="TOPLEFT" relativeTo="$(parent)_TitleRow" relativePoint="BOTTOMLEFT" offsetX="10" offsetY="10"/>
+      <Anchor point="TOPRIGHT" relativeTo="$(parent)_TitleRow" relativePoint="BOTTOMRIGHT" offsetX="-10" offsetY="10"/>
       <Controls>
 
         <!-- XofY -->
@@ -455,8 +456,8 @@
     <Control name="$(parent)_SubTitleRow" mouseEnabled="false" resizeToFitDescendents="false">
       <Dimensions x="350" />
       <DimensionConstraints  minY="30"/>
-      <Anchor point="TOPLEFT" relativeTo="$(parent)_ProgressRow" relativePoint="TOPLEFT" offsetX="10" offsetY="10"/>
-      <Anchor point="TOPRIGHT" relativeTo="$(parent)_ProgressRow" relativePoint="TOPRIGHT" offsetX="-10" offsetY="10"/>
+      <Anchor point="TOPLEFT" relativeTo="$(parent)_ProgressRow" relativePoint="BOTTOMLEFT" offsetX="10" offsetY="10"/>
+      <Anchor point="TOPRIGHT" relativeTo="$(parent)_ProgressRow" relativePoint="BOTTOMRIGHT" offsetX="-10" offsetY="10"/>
       <Controls>
 
         <!-- XofY -->
@@ -474,7 +475,7 @@
     <Control name="$(parent)_CancelRow" mouseEnabled="false" resizeToFitDescendents="false">
       <Dimensions x="350" />
       <DimensionConstraints  minY="30"/>
-      <Anchor point="TOPLEFT" relativeTo="$(parent)_SubTitleRow" relativePoint="TOPLEFT" offsetX="10" offsetY="10"/>
+      <Anchor point="TOPLEFT" relativeTo="$(parent)_SubTitleRow" relativePoint="BOTTOMLEFT" offsetX="10" offsetY="10"/>
       <Anchor point="BOTTOMRIGHT" relativeTo="$(parent)" relativePoint="BOTTOMRIGHT" offsetX="-10" offsetY="-10"/>
       <Controls>
 
