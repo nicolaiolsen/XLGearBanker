@@ -128,12 +128,12 @@ local function moveGearFromTwoBags(sourceBagOne, itemsToMoveOne, sourceBagTwo, i
         sourceBag = sourceBagTwo
         itemsToMove = itemsToMoveOne
       end
-      zo_callLater(function()
-        moveItem(sourceBag, itemsToMove[nextIndex].index, targetBag, availableBagSpaces[nextIndex]) end,
-        200
-      )
-      nextIndex = nextIndex + 1
     end
+    zo_callLater(function()
+      moveItem(sourceBag, itemsToMove[nextIndex].index, targetBag, availableBagSpaces[nextIndex]) end,
+      200
+    )
+    nextIndex = nextIndex + 1
   end
   
   EVENT_MANAGER:RegisterForEvent(XLGearBanker.name .. "MoveGearFromTwoBags", EVENT_INVENTORY_SINGLE_SLOT_UPDATE, _onTargetBagItemReceived)
