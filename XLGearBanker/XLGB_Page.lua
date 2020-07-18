@@ -86,7 +86,7 @@ end
 
 local function GetSetIndexInPage(setName, page)
   for i, set in pairs(page.sets) do
-    if set.name == setName then
+    if set == setName then
       return i
     end
   end
