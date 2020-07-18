@@ -122,15 +122,16 @@ function XLGB_GearSet:CopyGearSet(gearSetNumber)
   return copy(XLGB_GearSet:GetGearSet(gearSetNumber))
 end
 
-function XLGB_GearSet:EditGearSetName(gearSetName, gearSetNumber)
-  if (not isNameUnique(gearSetName)) then
-    d("[XLGB_ERROR] A set named ".. gearSetName .." does already exist! Set names should be unique.")
-    return false
+function XLGB_GearSet:EditGearSetName(newName, gearSetNumber)
+  local gearSet = XLGB_GearSet:GetGearSet(gearSetNumber)
+  local isUnique = isNameUnique(newName)
+  if isUnique then
+    XLGB_Events:OnGearSetNameChange(gearSet.name, newName)
+    gearSet.name = newName
+    sortGearSets()
+    return true
   end
-  XLGB_Events:OnGearSetNameChange(sV.gearSetList[gearSetNumber].name, gearSetName)
-  sV.gearSetList[gearSetNumber].name = "" .. gearSetName
-  sortGearSets()
-  return true
+  return gearSet.name == newName
 end
 
 function XLGB_GearSet:RemoveGearSet(gearSetNumber)
