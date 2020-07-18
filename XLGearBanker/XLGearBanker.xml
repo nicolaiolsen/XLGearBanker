@@ -417,7 +417,7 @@
       <Controls>
 
         <!-- Title -->
-        <Label name="$(parent)_Title" font="ZoFontAnnounceSmall" text="XLGB - Withdrawing page 'vHoF (Mag)'">
+        <Label name="$(parent)_Title" font="ZoFontHeader" text="XLGB - Withdrawing page 'vHoF (Mag)'">
           <Anchor point="TOPLEFT" relativeTo="$(parent)" relativePoint="TOPLEFT" offsetX="10" offsetY="10"  />
           <Anchor point="BOTTOMRIGHT" relativeTo="$(parent)" relativePoint="BOTTOMRIGHT" offsetX="-10" offsetY="10"  />
         </Label>
@@ -437,18 +437,26 @@
       <Controls>
 
         <!-- XofY -->
-        <Label name="$(parent)_XofY" font="ZoFontWinH5" text="[2/5]">
+        <Label name="$(parent)_XofY" font="ZoFontHeader" text="[2/5]">
           <Anchor point="TOPLEFT" relativeTo="$(parent)" relativePoint="TOPLEFT" offsetX="0" offsetY="0"  />
         </Label>
 
         <!--
           <Backdrop name="$(parent)_BG" edgeColor="FF0000" centerColor="6495ED" alpha="0.6" ><AnchorFill/><Insets top="5" bottom="5" left="0" right="0"/></Backdrop> 
         -->
-        <Backdrop name="$(parent)_Bar" centerColor="6495ED" alpha="0.6">
-          <Anchor point="TOPLEFT" relativeTo="$(parent)_XofY" relativePoint="TOPRIGHT" offsetX="10" offsetY="0"/>
+        <Backdrop name="$(parent)_BarBG" edgeColor="B1CAF6" alpha="0.6" level="2">
+          <Anchor point="TOPLEFT" relativeTo="$(parent)" relativePoint="TOPRIGHT" offsetX="30" offsetY="0"/>
           <Anchor point="BOTTOMRIGHT" relativeTo="$(parent)" relativePoint="BOTTOMRIGHT" offsetX="-10" offsetY="0"/>
           <Edge edgeSize="1" />
         </Backdrop>
+
+        <Backdrop name="$(parent)_Bar" centerColor="6495ED" alpha="0.6" level="1">
+          <Anchor point="TOPLEFT" relativeTo="$(parent)_BarBG" relativePoint="TOPRIGHT" offsetX="0" offsetY="0"/>
+          <Anchor point="BOTTOMRIGHT" relativeTo="$(parent)_BarBG" relativePoint="BOTTOMRIGHT" offsetX="0" offsetY="0"/>
+          <Edge edgeSize="0" />
+        </Backdrop>
+
+        
 
       </Controls>
     </Control>
@@ -465,18 +473,18 @@
       <Controls>
 
         <!-- SetInfo -->
-        <Label name="$(parent)_SetInfo" font="ZoFontWinH5" text="|t30:30:/esoui/art/characterwindow/gearslot_chest.dds|t(8) ->">
+        <Label name="$(parent)_SetSize" font="ZoFontGameSmall" text="|t24:24:/esoui/art/characterwindow/gearslot_chest.dds|t(8) ->">
           <Anchor point="TOPLEFT" relativeTo="$(parent)" relativePoint="TOPLEFT" offsetX="0" offsetY="0"  />
         </Label>
 
         <!-- BagInfo -->
-        <Label name="$(parent)_BagInfo" font="ZoFontWinH5" text="|t30:30:/esoui/art/tooltips/icon_bag.dds|t(60)">
-          <Anchor point="TOPLEFT" relativeTo="$(parent)_SetInfo" relativePoint="TOPRIGHT" offsetX="0" offsetY="0"  />
+        <Label name="$(parent)_BagSpace" font="ZoFontGameSmall" text="|t24:24:/esoui/art/tooltips/icon_bag.dds|t(124/158)">
+          <Anchor point="TOPLEFT" relativeTo="$(parent)_SetSize" relativePoint="TOPRIGHT" offsetX="0" offsetY="0"  />
         </Label>
 
         <!-- XofY -->
-        <Label name="$(parent)_SubTitle" font="ZoFontWinH5" text="withdrawing set 'Mother's Sorrow'...">
-          <Anchor point="TOPLEFT" relativeTo="$(parent)_BagInfo" relativePoint="TOPLEFT" offsetX="0" offsetY="0"  />
+        <Label name="$(parent)_SetInfo" font="ZoFontGameSmall" text="withdrawing set 'Mother's Sorrow'...">
+          <Anchor point="TOPLEFT" relativeTo="$(parent)_BagSpace" relativePoint="TOPRIGHT" offsetX="5" offsetY="0"  />
         </Label>
 
       </Controls>
