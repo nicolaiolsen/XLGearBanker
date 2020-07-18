@@ -471,19 +471,19 @@
       <Anchor point="TOPRIGHT" relativeTo="$(parent)_ProgressRow" relativePoint="BOTTOMRIGHT" offsetX="-10" offsetY="10"/>
       <Controls>
 
-        <!-- SetInfo -->
+        <!-- SetSize -->
         <Label name="$(parent)_SetSize" font="ZoFontGameSmall" text="|t24:24:/esoui/art/characterwindow/gearslot_chest.dds|t(8) ->">
-          <Anchor point="TOPLEFT" relativeTo="$(parent)" relativePoint="TOPLEFT" offsetX="0" offsetY="0"  />
+          <Anchor point="LEFT" relativeTo="$(parent)" relativePoint="LEFT" offsetX="0" offsetY="0"  />
         </Label>
 
         <!-- BagInfo -->
         <Label name="$(parent)_BagSpace" font="ZoFontGameSmall" text="|t24:24:/esoui/art/tooltips/icon_bag.dds|t(124/158)">
-          <Anchor point="TOPLEFT" relativeTo="$(parent)_SetSize" relativePoint="TOPRIGHT" offsetX="0" offsetY="0"  />
+          <Anchor point="LEFT" relativeTo="$(parent)_SetSize" relativePoint="RIGHT" offsetX="0" offsetY="0"  />
         </Label>
 
-        <!-- XofY -->
+        <!-- SetInfo -->
         <Label name="$(parent)_SetInfo" font="ZoFontGameSmall" text="withdrawing set 'Mother's Sorrow'...">
-          <Anchor point="TOPLEFT" relativeTo="$(parent)_BagSpace" relativePoint="TOPRIGHT" offsetX="5" offsetY="0"  />
+          <Anchor point="LEFT" relativeTo="$(parent)_BagSpace" relativePoint="RIGHT" offsetX="4" offsetY="0"  />
         </Label>
 
       </Controls>
