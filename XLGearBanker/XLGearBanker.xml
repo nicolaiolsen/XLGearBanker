@@ -469,12 +469,12 @@
       <Controls>
 
         <!-- SetSize -->
-        <Label name="$(parent)_SetSize" font="ZoFontWinH5" text="|t30:30:/esoui/art/characterwindow/gearslot_chest.dds|t(8) ->">
+        <Label name="$(parent)_SetSize" font="ZoFontWinH5" text="|t32:32:/esoui/art/characterwindow/gearslot_chest.dds|t (8) |t32:32:/esoui/art/chatwindow/chat_overflowarrow_up.dds|t">
           <Anchor point="LEFT" relativeTo="$(parent)" relativePoint="LEFT" offsetX="40" offsetY="0"  />
         </Label>
 
         <!-- BagInfo -->
-        <Label name="$(parent)_BagSpace" font="ZoFontWinH5" text="|t30:30:/esoui/art/tooltips/icon_bag.dds|t(124/158)">
+        <Label name="$(parent)_BagSpace" font="ZoFontWinH5" text="|t32:32:/esoui/art/tooltips/icon_bag.dds|t(124/158)">
           <Anchor point="LEFT" relativeTo="$(parent)_SetSize" relativePoint="RIGHT" offsetX="0" offsetY="0"  />
         </Label>
 
