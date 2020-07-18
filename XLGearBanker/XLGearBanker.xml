@@ -494,7 +494,7 @@
 
         <!-- SetInfo -->
         <Label name="$(parent)_SetInfo" font="ZoFontWinH5" text="withdrawing set 'Mother's Sorrow'...">
-          <Anchor point="LEFT" relativeTo="$(parent)_BagSpace" relativePoint="RIGHT" offsetX="42" offsetY="0"  />
+          <Anchor point="LEFT" relativeTo="$(parent)" relativePoint="LEFT" offsetX="42" offsetY="0"  />
         </Label>
 
       </Controls>
@@ -509,7 +509,7 @@
     <Control name="$(parent)_CancelRow" mouseEnabled="false" resizeToFitDescendents="false">
       <Dimensions x="350" />
       <DimensionConstraints  minY="30"/>
-      <Anchor point="TOPLEFT" relativeTo="$(parent)_ProgressInfoRow" relativePoint="BOTTOMLEFT" offsetX="10" offsetY="10"/>
+      <Anchor point="TOPLEFT" relativeTo="$(parent)_ProgressTextRow" relativePoint="BOTTOMLEFT" offsetX="10" offsetY="10"/>
       <Anchor point="BOTTOMRIGHT" relativeTo="$(parent)" relativePoint="BOTTOMRIGHT" offsetX="-10" offsetY="-10"/>
       <Controls>
 
