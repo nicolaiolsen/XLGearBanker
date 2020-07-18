@@ -111,24 +111,53 @@ local function moveGear(sourceBag, itemsToMove, targetBag, availableBagSpaces)
 end
 
 local function moveGearFromTwoBags(sourceBagOne, itemsToMoveOne, sourceBagTwo, itemsToMoveTwo, targetBag, availableBagSpaces)
-  for i, itemEntry in ipairs(itemsToMoveOne) do
-    -- Stop when there are no more bag spaces,
-    -- return bag and index of item that was to be moved next.
-    if (#availableBagSpaces < i) then return sourceBagOne, i end
-    zo_callLater(function()
-      moveItem(sourceBagOne, itemEntry.index, targetBag, availableBagSpaces[i]) end,
-      200
-    )
+  local nextIndex = 1
+  local sourceBag = sourceBagOne
+  local itemsToMove = itemsToMoveOne
+
+  local function _onTargetBagItemReceived(eventCode, bagId, slotIndex, isNewItem, itemSoundCategory, updateReason, stackCountChange)
+    if (#availableBagSpaces < nextIndex) then
+      EVENT_MANAGER:UnregisterForEvent(XLGearBanker.name .. "MoveGearFromTwoBags", EVENT_INVENTORY_SINGLE_SLOT_UPDATE)
+      return
+    end
+    if (nextIndex > #itemsToMove) then
+      if sourceBag == sourceBagTwo then 
+        EVENT_MANAGER:UnregisterForEvent(XLGearBanker.name .. "MoveGearFromTwoBags", EVENT_INVENTORY_SINGLE_SLOT_UPDATE)
+        return
+      else
+        sourceBag = sourceBagTwo
+        itemsToMove = itemsToMoveOne
+      end
+      zo_callLater(function()
+        moveItem(sourceBag, itemsToMove[nextIndex].index, targetBag, availableBagSpaces[nextIndex]) end,
+        200
+      )
+      nextIndex = nextIndex + 1
+    end
   end
-  for i, itemEntry in ipairs(itemsToMoveTwo) do
-    -- Stop when there are no more bag spaces,
-    -- return bag and index of item that was to be moved next.
-    if (#availableBagSpaces < i + #itemsToMoveOne) then return sourceBagTwo, i end
-    zo_callLater(function()
-      moveItem(sourceBagTwo, itemEntry.index, targetBag, availableBagSpaces[i + #itemsToMoveOne]) end,
-      200
-    )
-  end
+  
+  EVENT_MANAGER:RegisterForEvent(XLGearBanker.name .. "MoveGearFromTwoBags", EVENT_INVENTORY_SINGLE_SLOT_UPDATE, _onTargetBagItemReceived)
+  EVENT_MANAGER:AddFilterForEvent(XLGearBanker.name .. "MoveGearFromTwoBags", EVENT_INVENTORY_SINGLE_SLOT_UPDATE, REGISTER_FILTER_IS_NEW_ITEM, false)
+  EVENT_MANAGER:AddFilterForEvent(XLGearBanker.name .. "MoveGearFromTwoBags", EVENT_INVENTORY_SINGLE_SLOT_UPDATE, REGISTER_FILTER_BAG_ID, targetBag)
+  EVENT_MANAGER:AddFilterForEvent(XLGearBanker.name .. "MoveGearFromTwoBags", EVENT_INVENTORY_SINGLE_SLOT_UPDATE, REGISTER_FILTER_INVENTORY_UPDATE_REASON, INVENTORY_UPDATE_REASON_DEFAULT)
+  -- for i, itemEntry in ipairs(itemsToMoveOne) do
+  --   -- Stop when there are no more bag spaces,
+  --   -- return bag and index of item that was to be moved next.
+  --   if (#availableBagSpaces < i) then return sourceBagOne, i end
+  --   zo_callLater(function()
+  --     moveItem(sourceBagOne, itemEntry.index, targetBag, availableBagSpaces[i]) end,
+  --     200
+  --   )
+  -- end
+  -- for i, itemEntry in ipairs(itemsToMoveTwo) do
+  --   -- Stop when there are no more bag spaces,
+  --   -- return bag and index of item that was to be moved next.
+  --   if (#availableBagSpaces < i + #itemsToMoveOne) then return sourceBagTwo, i end
+  --   zo_callLater(function()
+  --     moveItem(sourceBagTwo, itemEntry.index, targetBag, availableBagSpaces[i + #itemsToMoveOne]) end,
+  --     200
+  --   )
+  -- end
 end
 
 local function depositItemsToBankNonESOPlus(itemsToDeposit)
