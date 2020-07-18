@@ -49,5 +49,21 @@ SLASH_COMMANDS["/xlgb_help"] = function (argsv)
   d("\'/xlgb_debug\': Toggles debug mode. (Note: quite verbose)")
 end
 
+SLASH_COMMANDS["/xlgb_event"] = function (argsv)
+  local function _onInventoryChanged(eventCode, bagId, slotIndex, isNewItem, itemSoundCategory, updateReason, stackCountChange)
+    local link = GetItemLink(bagId, slotIndex)
+    d("Picked up a " .. link .. ".")
+  end
+  XLGearBanker.eventActive = XLGearBanker.eventActive or false
+  if XLGearBanker.eventActive then
+    EVENT_MANAGER:UnregisterForEvent(XLGearBanker.name .. "InventoryChanged", EVENT_INVENTORY_SINGLE_SLOT_UPDATE)
+  else
+    EVENT_MANAGER:RegisterForEvent(XLGearBanker.name .. "InventoryChanged", EVENT_INVENTORY_SINGLE_SLOT_UPDATE, _onInventoryChanged)
+    EVENT_MANAGER:AddFilterForEvent(XLGearBanker.name .. "InventoryChanged", EVENT_INVENTORY_SINGLE_SLOT_UPDATE, REGISTER_FILTER_IS_NEW_ITEM, true)
+    EVENT_MANAGER:AddFilterForEvent(XLGearBanker.name .. "InventoryChanged", EVENT_INVENTORY_SINGLE_SLOT_UPDATE, REGISTER_FILTER_BAG_ID, BAG_BACKPACK)
+    EVENT_MANAGER:AddFilterForEvent(XLGearBanker.name .. "InventoryChanged", EVENT_INVENTORY_SINGLE_SLOT_UPDATE, REGISTER_FILTER_INVENTORY_UPDATE_REASON, INVENTORY_UPDATE_REASON_DEFAULT)
+  end
+end
+
 SLASH_COMMANDS["/xlgb"] = function () XLGB_UI.TogglePageUI() end
 -------------------------------------------------------------------------------

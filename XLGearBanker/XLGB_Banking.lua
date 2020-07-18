@@ -139,7 +139,6 @@ local function depositItemsToBankNonESOPlus(itemsToDeposit)
   local numberOfItemsToMove = #equippedItemsToMove + #inventoryItemsToMove
 
   if (#availableBagSpaces < numberOfItemsToMove) then
-    d("[XLGB_ERROR] Trying to move " .. numberOfItemsToMove.. "items into a bag with " .. #availableBagSpaces .." empty slots.")
     return false
   end
 
@@ -169,7 +168,6 @@ local function depositGearToBankESOPlus(gearSet)
   local numberOfItemsToMove = #equippedItemsToMove + #inventoryItemsToMove
 
   if (numberOfAvailableSpaces < numberOfItemsToMove) then
-    d("[XLGB_ERROR] Trying to move " .. numberOfItemsToMove.. "items into a bag with " .. numberOfAvailableSpaces .." empty slots.")
     return false
   end
 
@@ -361,8 +359,6 @@ function XLGB_Banking:Initialize()
   self.bankOpen = IsBankOpen()
   self.recentlyCalled = false
   
-  XLGearBanker.savedVariables.storageBags = nil
-
   self.bankButtonGroup = {
     {
       name = "Toggle XLGB UI",
