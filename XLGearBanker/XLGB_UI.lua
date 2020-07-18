@@ -6,6 +6,24 @@ local ui = {}
 local sV = {}
 local xl = {}
 
+--------------------------------------------------------------------------------------------
+--------------------------------------------------------------------------------------------
+--
+--
+--
+--                                        PROGRESS BAR
+--
+--
+--
+--------------------------------------------------------------------------------------------
+
+
+
+--------------------------------------------------------------------------------------------
+-- PROGRESS BAR END
+--------------------------------------------------------------------------------------------
+
+
 function XLGB_UI:XLGB_SetWindow_OnMoveStop()
   sV.setWindow_x = ui.set:GetLeft()
   sV.setWindow_y = ui.set:GetTop()
@@ -99,10 +117,10 @@ end
 function XLGB_UI:OnBankClosed()
   refreshBankAndShifterRow()
   reanchorPageScrollList()
-  if xl.isPageEditable then
+  if not xl.isPageEditable then
     XLGB_UI:HidePageUI()
   end
-  if xl.isSetEditable then
+  if not xl.isSetEditable then
     XLGB_UI:HideSetUI()
   end
 end
