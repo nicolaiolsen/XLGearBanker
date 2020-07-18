@@ -400,7 +400,7 @@
   </Controls>
 </TopLevelControl>
 
-<TopLevelControl name="XLGB_ProgressWindow" clampedToScreen="true" movable="true" mouseEnabled="true" hidden="true" resizeHandleSize="0">
+<TopLevelControl name="XLGB_ProgressWindow" clampedToScreen="true" movable="true" mouseEnabled="true" hidden="false" resizeHandleSize="0">
   <Dimensions x="350" y="600"/>
   <DimensionConstraints  minX="350" minY="600" maxX="350" maxY="600"/>
   <Anchor point="CENTER" relativeTo="GUI_ROOT" relativePoint="CENTER" offsetX="" offsetY="" />
@@ -482,7 +482,7 @@
         <Label name="$(parent)_SetInfo" font="ZoFontWinH5" text="|t30:30:/esoui/art/characterwindow/gearslot_chest.dds|t(8) ->">
           <Anchor point="TOPLEFT" relativeTo="$(parent)" relativePoint="TOPLEFT" offsetX="0" offsetY="0"  />
         </Label>
-        
+
         <!-- BagInfo -->
         <Label name="$(parent)_BagInfo" font="ZoFontWinH5" text="|t30:30:/esoui/art/tooltips/icon_bag.dds|t(60)">
           <Anchor point="TOPLEFT" relativeTo="$(parent)_SetInfo" relativePoint="TOPLEFT" offsetX="0" offsetY="0"  />
