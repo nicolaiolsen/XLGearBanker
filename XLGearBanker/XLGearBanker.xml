@@ -469,8 +469,8 @@
       <Controls>
 
         <!-- SetSize -->
-        <Label name="$(parent)_SetSize" font="ZoFontWinH5" text="|t32:32:/esoui/art/characterwindow/gearslot_chest.dds|t (8) |t32:32:/esoui/art/chatwindow/chat_overflowarrow_up.dds|t">
-          <Anchor point="LEFT" relativeTo="$(parent)" relativePoint="LEFT" offsetX="40" offsetY="0"  />
+        <Label name="$(parent)_SetSize" font="ZoFontWinH5" text="|t52:56:/esoui/art/tradinghouse/tradinghouse_apparel_chest_up.dds|t(8) |t32:32:/esoui/art/chatwindow/chat_overflowarrow_up.dds|t">
+          <Anchor point="LEFT" relativeTo="$(parent)" relativePoint="LEFT" offsetX="32" offsetY="0"  />
         </Label>
 
         <!-- BagInfo -->
