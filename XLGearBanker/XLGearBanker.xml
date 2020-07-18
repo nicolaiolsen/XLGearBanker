@@ -416,7 +416,7 @@
       <Controls>
 
         <!-- Title -->
-        <Label name="$(parent)_Title" font="ZoFontHeader2" text="XLGB - Withdrawing page 'vHoF (Mag)'">
+        <Label name="$(parent)_Title" font="ZoFontHeader2" text="Withdrawing page '|cffecbcHalls Of Fabrication (Magicka)|r'">
           <Anchor point="CENTER" relativeTo="$(parent)" relativePoint="CENTER" offsetX="0" offsetY="0"  />
         </Label>
 
@@ -493,8 +493,8 @@
       <Controls>
 
         <!-- SetInfo -->
-        <Label name="$(parent)_SetInfo" font="ZoFontWinH5" text="withdrawing set 'Mother's Sorrow'...">
-          <Anchor point="LEFT" relativeTo="$(parent)" relativePoint="LEFT" offsetX="42" offsetY="0"  />
+        <Label name="$(parent)_SetInfo" font="ZoFontWinH5" text="Withdrawing set '|cffecbcMother's Sorrow|r'...">
+          <Anchor point="LEFT" relativeTo="$(parent)" relativePoint="LEFT" offsetX="32" offsetY="0"  />
         </Label>
 
       </Controls>
@@ -517,7 +517,7 @@
         <Button name="$(parent)_Cancel" inherits="ZO_ButtonBehaviorClickSound" hidden="false" >
           <OnClicked></OnClicked>
           <Dimensions x="120" y="40" />                                
-          <Anchor point="RIGHT" relativeTo="$(parent)" relativePoint="RIGHT" offsetX="-20" offsetY="25"  />
+          <Anchor point="RIGHT" relativeTo="$(parent)" relativePoint="RIGHT" offsetX="-20" offsetY="0"  />
           <Textures
               normal    ="/esoui/art/buttons/button_xlarge_mouseup.dds"
               pressed    ="/esoui/art/buttons/button_xlarge_mousedown.dds"
