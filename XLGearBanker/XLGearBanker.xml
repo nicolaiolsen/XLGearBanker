@@ -417,8 +417,9 @@
       <Controls>
 
         <!-- Title -->
-        <Label name="$(parent)_Title" font="ZoFontAnnounceMedium" text="XLGB - Withdrawing page 'vHoF (Mag)'">
+        <Label name="$(parent)_Title" font="ZoFontAnnounceSmall" text="XLGB - Withdrawing page 'vHoF (Mag)'">
           <Anchor point="TOPLEFT" relativeTo="$(parent)" relativePoint="TOPLEFT" offsetX="10" offsetY="10"  />
+          <Anchor point="BOTTOMRIGHT" relativeTo="$(parent)" relativePoint="BOTTOMRIGHT" offsetX="-10" offsetY="10"  />
         </Label>
 
       </Controls>
@@ -436,7 +437,7 @@
       <Controls>
 
         <!-- XofY -->
-        <Label name="$(parent)_XofY" font="ZOFontWinH5" text="[2/5]">
+        <Label name="$(parent)_XofY" font="ZoFontWinH5" text="[2/5]">
           <Anchor point="TOPLEFT" relativeTo="$(parent)" relativePoint="TOPLEFT" offsetX="0" offsetY="0"  />
         </Label>
 
@@ -444,8 +445,9 @@
           <Backdrop name="$(parent)_BG" edgeColor="FF0000" centerColor="6495ED" alpha="0.6" ><AnchorFill/><Insets top="5" bottom="5" left="0" right="0"/></Backdrop> 
         -->
         <Backdrop name="$(parent)_Bar" centerColor="6495ED" alpha="0.6">
-          <Anchor point="TOPLEFT" relativeTo="$(parent)_XofY" relativePoint="TOPLEFT" offsetX="10" offsetY="0"/>
+          <Anchor point="TOPLEFT" relativeTo="$(parent)_XofY" relativePoint="TOPRIGHT" offsetX="10" offsetY="0"/>
           <Anchor point="BOTTOMRIGHT" relativeTo="$(parent)" relativePoint="BOTTOMRIGHT" offsetX="-10" offsetY="0"/>
+          <Edge edgeSize="1" />
         </Backdrop>
 
       </Controls>
@@ -453,32 +455,13 @@
     <!-- Progress Row end-->
 
     <!-- 
-      SUB TITLE ROW 
+      PROGRESS INFO ROW 
     -->
-    <Control name="$(parent)_SubTitleRow" mouseEnabled="false" resizeToFitDescendents="false">
+    <Control name="$(parent)_ProgressInfoRow" mouseEnabled="false" resizeToFitDescendents="false">
       <Dimensions x="350" />
       <DimensionConstraints  minY="30"/>
       <Anchor point="TOPLEFT" relativeTo="$(parent)_ProgressRow" relativePoint="BOTTOMLEFT" offsetX="10" offsetY="10"/>
       <Anchor point="TOPRIGHT" relativeTo="$(parent)_ProgressRow" relativePoint="BOTTOMRIGHT" offsetX="-10" offsetY="10"/>
-      <Controls>
-
-        <!-- XofY -->
-        <Label name="$(parent)_SubTitle" font="ZoFontWinH5" text="withdrawing set 'Mother's Sorrow'...">
-          <Anchor point="TOPLEFT" relativeTo="$(parent)" relativePoint="TOPLEFT" offsetX="0" offsetY="0"  />
-        </Label>
-
-      </Controls>
-    </Control>
-    <!-- Sub Title Row end-->
-
-    <!-- 
-      CANCEL ROW 
-    -->
-    <Control name="$(parent)_CancelRow" mouseEnabled="false" resizeToFitDescendents="false">
-      <Dimensions x="350" />
-      <DimensionConstraints  minY="30"/>
-      <Anchor point="TOPLEFT" relativeTo="$(parent)_SubTitleRow" relativePoint="BOTTOMLEFT" offsetX="10" offsetY="10"/>
-      <Anchor point="BOTTOMRIGHT" relativeTo="$(parent)" relativePoint="BOTTOMRIGHT" offsetX="-10" offsetY="-10"/>
       <Controls>
 
         <!-- SetInfo -->
@@ -490,7 +473,25 @@
         <Label name="$(parent)_BagInfo" font="ZoFontWinH5" text="|t30:30:/esoui/art/tooltips/icon_bag.dds|t(60)">
           <Anchor point="TOPLEFT" relativeTo="$(parent)_SetInfo" relativePoint="TOPRIGHT" offsetX="0" offsetY="0"  />
         </Label>
-        
+
+        <!-- XofY -->
+        <Label name="$(parent)_SubTitle" font="ZoFontWinH5" text="withdrawing set 'Mother's Sorrow'...">
+          <Anchor point="TOPLEFT" relativeTo="$(parent)_BagInfo" relativePoint="TOPLEFT" offsetX="0" offsetY="0"  />
+        </Label>
+
+      </Controls>
+    </Control>
+    <!-- Progress Info Row end-->
+
+    <!-- 
+      CANCEL ROW 
+    -->
+    <Control name="$(parent)_CancelRow" mouseEnabled="false" resizeToFitDescendents="false">
+      <Dimensions x="350" />
+      <DimensionConstraints  minY="30"/>
+      <Anchor point="TOPLEFT" relativeTo="$(parent)_ProgressInfoRow" relativePoint="BOTTOMLEFT" offsetX="10" offsetY="10"/>
+      <Anchor point="BOTTOMRIGHT" relativeTo="$(parent)" relativePoint="BOTTOMRIGHT" offsetX="-10" offsetY="-10"/>
+      <Controls>
 
         <!-- Cancel Button -->
         <Button name="$(parent)_Cancel" inherits="ZO_ButtonBehaviorClickSound" hidden="false" >
