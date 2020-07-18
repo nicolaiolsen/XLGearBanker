@@ -442,8 +442,8 @@
         <!--
           <Backdrop name="$(parent)_BG" edgeColor="FF0000" centerColor="6495ED" alpha="0.6" ><AnchorFill/><Insets top="5" bottom="5" left="0" right="0"/></Backdrop> 
         -->
-        <Backdrop name="$(parent)_BarBG" edgeColor="6495ED" alpha="0" level="2">
-          <Anchor point="TOPLEFT" relativeTo="$(parent)" relativePoint="TOPLEFT" offsetX="30" offsetY="0"/>
+        <Backdrop name="$(parent)_BarBG" centerColor="00000000" edgeColor="6495ED" level="2">
+          <Anchor point="TOPLEFT" relativeTo="$(parent)" relativePoint="TOPLEFT" offsetX="50" offsetY="0"/>
           <Anchor point="BOTTOMRIGHT" relativeTo="$(parent)" relativePoint="BOTTOMRIGHT" offsetX="-10" offsetY="0"/>
           <Edge edgeSize="1" />
         </Backdrop>
