@@ -416,7 +416,7 @@
       <Controls>
 
         <!-- Title -->
-        <Label name="$(parent)_Title" font="ZoFontHeader" text="XLGB - Withdrawing page 'vHoF (Mag)'">
+        <Label name="$(parent)_Title" font="ZoFontHeader2" text="XLGB - Withdrawing page 'vHoF (Mag)'">
           <Anchor point="CENTER" relativeTo="$(parent)" relativePoint="CENTER" offsetX="0" offsetY="0"  />
         </Label>
 
@@ -450,11 +450,9 @@
 
         <Backdrop name="$(parent)_Bar" centerColor="6495ED" edgeColor="6495ED" alpha="0.6" level="1">
           <Anchor point="TOPLEFT" relativeTo="$(parent)_BarBG" relativePoint="TOPLEFT" offsetX="0" offsetY="0"/>
-          <Anchor point="BOTTOMRIGHT" relativeTo="$(parent)_BarBG" relativePoint="BOTTOMRIGHT" offsetX="0" offsetY="0"/>
+          <Anchor point="BOTTOMRIGHT" relativeTo="$(parent)_BarBG" relativePoint="BOTTOMRIGHT" offsetX="-120" offsetY="0"/>
           <Edge edgeSize="1" />
         </Backdrop>
-
-        
 
       </Controls>
     </Control>
@@ -471,23 +469,39 @@
       <Controls>
 
         <!-- SetSize -->
-        <Label name="$(parent)_SetSize" font="ZoFontGameSmall" text="|t24:24:/esoui/art/characterwindow/gearslot_chest.dds|t(8) ->">
-          <Anchor point="LEFT" relativeTo="$(parent)" relativePoint="LEFT" offsetX="0" offsetY="0"  />
+        <Label name="$(parent)_SetSize" font="ZoFontWinH5" text="|t30:30:/esoui/art/characterwindow/gearslot_chest.dds|t(8) ->">
+          <Anchor point="LEFT" relativeTo="$(parent)" relativePoint="LEFT" offsetX="40" offsetY="0"  />
         </Label>
 
         <!-- BagInfo -->
-        <Label name="$(parent)_BagSpace" font="ZoFontGameSmall" text="|t24:24:/esoui/art/tooltips/icon_bag.dds|t(124/158)">
+        <Label name="$(parent)_BagSpace" font="ZoFontWinH5" text="|t30:30:/esoui/art/tooltips/icon_bag.dds|t(124/158)">
           <Anchor point="LEFT" relativeTo="$(parent)_SetSize" relativePoint="RIGHT" offsetX="0" offsetY="0"  />
-        </Label>
-
-        <!-- SetInfo -->
-        <Label name="$(parent)_SetInfo" font="ZoFontGameSmall" text="withdrawing set 'Mother's Sorrow'...">
-          <Anchor point="LEFT" relativeTo="$(parent)_BagSpace" relativePoint="RIGHT" offsetX="4" offsetY="0"  />
         </Label>
 
       </Controls>
     </Control>
     <!-- Progress Info Row end-->
+
+    <!-- 
+      PROGRESS INFO ROW 
+    -->
+    <Control name="$(parent)_ProgressTextRow" mouseEnabled="false" resizeToFitDescendents="false">
+      <Dimensions x="350" />
+      <DimensionConstraints  minY="30"/>
+      <Anchor point="TOPLEFT" relativeTo="$(parent)_ProgressInfoRow" relativePoint="BOTTOMLEFT" offsetX="10" offsetY="10"/>
+      <Anchor point="TOPRIGHT" relativeTo="$(parent)_ProgressInfoRow" relativePoint="BOTTOMRIGHT" offsetX="-10" offsetY="10"/>
+      <Controls>
+
+        <!-- SetInfo -->
+        <Label name="$(parent)_SetInfo" font="ZoFontWinH5" text="withdrawing set 'Mother's Sorrow'...">
+          <Anchor point="LEFT" relativeTo="$(parent)_BagSpace" relativePoint="RIGHT" offsetX="42" offsetY="0"  />
+        </Label>
+
+      </Controls>
+    </Control>
+    <!-- Progress Info Row end-->
+
+        
 
     <!-- 
       CANCEL ROW 
