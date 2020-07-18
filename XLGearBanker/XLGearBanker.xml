@@ -401,9 +401,9 @@
 </TopLevelControl>
 
 <TopLevelControl name="XLGB_ProgressWindow" clampedToScreen="true" movable="true" mouseEnabled="true" hidden="false" resizeHandleSize="0">
-  <Dimensions x="350" y="600"/>
-  <DimensionConstraints  minX="350" minY="600" maxX="350" maxY="600"/>
-  <Anchor point="CENTER" relativeTo="GUI_ROOT" relativePoint="CENTER" offsetX="" offsetY="" />
+  <Dimensions x="460" y="220"/>
+  <DimensionConstraints  minX="460" minY="220" maxX="460" maxY="220"/>
+  <Anchor point="CENTER" relativeTo="GUI_ROOT" relativePoint="CENTER" offsetX="0" offsetY="-60" />
   <Controls>
     <Backdrop name="$(parent)_BG" inherits="ZO_DefaultBackdrop"><AnchorFill/></Backdrop>
     <!-- 
@@ -440,10 +440,12 @@
           <Anchor point="TOPLEFT" relativeTo="$(parent)" relativePoint="TOPLEFT" offsetX="0" offsetY="0"  />
         </Label>
 
-        <Backdrop name="$(parent)_Bar" edgeColor="000000" centerColor="000000" alpha="0.6">
+        <!--
+          <Backdrop name="$(parent)_BG" edgeColor="FF0000" centerColor="6495ED" alpha="0.6" ><AnchorFill/><Insets top="5" bottom="5" left="0" right="0"/></Backdrop> 
+        -->
+        <Backdrop name="$(parent)_Bar" centerColor="6495ED" alpha="0.6">
           <Anchor point="TOPLEFT" relativeTo="$(parent)_XofY" relativePoint="TOPLEFT" offsetX="10" offsetY="0"/>
           <Anchor point="BOTTOMRIGHT" relativeTo="$(parent)" relativePoint="BOTTOMRIGHT" offsetX="-10" offsetY="0"/>
-          <Edge edgeSize="2" />
         </Backdrop>
 
       </Controls>
@@ -486,7 +488,7 @@
 
         <!-- BagInfo -->
         <Label name="$(parent)_BagInfo" font="ZoFontWinH5" text="|t30:30:/esoui/art/tooltips/icon_bag.dds|t(60)">
-          <Anchor point="TOPLEFT" relativeTo="$(parent)_SetInfo" relativePoint="TOPLEFT" offsetX="0" offsetY="0"  />
+          <Anchor point="TOPLEFT" relativeTo="$(parent)_SetInfo" relativePoint="TOPRIGHT" offsetX="0" offsetY="0"  />
         </Label>
         
 
@@ -494,7 +496,7 @@
         <Button name="$(parent)_Cancel" inherits="ZO_ButtonBehaviorClickSound" hidden="false" >
           <OnClicked></OnClicked>
           <Dimensions x="120" y="40" />                                
-          <Anchor point="RIGHT" relativeTo="$(parent)" relativePoint="RIGHT" offsetX="0" offsetY="10"  />
+          <Anchor point="RIGHT" relativeTo="$(parent)" relativePoint="RIGHT" offsetX="-20" offsetY="25"  />
           <Textures
               normal    ="/esoui/art/buttons/button_xlarge_mouseup.dds"
               pressed    ="/esoui/art/buttons/button_xlarge_mousedown.dds"
