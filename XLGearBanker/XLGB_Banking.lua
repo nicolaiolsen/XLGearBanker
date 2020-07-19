@@ -117,7 +117,7 @@ local function onMoveFailed(sourceBag, failedAtItemIndex, targetBag, spaceFailed
 end
 
 local function moveItem(sourceBag, itemIndex, targetBag, availableSpace)
-  d("Moving Item at index = '" .. GetItemName(sourceBag, itemIndex) ..  "' to space = '" .. GetItemName(targetBag, availableSpace) .. "'")
+  -- d("Moving Item at index = '" .. GetItemName(sourceBag, itemIndex) ..  "' to space = '" .. GetItemName(targetBag, availableSpace) .. "'")
   local moveFailed = not CallSecureProtected("RequestMoveItem", sourceBag, itemIndex, targetBag, availableSpace, 1)
   if moveFailed or GetItemName(targetBag, availableSpace) ~= "" then
     onMoveFailed(sourceBag, itemIndex, targetBag, availableSpace)
@@ -132,20 +132,20 @@ local function moveGear(sourceBag, itemsToMove, targetBag, availableBagSpaces)
   local nextIndex = 1
 
   local function _onTargetBagItemReceived(eventCode, bagId, slotIndex, isNewItem, itemSoundCategory, updateReason, stackCountChange)
-    d("Received item!")
+    -- d("Received item!")
     if XLGB_Banking.isMoveCancelled then
-      d("Move cancelled!")
+      -- d("Move cancelled!")
       return stopMovingItems()
     end
     if nextIndex > #availableBagSpaces then
-      d("Not enough spaces!")
+      -- d("Not enough spaces!")
       return stopMovingItems()
     end
     if (nextIndex > #itemsToMove) then
-      d("Bag done!")
+      -- d("Bag done!")
       return stopMovingItems()
     end
-    d("(".. tostring(sourceBag) .. ") Moving item [" .. tostring(nextIndex) .. "/" .. tostring(#itemsToMove) .. "]")
+    -- d("(".. tostring(sourceBag) .. ") Moving item [" .. tostring(nextIndex) .. "/" .. tostring(#itemsToMove) .. "]")
     moveItemDelayed(sourceBag, itemsToMove[nextIndex].index, targetBag, availableBagSpaces[nextIndex])
     nextIndex = nextIndex + 1
   end
@@ -191,7 +191,7 @@ local function moveGearFromTwoBags(sourceBagOne, itemsToMoveOne, sourceBagTwo, i
         return _onTargetBagItemReceived()
       end
     end
-    d("(".. tostring(sourceBag) .. ") Moving item [" .. tostring(nextIndex) .. "/" .. tostring(#itemsToMove) .. "]")
+    -- d("(".. tostring(sourceBag) .. ") Moving item [" .. tostring(nextIndex) .. "/" .. tostring(#itemsToMove) .. "]")
     moveItemDelayed(sourceBag, itemsToMove[nextIndex].index, targetBag, availableBagSpaces[nextIndex + availableSpaceOffset])
     nextIndex = nextIndex + 1
   end
