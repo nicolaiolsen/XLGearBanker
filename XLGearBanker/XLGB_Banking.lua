@@ -88,6 +88,12 @@ local function getAvailableBagSpaces(bag)
   return availableBagSpaces
 end
 
+local function stopMovingItems()
+  EVENT_MANAGER:UnregisterForEvent(XLGearBanker.name .. "MoveGearFromTwoBags", EVENT_INVENTORY_SINGLE_SLOT_UPDATE)
+  EVENT_MANAGER:UnregisterForEvent(XLGearBanker.name .. "MoveGear", EVENT_INVENTORY_SINGLE_SLOT_UPDATE)
+  XLGB_Banking.movingItems = false
+end
+
 local function moveItem(sourceBag, itemIndex, targetBag, availableSpace)
   local moveSuccesful = false
   moveSuccesful = CallSecureProtected("RequestMoveItem", sourceBag, itemIndex, targetBag, availableSpace, 1)
@@ -110,17 +116,14 @@ local function moveGear(sourceBag, itemsToMove, targetBag, availableBagSpaces)
     d("Received item!")
     if XLGB_Banking.moveCancelled then
       d("Move cancelled!")
-      EVENT_MANAGER:UnregisterForEvent(XLGearBanker.name .. "MoveGear", EVENT_INVENTORY_SINGLE_SLOT_UPDATE)
-      return
+      return stopMovingItems()
     end
     if (#availableBagSpaces < nextIndex) then
-      EVENT_MANAGER:UnregisterForEvent(XLGearBanker.name .. "MoveGear", EVENT_INVENTORY_SINGLE_SLOT_UPDATE)
-      return
+      return stopMovingItems()
     end
     if (nextIndex > #itemsToMove) then
       d("Bag done!")
-      EVENT_MANAGER:UnregisterForEvent(XLGearBanker.name .. "MoveGear", EVENT_INVENTORY_SINGLE_SLOT_UPDATE)
-      return
+      return stopMovingItems()
     end
     d("(".. tostring(sourceBag) .. ") Moving item [" .. tostring(nextIndex) .. "/" .. tostring(#itemsToMove) .. "]")
     moveItemDelayed(sourceBag, itemsToMove[nextIndex].index, targetBag, availableBagSpaces[nextIndex])
@@ -165,18 +168,16 @@ local function moveGearFromTwoBags(sourceBagOne, itemsToMoveOne, sourceBagTwo, i
     d("Received item!")
     if XLGB_Banking.moveCancelled then
       d("Move cancelled!")
-      EVENT_MANAGER:UnregisterForEvent(XLGearBanker.name .. "MoveGearFromTwoBags", EVENT_INVENTORY_SINGLE_SLOT_UPDATE)
+      
       return
     end
     if (#availableBagSpaces < nextIndex) then
-      EVENT_MANAGER:UnregisterForEvent(XLGearBanker.name .. "MoveGearFromTwoBags", EVENT_INVENTORY_SINGLE_SLOT_UPDATE)
-      return
+      return stopMovingItems()
     end
     if (nextIndex > #itemsToMove) then
       if sourceBag == sourceBagTwo then 
         d("Bag 2 done!")
-        EVENT_MANAGER:UnregisterForEvent(XLGearBanker.name .. "MoveGearFromTwoBags", EVENT_INVENTORY_SINGLE_SLOT_UPDATE)
-        return
+        return stopMovingItems()
       else
         d("Bag 1 done! Swapping to bag 2!")
         availableSpaceOffset = #itemsToMove
@@ -285,14 +286,19 @@ local function depositGearToBankESOPlus(gearSet)
   end
 end
 
-function XLGB_Banking:DepositGearSet(gearSet)
+function XLGB_Banking:DepositSet(gearSetName)
   if not XLGB_Banking.bankOpen then
     d("[XLGB_ERROR] Bank is not open, abort!")
     PlaySound(SOUNDS.ABILITY_FAILED)
     return false
   end
-  -- d("[XLGB] Depositing " .. gearSet.name)
+  
+  if XLGB_Banking.movingItems then
+    return false
+  end
+  XLGB_Banking.movingItems = true
 
+  local gearSet = XLGB_GearSet:FindGearSet(gearSetName)
   if IsESOPlusSubscriber() and (XLGB_Banking.currentBankBag == BAG_BANK) then
     if depositGearToBankESOPlus(gearSet) then
       PlaySound(SOUNDS.INVENTORY_ITEM_UNLOCKED)
@@ -382,12 +388,19 @@ local function withdrawItemsNonESOPlus(itemsToWithdraw)
   return true
 end
 
-function XLGB_Banking:WithdrawGearSet(gearSet)
+function XLGB_Banking:WithdrawSet(gearSetName)
   if not XLGB_Banking.bankOpen then
     d("[XLGB_ERROR] Bank is not open, abort!")
     PlaySound(SOUNDS.ABILITY_FAILED)
     return false
   end
+
+  if XLGB_Banking.movingItems then
+    return false
+  end
+  XLGB_Banking.movingItems = true
+
+  local gearSet = XLGB_GearSet:FindGearSet(gearSetName)
   if IsESOPlusSubscriber() and (XLGB_Banking.currentBankBag == BAG_BANK) then
     if withdrawGearESOPlus(gearSet) then
       PlaySound(SOUNDS.RETRAITING_ITEM_TO_RETRAIT_REMOVED)

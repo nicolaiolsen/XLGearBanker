@@ -459,14 +459,12 @@ end
 
 function XLGB_UI:WithdrawSet(withdrawControl)
   local data = withdrawControl:GetParent().data
-  local gearSetIndex = XLGB_GearSet:GetGearSetIndex(data.setName)
-  XLGB_Banking:WithdrawGear(gearSetIndex)
+  XLGB_Banking:WithdrawSet(data.setName)
 end
 
 function XLGB_UI:DepositSet(depositControl)
   local data = depositControl:GetParent().data
-  local gearSetIndex = XLGB_GearSet:GetGearSetIndex(data.setName)
-  XLGB_Banking:DepositGear(gearSetIndex)
+  XLGB_Banking:DepositSet(data.setName)
 end
 
 local function fillPageItemRowWithData(control, data)
