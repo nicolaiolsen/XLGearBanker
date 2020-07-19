@@ -141,7 +141,8 @@
         "REGISTER_FILTER_IS_NEW_ITEM",
         "REGISTER_FILTER_BAG_ID",
         "REGISTER_FILTER_INVENTORY_UPDATE_REASON",
-        "INVENTORY_UPDATE_REASON_DEFAULT"
+        "INVENTORY_UPDATE_REASON_DEFAULT",
+        "GetGameTimeMilliseconds"
     ],
     "Lua.diagnostics.disable": [
         "lowercase-global",
