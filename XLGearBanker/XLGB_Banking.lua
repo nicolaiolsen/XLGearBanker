@@ -26,7 +26,7 @@ function XLGB_Banking.OnBankCloseEvent(event)
   if XLGB_Banking.bankOpen then
     XLGB_Banking.bankOpen = IsBankOpen()
     XLGB_Banking.currentBankBag = XLGB.NO_BAG
-    XLGB_Banking.moveCancelled = true
+    XLGB_Banking.isMoveCancelled = true
     XLGB_UI:OnBankClosed()
     KEYBIND_STRIP:RemoveKeybindButtonGroup(XLGB_Banking.bankButtonGroup)
     easyDebug("Bank closed")
@@ -89,11 +89,11 @@ local function getAvailableBagSpaces(bag)
   return availableBagSpaces
 end
 
-local function stopMovingItems()
+local function stopisMovingItems()
   EVENT_MANAGER:UnregisterForEvent(XLGearBanker.name .. "MoveGearFromTwoBags", EVENT_INVENTORY_SINGLE_SLOT_UPDATE)
   EVENT_MANAGER:UnregisterForEvent(XLGearBanker.name .. "MoveGear", EVENT_INVENTORY_SINGLE_SLOT_UPDATE)
-  XLGB_Banking.waitingForBag = false
-  XLGB_Banking.movingItems = false
+  XLGB_Banking.isWaitingForBag = false
+  XLGB_Banking.isMovingItems = false
 end
 
 local function onMoveFailed(sourceBag, failedAtItemIndex, targetBag, spaceFailedToMoveInto)
@@ -109,8 +109,8 @@ local function onMoveFailed(sourceBag, failedAtItemIndex, targetBag, spaceFailed
   d("Space = '" .. GetItemName(targetBag, spaceFailedToMoveInto) .. "'")
   d("-")
   d("--------------------------------")
-  XLGB_Banking.moveCancelled = true
-  stopMovingItems()
+  XLGB_Banking.isMoveCancelled = true
+  stopisMovingItems()
 end
 
 local function moveItem(sourceBag, itemIndex, targetBag, availableSpace)
@@ -122,34 +122,34 @@ local function moveItem(sourceBag, itemIndex, targetBag, availableSpace)
 end
 
 local function moveItemDelayed(sourceBag, itemIndex, targetBag, availableSpace)
-  zo_callLater(function () moveItem(sourceBag, itemIndex, targetBag, availableSpace) end, 50)
+  zo_callLater(function () moveItem(sourceBag, itemIndex, targetBag, availableSpace) end, XLGB_Banking.itemMoveDelay)
 end
 
 local function moveGear(sourceBag, itemsToMove, targetBag, availableBagSpaces)
   local nextIndex = 1
   if nextIndex > #itemsToMove then
     d("Bag done! (before event")
-    return stopMovingItems()
+    return stopisMovingItems()
   end
 
   if (#availableBagSpaces < nextIndex) then
     d("Not enough space!")
-    return stopMovingItems()
+    return stopisMovingItems()
   end
 
   local function _onTargetBagItemReceived(eventCode, bagId, slotIndex, isNewItem, itemSoundCategory, updateReason, stackCountChange)
     d("Received item!")
-    if XLGB_Banking.moveCancelled then
+    if XLGB_Banking.isMoveCancelled then
       d("Move cancelled!")
-      return stopMovingItems()
+      return stopisMovingItems()
     end
     if (#availableBagSpaces < nextIndex) then
       d("Not enough spaces!")
-      return stopMovingItems()
+      return stopisMovingItems()
     end
     if (nextIndex > #itemsToMove) then
       d("Bag done!")
-      return stopMovingItems()
+      return stopisMovingItems()
     end
     d("(".. tostring(sourceBag) .. ") Moving item [" .. tostring(nextIndex) .. "/" .. tostring(#itemsToMove) .. "]")
     moveItemDelayed(sourceBag, itemsToMove[nextIndex].index, targetBag, availableBagSpaces[nextIndex])
@@ -191,29 +191,29 @@ local function moveGearFromTwoBags(sourceBagOne, itemsToMoveOne, sourceBagTwo, i
 
   if nextIndex > #itemsToMove then
     d("Bag 2 done! (before Event)")
-    return stopMovingItems()
+    return stopisMovingItems()
   end
 
   if (#availableBagSpaces < nextIndex) then
     d("Not enough space!")
-    return stopMovingItems()
+    return stopisMovingItems()
   end
 
   local function _onTargetBagItemReceived(eventCode, bagId, slotIndex, isNewItem, itemSoundCategory, updateReason, stackCountChange)
     d("Received item number " .. tostring(nextIndex-1))
-    if XLGB_Banking.moveCancelled then
+    if XLGB_Banking.isMoveCancelled then
       d("Move cancelled!")
-      return stopMovingItems()
+      return stopisMovingItems()
     end
     if (#availableBagSpaces < nextIndex) then
       d("Not enough space!")
-      return stopMovingItems()
+      return stopisMovingItems()
     end
     if (nextIndex > #itemsToMove) then
 
       if sourceBag == sourceBagTwo then 
         d("Bag 2 done!")
-        return stopMovingItems()
+        return stopisMovingItems()
       else
         d("Bag 1 done! Swapping to bag 2!")
         availableSpaceOffset = #itemsToMove
@@ -308,7 +308,7 @@ local function depositGearToBankESOPlus(gearSet)
 
   else
     -- Add items to regular bank
-    XLGB_Banking.waitingForBag = true
+    XLGB_Banking.isWaitingForBag = true
     
     moveGearFromTwoBags(
         BAG_BACKPACK, inventoryItemsToMove,
@@ -317,7 +317,7 @@ local function depositGearToBankESOPlus(gearSet)
 
     local function _waitForBag()
       d("Waiting for bag to finish...")
-      if XLGB_Banking.waitingForBag then return end
+      if XLGB_Banking.isWaitingForBag then return end
       d("-")
       d("-")
       d("Starting 2nd bank bag ------------")
@@ -331,11 +331,11 @@ local function depositGearToBankESOPlus(gearSet)
           BAG_WORN, equippedItemsToMove,
           BAG_SUBSCRIBER_BANK, availableBagSpacesESOPlusBank)
 
-      EVENT_MANAGER:UnregisterForUpdate(XLGearBanker.name .. "WaitingForBag")
+      EVENT_MANAGER:UnregisterForUpdate(XLGearBanker.name .. "isWaitingForBag")
     end
 
-    EVENT_MANAGER:UnregisterForUpdate(XLGearBanker.name .. "WaitingForBag")
-    EVENT_MANAGER:RegisterForUpdate(XLGearBanker.name .. "WaitingForBag", 2000, _waitForBag)
+    EVENT_MANAGER:UnregisterForUpdate(XLGearBanker.name .. "isWaitingForBag")
+    EVENT_MANAGER:RegisterForUpdate(XLGearBanker.name .. "isWaitingForBag", 300, _waitForBag)
 
     return true
   end
@@ -348,12 +348,12 @@ function XLGB_Banking:DepositSet(gearSetName)
     return false
   end
   
-  if XLGB_Banking.movingItems then
+  if XLGB_Banking.isMovingItems then
     d("Already moving")
     return false
   end
-  XLGB_Banking.movingItems = true
-  XLGB_Banking.moveCancelled = false
+  XLGB_Banking.isMovingItems = true
+  XLGB_Banking.isMoveCancelled = false
 
   local gearSet = XLGB_GearSet:FindGearSet(gearSetName)
   if IsESOPlusSubscriber() and (XLGB_Banking.currentBankBag == BAG_BANK) then
@@ -371,7 +371,7 @@ function XLGB_Banking:DepositSet(gearSetName)
     end
   end
   PlaySound(SOUNDS.ABILITY_FAILED)
-  XLGB_Banking.movingItems = false
+  XLGB_Banking.isMovingItems = false
   return false
 end
 
@@ -413,12 +413,12 @@ function XLGB_Banking:WithdrawSet(gearSetName)
     return false
   end
 
-  if XLGB_Banking.movingItems then
+  if XLGB_Banking.isMovingItems then
     d("Already moving")
     return false
   end
-  XLGB_Banking.movingItems = true
-  XLGB_Banking.moveCancelled = false
+  XLGB_Banking.isMovingItems = true
+  XLGB_Banking.isMoveCancelled = false
 
   local gearSet = XLGB_GearSet:FindGearSet(gearSetName)
   if IsESOPlusSubscriber() and (XLGB_Banking.currentBankBag == BAG_BANK) then
@@ -435,17 +435,17 @@ function XLGB_Banking:WithdrawSet(gearSetName)
     end
   end
   PlaySound(SOUNDS.ABILITY_FAILED)
-  XLGB_Banking.movingItems = false
+  XLGB_Banking.isMovingItems = false
   return false
 
 end
 
 function XLGB_Banking:Initialize()
   self.bankOpen = IsBankOpen()
-  self.recentlyCalled = false
-  self.moveCancelled = false
-  self.movingItems = false
-  self.waitingForBag = false
+  self.isMoveCancelled = false
+  self.isMovingItems = false
+  self.isWaitingForBag = false
+  self.itemMoveDelay = 50
   
   self.bankButtonGroup = {
     {
