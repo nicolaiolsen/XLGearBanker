@@ -129,28 +129,44 @@ end
 -- end
 function XLGB_Page:DepositPage(pageName)
   local page = XLGB_Page:GetPage(pageName)
-  for i, set in pairs(page.sets) do
-    -- d("[XLGB] Depositing Page '" .. pageName .. "' [" .. tostring(i) .. "/" .. tostring(#page.sets) .. "] - " .. set)
-    -- if not XLGB_Banking:DepositSet(set) then
-    --   d("[XLGB] Page '" .. pageName .. "' deposit failed.")
-    --   return false
-    -- end
+  local nextIndex = 1
+
+  local function _waitDepositSet()
+    if nextIndex > #page.sets then
+      d("Page is done!")
+      EVENT_MANAGER:UnregisterForUpdate(XLGearBanker.name .. "WaitDepositSet")
+      return
+    end
+    if XLGB_Banking.isMovingItems then return end
+    d("[XLGB] Depositing Page '" .. pageName .. "' [" .. tostring(nextIndex) .. "/" .. tostring(#page.sets) .. "] - " .. page.sets[nextIndex])
+    XLGB_Banking:DepositSet(page.sets[nextIndex])
+    nextIndex = nextIndex + 1
   end
-  d("[XLGB] Page '" .. pageName .. "' deposited!")
-  return true
+
+  EVENT_MANAGER:UnregisterForUpdate(XLGearBanker.name .. "WaitDepositSet")
+  EVENT_MANAGER:RegisterForUpdate(XLGearBanker.name .. "WaitDepositSet", 500, _waitDepositSet)
+  _waitDepositSet()
 end
 
 function XLGB_Page:WithdrawPage(pageName)
   local page = XLGB_Page:GetPage(pageName)
-  for i, set in ipairs(page.sets) do
-    -- d("[XLGB] Withdrawing Page '" .. pageName .. "' [" .. tostring(i) .. "/" .. tostring(#page.sets) .. "] - " .. set)
-    -- if not XLGB_Banking:WithdrawGearSet(XLGB_GearSet:FindGearSet(set)) then
-    --   d("[XLGB] Page '" .. pageName .. "' withdraw failed.")
-    --   return false
-    -- end
+  local nextIndex = 1
+
+  local function _waitWithdrawSet()
+    if nextIndex > #page.sets then
+      d("Page is done!")
+      EVENT_MANAGER:UnregisterForUpdate(XLGearBanker.name .. "WaitWithdrawSet")
+      return
+    end
+    if XLGB_Banking.isMovingItems then return end
+    d("[XLGB] Withdrawing Page '" .. pageName .. "' [" .. tostring(nextIndex) .. "/" .. tostring(#page.sets) .. "] - " .. page.sets[nextIndex])
+    XLGB_Banking:WithdrawSet(page.sets[nextIndex])
+    nextIndex = nextIndex + 1
   end
-  d("[XLGB] Page '" .. pageName .. "' withdrawn!")
-  return true
+
+  EVENT_MANAGER:UnregisterForUpdate(XLGearBanker.name .. "WaitWithdrawSet")
+  EVENT_MANAGER:RegisterForUpdate(XLGearBanker.name .. "WaitWithdrawSet", 500, _waitWithdrawSet)
+  _waitWithdrawSet()
 end
 
 function XLGB_Page:OnRemoveSet(setName)

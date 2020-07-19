@@ -339,7 +339,7 @@ local function depositGearToBankESOPlus(gearSet)
     end
 
     EVENT_MANAGER:UnregisterForUpdate(XLGearBanker.name .. "isWaitingForBag")
-    EVENT_MANAGER:RegisterForUpdate(XLGearBanker.name .. "isWaitingForBag", 5000, _waitForBag)
+    EVENT_MANAGER:RegisterForUpdate(XLGearBanker.name .. "isWaitingForBag", 500, _waitForBag)
 
     return true
   end
