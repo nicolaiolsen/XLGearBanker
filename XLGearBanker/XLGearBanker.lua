@@ -27,6 +27,7 @@ function XLGearBanker:Initialize()
   self.savedVariables = ZO_SavedVars:NewAccountWide("XLGearBankerSavedVariables", 1, nil, {})
   sV = self.savedVariables
   sV.debug = sV.debug or false
+  sV.safeMode = sV.safeMode or true
 end
 
 EVENT_MANAGER:RegisterForEvent(XLGearBanker.name, EVENT_ADD_ON_LOADED, XLGearBanker.OnAddOnLoaded)
@@ -41,6 +42,16 @@ SLASH_COMMANDS["/xlgb_debug"] = function (argsv)
   else 
     d("[XLGB] Debugging = on.")
     sV.debug = true
+  end
+end
+
+SLASH_COMMANDS["/xlgb_safemode"] = function (argsv)
+  if sV.safeMode then
+    d("[XLGB] Safe mode = off.")
+    sV.safeMode = false
+  else 
+    d("[XLGB] Safe mode = on.")
+    sV.safeMode = true
   end
 end
 
