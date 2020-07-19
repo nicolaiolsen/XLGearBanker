@@ -141,6 +141,7 @@ local function moveGearFromTwoBags(sourceBagOne, itemsToMoveOne, sourceBagTwo, i
   EVENT_MANAGER:AddFilterForEvent(XLGearBanker.name .. "MoveGearFromTwoBags", EVENT_INVENTORY_SINGLE_SLOT_UPDATE, REGISTER_FILTER_INVENTORY_UPDATE_REASON, INVENTORY_UPDATE_REASON_DEFAULT)
 
   moveItem(sourceBag, itemsToMove[nextIndex].index, targetBag, availableBagSpaces[nextIndex])
+  nextIndex = nextIndex + 1
   -- for i, itemEntry in ipairs(itemsToMoveOne) do
   --   -- Stop when there are no more bag spaces,
   --   -- return bag and index of item that was to be moved next.
