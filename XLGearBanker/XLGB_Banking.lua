@@ -275,13 +275,24 @@ local function depositGearToBankESOPlus(gearSet)
         BAG_WORN, equippedItemsToMove,
         BAG_BANK, availableBagSpacesRegularBank)
 
-    inventoryItemsToMove = findItemsToMove(BAG_BACKPACK, gearSet.items)
-    equippedItemsToMove = findItemsToMove(BAG_WORN, gearSet.items)
+    local function _waitForBag()
+      if XLGB_Banking.waitingForBag then return end
 
-    moveGearFromTwoBags(
-        BAG_BACKPACK, inventoryItemsToMove,
-        BAG_WORN, equippedItemsToMove,
-        BAG_SUBSCRIBER_BANK, availableBagSpacesESOPlusBank)
+      inventoryItemsToMove = findItemsToMove(BAG_BACKPACK, gearSet.items)
+      equippedItemsToMove = findItemsToMove(BAG_WORN, gearSet.items)
+
+      moveGearFromTwoBags(
+          BAG_BACKPACK, inventoryItemsToMove,
+          BAG_WORN, equippedItemsToMove,
+          BAG_SUBSCRIBER_BANK, availableBagSpacesESOPlusBank)
+
+      XLGB_Banking.waitingForBag = false
+      EVENT_MANAGER:UnregisterForEvent(XLGearBanker.name .. "WaitingForBag")
+    end
+
+    EVENT_MANAGER:UnregisterForEvent(XLGearBanker.name .. "WaitingForBag")
+    EVENT_MANAGER:RegisterForEvent(XLGearBanker.name .. "WaitingForBag", 500, _waitForBag)
+
     return true
   end
 end
