@@ -171,6 +171,7 @@ local function moveGear(sourceBag, itemsToMove, targetBag, availableBagSpaces)
 end
 
 local function moveGearFromTwoBags(sourceBagOne, itemsToMoveOne, sourceBagTwo, itemsToMoveTwo, targetBag, availableBagSpaces)
+  d("Moving gear from 2 bags!")
   local nextIndex = 1
   local sourceBag = sourceBagOne
   local itemsToMove = itemsToMoveOne
@@ -189,15 +190,17 @@ local function moveGearFromTwoBags(sourceBagOne, itemsToMoveOne, sourceBagTwo, i
   end
 
   local function _onTargetBagItemReceived(eventCode, bagId, slotIndex, isNewItem, itemSoundCategory, updateReason, stackCountChange)
-    d("Received item!")
+    d("Received item number " .. tostring(nextIndex-1))
     if XLGB_Banking.moveCancelled then
       d("Move cancelled!")
       return stopMovingItems()
     end
     if (#availableBagSpaces < nextIndex) then
+      d("Not enough space!")
       return stopMovingItems()
     end
     if (nextIndex > #itemsToMove) then
+
       if sourceBag == sourceBagTwo then 
         d("Bag 2 done!")
         return stopMovingItems()
@@ -209,6 +212,7 @@ local function moveGearFromTwoBags(sourceBagOne, itemsToMoveOne, sourceBagTwo, i
         nextIndex = 1
         return _onTargetBagItemReceived()
       end
+      d("Nextindex bigger than itemsToMove!")
     end
     d("(".. tostring(sourceBag) .. ") Moving item [" .. tostring(nextIndex) .. "/" .. tostring(#itemsToMove) .. "]")
     moveItemDelayed(sourceBag, itemsToMove[nextIndex].index, targetBag, availableBagSpaces[nextIndex + availableSpaceOffset])
