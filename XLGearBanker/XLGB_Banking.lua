@@ -96,11 +96,27 @@ local function stopMovingItems()
   XLGB_Banking.movingItems = false
 end
 
+local function onMoveFailed(sourceBag, failedAtItemIndex, targetBag, spaceFailedToMoveInto)
+  d("---------------------------------")
+  d("Failed to move item!")
+  d("-")
+  d("sourceBag " .. sourceBag)
+  d("failedAtItemIndex " .. failedAtItemIndex)
+  d("targetBag " .. targetBag)
+  d("spaceFailedToMoveInto " .. spaceFailedToMoveInto)
+  d("-")
+  d("Item at index = '" .. GetItemName(sourceBag, failedAtItemIndex) ..  "'")
+  d("Space = '" .. GetItemName(targetBag, spaceFailedToMoveInto) .. "'")
+  d("-")
+  d("--------------------------------")
+  XLGB_Banking.moveCancelled = true
+  stopMovingItems()
+end
+
 local function moveItem(sourceBag, itemIndex, targetBag, availableSpace)
-  local moveSuccesful = false
-  moveSuccesful = CallSecureProtected("RequestMoveItem", sourceBag, itemIndex, targetBag, availableSpace, 1)
-  if moveSuccesful then
-    easyDebug("Item move: Success!")
+  local moveFailed = not CallSecureProtected("RequestMoveItem", sourceBag, itemIndex, targetBag, availableSpace, 1)
+  if moveFailed then
+    onMoveFailed(sourceBag, itemIndex, targetBag, availableSpace)
   end
 end
 
