@@ -160,7 +160,7 @@ local function moveGearFromTwoBags(sourceBagOne, itemsToMoveOne, sourceBagTwo, i
   d("-")
   d("Source Bag 2: " .. tostring(sourceBagTwo))
   d("ItemsToMove 2: " .. tostring(#itemsToMoveTwo))
-  d("ItemsToMove 2 (index1):" .. tostring(itemsToMoveTwo[1].index))
+  --d("ItemsToMove 2 (index1):" .. tostring(itemsToMoveTwo[1].index))
   d("-")
   d("Equipment bag: " .. tostring(BAG_WORN))
   d("Backpack bag: " .. tostring(BAG_BACKPACK))
