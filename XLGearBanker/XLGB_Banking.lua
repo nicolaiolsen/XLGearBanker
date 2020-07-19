@@ -451,7 +451,7 @@ function XLGB_Banking:Initialize()
   self.isMoveCancelled = false
   self.isMovingItems = false
   self.isWaitingForBag = false
-  self.itemMoveDelay = 50
+  self.itemMoveDelay = 0
   self.movesInSuccession = 0
   
   self.bankButtonGroup = {
