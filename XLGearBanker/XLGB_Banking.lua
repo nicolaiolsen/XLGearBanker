@@ -132,6 +132,11 @@ local function moveGear(sourceBag, itemsToMove, targetBag, availableBagSpaces)
     return stopMovingItems()
   end
 
+  if (#availableBagSpaces < nextIndex) then
+    d("Not enough space!")
+    return stopMovingItems()
+  end
+
   local function _onTargetBagItemReceived(eventCode, bagId, slotIndex, isNewItem, itemSoundCategory, updateReason, stackCountChange)
     d("Received item!")
     if XLGB_Banking.moveCancelled then
@@ -186,6 +191,11 @@ local function moveGearFromTwoBags(sourceBagOne, itemsToMoveOne, sourceBagTwo, i
 
   if nextIndex > #itemsToMove then
     d("Bag 2 done! (before Event)")
+    return stopMovingItems()
+  end
+
+  if (#availableBagSpaces < nextIndex) then
+    d("Not enough space!")
     return stopMovingItems()
   end
 
