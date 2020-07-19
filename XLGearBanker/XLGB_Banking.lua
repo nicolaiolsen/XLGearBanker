@@ -130,15 +130,15 @@ end
 
 local function moveGear(sourceBag, itemsToMove, targetBag, availableBagSpaces)
   local nextIndex = 1
-  if nextIndex > #itemsToMove then
-    d("Bag done! (before event")
-    return stopMovingItems()
-  end
+  -- if nextIndex > #itemsToMove then
+  --   d("Bag done! (before event")
+  --   return stopMovingItems()
+  -- end
 
-  if nextIndex > #availableBagSpaces then
-    d("Not enough space!")
-    return stopMovingItems()
-  end
+  -- if nextIndex > #availableBagSpaces then
+  --   d("Not enough space!")
+  --   return stopMovingItems()
+  -- end
 
   local function _onTargetBagItemReceived(eventCode, bagId, slotIndex, isNewItem, itemSoundCategory, updateReason, stackCountChange)
     d("Received item!")
@@ -164,43 +164,37 @@ local function moveGear(sourceBag, itemsToMove, targetBag, availableBagSpaces)
   EVENT_MANAGER:AddFilterForEvent(XLGearBanker.name .. "MoveGear", EVENT_INVENTORY_SINGLE_SLOT_UPDATE, REGISTER_FILTER_BAG_ID, targetBag)
   EVENT_MANAGER:AddFilterForEvent(XLGearBanker.name .. "MoveGear", EVENT_INVENTORY_SINGLE_SLOT_UPDATE, REGISTER_FILTER_INVENTORY_UPDATE_REASON, INVENTORY_UPDATE_REASON_DEFAULT)
 
-  moveItem(sourceBag, itemsToMove[nextIndex].index, targetBag, availableBagSpaces[nextIndex])
-  nextIndex = nextIndex + 1
+  -- moveItem(sourceBag, itemsToMove[nextIndex].index, targetBag, availableBagSpaces[nextIndex])
+  -- nextIndex = nextIndex + 1
 
   d("Source Bag: " .. tostring(sourceBag))
   d("ItemsToMove: " .. tostring(#itemsToMove))
 
-  -- for i, itemEntry in ipairs(itemsToMove) do
-  --   zo_callLater(function()
-  --     moveItem(sourceBag, itemEntry.index, targetBag, availableBagSpaces[i]) end,
-  --     200
-  --   )
-  -- end
+  _onTargetBagItemReceived()
 end
 
 local function moveGearFromTwoBags(sourceBagOne, itemsToMoveOne, sourceBagTwo, itemsToMoveTwo, targetBag, availableBagSpaces)
-  d("Moving gear from 2 bags!")
   local nextIndex = 1
   local sourceBag = sourceBagOne
   local itemsToMove = itemsToMoveOne
   local availableSpaceOffset = 0
 
-  if nextIndex > #itemsToMove then
-    d("Bag 1 done! Swapping to bag 2! (before Event)")
-    availableSpaceOffset = #itemsToMove
-    sourceBag = sourceBagTwo
-    itemsToMove = itemsToMoveTwo
-  end
+  -- if nextIndex > #itemsToMove then
+  --   d("Bag 1 done! Swapping to bag 2! (before Event)")
+  --   availableSpaceOffset = #itemsToMove
+  --   sourceBag = sourceBagTwo
+  --   itemsToMove = itemsToMoveTwo
+  -- end
 
-  if nextIndex > #itemsToMove then
-    d("Bag 2 done! (before Event)")
-    return stopMovingItems()
-  end
+  -- if nextIndex > #itemsToMove then
+  --   d("Bag 2 done! (before Event)")
+  --   return stopMovingItems()
+  -- end
 
-  if nextIndex > #availableBagSpaces then
-    d("Not enough space!")
-    return stopMovingItems()
-  end
+  -- if nextIndex > #availableBagSpaces then
+  --   d("Not enough space!")
+  --   return stopMovingItems()
+  -- end
 
   local function _onTargetBagItemReceived(eventCode, bagId, slotIndex, isNewItem, itemSoundCategory, updateReason, stackCountChange)
     d("Received item number " .. tostring(nextIndex-1))
@@ -246,26 +240,10 @@ local function moveGearFromTwoBags(sourceBagOne, itemsToMoveOne, sourceBagTwo, i
   -- d("Backpack bag: " .. tostring(BAG_BACKPACK))
   -- d("-")
 
-  moveItem(sourceBag, itemsToMove[nextIndex].index, targetBag, availableBagSpaces[nextIndex + availableSpaceOffset])
-  nextIndex = nextIndex + 1
-  -- for i, itemEntry in ipairs(itemsToMoveOne) do
-  --   -- Stop when there are no more bag spaces,
-  --   -- return bag and index of item that was to be moved next.
-  --   if (#availableBagSpaces < i) then return sourceBagOne, i end
-  --   zo_callLater(function()
-  --     moveItem(sourceBagOne, itemEntry.index, targetBag, availableBagSpaces[i]) end,
-  --     200
-  --   )
-  -- end
-  -- for i, itemEntry in ipairs(itemsToMoveTwo) do
-  --   -- Stop when there are no more bag spaces,
-  --   -- return bag and index of item that was to be moved next.
-  --   if (#availableBagSpaces < i + #itemsToMoveOne) then return sourceBagTwo, i end
-  --   zo_callLater(function()
-  --     moveItem(sourceBagTwo, itemEntry.index, targetBag, availableBagSpaces[i + #itemsToMoveOne]) end,
-  --     200
-  --   )
-  -- end
+  -- moveItem(sourceBag, itemsToMove[nextIndex].index, targetBag, availableBagSpaces[nextIndex + availableSpaceOffset])
+  -- nextIndex = nextIndex + 1
+
+  _onTargetBagItemReceived()
 end
 
 local function depositItemsToBankNonESOPlus(itemsToDeposit)
