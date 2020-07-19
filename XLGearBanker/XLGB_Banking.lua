@@ -114,11 +114,14 @@ local function moveGearFromTwoBags(sourceBagOne, itemsToMoveOne, sourceBagTwo, i
   local nextIndex = 1
   local sourceBag = sourceBagOne
   local itemsToMove = itemsToMoveOne
+  local availableSpaceOffset = 0
 
   if nextIndex > #itemsToMove then
     d("Bag 1 done! Swapping to bag 2! (before Event)")
+    availableSpaceOffset = #itemsToMove
     sourceBag = sourceBagTwo
     itemsToMove = itemsToMoveTwo
+    
   end
 
   if nextIndex > #itemsToMove then
@@ -139,14 +142,15 @@ local function moveGearFromTwoBags(sourceBagOne, itemsToMoveOne, sourceBagTwo, i
         return
       else
         d("Bag 1 done! Swapping to bag 2!")
+        availableSpaceOffset = #itemsToMove
         sourceBag = sourceBagTwo
         itemsToMove = itemsToMoveTwo
         nextIndex = 1
-        return zo_callLater(function () _onTargetBagItemReceived() end, 2000)
+        -- return zo_callLater(function () _onTargetBagItemReceived() end)
       end
     end
     d("(".. tostring(sourceBag) .. ") Moving item [" .. tostring(nextIndex) .. "/" .. tostring(#itemsToMove) .. "]")
-    moveItemDelayed(sourceBag, itemsToMove[nextIndex].index, targetBag, availableBagSpaces[nextIndex])
+    moveItemDelayed(sourceBag, itemsToMove[nextIndex].index, targetBag, availableBagSpaces[nextIndex + availableSpaceOffset])
     nextIndex = nextIndex + 1
   end
   
@@ -166,7 +170,7 @@ local function moveGearFromTwoBags(sourceBagOne, itemsToMoveOne, sourceBagTwo, i
   d("Backpack bag: " .. tostring(BAG_BACKPACK))
   d("-")
 
-  moveItem(sourceBag, itemsToMove[nextIndex].index, targetBag, availableBagSpaces[nextIndex])
+  moveItem(sourceBag, itemsToMove[nextIndex].index, targetBag, availableBagSpaces[nextIndex + availableSpaceOffset])
   nextIndex = nextIndex + 1
   -- for i, itemEntry in ipairs(itemsToMoveOne) do
   --   -- Stop when there are no more bag spaces,
