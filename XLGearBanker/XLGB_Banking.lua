@@ -91,6 +91,7 @@ end
 local function stopMovingItems()
   EVENT_MANAGER:UnregisterForEvent(XLGearBanker.name .. "MoveGearFromTwoBags", EVENT_INVENTORY_SINGLE_SLOT_UPDATE)
   EVENT_MANAGER:UnregisterForEvent(XLGearBanker.name .. "MoveGear", EVENT_INVENTORY_SINGLE_SLOT_UPDATE)
+  XLGB_Banking.waitingForBag = false
   XLGB_Banking.movingItems = false
 end
 
@@ -275,9 +276,15 @@ local function depositGearToBankESOPlus(gearSet)
         BAG_WORN, equippedItemsToMove,
         BAG_BANK, availableBagSpacesRegularBank)
 
+    XLGB_Banking.waitingForBag = true
+
     local function _waitForBag()
       if XLGB_Banking.waitingForBag then return end
-
+      d("-")
+      d("-")
+      d("Starting 2nd bank bag ------------")
+      d("-")
+      d("-")
       inventoryItemsToMove = findItemsToMove(BAG_BACKPACK, gearSet.items)
       equippedItemsToMove = findItemsToMove(BAG_WORN, gearSet.items)
 
@@ -286,7 +293,6 @@ local function depositGearToBankESOPlus(gearSet)
           BAG_WORN, equippedItemsToMove,
           BAG_SUBSCRIBER_BANK, availableBagSpacesESOPlusBank)
 
-      XLGB_Banking.waitingForBag = false
       EVENT_MANAGER:UnregisterForEvent(XLGearBanker.name .. "WaitingForBag")
     end
 
@@ -397,6 +403,7 @@ function XLGB_Banking:Initialize()
   self.recentlyCalled = false
   self.moveCancelled = false
   self.movingItems = false
+  self.waitingForBag = false
   
   self.bankButtonGroup = {
     {
