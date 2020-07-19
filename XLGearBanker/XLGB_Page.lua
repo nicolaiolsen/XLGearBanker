@@ -137,7 +137,7 @@ function XLGB_Page:DepositPage(pageName)
 
   local function _waitDepositSet()
     if nextIndex > #page.sets or XLGB_Banking.isMoveCancelled then
-      d("[XLGB] Page '" .. page.name .."' deposited in " .. tostring(string.format("%.1f", GetGameTimeMilliseconds()-time)))
+      d("[XLGB] Page '" .. page.name .."' deposited in " .. tostring(string.format("%.1f", (GetGameTimeMilliseconds()-time)/1000)) .. " seconds.")
       EVENT_MANAGER:UnregisterForUpdate(XLGearBanker.name .. "WaitDepositSet")
       return
     end
@@ -162,7 +162,7 @@ function XLGB_Page:WithdrawPage(pageName)
 
   local function _waitWithdrawSet()
     if nextIndex > #page.sets or XLGB_Banking.isMoveCancelled then
-      d("[XLGB] Page '" .. page.name .."' withdrawn in " .. tostring(string.format("%.1f", GetGameTimeMilliseconds()-time)))
+      d("[XLGB] Page '" .. page.name .."' withdrawn in " .. tostring(string.format("%.1f", (GetGameTimeMilliseconds()-time)/1000)) .. " seconds.")
       EVENT_MANAGER:UnregisterForUpdate(XLGearBanker.name .. "WaitWithdrawSet")
       return
     end
