@@ -130,15 +130,24 @@ end
 function XLGB_Page:DepositPage(pageName)
   if XLGB_Banking.isMovingItems then return end
   XLGB_Banking.isMoveCancelled = false
+  XLGB_Page.isMovingPage = true
+
   local time = GetGameTimeMilliseconds()
 
   local page = XLGB_Page:GetPage(pageName)
   local nextIndex = 1
 
+  local function _lastSetFinish()
+    if XLGB_Banking.isMovingItems then return end
+    d("[XLGB] Page '" .. page.name .."' deposited in " .. tostring(string.format("%.2f", (GetGameTimeMilliseconds()-time)/1000)) .. " seconds.")
+    XLGB_Page.isMovingPage = false
+    EVENT_MANAGER:UnregisterForUpdate(XLGearBanker.name .. "WaitLastSetFinish")
+  end
+  
   local function _waitDepositSet()
     if nextIndex > #page.sets or XLGB_Banking.isMoveCancelled then
-      d("[XLGB] Page '" .. page.name .."' deposited in " .. tostring(string.format("%.2f", (GetGameTimeMilliseconds()-time)/1000)) .. " seconds.")
       EVENT_MANAGER:UnregisterForUpdate(XLGearBanker.name .. "WaitDepositSet")
+      EVENT_MANAGER:RegisterForUpdate(XLGearBanker.name .. "WaitLastSetFinish", 500, _lastSetFinish)
       return
     end
     if XLGB_Banking.isMovingItems then return end
@@ -153,17 +162,27 @@ function XLGB_Page:DepositPage(pageName)
 end
 
 function XLGB_Page:WithdrawPage(pageName)
-  if XLGB_Banking.isMovingItems then return end
+  if XLGB_Banking.isMovingItems or XLGB_Page.isMovingPage then return end
   XLGB_Banking.isMoveCancelled = false
+  XLGB_Page.isMovingPage = true
+
   local time = GetGameTimeMilliseconds()
 
   local page = XLGB_Page:GetPage(pageName)
   local nextIndex = 1
 
+  local function _lastSetFinish()
+    if XLGB_Banking.isMovingItems then return end
+    d("[XLGB] Page '" .. page.name .."' withdrawn in " .. tostring(string.format("%.2f", (GetGameTimeMilliseconds()-time)/1000)) .. " seconds.")
+    XLGB_Page.isMovingPage = false
+    EVENT_MANAGER:UnregisterForUpdate(XLGearBanker.name .. "WaitLastSetFinish")
+  end
+
   local function _waitWithdrawSet()
     if nextIndex > #page.sets or XLGB_Banking.isMoveCancelled then
-      d("[XLGB] Page '" .. page.name .."' withdrawn in " .. tostring(string.format("%.2f", (GetGameTimeMilliseconds()-time)/1000)) .. " seconds.")
       EVENT_MANAGER:UnregisterForUpdate(XLGearBanker.name .. "WaitWithdrawSet")
+      EVENT_MANAGER:UnregisterForUpdate(XLGearBanker.name .. "WaitLastSetFinish")
+      EVENT_MANAGER:RegisterForUpdate(XLGearBanker.name .. "WaitLastSetFinish", 500, _lastSetFinish)
       return
     end
     if XLGB_Banking.isMovingItems then return end
@@ -210,4 +229,5 @@ end
 function XLGB_Page:Initialize()
   sV = XLGearBanker.savedVariables
   sV.pages = sV.pages or {}
+  self.isMovingPage = false
 end
