@@ -111,7 +111,7 @@ end
 local function moveGear(sourceBag, itemsToMove, targetBag, availableBagSpaces)
   local nextIndex = 1
   if nextIndex > #itemsToMove then
-    return
+    return stopMovingItems()
   end
 
   local function _onTargetBagItemReceived(eventCode, bagId, slotIndex, isNewItem, itemSoundCategory, updateReason, stackCountChange)
@@ -163,15 +163,14 @@ local function moveGearFromTwoBags(sourceBagOne, itemsToMoveOne, sourceBagTwo, i
 
   if nextIndex > #itemsToMove then
     d("Bag 2 done! (before Event)")
-    return
+    return stopMovingItems()
   end
 
   local function _onTargetBagItemReceived(eventCode, bagId, slotIndex, isNewItem, itemSoundCategory, updateReason, stackCountChange)
     d("Received item!")
     if XLGB_Banking.moveCancelled then
       d("Move cancelled!")
-      
-      return
+      return stopMovingItems()
     end
     if (#availableBagSpaces < nextIndex) then
       return stopMovingItems()
