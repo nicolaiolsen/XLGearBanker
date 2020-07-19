@@ -109,6 +109,7 @@ local function moveGear(sourceBag, itemsToMove, targetBag, availableBagSpaces)
   local function _onTargetBagItemReceived(eventCode, bagId, slotIndex, isNewItem, itemSoundCategory, updateReason, stackCountChange)
     d("Received item!")
     if XLGB_Banking.moveCancelled then
+      d("Move cancelled!")
       EVENT_MANAGER:UnregisterForEvent(XLGearBanker.name .. "MoveGear", EVENT_INVENTORY_SINGLE_SLOT_UPDATE)
       return
     end
@@ -149,20 +150,21 @@ local function moveGearFromTwoBags(sourceBagOne, itemsToMoveOne, sourceBagTwo, i
   local availableSpaceOffset = 0
 
   if nextIndex > #itemsToMove then
-    -- d("Bag 1 done! Swapping to bag 2! (before Event)")
+    d("Bag 1 done! Swapping to bag 2! (before Event)")
     availableSpaceOffset = #itemsToMove
     sourceBag = sourceBagTwo
     itemsToMove = itemsToMoveTwo
   end
 
   if nextIndex > #itemsToMove then
-    -- d("Bag 2 done! (before Event)")
+    d("Bag 2 done! (before Event)")
     return
   end
 
   local function _onTargetBagItemReceived(eventCode, bagId, slotIndex, isNewItem, itemSoundCategory, updateReason, stackCountChange)
-    -- d("Received item!")
+    d("Received item!")
     if XLGB_Banking.moveCancelled then
+      d("Move cancelled!")
       EVENT_MANAGER:UnregisterForEvent(XLGearBanker.name .. "MoveGearFromTwoBags", EVENT_INVENTORY_SINGLE_SLOT_UPDATE)
       return
     end
@@ -172,11 +174,11 @@ local function moveGearFromTwoBags(sourceBagOne, itemsToMoveOne, sourceBagTwo, i
     end
     if (nextIndex > #itemsToMove) then
       if sourceBag == sourceBagTwo then 
-        -- d("Bag 2 done!")
+        d("Bag 2 done!")
         EVENT_MANAGER:UnregisterForEvent(XLGearBanker.name .. "MoveGearFromTwoBags", EVENT_INVENTORY_SINGLE_SLOT_UPDATE)
         return
       else
-        -- d("Bag 1 done! Swapping to bag 2!")
+        d("Bag 1 done! Swapping to bag 2!")
         availableSpaceOffset = #itemsToMove
         sourceBag = sourceBagTwo
         itemsToMove = itemsToMoveTwo
@@ -184,11 +186,11 @@ local function moveGearFromTwoBags(sourceBagOne, itemsToMoveOne, sourceBagTwo, i
         return _onTargetBagItemReceived()
       end
     end
-    -- d("(".. tostring(sourceBag) .. ") Moving item [" .. tostring(nextIndex) .. "/" .. tostring(#itemsToMove) .. "]")
+    d("(".. tostring(sourceBag) .. ") Moving item [" .. tostring(nextIndex) .. "/" .. tostring(#itemsToMove) .. "]")
     moveItemDelayed(sourceBag, itemsToMove[nextIndex].index, targetBag, availableBagSpaces[nextIndex + availableSpaceOffset])
     nextIndex = nextIndex + 1
   end
-  
+
   EVENT_MANAGER:RegisterForEvent(XLGearBanker.name .. "MoveGearFromTwoBags", EVENT_INVENTORY_SINGLE_SLOT_UPDATE, _onTargetBagItemReceived)
   EVENT_MANAGER:AddFilterForEvent(XLGearBanker.name .. "MoveGearFromTwoBags", EVENT_INVENTORY_SINGLE_SLOT_UPDATE, REGISTER_FILTER_IS_NEW_ITEM, false)
   EVENT_MANAGER:AddFilterForEvent(XLGearBanker.name .. "MoveGearFromTwoBags", EVENT_INVENTORY_SINGLE_SLOT_UPDATE, REGISTER_FILTER_BAG_ID, targetBag)
