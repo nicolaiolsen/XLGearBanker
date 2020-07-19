@@ -32,7 +32,7 @@ function XLGB_Page:CreatePage()
   }
   table.insert(sV.pages, newPage)
   sortPages()
-  return pageName
+  return newPage.name
 end
 
 function XLGB_Page:GetPage(pageName)
