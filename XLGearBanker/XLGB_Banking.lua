@@ -111,6 +111,7 @@ end
 local function moveGear(sourceBag, itemsToMove, targetBag, availableBagSpaces)
   local nextIndex = 1
   if nextIndex > #itemsToMove then
+    d("Bag done! (before event")
     return stopMovingItems()
   end
 
@@ -121,6 +122,7 @@ local function moveGear(sourceBag, itemsToMove, targetBag, availableBagSpaces)
       return stopMovingItems()
     end
     if (#availableBagSpaces < nextIndex) then
+      d("Not enough spaces!")
       return stopMovingItems()
     end
     if (nextIndex > #itemsToMove) then
@@ -234,6 +236,7 @@ local function moveGearFromTwoBags(sourceBagOne, itemsToMoveOne, sourceBagTwo, i
 end
 
 local function depositItemsToBankNonESOPlus(itemsToDeposit)
+  d("depositItemsToBankNonESOPlus")
   local equippedItemsToMove = findItemsToMove(BAG_WORN, itemsToDeposit)
   local inventoryItemsToMove = findItemsToMove(BAG_BACKPACK, itemsToDeposit)
 
@@ -252,6 +255,7 @@ local function depositItemsToBankNonESOPlus(itemsToDeposit)
 end
 
 local function depositGearToBankESOPlus(gearSet)
+  d("depositGearToBankESOPlus")
   local equippedItemsToMove = findItemsToMove(BAG_WORN, gearSet.items)
   local inventoryItemsToMove = findItemsToMove(BAG_BACKPACK, gearSet.items)
 
@@ -344,6 +348,7 @@ end
 
 
 local function withdrawGearESOPlus(gearSet)
+  d("withdrawGearESOPlus")
   local regularBankItemsToMove = findItemsToMove(BAG_BANK, gearSet.items)
   local ESOPlusItemsToMove = findItemsToMove(BAG_SUBSCRIBER_BANK, gearSet.items)
   local availableBagSpaces = getAvailableBagSpaces(BAG_BACKPACK)
@@ -360,6 +365,7 @@ local function withdrawGearESOPlus(gearSet)
 end
 
 local function withdrawItemsNonESOPlus(itemsToWithdraw)
+  d("withdrawItemsNonESOPlus")
   local itemsToMove = findItemsToMove(XLGB_Banking.currentBankBag, itemsToWithdraw)
   local availableBagSpaces = getAvailableBagSpaces(BAG_BACKPACK)
   if (#availableBagSpaces < #itemsToMove) then
