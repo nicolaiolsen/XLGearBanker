@@ -279,6 +279,7 @@ local function depositGearToBankESOPlus(gearSet)
     XLGB_Banking.waitingForBag = true
 
     local function _waitForBag()
+      d("Waiting for bag to finish...")
       if XLGB_Banking.waitingForBag then return end
       d("-")
       d("-")
