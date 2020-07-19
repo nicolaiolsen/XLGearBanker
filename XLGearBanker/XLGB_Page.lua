@@ -128,11 +128,12 @@ end
 --   end
 -- end
 function XLGB_Page:DepositPage(pageName)
+  if XLGB_Banking.isMovingItems then return end
   local page = XLGB_Page:GetPage(pageName)
   local nextIndex = 1
 
   local function _waitDepositSet()
-    if nextIndex > #page.sets then
+    if nextIndex > #page.sets or XLGB_Banking.isMoveCancelled then
       d("Page is done!")
       EVENT_MANAGER:UnregisterForUpdate(XLGearBanker.name .. "WaitDepositSet")
       return
@@ -149,11 +150,13 @@ function XLGB_Page:DepositPage(pageName)
 end
 
 function XLGB_Page:WithdrawPage(pageName)
+  if XLGB_Banking.isMovingItems then return end
+
   local page = XLGB_Page:GetPage(pageName)
   local nextIndex = 1
 
   local function _waitWithdrawSet()
-    if nextIndex > #page.sets then
+    if nextIndex > #page.sets or XLGB_Banking.isMoveCancelled then
       d("Page is done!")
       EVENT_MANAGER:UnregisterForUpdate(XLGearBanker.name .. "WaitWithdrawSet")
       return
