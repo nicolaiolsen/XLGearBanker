@@ -121,12 +121,24 @@ function XLGB_Page:GetSetsInPage(pageName)
   local page = XLGB_Page:GetPage(pageName)
   return page.sets
 end
+
 -- function XLGB_Page:GetPageItems(pageName)
 --   local page = XLGB_Page:GetPage(pageName)
 --   local tempSet = {}
 --   for _, set in pairs(page.sets) do
 --   end
 -- end
+
+function XLGB_Page:GetAmountOfItemsInPage(pageName)
+  local page = XLGB_Page:GetPage(pageName)
+  local itemsInPage = 0
+  for _, set in pairs(page.sets) do
+      local gearSet = XLGB_GearSet:FindGearSet(set)
+      itemsInPage = itemsInPage + #gearSet.items
+  end
+  return itemsInPage -- Returns non-unique items (i.e. can contain duplicates)
+end
+
 function XLGB_Page:DepositPage(pageName)
   if XLGB_Banking.isMovingItems then return end
   XLGB_Banking.isMoveCancelled = false
@@ -136,6 +148,7 @@ function XLGB_Page:DepositPage(pageName)
 
   local page = XLGB_Page:GetPage(pageName)
   local nextIndex = 1
+  XLGB_Banking:CalculateAndSetDelay(XLGB_Page:GetAmountOfItemsInPage(pageName))
 
   local function _lastSetFinish()
     if XLGB_Banking.isMovingItems then return end
@@ -170,6 +183,7 @@ function XLGB_Page:WithdrawPage(pageName)
 
   local page = XLGB_Page:GetPage(pageName)
   local nextIndex = 1
+  XLGB_Banking:CalculateAndSetDelay(XLGB_Page:GetAmountOfItemsInPage(pageName))
 
   local function _lastSetFinish()
     if XLGB_Banking.isMovingItems then return end
