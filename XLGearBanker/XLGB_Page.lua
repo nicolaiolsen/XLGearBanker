@@ -129,6 +129,8 @@ end
 -- end
 function XLGB_Page:DepositPage(pageName)
   if XLGB_Banking.isMovingItems then return end
+  XLGB_Banking.isMoveCancelled = false
+
   local page = XLGB_Page:GetPage(pageName)
   local nextIndex = 1
 
@@ -151,6 +153,7 @@ end
 
 function XLGB_Page:WithdrawPage(pageName)
   if XLGB_Banking.isMovingItems then return end
+  XLGB_Banking.isMoveCancelled = false
 
   local page = XLGB_Page:GetPage(pageName)
   local nextIndex = 1
