@@ -222,7 +222,6 @@ local function moveGearFromTwoBags(sourceBagOne, itemsToMoveOne, sourceBagTwo, i
         nextIndex = 1
         return _onTargetBagItemReceived()
       end
-      d("Nextindex bigger than itemsToMove!")
     end
     d("(".. tostring(sourceBag) .. ") Moving item [" .. tostring(nextIndex) .. "/" .. tostring(#itemsToMove) .. "]")
     moveItemDelayed(sourceBag, itemsToMove[nextIndex].index, targetBag, availableBagSpaces[nextIndex + availableSpaceOffset])
@@ -309,14 +308,12 @@ local function depositGearToBankESOPlus(gearSet)
 
   else
     -- Add items to regular bank
-    d("Else case")
+    XLGB_Banking.waitingForBag = true
+    
     moveGearFromTwoBags(
         BAG_BACKPACK, inventoryItemsToMove,
         BAG_WORN, equippedItemsToMove,
         BAG_BANK, availableBagSpacesRegularBank)
-
-    XLGB_Banking.waitingForBag = true
-    d("waitingForBag is true")
 
     local function _waitForBag()
       d("Waiting for bag to finish...")
