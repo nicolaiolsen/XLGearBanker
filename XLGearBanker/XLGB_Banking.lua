@@ -107,17 +107,17 @@ local function moveGear(sourceBag, itemsToMove, targetBag, availableBagSpaces)
   end
 
   local function _onTargetBagItemReceived(eventCode, bagId, slotIndex, isNewItem, itemSoundCategory, updateReason, stackCountChange)
-    -- d("Received item!")
+    d("Received item!")
     if (#availableBagSpaces < nextIndex) then
       EVENT_MANAGER:UnregisterForEvent(XLGearBanker.name .. "MoveGear", EVENT_INVENTORY_SINGLE_SLOT_UPDATE)
       return
     end
     if (nextIndex > #itemsToMove) then
-      -- d("Bag done!")
+      d("Bag done!")
       EVENT_MANAGER:UnregisterForEvent(XLGearBanker.name .. "MoveGear", EVENT_INVENTORY_SINGLE_SLOT_UPDATE)
       return
     end
-    -- d("(".. tostring(sourceBag) .. ") Moving item [" .. tostring(nextIndex) .. "/" .. tostring(#itemsToMove) .. "]")
+    d("(".. tostring(sourceBag) .. ") Moving item [" .. tostring(nextIndex) .. "/" .. tostring(#itemsToMove) .. "]")
     moveItemDelayed(sourceBag, itemsToMove[nextIndex].index, targetBag, availableBagSpaces[nextIndex])
     nextIndex = nextIndex + 1
   end
