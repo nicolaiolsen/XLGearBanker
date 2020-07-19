@@ -130,15 +130,6 @@ end
 
 local function moveGear(sourceBag, itemsToMove, targetBag, availableBagSpaces)
   local nextIndex = 1
-  -- if nextIndex > #itemsToMove then
-  --   d("Bag done! (before event")
-  --   return stopMovingItems()
-  -- end
-
-  -- if nextIndex > #availableBagSpaces then
-  --   d("Not enough space!")
-  --   return stopMovingItems()
-  -- end
 
   local function _onTargetBagItemReceived(eventCode, bagId, slotIndex, isNewItem, itemSoundCategory, updateReason, stackCountChange)
     d("Received item!")
@@ -164,11 +155,8 @@ local function moveGear(sourceBag, itemsToMove, targetBag, availableBagSpaces)
   EVENT_MANAGER:AddFilterForEvent(XLGearBanker.name .. "MoveGear", EVENT_INVENTORY_SINGLE_SLOT_UPDATE, REGISTER_FILTER_BAG_ID, targetBag)
   EVENT_MANAGER:AddFilterForEvent(XLGearBanker.name .. "MoveGear", EVENT_INVENTORY_SINGLE_SLOT_UPDATE, REGISTER_FILTER_INVENTORY_UPDATE_REASON, INVENTORY_UPDATE_REASON_DEFAULT)
 
-  -- moveItem(sourceBag, itemsToMove[nextIndex].index, targetBag, availableBagSpaces[nextIndex])
-  -- nextIndex = nextIndex + 1
-
-  d("Source Bag: " .. tostring(sourceBag))
-  d("ItemsToMove: " .. tostring(#itemsToMove))
+  -- d("Source Bag: " .. tostring(sourceBag))
+  -- d("ItemsToMove: " .. tostring(#itemsToMove))
 
   _onTargetBagItemReceived()
 end
@@ -179,40 +167,23 @@ local function moveGearFromTwoBags(sourceBagOne, itemsToMoveOne, sourceBagTwo, i
   local itemsToMove = itemsToMoveOne
   local availableSpaceOffset = 0
 
-  -- if nextIndex > #itemsToMove then
-  --   d("Bag 1 done! Swapping to bag 2! (before Event)")
-  --   availableSpaceOffset = #itemsToMove
-  --   sourceBag = sourceBagTwo
-  --   itemsToMove = itemsToMoveTwo
-  -- end
-
-  -- if nextIndex > #itemsToMove then
-  --   d("Bag 2 done! (before Event)")
-  --   return stopMovingItems()
-  -- end
-
-  -- if nextIndex > #availableBagSpaces then
-  --   d("Not enough space!")
-  --   return stopMovingItems()
-  -- end
-
   local function _onTargetBagItemReceived(eventCode, bagId, slotIndex, isNewItem, itemSoundCategory, updateReason, stackCountChange)
-    d("Received item number " .. tostring(nextIndex-1))
+    -- d("Received item number " .. tostring(nextIndex-1))
     if XLGB_Banking.isMoveCancelled then
-      d("Move cancelled!")
+      -- d("Move cancelled!")
       return stopMovingItems()
     end
     if nextIndex > #availableBagSpaces then
-      d("Not enough space!")
+      -- d("Not enough space!")
       return stopMovingItems()
     end
     if (nextIndex > #itemsToMove) then
 
       if sourceBag == sourceBagTwo then 
-        d("Bag 2 done!")
+        -- d("Bag 2 done!")
         return stopMovingItems()
       else
-        d("Bag 1 done! Swapping to bag 2!")
+        -- d("Bag 1 done! Swapping to bag 2!")
         availableSpaceOffset = #itemsToMove
         sourceBag = sourceBagTwo
         itemsToMove = itemsToMoveTwo
@@ -230,24 +201,21 @@ local function moveGearFromTwoBags(sourceBagOne, itemsToMoveOne, sourceBagTwo, i
   EVENT_MANAGER:AddFilterForEvent(XLGearBanker.name .. "MoveGearFromTwoBags", EVENT_INVENTORY_SINGLE_SLOT_UPDATE, REGISTER_FILTER_BAG_ID, targetBag)
   EVENT_MANAGER:AddFilterForEvent(XLGearBanker.name .. "MoveGearFromTwoBags", EVENT_INVENTORY_SINGLE_SLOT_UPDATE, REGISTER_FILTER_INVENTORY_UPDATE_REASON, INVENTORY_UPDATE_REASON_DEFAULT)
 
-  d("Source Bag 1: " .. tostring(sourceBagOne))
-  d("ItemsToMove 1: " .. tostring(#itemsToMoveOne))
-  d("-")
-  d("Source Bag 2: " .. tostring(sourceBagTwo))
-  d("ItemsToMove 2: " .. tostring(#itemsToMoveTwo))
+  -- d("Source Bag 1: " .. tostring(sourceBagOne))
+  -- d("ItemsToMove 1: " .. tostring(#itemsToMoveOne))
+  -- d("-")
+  -- d("Source Bag 2: " .. tostring(sourceBagTwo))
+  -- d("ItemsToMove 2: " .. tostring(#itemsToMoveTwo))
   -- d("-")
   -- d("Equipment bag: " .. tostring(BAG_WORN))
   -- d("Backpack bag: " .. tostring(BAG_BACKPACK))
   -- d("-")
 
-  -- moveItem(sourceBag, itemsToMove[nextIndex].index, targetBag, availableBagSpaces[nextIndex + availableSpaceOffset])
-  -- nextIndex = nextIndex + 1
-
   _onTargetBagItemReceived()
 end
 
 local function depositItemsToBankNonESOPlus(itemsToDeposit)
-  d("depositItemsToBankNonESOPlus")
+  -- d("depositItemsToBankNonESOPlus")
   local equippedItemsToMove = findItemsToMove(BAG_WORN, itemsToDeposit)
   local inventoryItemsToMove = findItemsToMove(BAG_BACKPACK, itemsToDeposit)
 
@@ -266,7 +234,7 @@ local function depositItemsToBankNonESOPlus(itemsToDeposit)
 end
 
 local function depositGearToBankESOPlus(gearSet)
-  d("depositGearToBankESOPlus")
+  -- d("depositGearToBankESOPlus")
   local equippedItemsToMove = findItemsToMove(BAG_WORN, gearSet.items)
   local inventoryItemsToMove = findItemsToMove(BAG_BACKPACK, gearSet.items)
 
@@ -298,13 +266,13 @@ local function depositGearToBankESOPlus(gearSet)
         BAG_BANK, availableBagSpacesRegularBank)
 
     local function _waitForBag()
-      d("Waiting for bag to finish...")
+      -- d("Waiting for bag to finish...")
       if XLGB_Banking.isWaitingForBag then return end
-      d("-")
-      d("-")
-      d("Starting 2nd bank bag ------------")
-      d("-")
-      d("-")
+      -- d("-")
+      -- d("-")
+      -- d("Starting 2nd bank bag ------------")
+      -- d("-")
+      -- d("-")
       inventoryItemsToMove = findItemsToMove(BAG_BACKPACK, gearSet.items)
       equippedItemsToMove = findItemsToMove(BAG_WORN, gearSet.items)
 
