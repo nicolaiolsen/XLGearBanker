@@ -114,6 +114,7 @@ local function onMoveFailed(sourceBag, failedAtItemIndex, targetBag, spaceFailed
 end
 
 local function moveItem(sourceBag, itemIndex, targetBag, availableSpace)
+  d("Moving Item at index = '" .. GetItemName(sourceBag, itemIndex) ..  "' to space = '" .. GetItemName(targetBag, availableSpace) .. "'")
   local moveFailed = not CallSecureProtected("RequestMoveItem", sourceBag, itemIndex, targetBag, availableSpace, 1)
   if moveFailed then
     onMoveFailed(sourceBag, itemIndex, targetBag, availableSpace)
