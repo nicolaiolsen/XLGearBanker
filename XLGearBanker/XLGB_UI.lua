@@ -352,8 +352,11 @@ function XLGB_UI:AddRemovePage()
 end
 
 function XLGB_UI:AddPage()
+  d("Creating new page!")
   local newPageName = XLGB_Page:CreatePage()
+  d("Page name = " .. newPageName)
   sV.displayingPage = XLGB_Page:GetIndexOfPage(XLGB_Page:GetPage(newPageName))
+  d("Found index = " .. tostring(sV.displayingPage))
   XLGB_UI:SelectPage(sV.displayingPage)
 
   XLGB_UI:TogglePageEdit()
