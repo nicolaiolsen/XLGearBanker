@@ -140,6 +140,16 @@ local function moveGearFromTwoBags(sourceBagOne, itemsToMoveOne, sourceBagTwo, i
   EVENT_MANAGER:AddFilterForEvent(XLGearBanker.name .. "MoveGearFromTwoBags", EVENT_INVENTORY_SINGLE_SLOT_UPDATE, REGISTER_FILTER_BAG_ID, targetBag)
   EVENT_MANAGER:AddFilterForEvent(XLGearBanker.name .. "MoveGearFromTwoBags", EVENT_INVENTORY_SINGLE_SLOT_UPDATE, REGISTER_FILTER_INVENTORY_UPDATE_REASON, INVENTORY_UPDATE_REASON_DEFAULT)
 
+  d("Source Bag 1: " .. tostring(sourceBagOne))
+  d("ItemsToMove 1: " .. tostring(itemsToMoveOne))
+  d("")
+  d("Source Bag 2: " .. tostring(sourceBagTwo))
+  d("ItemsToMove 2: " .. tostring(itemsToMoveTwo))
+  d("")
+  d("Equipment bag: " .. tostring(BAG_WORN))
+  d("Backpack bag: " .. tostring(BAG_BACKPACK))
+  d("")
+
   moveItem(sourceBag, itemsToMove[nextIndex].index, targetBag, availableBagSpaces[nextIndex])
   nextIndex = nextIndex + 1
   -- for i, itemEntry in ipairs(itemsToMoveOne) do
