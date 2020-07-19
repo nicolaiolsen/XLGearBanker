@@ -89,14 +89,13 @@ local function getAvailableBagSpaces(bag)
   return availableBagSpaces
 end
 
-local function stopisMovingItems()
+local function stopMovingItems()
   EVENT_MANAGER:UnregisterForEvent(XLGearBanker.name .. "MoveGearFromTwoBags", EVENT_INVENTORY_SINGLE_SLOT_UPDATE)
   EVENT_MANAGER:UnregisterForEvent(XLGearBanker.name .. "MoveGear", EVENT_INVENTORY_SINGLE_SLOT_UPDATE)
   XLGB_Banking.isWaitingForBag = false
+  XLGB_Banking.movesInSuccession = XLGB_Banking.movesInSuccession - 1
   if XLGB_Banking.movesInSuccession < 1 then
     XLGB_Banking.isMovingItems = false
-  else 
-    XLGB_Banking.movesInSuccession = XLGB_Banking.movesInSuccession - 1
   end
 end
 
@@ -114,7 +113,7 @@ local function onMoveFailed(sourceBag, failedAtItemIndex, targetBag, spaceFailed
   d("-")
   d("--------------------------------")
   XLGB_Banking.isMoveCancelled = true
-  stopisMovingItems()
+  stopMovingItems()
 end
 
 local function moveItem(sourceBag, itemIndex, targetBag, availableSpace)
@@ -133,27 +132,27 @@ local function moveGear(sourceBag, itemsToMove, targetBag, availableBagSpaces)
   local nextIndex = 1
   if nextIndex > #itemsToMove then
     d("Bag done! (before event")
-    return stopisMovingItems()
+    return stopMovingItems()
   end
 
-  if (#availableBagSpaces < nextIndex) then
+  if nextIndex > #availableBagSpaces then
     d("Not enough space!")
-    return stopisMovingItems()
+    return stopMovingItems()
   end
 
   local function _onTargetBagItemReceived(eventCode, bagId, slotIndex, isNewItem, itemSoundCategory, updateReason, stackCountChange)
     d("Received item!")
     if XLGB_Banking.isMoveCancelled then
       d("Move cancelled!")
-      return stopisMovingItems()
+      return stopMovingItems()
     end
-    if (#availableBagSpaces < nextIndex) then
+    if nextIndex > #availableBagSpaces then
       d("Not enough spaces!")
-      return stopisMovingItems()
+      return stopMovingItems()
     end
     if (nextIndex > #itemsToMove) then
       d("Bag done!")
-      return stopisMovingItems()
+      return stopMovingItems()
     end
     d("(".. tostring(sourceBag) .. ") Moving item [" .. tostring(nextIndex) .. "/" .. tostring(#itemsToMove) .. "]")
     moveItemDelayed(sourceBag, itemsToMove[nextIndex].index, targetBag, availableBagSpaces[nextIndex])
@@ -195,29 +194,29 @@ local function moveGearFromTwoBags(sourceBagOne, itemsToMoveOne, sourceBagTwo, i
 
   if nextIndex > #itemsToMove then
     d("Bag 2 done! (before Event)")
-    return stopisMovingItems()
+    return stopMovingItems()
   end
 
-  if (#availableBagSpaces < nextIndex) then
+  if nextIndex > #availableBagSpaces then
     d("Not enough space!")
-    return stopisMovingItems()
+    return stopMovingItems()
   end
 
   local function _onTargetBagItemReceived(eventCode, bagId, slotIndex, isNewItem, itemSoundCategory, updateReason, stackCountChange)
     d("Received item number " .. tostring(nextIndex-1))
     if XLGB_Banking.isMoveCancelled then
       d("Move cancelled!")
-      return stopisMovingItems()
+      return stopMovingItems()
     end
-    if (#availableBagSpaces < nextIndex) then
+    if nextIndex > #availableBagSpaces then
       d("Not enough space!")
-      return stopisMovingItems()
+      return stopMovingItems()
     end
     if (nextIndex > #itemsToMove) then
 
       if sourceBag == sourceBagTwo then 
         d("Bag 2 done!")
-        return stopisMovingItems()
+        return stopMovingItems()
       else
         d("Bag 1 done! Swapping to bag 2!")
         availableSpaceOffset = #itemsToMove
