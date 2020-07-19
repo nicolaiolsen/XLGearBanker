@@ -137,6 +137,7 @@ local function moveGearFromTwoBags(sourceBagOne, itemsToMoveOne, sourceBagTwo, i
         sourceBag = sourceBagTwo
         itemsToMove = itemsToMoveTwo
         nextIndex = 1
+        return zo_callLater(function () moveItemDelayed(sourceBag, itemsToMove[nextIndex].index, targetBag, availableBagSpaces[nextIndex]) end, 2000)
       end
     end
     d("(".. tostring(sourceBag) .. ") Moving item [" .. tostring(nextIndex) .. "/" .. tostring(#itemsToMove) .. "]")
@@ -151,14 +152,14 @@ local function moveGearFromTwoBags(sourceBagOne, itemsToMoveOne, sourceBagTwo, i
 
   d("Source Bag 1: " .. tostring(sourceBagOne))
   d("ItemsToMove 1: " .. tostring(#itemsToMoveOne))
-  d("")
+  d("-")
   d("Source Bag 2: " .. tostring(sourceBagTwo))
   d("ItemsToMove 2: " .. tostring(#itemsToMoveTwo))
   d("ItemsToMove 2 (index1):" .. tostring(itemsToMoveTwo[1].index))
-  d("")
+  d("-")
   d("Equipment bag: " .. tostring(BAG_WORN))
   d("Backpack bag: " .. tostring(BAG_BACKPACK))
-  d("")
+  d("-")
 
   moveItem(sourceBag, itemsToMove[nextIndex].index, targetBag, availableBagSpaces[nextIndex])
   nextIndex = nextIndex + 1
