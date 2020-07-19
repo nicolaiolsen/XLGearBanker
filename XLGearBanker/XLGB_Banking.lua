@@ -108,6 +108,10 @@ local function moveGear(sourceBag, itemsToMove, targetBag, availableBagSpaces)
 
   local function _onTargetBagItemReceived(eventCode, bagId, slotIndex, isNewItem, itemSoundCategory, updateReason, stackCountChange)
     d("Received item!")
+    if XLGB_Banking.moveCancelled then
+      EVENT_MANAGER:UnregisterForEvent(XLGearBanker.name .. "MoveGear", EVENT_INVENTORY_SINGLE_SLOT_UPDATE)
+      return
+    end
     if (#availableBagSpaces < nextIndex) then
       EVENT_MANAGER:UnregisterForEvent(XLGearBanker.name .. "MoveGear", EVENT_INVENTORY_SINGLE_SLOT_UPDATE)
       return
@@ -158,6 +162,10 @@ local function moveGearFromTwoBags(sourceBagOne, itemsToMoveOne, sourceBagTwo, i
 
   local function _onTargetBagItemReceived(eventCode, bagId, slotIndex, isNewItem, itemSoundCategory, updateReason, stackCountChange)
     -- d("Received item!")
+    if XLGB_Banking.moveCancelled then
+      EVENT_MANAGER:UnregisterForEvent(XLGearBanker.name .. "MoveGearFromTwoBags", EVENT_INVENTORY_SINGLE_SLOT_UPDATE)
+      return
+    end
     if (#availableBagSpaces < nextIndex) then
       EVENT_MANAGER:UnregisterForEvent(XLGearBanker.name .. "MoveGearFromTwoBags", EVENT_INVENTORY_SINGLE_SLOT_UPDATE)
       return
@@ -173,6 +181,7 @@ local function moveGearFromTwoBags(sourceBagOne, itemsToMoveOne, sourceBagTwo, i
         sourceBag = sourceBagTwo
         itemsToMove = itemsToMoveTwo
         nextIndex = 1
+        return _onTargetBagItemReceived()
       end
     end
     -- d("(".. tostring(sourceBag) .. ") Moving item [" .. tostring(nextIndex) .. "/" .. tostring(#itemsToMove) .. "]")
@@ -434,6 +443,8 @@ end
 function XLGB_Banking:Initialize()
   self.bankOpen = IsBankOpen()
   self.recentlyCalled = false
+  self.moveCancelled = false
+  self.movingItems = false
   
   self.bankButtonGroup = {
     {
