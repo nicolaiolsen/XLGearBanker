@@ -116,7 +116,7 @@ end
 local function moveItem(sourceBag, itemIndex, targetBag, availableSpace)
   d("Moving Item at index = '" .. GetItemName(sourceBag, itemIndex) ..  "' to space = '" .. GetItemName(targetBag, availableSpace) .. "'")
   local moveFailed = not CallSecureProtected("RequestMoveItem", sourceBag, itemIndex, targetBag, availableSpace, 1)
-  if moveFailed then
+  if moveFailed or GetItemName(targetBag, availableSpace) ~= "" then
     onMoveFailed(sourceBag, itemIndex, targetBag, availableSpace)
   end
 end
@@ -309,7 +309,7 @@ local function depositGearToBankESOPlus(gearSet)
     d("waitingForBag is true")
 
     local function _waitForBag()
-      -- d("Waiting for bag to finish...")
+      d("Waiting for bag to finish...")
       if XLGB_Banking.waitingForBag then return end
       d("-")
       d("-")
@@ -328,7 +328,7 @@ local function depositGearToBankESOPlus(gearSet)
     end
 
     EVENT_MANAGER:UnregisterForUpdate(XLGearBanker.name .. "WaitingForBag")
-    EVENT_MANAGER:RegisterForUpdate(XLGearBanker.name .. "WaitingForBag", 500, _waitForBag)
+    EVENT_MANAGER:RegisterForUpdate(XLGearBanker.name .. "WaitingForBag", 2000, _waitForBag)
 
     return true
   end
