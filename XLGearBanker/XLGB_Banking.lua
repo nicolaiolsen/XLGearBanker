@@ -26,6 +26,7 @@ function XLGB_Banking.OnBankCloseEvent(event)
   if XLGB_Banking.bankOpen then
     XLGB_Banking.bankOpen = IsBankOpen()
     XLGB_Banking.currentBankBag = XLGB.NO_BAG
+    XLGB_Banking.moveCancelled = true
     XLGB_UI:OnBankClosed()
     KEYBIND_STRIP:RemoveKeybindButtonGroup(XLGB_Banking.bankButtonGroup)
     easyDebug("Bank closed")
@@ -315,6 +316,7 @@ function XLGB_Banking:DepositSet(gearSetName)
     return false
   end
   XLGB_Banking.movingItems = true
+  XLGB_Banking.moveCancelled = false
 
   local gearSet = XLGB_GearSet:FindGearSet(gearSetName)
   if IsESOPlusSubscriber() and (XLGB_Banking.currentBankBag == BAG_BANK) then
@@ -377,6 +379,7 @@ function XLGB_Banking:WithdrawSet(gearSetName)
     return false
   end
   XLGB_Banking.movingItems = true
+  XLGB_Banking.moveCancelled = false
 
   local gearSet = XLGB_GearSet:FindGearSet(gearSetName)
   if IsESOPlusSubscriber() and (XLGB_Banking.currentBankBag == BAG_BANK) then
