@@ -121,6 +121,11 @@ local function moveGearFromTwoBags(sourceBagOne, itemsToMoveOne, sourceBagTwo, i
     itemsToMove = itemsToMoveTwo
   end
 
+  if nextIndex > #itemsToMove then
+    d("Bag 2 done! (before Event)")
+    return
+  end
+
   local function _onTargetBagItemReceived(eventCode, bagId, slotIndex, isNewItem, itemSoundCategory, updateReason, stackCountChange)
     d("Received item!")
     if (#availableBagSpaces < nextIndex) then
@@ -137,7 +142,7 @@ local function moveGearFromTwoBags(sourceBagOne, itemsToMoveOne, sourceBagTwo, i
         sourceBag = sourceBagTwo
         itemsToMove = itemsToMoveTwo
         nextIndex = 1
-        return zo_callLater(function () moveItemDelayed(sourceBag, itemsToMove[nextIndex].index, targetBag, availableBagSpaces[nextIndex]) end, 2000)
+        return zo_callLater(function () _onTargetBagItemReceived() end, 2000)
       end
     end
     d("(".. tostring(sourceBag) .. ") Moving item [" .. tostring(nextIndex) .. "/" .. tostring(#itemsToMove) .. "]")
