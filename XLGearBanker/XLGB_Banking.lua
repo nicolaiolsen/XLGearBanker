@@ -93,7 +93,11 @@ local function stopisMovingItems()
   EVENT_MANAGER:UnregisterForEvent(XLGearBanker.name .. "MoveGearFromTwoBags", EVENT_INVENTORY_SINGLE_SLOT_UPDATE)
   EVENT_MANAGER:UnregisterForEvent(XLGearBanker.name .. "MoveGear", EVENT_INVENTORY_SINGLE_SLOT_UPDATE)
   XLGB_Banking.isWaitingForBag = false
-  XLGB_Banking.isMovingItems = false
+  if XLGB_Banking.movesInSuccession < 1 then
+    XLGB_Banking.isMovingItems = false
+  else 
+    XLGB_Banking.movesInSuccession = XLGB_Banking.movesInSuccession - 1
+  end
 end
 
 local function onMoveFailed(sourceBag, failedAtItemIndex, targetBag, spaceFailedToMoveInto)
@@ -309,6 +313,7 @@ local function depositGearToBankESOPlus(gearSet)
   else
     -- Add items to regular bank
     XLGB_Banking.isWaitingForBag = true
+    XLGB_Banking.movesInSuccession = 2
     
     moveGearFromTwoBags(
         BAG_BACKPACK, inventoryItemsToMove,
@@ -335,7 +340,7 @@ local function depositGearToBankESOPlus(gearSet)
     end
 
     EVENT_MANAGER:UnregisterForUpdate(XLGearBanker.name .. "isWaitingForBag")
-    EVENT_MANAGER:RegisterForUpdate(XLGearBanker.name .. "isWaitingForBag", 300, _waitForBag)
+    EVENT_MANAGER:RegisterForUpdate(XLGearBanker.name .. "isWaitingForBag", 5000, _waitForBag)
 
     return true
   end
@@ -354,6 +359,7 @@ function XLGB_Banking:DepositSet(gearSetName)
   end
   XLGB_Banking.isMovingItems = true
   XLGB_Banking.isMoveCancelled = false
+  XLGB_Banking.movesInSuccession = 1
 
   local gearSet = XLGB_GearSet:FindGearSet(gearSetName)
   if IsESOPlusSubscriber() and (XLGB_Banking.currentBankBag == BAG_BANK) then
@@ -419,6 +425,7 @@ function XLGB_Banking:WithdrawSet(gearSetName)
   end
   XLGB_Banking.isMovingItems = true
   XLGB_Banking.isMoveCancelled = false
+  XLGB_Banking.movesInSuccession = 1
 
   local gearSet = XLGB_GearSet:FindGearSet(gearSetName)
   if IsESOPlusSubscriber() and (XLGB_Banking.currentBankBag == BAG_BANK) then
@@ -446,6 +453,7 @@ function XLGB_Banking:Initialize()
   self.isMovingItems = false
   self.isWaitingForBag = false
   self.itemMoveDelay = 50
+  self.movesInSuccession = 0
   
   self.bankButtonGroup = {
     {
