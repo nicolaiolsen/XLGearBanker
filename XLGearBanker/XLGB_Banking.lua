@@ -315,6 +315,7 @@ function XLGB_Banking:DepositSet(gearSetName)
     end
   end
   PlaySound(SOUNDS.ABILITY_FAILED)
+  XLGB_Banking.movingItems = false
   return false
 end
 
@@ -375,6 +376,7 @@ function XLGB_Banking:WithdrawSet(gearSetName)
     end
   end
   PlaySound(SOUNDS.ABILITY_FAILED)
+  XLGB_Banking.movingItems = false
   return false
 
 end
