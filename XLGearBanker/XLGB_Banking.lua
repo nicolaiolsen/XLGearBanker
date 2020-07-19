@@ -95,7 +95,7 @@ local function stopMovingItems()
   EVENT_MANAGER:UnregisterForUpdate(XLGearBanker.name .. "MoveGearFromTwoBags")
 
   EVENT_MANAGER:UnregisterForEvent(XLGearBanker.name .. "MoveGear", EVENT_INVENTORY_SINGLE_SLOT_UPDATE)
-  
+
   XLGB_Banking.isWaitingForBag = false
   XLGB_Banking.movesInSuccession = XLGB_Banking.movesInSuccession - 1
   if XLGB_Banking.movesInSuccession < 1 then
