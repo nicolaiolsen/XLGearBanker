@@ -35,13 +35,17 @@ local function setProgressBar(x, y)
   p.progressRow.bar:SetAnchor(BOTTOMRIGHT, p.progressRow.barBG, BOTTOMRIGHT, calculateOffSet, 0)
 end
 
+local function setInfoRowItemsInSet(itemsInSet)
+  ui.progress.infoRow.setSize:SetText("|t52:56:/esoui/art/tradinghouse/tradinghouse_apparel_chest_up.dds|t(" .. tostring(itemsInSet) .. ") |t32:32:/esoui/art/chatwindow/chat_overflowarrow_up.dds|t")
+end
+
 function XLGB_UI:OnPageWithdrawNextSet(nextSetName)
   local p = ui.progress
   p.x = p.x + 1
   p.progressRow.xOfY:SetText("[" .. tostring(p.x) .. "/" .. tostring(p.y) .. "]")
   setProgressBar(p.x, p.y)
   p.setRow.setInfo:SetText("Withdrawing set '|cffecbc" .. nextSetName .. "|r'")
-
+  -- setInfoRowItemsInSet()
 end
 
 function XLGB_UI:OnWithdrawPageStop()
