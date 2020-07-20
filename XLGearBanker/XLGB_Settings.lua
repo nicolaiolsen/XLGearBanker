@@ -15,8 +15,8 @@ function XLGB_Settings:Initialize()
       author = "@XL_Olsen (PC/EU)",
       -- version = xlHoF.Colorize(xlHoF.version, "AA00FF"),
       slashCommand = "/xlgb_settings",
-      registerForRefresh = true,
-      registerForDefaults = true,
+      -- registerForRefresh = true,
+      -- registerForDefaults = true,
   }
   XLGB_Settings.panel = LAM:RegisterAddonPanel(menuName, panelData)
 
@@ -31,7 +31,8 @@ function XLGB_Settings:Initialize()
                   sV.safeMode = v
               end,
       width   = "full",
-      warning = "Turning safe mode off can result in a server boot if you spam deposit/withdraw.\nSafe mode is automatically enabled upon depositing/withdrawing sets/pages with more than 70 items."
+      warning = "Turning safe mode |cff0000off|r can result in a |cff0000server boot|r if you spam deposit/withdraw due to server load restrictions.\n\n(Safe mode is automatically enabled upon depositing/withdrawing sets/pages with more than 70 items.)",
+      disabled = function () return XLGB_Banking.isMovingItems or XLGB_Page.isMovingPage end
   })
 
   LAM:RegisterOptionControls(menuName, optionsTable)
