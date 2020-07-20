@@ -24,3 +24,17 @@ function XLGB_Events:OnPageSort(preSortList)
   XLGB_UI:OnPageSort(preSortList)
 end
 
+function XLGB_Events:OnWithdrawPageStart(pageName)
+  XLGB_UI:OnWithdrawPageStart(pageName)
+end
+
+function XLGB_Events:OnWithdrawPageStop()
+  XLGB_UI:OnWithdrawPageStop()
+end
+
+function XLGB_Events:OnDepositPageStart(pageName)
+end
+
+function XLGB_Events:OnDepositPageStop()
+end
+

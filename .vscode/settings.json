@@ -147,7 +147,21 @@
         "LibAddonMenu2",
         "XLGB_SetWindow_TitleRow_Settings",
         "XLGB_PageWindow_TitleRow_Settings",
-        "XLGB_GreyOverlay"
+        "XLGB_GreyOverlay",
+        "XLGB_ProgressWindow",
+        "XLGB_ProgressWindow_TitleRow",
+        "XLGB_ProgressWindow_TitleRow_Title",
+        "XLGB_ProgressWindow_ProgressRow",
+        "XLGB_ProgressWindow_ProgressRow_XofY",
+        "XLGB_ProgressWindow_ProgressRow_BarBG",
+        "XLGB_ProgressWindow_ProgressRow_Bar",
+        "XLGB_ProgressWindow_InfoRow",
+        "XLGB_ProgressWindow_InfoRow_SetSize",
+        "XLGB_ProgressWindow_InfoRow_BagSpace",
+        "XLGB_ProgressWindow_SetRow",
+        "XLGB_ProgressWindow_SetRow_SetInfo",
+        "XLGB_ProgressWindow_CancelRow",
+        "XLGB_ProgressWindow_CancelRow_Cancel"
     ],
     "Lua.diagnostics.disable": [
         "lowercase-global",

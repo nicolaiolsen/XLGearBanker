@@ -17,12 +17,62 @@ local xl = {}
 --
 --
 --------------------------------------------------------------------------------------------
+function XLGB_UI:OnWithdrawPageStart(pageName)
+  local p = ui.progress
+  p.titleRow.title:SetText("Withdrawing page '|cffecbc" .. pageName .. "|r'")
 
+  p:SetHidden(false)
+  p.overlay:SetHidden(false)
+end
 
+function XLGB_UI:OnWithdrawPageStop()
+  local p = ui.progress
+  p:SetHidden(true)
+  p.overlay:SetHidden(true)
+end
 
+function XLGB_UI:OnDepositPageStart(pageName)
+  local p = ui.progress
+  p.titleRow.title:SetText("Depositing page '|cffecbc" .. pageName .. "|r'")
+
+  p:SetHidden(false)
+  p.overlay:SetHidden(false)
+end
+
+function XLGB_UI:OnDepositPageStop()
+  local p = ui.progress
+  p:SetHidden(true)
+  p.overlay:SetHidden(true)
+end
+
+local function InitUIProgressVariables()
+  ui.progress                     = XLGB_ProgressWindow
+
+  ui.progress.titleRow            = XLGB_ProgressWindow_TitleRow
+  ui.progress.titleRow.title      = XLGB_ProgressWindow_TitleRow_Title
+
+  ui.progress.progressRow         = XLGB_ProgressWindow_ProgressRow
+  ui.progress.progressRow.xOfY    = XLGB_ProgressWindow_ProgressRow_XofY
+  ui.progress.progressRow.barBG   = XLGB_ProgressWindow_ProgressRow_BarBG
+  ui.progress.progressRow.bar     = XLGB_ProgressWindow_ProgressRow_Bar
+
+  ui.progress.infoRow             = XLGB_ProgressWindow_InfoRow
+  ui.progress.infoRow.setSize     = XLGB_ProgressWindow_InfoRow_SetSize
+  ui.progress.infoRow.bagSpace    = XLGB_ProgressWindow_InfoRow_BagSpace
+
+  ui.progress.setRow              = XLGB_ProgressWindow_SetRow
+  ui.progress.setRow.setInfo      = XLGB_ProgressWindow_SetRow_SetInfo
+
+  ui.progress.cancelRow           = XLGB_ProgressWindow_CancelRow
+  ui.progress.cancelRow.cancel    = XLGB_ProgressWindow_CancelRow_Cancel
+
+  ui.progress.overlay             = XLGB_GreyOverlay
+end
 --------------------------------------------------------------------------------------------
 -- PROGRESS BAR END
 --------------------------------------------------------------------------------------------
+
+
 function XLGB_UI:ToggleSettings()
   LAM:OpenToPanel(XLGB_Settings.panel)
 end
@@ -62,6 +112,20 @@ local function reanchorScrollList(scrollList, top, bottom)
   scrollList:SetAnchor(TOPLEFT, top, BOTTOMLEFT, 0, 10)
   scrollList:SetAnchor(BOTTOMRIGHT, bottom, TOPRIGHT, -21, -20)
 end
+
+
+
+
+--------------------------------------------------------------------------------------------
+--------------------------------------------------------------------------------------------
+--
+--
+--
+--                                        PAGE WINDOW
+--
+--
+--
+--------------------------------------------------------------------------------------------
 
 local function refreshBankAndShifterRow()
   ui.page.shifterRow:SetHidden(not xl.isPageEditable)
@@ -585,10 +649,24 @@ local function InitUIPageVariables()
   ui.page.totalPageItemsRow.text  = XLGB_PageWindow_TotalPageItemsRow_TotalPageItems
 end
 
+--------------------------------------------------------------------------------------------
+-- PAGE WINDOW END
+--------------------------------------------------------------------------------------------
 
 
-------------------------------------------------------------------------------------------------------
 
+
+
+--------------------------------------------------------------------------------------------
+--------------------------------------------------------------------------------------------
+--
+--
+--
+--                                        SET WINDOW
+--
+--
+--
+--------------------------------------------------------------------------------------------
 
 
 local function setEditSetFalse()
@@ -937,6 +1015,10 @@ local function InitUISetVariables()
   ui.set.totalSetItemsRow         = XLGB_SetWindow_TotalSetItemsRow
   ui.set.totalSetItemsRow.text    = XLGB_SetWindow_TotalSetItemsRow_TotalSetItems
 end
+
+--------------------------------------------------------------------------------------------
+-- SET WINDOW END
+--------------------------------------------------------------------------------------------
 
 function XLGB_UI:Initialize()
   xl = XLGearBanker or {}
