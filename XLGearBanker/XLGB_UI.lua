@@ -39,6 +39,11 @@ local function setInfoRowItemsInSet(itemsInSet)
   ui.progress.infoRow.setSize:SetText("|t52:56:/esoui/art/tradinghouse/tradinghouse_apparel_chest_up.dds|t(" .. tostring(itemsInSet) .. ") |t32:32:/esoui/art/chatwindow/chat_overflowarrow_up.dds|t")
 end
 
+local function setBagSpaceWithdraw()
+  -- GetBagSize()
+  ui.progress.infoRow.bagSpace:SetText("|t32:32:/esoui/art/tooltips/icon_bank.dds|t(124/158)")
+end
+
 function XLGB_UI:OnPageWithdrawNextSet(nextSetName)
   local p = ui.progress
   p.x = p.x + 1
