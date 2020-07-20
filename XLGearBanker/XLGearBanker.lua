@@ -58,6 +58,10 @@ SLASH_COMMANDS["/xlgb_safemode"] = function (argsv)
   end
 end
 
+SLASH_COMMANDS["/xlgb_overlay"] = function (argsv)
+  XLGB_GreyOverlay:SetHidden(not XLGB_GreyOverlay:IsHidden())
+end
+
 SLASH_COMMANDS["/xlgb_help"] = function (argsv)
   d("[XLGB] Commands")
   d("\'/xlgb_debug\': Toggles debug mode. (Note: quite verbose)")

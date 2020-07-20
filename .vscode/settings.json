@@ -146,7 +146,8 @@
         "XLGB_Menu",
         "LibAddonMenu2",
         "XLGB_SetWindow_TitleRow_Settings",
-        "XLGB_PageWindow_TitleRow_Settings"
+        "XLGB_PageWindow_TitleRow_Settings",
+        "XLGB_GreyOverlay"
     ],
     "Lua.diagnostics.disable": [
         "lowercase-global",
