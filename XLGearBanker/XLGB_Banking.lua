@@ -403,22 +403,13 @@ function XLGB_Banking:WithdrawSet(gearSetName)
 
 end
 
-function XLGB_Banking:CalculateAndSetDelay(itemAmount)
-  local delay = itemAmount - 40
-  if delay < 0 then
-    XLGB_Banking.itemMoveDelay = 0
-  else
-    XLGB_Banking.itemMoveDelay = delay
-  end
-end
-
 function XLGB_Banking:Initialize()
   sV = XLGearBanker.savedVariables
   self.bankOpen = IsBankOpen()
   self.isMoveCancelled = false
   self.isMovingItems = false
   self.isWaitingForBag = false
-  self.itemMoveDelay = 30
+  self.itemMoveDelay = 0
   self.movesInSuccession = 0
   
   self.bankButtonGroup = {

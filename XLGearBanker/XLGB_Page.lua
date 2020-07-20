@@ -148,19 +148,24 @@ function XLGB_Page:DepositPage(pageName)
 
   local page = XLGB_Page:GetPage(pageName)
   local nextIndex = 1
-  XLGB_Banking:CalculateAndSetDelay(XLGB_Page:GetAmountOfItemsInPage(pageName))
+
+  local requiresSafeMode = XLGB_Page:GetAmountOfItemsInPage(pageName) > 70
+  if requiresSafeMode then
+    sV.safeMode = true
+  end
 
   local function _lastSetFinish()
     if XLGB_Banking.isMovingItems then return end
     d("[XLGB] Page '" .. page.name .."' deposited in " .. tostring(string.format("%.2f", (GetGameTimeMilliseconds()-time)/1000)) .. " seconds.")
     XLGB_Page.isMovingPage = false
+    sV.safeMode = false
     EVENT_MANAGER:UnregisterForUpdate(XLGearBanker.name .. "WaitLastSetFinish")
   end
   
   local function _waitDepositSet()
     if nextIndex > #page.sets or XLGB_Banking.isMoveCancelled then
       EVENT_MANAGER:UnregisterForUpdate(XLGearBanker.name .. "WaitDepositSet")
-      EVENT_MANAGER:RegisterForUpdate(XLGearBanker.name .. "WaitLastSetFinish", 500, _lastSetFinish)
+      EVENT_MANAGER:RegisterForUpdate(XLGearBanker.name .. "WaitLastSetFinish", 600, _lastSetFinish)
       return
     end
     if XLGB_Banking.isMovingItems then return end
@@ -183,12 +188,17 @@ function XLGB_Page:WithdrawPage(pageName)
 
   local page = XLGB_Page:GetPage(pageName)
   local nextIndex = 1
-  XLGB_Banking:CalculateAndSetDelay(XLGB_Page:GetAmountOfItemsInPage(pageName))
+
+  local requiresSafeMode = XLGB_Page:GetAmountOfItemsInPage(pageName) > 70
+  if requiresSafeMode then
+    sV.safeMode = true
+  end
 
   local function _lastSetFinish()
     if XLGB_Banking.isMovingItems then return end
     d("[XLGB] Page '" .. page.name .."' withdrawn in " .. tostring(string.format("%.2f", (GetGameTimeMilliseconds()-time)/1000)) .. " seconds.")
     XLGB_Page.isMovingPage = false
+    sV.safeMode = false
     EVENT_MANAGER:UnregisterForUpdate(XLGearBanker.name .. "WaitLastSetFinish")
   end
 
@@ -196,7 +206,7 @@ function XLGB_Page:WithdrawPage(pageName)
     if nextIndex > #page.sets or XLGB_Banking.isMoveCancelled then
       EVENT_MANAGER:UnregisterForUpdate(XLGearBanker.name .. "WaitWithdrawSet")
       EVENT_MANAGER:UnregisterForUpdate(XLGearBanker.name .. "WaitLastSetFinish")
-      EVENT_MANAGER:RegisterForUpdate(XLGearBanker.name .. "WaitLastSetFinish", 500, _lastSetFinish)
+      EVENT_MANAGER:RegisterForUpdate(XLGearBanker.name .. "WaitLastSetFinish", 600, _lastSetFinish)
       return
     end
     if XLGB_Banking.isMovingItems then return end
