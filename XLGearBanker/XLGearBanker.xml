@@ -37,6 +37,18 @@
             />
         </Button>
 
+        <!-- Escape button:-->
+        <Button name="$(parent)_Settings" inherits="ZO_ButtonBehaviorClickSound" >
+          <OnClicked>XLGB_UI:ToggleSettings()</OnClicked>
+          <Dimensions x="30" y="30" />                                
+          <Anchor point="TOPRIGHT" relativeTo="$(parent)" relativePoint="TOPRIGHT" offsetX="-10" offsetY="10"  />
+          <Textures
+              normal     ="/esoui/art/chatwindow/chat_options_up.dds"
+              pressed    ="/esoui/art/chatwindow/chat_options_down.dds"
+              mouseOver  ="/esoui/art/chatwindow/chat_options_over.dds"
+            />
+        </Button>
+
       </Controls>
     </Control>
     <!-- Title Row end-->

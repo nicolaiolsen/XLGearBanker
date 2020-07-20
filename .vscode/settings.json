@@ -142,7 +142,9 @@
         "REGISTER_FILTER_BAG_ID",
         "REGISTER_FILTER_INVENTORY_UPDATE_REASON",
         "INVENTORY_UPDATE_REASON_DEFAULT",
-        "GetGameTimeMilliseconds"
+        "GetGameTimeMilliseconds",
+        "XLGB_Menu",
+        "LibAddonMenu2"
     ],
     "Lua.diagnostics.disable": [
         "lowercase-global",

@@ -12,6 +12,7 @@ function XLGearBanker.OnAddOnLoaded(event, addonName)
       XLGB_Page:Initialize()
       XLGB_Banking:Initialize()
       XLGB_MenuOverWriter:Initialize()
+      XLGB_Settings:Initialize()
       XLGB_UI:Initialize()
     end
 end

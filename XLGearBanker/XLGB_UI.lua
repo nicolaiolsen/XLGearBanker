@@ -2,6 +2,7 @@ XLGB_UI = {}
 
 local libDialog = LibDialog
 local libSB = LibShifterBox
+local LAM = LibAddonMenu2
 local ui = {}
 local sV = {}
 local xl = {}
@@ -22,7 +23,9 @@ local xl = {}
 --------------------------------------------------------------------------------------------
 -- PROGRESS BAR END
 --------------------------------------------------------------------------------------------
-
+function XLGB_UI:ToggleSettings()
+  LAM:OpenToPanel(XLGB_Settings.panel)
+end
 
 function XLGB_UI:XLGB_SetWindow_OnMoveStop()
   sV.setWindow_x = ui.set:GetLeft()
