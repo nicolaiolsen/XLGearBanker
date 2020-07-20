@@ -6,32 +6,35 @@ function XLGB_Settings:Initialize()
   sV = XLGearBanker.savedVariables
 
   local LAM = LibAddonMenu2
+  local menuName = "XL Gear Banker"
 
-    local panelData = {
-        type = "panel",
-        name = "XL Gear Banker",
-        displayName = "XL Gear Banker",
-        author = "@XL_Olsen (PC/EU)",
-        -- version = xlHoF.Colorize(xlHoF.version, "AA00FF"),
-        slashCommand = "/xlgb_settings",
-        registerForRefresh = true,
-        registerForDefaults = true,
-    }
-    XLGB_Settings.panel = LAM:RegisterAddonPanel("XL Gear Banker", panelData)
+  local panelData = {
+      type = "panel",
+      name = menuName,
+      displayName = menuName,
+      author = "@XL_Olsen (PC/EU)",
+      -- version = xlHoF.Colorize(xlHoF.version, "AA00FF"),
+      slashCommand = "/xlgb_settings",
+      registerForRefresh = true,
+      registerForDefaults = true,
+  }
+  XLGB_Settings.panel = LAM:RegisterAddonPanel(menuName, panelData)
 
-    local optionsTable = {}
+  local optionsTable = {}
 
-    table.insert(optionsTable, {
-        type    = "checkbox",
-        name    = "Enable safe mode",
-        tooltip = "Safely move items with a delay depended on server load.",
-        getFunc = function() return sV.safeMode end,
-        setFunc = function(v)
-                    sV.safeMode = v
-                end,
-        width   = "full",
-        warning = "Turning safe mode off can result in a server boot if you spam deposit/withdraw.\nSafe mode is automatically enabled upon depositing/withdrawing sets/pages with more than 70 items."
-    })
+  table.insert(optionsTable, {
+      type    = "checkbox",
+      name    = "Enable safe mode",
+      tooltip = "Safely move items with a delay depended on server load.",
+      getFunc = function() return sV.safeMode end,
+      setFunc = function(v)
+                  sV.safeMode = v
+              end,
+      width   = "full",
+      warning = "Turning safe mode off can result in a server boot if you spam deposit/withdraw.\nSafe mode is automatically enabled upon depositing/withdrawing sets/pages with more than 70 items."
+  })
+
+  LAM:RegisterOptionControls(menuName, optionsTable)
 
 end
 
