@@ -408,6 +408,7 @@ local function InitPageWindowTooltips()
   CreatePageTooltip(ui.page.pageRow.accept, "Accept changes")
   CreatePageTooltip(ui.page.pageRow.addRemovePage, "Create new page", "Remove current page")
   CreatePageTooltip(ui.page.shifterRow.setEditor, "Toggle the Set Editor")
+  CreatePageTooltip(ui.page.titleRow.settings, "Settings")
 end
 
 function XLGB_UI:SelectPage(pageNumber)
@@ -560,6 +561,7 @@ local function InitUIPageVariables()
 
   ui.page.titleRow                = XLGB_PageWindow_TitleRow
   ui.page.titleRow.title          = XLGB_PageWindow_TitleRow_Title
+  ui.page.titleRow.settings       = XLGB_PageWindow_TitleRow_Settings
 
   ui.page.pageRow                 = XLGB_PageWindow_PageRow
   ui.page.pageRow.edit            = XLGB_PageWindow_PageRow_EditPage

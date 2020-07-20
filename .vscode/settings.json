@@ -144,7 +144,9 @@
         "INVENTORY_UPDATE_REASON_DEFAULT",
         "GetGameTimeMilliseconds",
         "XLGB_Menu",
-        "LibAddonMenu2"
+        "LibAddonMenu2",
+        "XLGB_SetWindow_TitleRow_Settings",
+        "XLGB_PageWindow_TitleRow_Settings"
     ],
     "Lua.diagnostics.disable": [
         "lowercase-global",
