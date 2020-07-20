@@ -20,7 +20,7 @@ local xl = {}
 function XLGB_UI:OnWithdrawPageStart(pageName)
   local p = ui.progress
   p.x = 0
-  p.y = XLGB_Page:GetNumberOfPages()
+  p.y = #XLGB_Page:GetSetsInPage(pageName)
   p.titleRow.title:SetText("Withdrawing page '|cffecbc" .. pageName .. "|r'")
 
   p:SetHidden(false)
@@ -29,7 +29,7 @@ end
 
 local function setProgressBar(x, y)
   local p = ui.progress
-  local calculateOffSet = -(360  * (1 - (p.x / p.y) /100))
+  local calculateOffSet = -(360  * (1 - (x / y)))
   p.progressRow.bar:ClearAnchors()
   p.progressRow.bar:SetAnchor(TOPLEFT, p.progressRow.barBG, TOPLEFT, 0, 0)
   p.progressRow.bar:SetAnchor(BOTTOMRIGHT, p.progressRow.barBG, BOTTOMRIGHT, calculateOffSet, 0)
