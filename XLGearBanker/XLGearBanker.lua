@@ -2,7 +2,12 @@
 XLGearBanker = {}
 
 XLGearBanker.name = "XLGearBanker"
-local sV
+
+-- Default settings.
+XLGearBanker.savedVariables = {
+  safeMode = true,
+  debug = false,
+}
 
 function XLGearBanker.OnAddOnLoaded(event, addonName)
     if addonName == XLGearBanker.name then
@@ -24,11 +29,8 @@ function easyDebug(...)
 end
 
 function XLGearBanker:Initialize()
-  self.debug = false
-  self.savedVariables = ZO_SavedVars:NewAccountWide("XLGearBankerSavedVariables", 1, nil, {})
-  sV = self.savedVariables
-  sV.debug = sV.debug or false
-  sV.safeMode = sV.safeMode or true
+  self.savedVariables = ZO_SavedVars:NewAccountWide("XLGearBankerSavedVariables", 1, nil, XLGearBanker.savedVariables)
+  sV = XLGearBanker.savedVariables
 end
 
 EVENT_MANAGER:RegisterForEvent(XLGearBanker.name, EVENT_ADD_ON_LOADED, XLGearBanker.OnAddOnLoaded)
