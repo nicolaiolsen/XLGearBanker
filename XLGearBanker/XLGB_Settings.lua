@@ -25,7 +25,7 @@ function XLGB_Settings:Initialize()
   table.insert(optionsTable, {
       type    = "checkbox",
       name    = "Enable safe mode",
-      tooltip = "Safely move items with a delay depended on server load.",
+      tooltip = "Safely move items with a server load depended delay.",
       getFunc = function() return sV.safeMode end,
       setFunc = function(v)
                   sV.safeMode = v
