@@ -556,7 +556,7 @@
   <Anchor point="TOPLEFT" relativeTo="GUI_ROOT" relativePoint="TOPLEFT" offsetX="0" offsetY="0" />
   <Anchor point="BOTTOMRIGHT" relativeTo="GUI_ROOT" relativePoint="BOTTOMRIGHT" offsetX="0" offsetY="0" />
   <Controls>
-    <Backdrop name="$(parent)_" centerColor="000000" edgeColor="00000000" layer="DL_OVERLAY" tier="DT_MEDIUM" level="10" alpha="0.4"> 
+    <Backdrop name="$(parent)_BG" centerColor="000000" edgeColor="00000000" layer="DL_OVERLAY" tier="DT_MEDIUM" level="10" alpha="1"> 
           <AnchorFill/>
           <Edge edgeSize="1" />
     </Backdrop>
