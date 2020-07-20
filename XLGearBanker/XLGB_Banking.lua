@@ -404,7 +404,7 @@ function XLGB_Banking:WithdrawSet(gearSetName)
 end
 
 function XLGB_Banking:CalculateAndSetDelay(itemAmount)
-  local delay = itemAmount - 60
+  local delay = itemAmount - 40
   if delay < 0 then
     XLGB_Banking.itemMoveDelay = 0
   else
