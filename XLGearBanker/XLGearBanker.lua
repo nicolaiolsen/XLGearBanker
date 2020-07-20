@@ -60,31 +60,12 @@ end
 
 SLASH_COMMANDS["/xlgb_overlay"] = function (argsv)
   XLGB_GreyOverlay:SetHidden(not XLGB_GreyOverlay:IsHidden())
+  XLGB_ProgressWindow:SetHidden(not XLGB_ProgressWindow:IsHidden())
 end
 
 SLASH_COMMANDS["/xlgb_help"] = function (argsv)
   d("[XLGB] Commands")
   d("\'/xlgb_debug\': Toggles debug mode. (Note: quite verbose)")
-end
-
-SLASH_COMMANDS["/xlgb_event"] = function (argsv)
-  local function _onInventoryChanged(eventCode, bagId, slotIndex, isNewItem, itemSoundCategory, updateReason, stackCountChange)
-    local link = GetItemLink(bagId, slotIndex)
-    d("Picked up a " .. link .. ".")
-  end
-  XLGearBanker.eventActive = XLGearBanker.eventActive or false
-  if XLGearBanker.eventActive then
-    d("Unregistering for event!")
-    XLGearBanker.eventActive = false
-    EVENT_MANAGER:UnregisterForEvent(XLGearBanker.name .. "InventoryChanged", EVENT_INVENTORY_SINGLE_SLOT_UPDATE)
-  else
-    d("Registering for event!")
-    EVENT_MANAGER:RegisterForEvent(XLGearBanker.name .. "InventoryChanged", EVENT_INVENTORY_SINGLE_SLOT_UPDATE, _onInventoryChanged)
-    EVENT_MANAGER:AddFilterForEvent(XLGearBanker.name .. "InventoryChanged", EVENT_INVENTORY_SINGLE_SLOT_UPDATE, REGISTER_FILTER_IS_NEW_ITEM, false)
-    EVENT_MANAGER:AddFilterForEvent(XLGearBanker.name .. "InventoryChanged", EVENT_INVENTORY_SINGLE_SLOT_UPDATE, REGISTER_FILTER_BAG_ID, BAG_BACKPACK)
-    EVENT_MANAGER:AddFilterForEvent(XLGearBanker.name .. "InventoryChanged", EVENT_INVENTORY_SINGLE_SLOT_UPDATE, REGISTER_FILTER_INVENTORY_UPDATE_REASON, INVENTORY_UPDATE_REASON_DEFAULT)
-    XLGearBanker.eventActive = true
-  end
 end
 
 SLASH_COMMANDS["/xlgb"] = function () XLGB_UI.TogglePageUI() end
