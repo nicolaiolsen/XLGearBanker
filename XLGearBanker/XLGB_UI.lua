@@ -1033,6 +1033,8 @@ function XLGB_UI:Initialize()
   xl.itemChanges = false
   xl.nameChanges = false
 
+  InitUIProgressVariables()
+
   InitUISetVariables()
   InitSetWindowTooltips()
 
@@ -1040,6 +1042,8 @@ function XLGB_UI:Initialize()
   InitPageWindowTooltips()
 
   XLGB_UI:RestorePosition()
+
+
 
   XLGB_UI:InitializeSetScrollList()
   XLGB_UI:InitializeSetDropdown()
