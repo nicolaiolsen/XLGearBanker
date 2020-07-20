@@ -222,6 +222,7 @@ function XLGB_Page:WithdrawPage(pageName)
     if XLGB_Banking.isMovingItems then return end
     d("[XLGB] Withdrawing Page '" .. pageName .. "' [" .. tostring(nextIndex) .. "/" .. tostring(#page.sets) .. "] - " .. page.sets[nextIndex])
     XLGB_Banking:WithdrawSet(page.sets[nextIndex])
+    XLGB_Events:OnPageWithdrawNextSet(page.sets[nextIndex])
     nextIndex = nextIndex + 1
   end
 

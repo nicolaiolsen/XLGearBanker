@@ -28,6 +28,10 @@ function XLGB_Events:OnWithdrawPageStart(pageName)
   XLGB_UI:OnWithdrawPageStart(pageName)
 end
 
+function XLGB_Events:OnPageWithdrawNextSet(nextSetName)
+  XLGB_UI:OnPageWithdrawNextSet(nextSetName)
+end
+
 function XLGB_Events:OnWithdrawPageStop()
   XLGB_UI:OnWithdrawPageStop()
 end

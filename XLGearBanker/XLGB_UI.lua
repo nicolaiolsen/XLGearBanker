@@ -19,10 +19,29 @@ local xl = {}
 --------------------------------------------------------------------------------------------
 function XLGB_UI:OnWithdrawPageStart(pageName)
   local p = ui.progress
+  p.x = 0
+  p.y = XLGB_Page:GetNumberOfPages()
   p.titleRow.title:SetText("Withdrawing page '|cffecbc" .. pageName .. "|r'")
 
   p:SetHidden(false)
   p.overlay:SetHidden(false)
+end
+
+local function setProgressBar(x, y)
+  local p = ui.progress
+  local calculateOffSet = -(360  * (1 - (p.x / p.y) /100))
+  p.progressRow.bar:ClearAnchors()
+  p.progressRow.bar:SetAnchor(TOPLEFT, p.progressRow.barBG, TOPLEFT, 0, 0)
+  p.progressRow.bar:SetAnchor(BOTTOMRIGHT, p.progressRow.barBG, BOTTOMRIGHT, calculateOffSet, 0)
+end
+
+function XLGB_UI:OnPageWithdrawNextSet(nextSetName)
+  local p = ui.progress
+  p.x = p.x + 1
+  p.progressRow.xOfY:SetText("[" .. tostring(p.x) .. "/" .. tostring(p.y) .. "]")
+  setProgressBar(p.x, p.y)
+  p.setRow.setInfo:SetText("Withdrawing set '|cffecbc" .. nextSetName .. "|r'")
+
 end
 
 function XLGB_UI:OnWithdrawPageStop()
