@@ -47,7 +47,7 @@ end
 
 local function setBagSpace(bagSpaceLeft)
   local p = ui.progress
-  local itemsInBag = p.bagSize - getBagUsableSize(p.bag)
+  local itemsInBag = p.bagSize - getBagUseableSize(p.bag)
   p.infoRow.bagSpace:SetText(p.bagIcon .. "(" .. tostring(itemsInBag) .. "/" .. tostring(p.bagSize) .. ")")
 end
 
