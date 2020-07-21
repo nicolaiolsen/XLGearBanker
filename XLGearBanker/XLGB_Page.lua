@@ -176,6 +176,7 @@ function XLGB_Page:DepositPage(pageName)
     if XLGB_Banking.isMovingItems then return end
     d("[XLGB] Depositing Page '" .. pageName .. "' [" .. tostring(nextIndex) .. "/" .. tostring(#page.sets) .. "] - " .. page.sets[nextIndex])
     XLGB_Banking:DepositSet(page.sets[nextIndex])
+    XLGB_Events:OnPageDepositNextSet(page.sets[nextIndex])
     nextIndex = nextIndex + 1
   end
 

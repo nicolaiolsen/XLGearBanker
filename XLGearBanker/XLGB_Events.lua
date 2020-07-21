@@ -24,6 +24,7 @@ function XLGB_Events:OnPageSort(preSortList)
   XLGB_UI:OnPageSort(preSortList)
 end
 
+----
 function XLGB_Events:OnWithdrawPageStart(pageName)
   XLGB_UI:OnWithdrawPageStart(pageName)
 end
@@ -35,12 +36,21 @@ end
 function XLGB_Events:OnWithdrawPageStop()
   XLGB_UI:OnWithdrawPageStop()
 end
+----
 
+----
 function XLGB_Events:OnDepositPageStart(pageName)
+  XLGB_UI:OnDepositPageStart(pageName)
+end
+
+function XLGB_Events:OnPageWithdrawNextSet(nextSetName)
+  XLGB_UI:OnPageWithdrawNextSet(nextSetName)
 end
 
 function XLGB_Events:OnDepositPageStop()
+  XLGB_UI:OnDepositPageStop()
 end
+----
 
 function XLGB_Events:OnMoveItem(targetBag, itemsLeft, bagSpaceLeft)
   XLGB_UI:OnMoveItem(targetBag, itemsLeft, bagSpaceLeft)

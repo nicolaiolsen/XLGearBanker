@@ -25,19 +25,6 @@ local function getBagSize(bag)
   end
 end
 
-function XLGB_UI:OnWithdrawPageStart(pageName)
-  local p = ui.progress
-  p.x = 0
-  p.y = #XLGB_Page:GetSetsInPage(pageName)
-  p.titleRow.title:SetText("Withdrawing page '|cffecbc" .. pageName .. "|r'")
-
-  p.bagIcon = "|t32:32:/esoui/art/tooltips/icon_bank.dds|t"
-  p.bagSize = getBagSize(XLGB_Banking.currentBankBag)
-
-  p:SetHidden(false)
-  p.overlay:SetHidden(false)
-end
-
 local function setProgressBar(current, total)
   local p = ui.progress
   local calculateOffSet = -(360  * (1 - (current / total)))
@@ -61,13 +48,25 @@ function XLGB_UI:OnMoveItem(targetBag, itemsLeft, bagSpaceLeft)
   setBagSpace(bagSpaceLeft)
 end
 
+function XLGB_UI:OnWithdrawPageStart(pageName)
+  local p = ui.progress
+  p.x = 0
+  p.y = #XLGB_Page:GetSetsInPage(pageName)
+  p.titleRow.title:SetText("Withdrawing page '|cffecbc" .. pageName .. "|r'")
+
+  p.bagIcon = "|t32:32:/esoui/art/tooltips/icon_bank.dds|t"
+  p.bagSize = getBagSize(XLGB_Banking.currentBankBag)
+
+  p:SetHidden(false)
+  p.overlay:SetHidden(false)
+end
+
 function XLGB_UI:OnPageWithdrawNextSet(nextSetName)
   local p = ui.progress
   p.x = p.x + 1
   p.progressRow.xOfY:SetText("[" .. tostring(p.x) .. "/" .. tostring(p.y) .. "]")
   setProgressBar(p.x, p.y)
   p.setRow.setInfo:SetText("Withdrawing set '|cffecbc" .. nextSetName .. "|r'")
-  -- setInfoRowItemsInSet()
 end
 
 function XLGB_UI:OnWithdrawPageStop()
@@ -78,10 +77,23 @@ end
 
 function XLGB_UI:OnDepositPageStart(pageName)
   local p = ui.progress
+  p.x = 0
+  p.y = #XLGB_Page:GetSetsInPage(pageName)
   p.titleRow.title:SetText("Depositing page '|cffecbc" .. pageName .. "|r'")
+
+  p.bagIcon = "|t32:32:/esoui/art/tooltips/icon_bag.dds|t"
+  p.bagSize = getBagSize(BAG_BACKPACK)
 
   p:SetHidden(false)
   p.overlay:SetHidden(false)
+end
+
+function XLGB_UI:OnPageDepositNextSet(nextSetName)
+  local p = ui.progress
+  p.x = p.x + 1
+  p.progressRow.xOfY:SetText("[" .. tostring(p.x) .. "/" .. tostring(p.y) .. "]")
+  setProgressBar(p.x, p.y)
+  p.setRow.setInfo:SetText("Depositing set '|cffecbc" .. nextSetName .. "|r'")
 end
 
 function XLGB_UI:OnDepositPageStop()
