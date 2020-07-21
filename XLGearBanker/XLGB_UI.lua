@@ -43,6 +43,27 @@ local function setBagSpace(bagSpaceLeft)
   p.infoRow.bagSpace:SetText(p.bagIcon .. "(" .. tostring(itemsInBag) .. "/" .. tostring(p.bagSize) .. ")")
 end
 
+local function defaultSetRowInfo()
+  local p = ui.progress
+  p.infoRow.setSize:SetText("|t52:56:/esoui/art/tradinghouse/tradinghouse_apparel_chest_up.dds|t|t32:32:/esoui/art/chatwindow/chat_overflowarrow_up.dds|t")
+  p.infoRow:SetText(p.bagIcon)
+end
+
+local function updateProgressBar(nextSetName, pretext)
+  local p = ui.progress
+  p.x = p.x + 1
+  p.progressRow.xOfY:SetText("[" .. tostring(p.x) .. "/" .. tostring(p.y) .. "]")
+  setProgressBar(p.x, p.y)
+  defaultSetRowInfo()
+  p.setRow.setInfo:SetText(pretext .. " set '|cffecbc" .. nextSetName .. "|r'")
+end
+
+local function hideProgress()
+  local p = ui.progress
+  p:SetHidden(true)
+  p.overlay:SetHidden(true)
+end
+
 function XLGB_UI:OnMoveItem(targetBag, itemsLeft, bagSpaceLeft)
   setInfoRowItemsInSet(itemsLeft)
   setBagSpace(bagSpaceLeft)
@@ -56,24 +77,18 @@ function XLGB_UI:OnPageWithdrawStart(pageName)
 
   p.bagIcon = "|t32:32:/esoui/art/tooltips/icon_bank.dds|t"
   p.bagSize = getBagSize(XLGB_Banking.currentBankBag)
-  XLGB_UI:OnMoveItem(BAG_BANK, 0, p.bagSize)
+  defaultSetRowInfo()
 
   p:SetHidden(false)
   p.overlay:SetHidden(false)
 end
 
 function XLGB_UI:OnPageWithdrawNextSet(nextSetName)
-  local p = ui.progress
-  p.x = p.x + 1
-  p.progressRow.xOfY:SetText("[" .. tostring(p.x) .. "/" .. tostring(p.y) .. "]")
-  setProgressBar(p.x, p.y)
-  p.setRow.setInfo:SetText("Withdrawing set '|cffecbc" .. nextSetName .. "|r'")
+  updateProgressBar(nextSetName, "Withdrawing")
 end
 
 function XLGB_UI:OnPageWithdrawStop()
-  local p = ui.progress
-  p:SetHidden(true)
-  p.overlay:SetHidden(true)
+  hideProgress()
 end
 
 function XLGB_UI:OnPageDepositStart(pageName)
@@ -84,24 +99,18 @@ function XLGB_UI:OnPageDepositStart(pageName)
 
   p.bagIcon = "|t32:32:/esoui/art/tooltips/icon_bag.dds|t"
   p.bagSize = getBagSize(BAG_BACKPACK)
-  XLGB_UI:OnMoveItem(BAG_BACKPACK, 0, p.bagSize)
+  defaultSetRowInfo()
 
   p:SetHidden(false)
   p.overlay:SetHidden(false)
 end
 
 function XLGB_UI:OnPageDepositNextSet(nextSetName)
-  local p = ui.progress
-  p.x = p.x + 1
-  p.progressRow.xOfY:SetText("[" .. tostring(p.x) .. "/" .. tostring(p.y) .. "]")
-  setProgressBar(p.x, p.y)
-  p.setRow.setInfo:SetText("Depositing set '|cffecbc" .. nextSetName .. "|r'")
+  updateProgressBar(nextSetName, "Depositing")
 end
 
 function XLGB_UI:OnPageDepositStop()
-  local p = ui.progress
-  p:SetHidden(true)
-  p.overlay:SetHidden(true)
+  hideProgress()
 end
 
 local function InitUIProgressVariables()
