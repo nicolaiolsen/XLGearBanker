@@ -83,8 +83,8 @@ function XLGB_UI:OnPageWithdrawStart(pageName)
   p.y = #XLGB_Page:GetSetsInPage(pageName)
   p.titleRow.title:SetText("Withdrawing page '|cffecbc" .. pageName .. "|r'")
 
-  p.bag     = XLGB_Banking.currentBankBag
-  p.bagIcon = "|t32:32:/esoui/art/tooltips/icon_bank.dds|t"
+  p.bag     = BAG_BACKPACK
+  p.bagIcon = "|t32:32:/esoui/art/tooltips/icon_bag.dds|t"
   p.bagSize = getBagSize(p.bag)
   defaultSetRowInfo()
 
@@ -106,8 +106,8 @@ function XLGB_UI:OnPageDepositStart(pageName)
   p.y = #XLGB_Page:GetSetsInPage(pageName)
   p.titleRow.title:SetText("Depositing page '|cffecbc" .. pageName .. "|r'")
 
-  p.bag     = BAG_BACKPACK
-  p.bagIcon = "|t32:32:/esoui/art/tooltips/icon_bag.dds|t"
+  p.bag     = XLGB_Banking.currentBankBag
+  p.bagIcon = "|t32:32:/esoui/art/tooltips/icon_bank.dds|t"
   p.bagSize = getBagSize(p.bag)
   defaultSetRowInfo()
 
