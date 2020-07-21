@@ -25,11 +25,11 @@ local function getBagSize(bag)
   end
 end
 
-local function getBagUsableSize(bag)
+local function getBagUseableSize(bag)
   if bag == BAG_BANK or bag == BAG_SUBSCRIBER_BANK then
-    return GetBagUsableSize(BAG_BANK) + GetBagUsableSize(BAG_SUBSCRIBER_BANK)
+    return GetBagUseableSize(BAG_BANK) + GetBagUseableSize(BAG_SUBSCRIBER_BANK)
   else
-    return GetBagUsableSize(bag)
+    return GetBagUseableSize(bag)
   end
 end
 

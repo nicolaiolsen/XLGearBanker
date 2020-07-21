@@ -162,7 +162,8 @@
         "XLGB_ProgressWindow_SetRow_SetInfo",
         "XLGB_ProgressWindow_CancelRow",
         "XLGB_ProgressWindow_CancelRow_Cancel",
-        "GetBagUsableSize"
+        "GetBagUsableSize",
+        "GetBagUseableSize"
     ],
     "Lua.diagnostics.disable": [
         "lowercase-global",
