@@ -143,7 +143,7 @@ function XLGB_Page:DepositPage(pageName)
   if XLGB_Banking.isMovingItems then return end
   XLGB_Banking.isMoveCancelled = false
   XLGB_Page.isMovingPage = true
-  XLGB_Events:OnDepositPageStart(pageName)
+  XLGB_Events:OnPageDepositStart(pageName)
   local time = GetGameTimeMilliseconds()
 
   local page = XLGB_Page:GetPage(pageName)
@@ -163,7 +163,7 @@ function XLGB_Page:DepositPage(pageName)
     end
     XLGB_Page.isMovingPage = false
     sV.safeMode = safeModeBefore
-    XLGB_Events:OnDepositPageStop(pageName)
+    XLGB_Events:OnPageDepositStop(pageName)
     EVENT_MANAGER:UnregisterForUpdate(XLGearBanker.name .. "WaitLastSetFinish")
   end
   
@@ -189,7 +189,7 @@ function XLGB_Page:WithdrawPage(pageName)
   if XLGB_Banking.isMovingItems or XLGB_Page.isMovingPage then return end
   XLGB_Banking.isMoveCancelled = false
   XLGB_Page.isMovingPage = true
-  XLGB_Events:OnWithdrawPageStart(pageName)
+  XLGB_Events:OnPageWithdrawStart(pageName)
   local time = GetGameTimeMilliseconds()
 
   local page = XLGB_Page:GetPage(pageName)
@@ -209,7 +209,7 @@ function XLGB_Page:WithdrawPage(pageName)
     end
     XLGB_Page.isMovingPage = false
     sV.safeMode = safeModeBefore
-    XLGB_Events:OnWithdrawPageStop(pageName)
+    XLGB_Events:OnPageWithdrawStop(pageName)
     EVENT_MANAGER:UnregisterForUpdate(XLGearBanker.name .. "WaitLastSetFinish")
   end
 

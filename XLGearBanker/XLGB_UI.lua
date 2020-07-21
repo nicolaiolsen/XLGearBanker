@@ -48,7 +48,7 @@ function XLGB_UI:OnMoveItem(targetBag, itemsLeft, bagSpaceLeft)
   setBagSpace(bagSpaceLeft)
 end
 
-function XLGB_UI:OnWithdrawPageStart(pageName)
+function XLGB_UI:OnPageWithdrawStart(pageName)
   local p = ui.progress
   p.x = 0
   p.y = #XLGB_Page:GetSetsInPage(pageName)
@@ -69,13 +69,13 @@ function XLGB_UI:OnPageWithdrawNextSet(nextSetName)
   p.setRow.setInfo:SetText("Withdrawing set '|cffecbc" .. nextSetName .. "|r'")
 end
 
-function XLGB_UI:OnWithdrawPageStop()
+function XLGB_UI:OnPageWithdrawStop()
   local p = ui.progress
   p:SetHidden(true)
   p.overlay:SetHidden(true)
 end
 
-function XLGB_UI:OnDepositPageStart(pageName)
+function XLGB_UI:OnPageDepositStart(pageName)
   local p = ui.progress
   p.x = 0
   p.y = #XLGB_Page:GetSetsInPage(pageName)
@@ -96,7 +96,7 @@ function XLGB_UI:OnPageDepositNextSet(nextSetName)
   p.setRow.setInfo:SetText("Depositing set '|cffecbc" .. nextSetName .. "|r'")
 end
 
-function XLGB_UI:OnDepositPageStop()
+function XLGB_UI:OnPageDepositStop()
   local p = ui.progress
   p:SetHidden(true)
   p.overlay:SetHidden(true)
