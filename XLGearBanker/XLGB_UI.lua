@@ -25,11 +25,11 @@ local function getBagSize(bag)
   end
 end
 
-local function getBagUseableSize(bag)
+local function getNumBagUsedSlots(bag)
   if bag == BAG_BANK or bag == BAG_SUBSCRIBER_BANK then
-    return GetBagUseableSize(BAG_BANK) + GetBagUseableSize(BAG_SUBSCRIBER_BANK)
+    return GetNumBagUsedSlots(BAG_BANK) + GetNumBagUsedSlots(BAG_SUBSCRIBER_BANK)
   else
-    return GetBagUseableSize(bag)
+    return GetNumBagUsedSlots(bag)
   end
 end
 
@@ -45,10 +45,10 @@ local function setInfoRowItemsInSet(itemsRemaining)
   ui.progress.infoRow.setSize:SetText("|t52:56:/esoui/art/tradinghouse/tradinghouse_apparel_chest_up.dds|t(" .. tostring(itemsRemaining) .. ") |t32:32:/esoui/art/chatwindow/chat_overflowarrow_up.dds|t")
 end
 
-local function setBagSpace(bagSpaceLeft)
+local function setBagSpace()
   local p = ui.progress
-  local itemsInBag = p.bagSize - getBagUseableSize(p.bag)
-  p.infoRow.bagSpace:SetText(p.bagIcon .. "(" .. tostring(itemsInBag) .. "/" .. tostring(p.bagSize) .. ")")
+  local usedSlots = getNumBagUsedSlots(p.bag)
+  p.infoRow.bagSpace:SetText(p.bagIcon .. "(" .. tostring(usedSlots) .. "/" .. tostring(p.bagSize) .. ")")
 end
 
 local function defaultSetRowInfo()
@@ -72,9 +72,9 @@ local function hideProgress()
   p.overlay:SetHidden(true)
 end
 
-function XLGB_UI:OnMoveItem(targetBag, itemsLeft, bagSpaceLeft)
+function XLGB_UI:OnMoveItem(targetBag, itemsLeft)
   setInfoRowItemsInSet(itemsLeft)
-  setBagSpace(bagSpaceLeft)
+  setBagSpace()
 end
 
 function XLGB_UI:OnPageWithdrawStart(pageName)
