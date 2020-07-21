@@ -17,31 +17,48 @@ local xl = {}
 --
 --
 --------------------------------------------------------------------------------------------
+local function getBagSize(bag)
+  if bag == BAG_BANK or bag == BAG_SUBSCRIBER_BANK then
+    return GetBagSize(BAG_BANK) + GetBagSize(BAG_SUBSCRIBER_BANK)
+  else
+    return GetBagSize(bag)
+  end
+end
+
 function XLGB_UI:OnWithdrawPageStart(pageName)
   local p = ui.progress
   p.x = 0
   p.y = #XLGB_Page:GetSetsInPage(pageName)
   p.titleRow.title:SetText("Withdrawing page '|cffecbc" .. pageName .. "|r'")
 
+  p.bagIcon = "|t32:32:/esoui/art/tooltips/icon_bank.dds|t"
+  p.bagSize = getBagSize(XLGB_Banking.currentBankBag)
+
   p:SetHidden(false)
   p.overlay:SetHidden(false)
 end
 
-local function setProgressBar(x, y)
+local function setProgressBar(current, total)
   local p = ui.progress
-  local calculateOffSet = -(360  * (1 - (x / y)))
+  local calculateOffSet = -(360  * (1 - (current / total)))
   p.progressRow.bar:ClearAnchors()
   p.progressRow.bar:SetAnchor(TOPLEFT, p.progressRow.barBG, TOPLEFT, 0, 0)
   p.progressRow.bar:SetAnchor(BOTTOMRIGHT, p.progressRow.barBG, BOTTOMRIGHT, calculateOffSet, 0)
 end
 
-local function setInfoRowItemsInSet(itemsInSet)
-  ui.progress.infoRow.setSize:SetText("|t52:56:/esoui/art/tradinghouse/tradinghouse_apparel_chest_up.dds|t(" .. tostring(itemsInSet) .. ") |t32:32:/esoui/art/chatwindow/chat_overflowarrow_up.dds|t")
+local function setInfoRowItemsInSet(itemsRemaining)
+  ui.progress.infoRow.setSize:SetText("|t52:56:/esoui/art/tradinghouse/tradinghouse_apparel_chest_up.dds|t(" .. tostring(itemsRemaining) .. ") |t32:32:/esoui/art/chatwindow/chat_overflowarrow_up.dds|t")
 end
 
-local function setBagSpaceWithdraw()
-  -- GetBagSize()
-  ui.progress.infoRow.bagSpace:SetText("|t32:32:/esoui/art/tooltips/icon_bank.dds|t(124/158)")
+local function setBagSpace(bagSpaceLeft)
+  local p = ui.progress
+  local itemsInBag = p.bagSize - bagSpaceLeft
+  p.infoRow.bagSpace:SetText(p.bagIcon .. "(" .. tostring(itemsInBag) .. "/" .. tostring(p.bagSize) .. ")")
+end
+
+function XLGB_UI:OnMoveItem(targetBag, itemsLeft, bagSpaceLeft)
+  setInfoRowItemsInSet(itemsLeft)
+  setBagSpace(bagSpaceLeft)
 end
 
 function XLGB_UI:OnPageWithdrawNextSet(nextSetName)

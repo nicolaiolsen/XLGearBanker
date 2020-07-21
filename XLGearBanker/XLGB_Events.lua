@@ -42,3 +42,8 @@ end
 function XLGB_Events:OnDepositPageStop()
 end
 
+function XLGB_Events:OnMoveItem(targetBag, itemsLeft, bagSpaceLeft)
+  XLGB_UI:OnMoveItem(targetBag, itemsLeft, bagSpaceLeft)
+end
+
+

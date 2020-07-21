@@ -199,7 +199,11 @@ local function moveGearFromTwoBags(sourceBagOne, itemsToMoveOne, sourceBagTwo, i
       end
     end
     -- d("(".. tostring(sourceBag) .. ") Moving item [" .. tostring(nextIndex) .. "/" .. tostring(#itemsToMove) .. "]")
+    
     moveItem(sourceBag, itemsToMove[nextIndex].index, targetBag, availableBagSpaces[nextIndex + availableSpaceOffset])
+    local itemsLeft = #itemsToMove - nextIndex
+    local bagSpaceLeft = #availableBagSpaces - (nextIndex + availableSpaceOffset)
+    XLGB_Events:OnMoveItem(targetBag, itemsLeft, bagSpaceLeft)
     nextIndex = nextIndex + 1
   end
 
