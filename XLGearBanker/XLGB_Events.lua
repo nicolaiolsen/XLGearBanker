@@ -43,8 +43,8 @@ function XLGB_Events:OnDepositPageStart(pageName)
   XLGB_UI:OnDepositPageStart(pageName)
 end
 
-function XLGB_Events:OnPageWithdrawNextSet(nextSetName)
-  XLGB_UI:OnPageWithdrawNextSet(nextSetName)
+function XLGB_Events:OnPageDepositNextSet(nextSetName)
+  XLGB_UI:OnPageDepositNextSet(nextSetName)
 end
 
 function XLGB_Events:OnDepositPageStop()
