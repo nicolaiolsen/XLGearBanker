@@ -25,6 +25,14 @@ local function getBagSize(bag)
   end
 end
 
+local function getBagUsableSize(bag)
+  if bag == BAG_BANK or bag == BAG_SUBSCRIBER_BANK then
+    return GetBagUsableSize(BAG_BANK) + GetBagUsableSize(BAG_SUBSCRIBER_BANK)
+  else
+    return GetBagUsableSize(bag)
+  end
+end
+
 local function setProgressBar(current, total)
   local p = ui.progress
   local calculateOffSet = -(360  * (1 - (current / total)))
@@ -39,7 +47,7 @@ end
 
 local function setBagSpace(bagSpaceLeft)
   local p = ui.progress
-  local itemsInBag = p.bagSize - bagSpaceLeft
+  local itemsInBag = p.bagSize - getBagUsableSize(p.bag)
   p.infoRow.bagSpace:SetText(p.bagIcon .. "(" .. tostring(itemsInBag) .. "/" .. tostring(p.bagSize) .. ")")
 end
 
@@ -75,8 +83,9 @@ function XLGB_UI:OnPageWithdrawStart(pageName)
   p.y = #XLGB_Page:GetSetsInPage(pageName)
   p.titleRow.title:SetText("Withdrawing page '|cffecbc" .. pageName .. "|r'")
 
+  p.bag     = XLGB_Banking.currentBankBag
   p.bagIcon = "|t32:32:/esoui/art/tooltips/icon_bank.dds|t"
-  p.bagSize = getBagSize(XLGB_Banking.currentBankBag)
+  p.bagSize = getBagSize(p.bag)
   defaultSetRowInfo()
 
   p:SetHidden(false)
@@ -97,8 +106,9 @@ function XLGB_UI:OnPageDepositStart(pageName)
   p.y = #XLGB_Page:GetSetsInPage(pageName)
   p.titleRow.title:SetText("Depositing page '|cffecbc" .. pageName .. "|r'")
 
+  p.bag     = BAG_BACKPACK
   p.bagIcon = "|t32:32:/esoui/art/tooltips/icon_bag.dds|t"
-  p.bagSize = getBagSize(BAG_BACKPACK)
+  p.bagSize = getBagSize(p.bag)
   defaultSetRowInfo()
 
   p:SetHidden(false)
