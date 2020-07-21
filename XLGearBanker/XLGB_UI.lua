@@ -56,6 +56,7 @@ function XLGB_UI:OnPageWithdrawStart(pageName)
 
   p.bagIcon = "|t32:32:/esoui/art/tooltips/icon_bank.dds|t"
   p.bagSize = getBagSize(XLGB_Banking.currentBankBag)
+  XLGB_UI:OnMoveItem(BAG_BANK, 0, p.bagSize)
 
   p:SetHidden(false)
   p.overlay:SetHidden(false)
@@ -83,6 +84,7 @@ function XLGB_UI:OnPageDepositStart(pageName)
 
   p.bagIcon = "|t32:32:/esoui/art/tooltips/icon_bag.dds|t"
   p.bagSize = getBagSize(BAG_BACKPACK)
+  XLGB_UI:OnMoveItem(BAG_BACKPACK, 0, p.bagSize)
 
   p:SetHidden(false)
   p.overlay:SetHidden(false)
