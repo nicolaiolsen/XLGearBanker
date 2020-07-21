@@ -151,6 +151,9 @@ local function moveGear(sourceBag, itemsToMove, targetBag, availableBagSpaces)
     end
     -- d("(".. tostring(sourceBag) .. ") Moving item [" .. tostring(nextIndex) .. "/" .. tostring(#itemsToMove) .. "]")
     moveItem(sourceBag, itemsToMove[nextIndex].index, targetBag, availableBagSpaces[nextIndex])
+    local itemsLeft = #itemsToMove - nextIndex
+    local bagSpaceLeft = #availableBagSpaces - nextIndex
+    XLGB_Events:OnMoveItem(targetBag, itemsLeft, bagSpaceLeft)
     nextIndex = nextIndex + 1
   end
   if sV.safeMode then
