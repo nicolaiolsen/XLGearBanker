@@ -45,7 +45,7 @@ local function setInfoRowItemsInSet(itemsRemaining)
   ui.progress.infoRow.setSize:SetText("|t52:56:/esoui/art/tradinghouse/tradinghouse_apparel_chest_up.dds|t(" .. tostring(itemsRemaining) .. ") |t32:32:/esoui/art/chatwindow/chat_overflowarrow_up.dds|t")
 end
 
-local function setBagSpace()
+local function updateBagSpace()
   local p = ui.progress
   local usedSlots = getNumBagUsedSlots(p.bag)
   p.infoRow.bagSpace:SetText(p.bagIcon .. "(" .. tostring(usedSlots) .. "/" .. tostring(p.bagSize) .. ")")
@@ -53,8 +53,8 @@ end
 
 local function defaultSetRowInfo()
   local p = ui.progress
-  p.infoRow.setSize:SetText("|t52:56:/esoui/art/tradinghouse/tradinghouse_apparel_chest_up.dds|t|t32:32:/esoui/art/chatwindow/chat_overflowarrow_up.dds|t")
-  p.infoRow.bagSpace:SetText(p.bagIcon)
+  p.infoRow.setSize:SetText("|t52:56:/esoui/art/tradinghouse/tradinghouse_apparel_chest_up.dds|t(0)|t32:32:/esoui/art/chatwindow/chat_overflowarrow_up.dds|t")
+  updateBagSpace()
 end
 
 local function updateProgressBar(nextSetName, pretext)
@@ -74,7 +74,7 @@ end
 
 function XLGB_UI:OnMoveItem(targetBag, itemsLeft)
   setInfoRowItemsInSet(itemsLeft)
-  setBagSpace()
+  updateBagSpace()
 end
 
 function XLGB_UI:OnPageWithdrawStart(pageName)
