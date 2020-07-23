@@ -606,7 +606,7 @@ local function InitPageWindowTooltips()
   CreatePageTooltip(ui.page.pageRow.addRemovePage, "Create new page", "Remove current page")
   CreatePageTooltip(ui.page.shifterRow.setEditor, "Toggle the Set Editor")
   CreatePageTooltip(ui.page.titleRow.settings, "Settings")
-  CreatePageTooltip(ui.page.totalPageItemsRow, "(May contain duplicates)")
+  CreatePageTooltip(ui.page.totalPageItemsRow.text, "(May contain duplicates)")
 end
 
 function XLGB_UI:SelectPage(pageNumber)
