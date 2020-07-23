@@ -48,6 +48,7 @@ function XLGB_Settings:Initialize()
                         end,
             width       = "full",
             warning     = "Higher threshold is more likely to get you kicked from the server!\n\n(Recommended value is 70)",
+            disabled    = function () return sV.safeMode end
         })
 
   LAM:RegisterOptionControls(menuName, optionsTable)
