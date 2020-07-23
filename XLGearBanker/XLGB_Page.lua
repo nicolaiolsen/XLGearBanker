@@ -151,7 +151,7 @@ function XLGB_Page:DepositPage(pageName)
 
   local safeModeBefore = sV.safeMode
 
-  local requiresSafeMode = XLGB_Page:GetAmountOfItemsInPage(pageName) > 70
+  local requiresSafeMode = XLGB_Page:GetAmountOfItemsInPage(pageName) > sV.threshold
   if requiresSafeMode then
     sV.safeMode = true
   end
@@ -197,7 +197,7 @@ function XLGB_Page:WithdrawPage(pageName)
 
   local safeModeBefore = sV.safeMode
 
-  local requiresSafeMode = XLGB_Page:GetAmountOfItemsInPage(pageName) > 70
+  local requiresSafeMode = XLGB_Page:GetAmountOfItemsInPage(pageName) > sV.threshold
   if requiresSafeMode then
     sV.safeMode = true
   end

@@ -470,7 +470,7 @@ local function setEditPageTrue()
   xl.isPageEditable = true
   xl.oldPageName = XLGB_Page:GetPageByIndex(sV.displayingPage).name
 
-  p.titleRow.title:SetText("XL Gear Banker (Edit Mode)")
+  p.titleRow.title:SetText("XL Gear Banker (Edit)")
 
   p.pageRow.page:SetHidden(xl.isPageEditable) -- Hide dropdown
 
@@ -606,6 +606,7 @@ local function InitPageWindowTooltips()
   CreatePageTooltip(ui.page.pageRow.addRemovePage, "Create new page", "Remove current page")
   CreatePageTooltip(ui.page.shifterRow.setEditor, "Toggle the Set Editor")
   CreatePageTooltip(ui.page.titleRow.settings, "Settings")
+  CreatePageTooltip(ui.page.totalPageItemsRow, "(May contain duplicates)")
 end
 
 function XLGB_UI:SelectPage(pageNumber)
@@ -641,6 +642,7 @@ function XLGB_UI:UpdatePageScrollList()
   local p = ui.page
   local scrollData = ZO_ScrollList_GetDataList(p.scrollList)
   ZO_ScrollList_Clear(p.scrollList)
+  local totalItems = 0
   if XLGB_Page:GetNumberOfPages() > 0 then
     local page = XLGB_Page:GetPageByIndex(sV.displayingPage)
     for _, set in pairs(XLGB_Page:GetSetsInPage(page.name)) do
@@ -649,6 +651,7 @@ function XLGB_UI:UpdatePageScrollList()
       })
       table.insert(scrollData, dataEntry)
     end
+    totalItems = XLGB_Page:GetAmountOfItemsInPage(page.name)
     if (#scrollData < 1) and not xl.isPageEditable then
       p.empty:SetHidden(false)
     else
@@ -656,6 +659,7 @@ function XLGB_UI:UpdatePageScrollList()
     end
   end
   ZO_ScrollList_Commit(p.scrollList)
+  p.totalPageItemsRow.text:SetText("Total* items: " .. tostring(totalItems))
 end
 
 function XLGB_UI:WithdrawSet(withdrawControl)
