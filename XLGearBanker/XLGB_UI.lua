@@ -159,6 +159,7 @@ function XLGB_UI:OnSingleSetDepositStart(setName)
   p.bagIcon = "|t32:32:/esoui/art/tooltips/icon_bank.dds|t"
   p.bagSize = getBagSize(p.bag)
   defaultSetRowInfo()
+  updateProgressBar(setName, "Depositing")
 
   p:SetHidden(false)
   p.overlay:SetHidden(false)
