@@ -52,9 +52,7 @@ local function updateBagSpace()
 end
 
 local function defaultSetRowInfo()
-  local p = ui.progress
-  p.infoRow.setSize:SetText("|t52:56:/esoui/art/tradinghouse/tradinghouse_apparel_chest_up.dds|t(0)|t32:32:/esoui/art/chatwindow/chat_overflowarrow_up.dds|t")
-  updateBagSpace()
+  XLGB_UI:OnMoveItem(nil, 0)
 end
 
 local function updateProgressBar(nextSetName, pretext)
