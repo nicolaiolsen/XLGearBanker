@@ -528,7 +528,7 @@
 
         <!-- Safe Mode Label -->
         <Label name="$(parent)_SafeMode" font="ZoFontWinH5" text="Safe mode: |c00ff00ON|r">
-          <Anchor point="LEFT" relativeTo="$(parent)" relativePoint="LEFT" offsetX="32" offsetY="0"  />
+          <Anchor point="LEFT" relativeTo="$(parent)" relativePoint="LEFT" offsetX="0" offsetY="0"  />
         </Label>
 
         <!-- Cancel Button -->
