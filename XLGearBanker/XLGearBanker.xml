@@ -128,7 +128,7 @@
       <Anchor point="BOTTOMRIGHT" relativeTo="$(parent)" relativePoint="BOTTOMRIGHT" offsetX="0" offsetY="-10"/>
       <Controls>
 
-        <Label name="$(parent)_TotalPageItems" font="ZoFontWinT2" text="Total items: 0" linkEnabled="true">
+        <Label name="$(parent)_TotalPageItems" font="ZoFontWinT2" text="Total items*: 0" mouseEnabled="true">
           <Anchor point="TOPLEFT" relativeTo="$(parent)" relativePoint="TOPLEFT" offsetX="20" offsetY="0" />
         </Label>
 

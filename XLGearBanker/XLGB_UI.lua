@@ -659,7 +659,7 @@ function XLGB_UI:UpdatePageScrollList()
     end
   end
   ZO_ScrollList_Commit(p.scrollList)
-  p.totalPageItemsRow.text:SetText("Total* items: " .. tostring(totalItems))
+  p.totalPageItemsRow.text:SetText("Total items*: " .. tostring(totalItems))
 end
 
 function XLGB_UI:WithdrawSet(withdrawControl)
