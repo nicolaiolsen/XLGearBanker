@@ -526,6 +526,11 @@
       <Anchor point="BOTTOMRIGHT" relativeTo="$(parent)" relativePoint="BOTTOMRIGHT" offsetX="-10" offsetY="-10"/>
       <Controls>
 
+        <!-- Safe Mode Label -->
+        <Label name="$(parent)_SafeMode" font="ZoFontWinH5" text="Safe mode: |c00ff00ON|r">
+          <Anchor point="LEFT" relativeTo="$(parent)" relativePoint="LEFT" offsetX="32" offsetY="0"  />
+        </Label>
+
         <!-- Cancel Button -->
         <Button name="$(parent)_Cancel" inherits="ZO_ButtonBehaviorClickSound" hidden="false" >
           <OnClicked>XLGB_UI:CancelMoveItems()</OnClicked>

@@ -75,6 +75,11 @@ end
 function XLGB_UI:OnMoveItem(targetBag, itemsLeft)
   setInfoRowItemsInSet(itemsLeft)
   updateBagSpace()
+  if sV.safeMode then
+    ui.progress.cancelRow.safeMode:SetText("Safe mode: |c00ff00ON|r")
+  else
+    ui.progress.cancelRow.safeMode:SetText("Safe mode: |cff0000OFF|r")
+  end
 end
 
 ------------
@@ -197,6 +202,7 @@ local function InitUIProgressVariables()
   ui.progress.setRow.setInfo      = XLGB_ProgressWindow_SetRow_SetInfo
 
   ui.progress.cancelRow           = XLGB_ProgressWindow_CancelRow
+  ui.progress.cancelRow.safeMode  = XLGB_ProgressWindow_CancelRow_SafeMode
   ui.progress.cancelRow.cancel    = XLGB_ProgressWindow_CancelRow_Cancel
 
   ui.progress.overlay             = XLGB_GreyOverlay
