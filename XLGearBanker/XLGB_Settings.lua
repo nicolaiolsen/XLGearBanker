@@ -35,6 +35,21 @@ function XLGB_Settings:Initialize()
       disabled = function () return XLGB_Banking.isMovingItems or XLGB_Page.isMovingPage end
   })
 
+  table.insert(optionsTable, {
+            type        = "slider",
+            name        = "Dynamic safe mode threshold",
+            tooltip     = "Safe mode will automatically engage when moving more than 'threshold' items",
+            min         = 50,
+            max         = 200,
+            step        = 1,
+            getFunc     = function() return sV.threshold end,
+            setFunc     = function(v)
+                            sV.threshold = v
+                        end,
+            width       = "full",
+            warning     = "Higher threshold is more likely to get you kicked from the server!\n\n(Recommended value is 70)",
+        })
+
   LAM:RegisterOptionControls(menuName, optionsTable)
 
 end
