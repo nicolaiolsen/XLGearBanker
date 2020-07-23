@@ -528,7 +528,7 @@
 
         <!-- Cancel Button -->
         <Button name="$(parent)_Cancel" inherits="ZO_ButtonBehaviorClickSound" hidden="false" >
-          <OnClicked></OnClicked>
+          <OnClicked>XLGB_UI:CancelMoveItems()</OnClicked>
           <Dimensions x="120" y="40" />                                
           <Anchor point="RIGHT" relativeTo="$(parent)" relativePoint="RIGHT" offsetX="-20" offsetY="0"  />
           <Textures

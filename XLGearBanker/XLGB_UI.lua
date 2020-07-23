@@ -168,6 +168,15 @@ function XLGB_UI:OnSingleSetDepositStop()
   hideProgress()
 end
 
+--------
+
+function XLGB_UI:CancelMoveItems()
+  local p = ui.progress
+  p:SetHidden(true)
+  p.overlay:SetHidden(true)
+  XLGB_Banking.isMoveCancelled = true
+end
+
 local function InitUIProgressVariables()
   ui.progress                     = XLGB_ProgressWindow
 
