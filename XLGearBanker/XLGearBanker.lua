@@ -7,6 +7,7 @@ XLGearBanker.name = "XLGearBanker"
 XLGearBanker.savedVariables = {
   safeMode = true,
   debug = false,
+  threshold = 70
 }
 
 function XLGearBanker.OnAddOnLoaded(event, addonName)
