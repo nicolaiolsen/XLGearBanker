@@ -36,6 +36,14 @@ end
 function XLGB_Events:OnPageWithdrawStop()
   XLGB_UI:OnPageWithdrawStop()
 end
+
+function XLGB_Events:OnSingleSetWithdrawStart(setName)
+  XLGB_UI:OnSingleSetWithdrawStart(setName)
+end
+
+function XLGB_Events:OnSingleSetWithdrawStop()
+  XLGB_UI:OnSingleSetWithdrawStop()
+end
 ----
 
 ----
@@ -49,6 +57,14 @@ end
 
 function XLGB_Events:OnPageDepositStop()
   XLGB_UI:OnPageDepositStop()
+end
+
+function XLGB_Events:OnSingleSetDepositStart(setName)
+  XLGB_UI:OnSingleSetDepositStart(setName)
+end
+
+function XLGB_Events:OnSingleSetDepositStop()
+  XLGB_UI:OnSingleSetDepositStop()
 end
 ----
 

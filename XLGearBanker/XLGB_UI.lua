@@ -77,6 +77,8 @@ function XLGB_UI:OnMoveItem(targetBag, itemsLeft)
   updateBagSpace()
 end
 
+------------
+
 function XLGB_UI:OnPageWithdrawStart(pageName)
   local p = ui.progress
   p.x = 0
@@ -100,6 +102,28 @@ function XLGB_UI:OnPageWithdrawStop()
   hideProgress()
 end
 
+function XLGB_UI:OnSingleSetWithdrawStart(setName, startTime)
+  local p = ui.progress
+  p.x = 0
+  p.y = 1
+  p.titleRow.title:SetText("Withdrawing set '|cffecbc" .. setName .. "|r'")
+
+  p.bag     = BAG_BACKPACK
+  p.bagIcon = "|t32:32:/esoui/art/tooltips/icon_bag.dds|t"
+  p.bagSize = getBagSize(p.bag)
+  defaultSetRowInfo()
+  updateProgressBar(setName, "Withdrawing")
+
+  p:SetHidden(false)
+  p.overlay:SetHidden(false)
+end
+
+function XLGB_UI:OnSingleSetWithdrawStop()
+  hideProgress()
+end
+
+------------
+
 function XLGB_UI:OnPageDepositStart(pageName)
   local p = ui.progress
   p.x = 0
@@ -120,6 +144,27 @@ function XLGB_UI:OnPageDepositNextSet(nextSetName)
 end
 
 function XLGB_UI:OnPageDepositStop()
+  hideProgress()
+end
+
+---
+
+function XLGB_UI:OnSingleSetDepositStart(setName)
+  local p = ui.progress
+  p.x = 0
+  p.y = 1
+  p.titleRow.title:SetText("Depositing set '|cffecbc" .. setName .. "|r'")
+
+  p.bag     = XLGB_Banking.currentBankBag
+  p.bagIcon = "|t32:32:/esoui/art/tooltips/icon_bank.dds|t"
+  p.bagSize = getBagSize(p.bag)
+  defaultSetRowInfo()
+
+  p:SetHidden(false)
+  p.overlay:SetHidden(false)
+end
+
+function XLGB_UI:OnSingleSetDepositStop()
   hideProgress()
 end
 

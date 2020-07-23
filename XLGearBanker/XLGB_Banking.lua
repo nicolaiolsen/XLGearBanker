@@ -59,17 +59,7 @@ local function findItemsToMove(sourceBag, sourceItems)
   return itemsToMove
 end
 
---[[
-  function getAvailableBagSpaces
 
-    Returns a list of empty bag spaces.
-
-  Input:
-    bag = A bag as specified in the API constants (e.g. BAG_BANK, BAG_BACKPACK)
-
-  Output:
-    availableBagSpaces = Lua table containing indices of empty bag slots.
-]]--
 local function getAvailableBagSpaces(bag)
   easyDebug("Finding available bagspaces in bag: " .. bag)
   local availableBagSpaces = {}
@@ -230,6 +220,126 @@ local function moveGearFromTwoBags(sourceBagOne, itemsToMoveOne, sourceBagTwo, i
   _onTargetBagItemReceived()
 end
 
+--------------------------------------------------------------------------------------------
+--------------------------------------------------------------------------------------------
+--
+--
+--
+--                                        WITHDRAW FUNCTIONS
+--
+--
+--
+--------------------------------------------------------------------------------------------
+
+local function withdrawGearESOPlus(gearSet)
+  d("withdrawGearESOPlus")
+  local regularBankItemsToMove = findItemsToMove(BAG_BANK, gearSet.items)
+  local ESOPlusItemsToMove = findItemsToMove(BAG_SUBSCRIBER_BANK, gearSet.items)
+  local availableBagSpaces = getAvailableBagSpaces(BAG_BACKPACK)
+  local numberOfItemsToMove = #regularBankItemsToMove + #ESOPlusItemsToMove
+  if (#availableBagSpaces < numberOfItemsToMove) then
+    d("[XLGB_ERROR] Trying to move " .. numberOfItemsToMove.. "items into a bag with " .. #availableBagSpaces .." empty slots.")
+    return false
+  end
+  moveGearFromTwoBags(
+      BAG_BANK, regularBankItemsToMove,
+      BAG_SUBSCRIBER_BANK, ESOPlusItemsToMove,
+      BAG_BACKPACK, availableBagSpaces)
+  return true
+end
+
+local function withdrawItemsNonESOPlus(itemsToWithdraw)
+  d("withdrawItemsNonESOPlus")
+  local itemsToMove = findItemsToMove(XLGB_Banking.currentBankBag, itemsToWithdraw)
+  local availableBagSpaces = getAvailableBagSpaces(BAG_BACKPACK)
+  if (#availableBagSpaces < #itemsToMove) then
+    d("[XLGB_ERROR] Trying to move " .. #itemsToMove.. "items into a bag with " .. #availableBagSpaces .." empty slots.")
+    return false
+  end
+  moveGear(XLGB_Banking.currentBankBag, itemsToMove, BAG_BACKPACK, availableBagSpaces)
+  return true
+end
+
+local function waitForMoveItemEnd(startTime, setName, isWithdrawing)
+
+  local function _waitForEnd()
+    if XLGB_Banking.isMovingItems then return end
+    local endTime = GetGameTimeMilliseconds()
+
+    local text = ""
+    if isWithdrawing then
+      text = "withdrawn"
+      if not XLGB_Page.isMovingPage then
+        XLGB_Events:OnSingleSetWithdrawStop()
+      end
+    else
+      text = "deposited"
+      if not XLGB_Page.isMovingPage then
+        XLGB_Events:OnSingleSetDepositStop()
+      end
+    end
+
+    d("[XLGB] Set '" .. setName .."' ".. text .." in " .. tostring(string.format("%.2f", (endTime - startTime)/1000)) .. " seconds.")
+    EVENT_MANAGER:UnregisterForUpdate(XLGearBanker.name .. "waitForMoveItemEnd")
+  end
+  EVENT_MANAGER:UnregisterForUpdate(XLGearBanker.name .. "waitForMoveItemEnd")
+  EVENT_MANAGER:RegisterForUpdate(XLGearBanker.name .. "waitForMoveItemEnd", 400, _waitForEnd)
+end
+
+function XLGB_Banking:WithdrawSet(gearSetName)
+  if not XLGB_Banking.bankOpen then
+    d("[XLGB_ERROR] Bank is not open, abort!")
+    PlaySound(SOUNDS.ABILITY_FAILED)
+    return false
+  end
+
+  if XLGB_Banking.isMovingItems then
+    d("Already moving")
+    return false
+  end
+  XLGB_Banking.isMovingItems = true
+  XLGB_Banking.isMoveCancelled = false
+  XLGB_Banking.movesInSuccession = 1
+  
+  local startTime = GetGameTimeMilliseconds()
+  if not XLGB_Page.isMovingPage then
+    XLGB_Events:OnSingleSetWithdrawStart(gearSetName)
+  end
+
+  local gearSet = XLGB_GearSet:FindGearSet(gearSetName)
+  if (IsESOPlusSubscriber() and (XLGB_Banking.currentBankBag == BAG_BANK)) then
+    if withdrawGearESOPlus(gearSet) then
+      PlaySound(SOUNDS.RETRAITING_ITEM_TO_RETRAIT_REMOVED)
+      return waitForMoveItemEnd(startTime, gearSetName, true)
+    end
+  else
+    if withdrawItemsNonESOPlus(gearSet.items) then
+      PlaySound(SOUNDS.RETRAITING_ITEM_TO_RETRAIT_REMOVED)
+      return waitForMoveItemEnd(startTime, gearSetName, true)
+    end
+  end
+  PlaySound(SOUNDS.ABILITY_FAILED)
+  XLGB_Banking.isMovingItems = false
+  return waitForMoveItemEnd(startTime, gearSetName, true)
+end
+
+--------------------------------------------------------------------------------------------
+-- WITHDRAW FUNCTIONS END
+--------------------------------------------------------------------------------------------
+
+
+
+--------------------------------------------------------------------------------------------
+--------------------------------------------------------------------------------------------
+--
+--
+--
+--                                        DEPOSIT FUNCTIONS
+--
+--
+--
+--------------------------------------------------------------------------------------------
+
 local function depositItemsToBankNonESOPlus(itemsToDeposit)
   -- d("depositItemsToBankNonESOPlus")
   local equippedItemsToMove = findItemsToMove(BAG_WORN, itemsToDeposit)
@@ -322,91 +432,44 @@ function XLGB_Banking:DepositSet(gearSetName)
   XLGB_Banking.isMoveCancelled = false
   XLGB_Banking.movesInSuccession = 1
 
+  local startTime = GetGameTimeMilliseconds()
+  if not XLGB_Page.isMovingPage then
+    XLGB_Events:OnSingleSetDepositStart(gearSetName)
+  end
+
   local gearSet = XLGB_GearSet:FindGearSet(gearSetName)
   if IsESOPlusSubscriber() and (XLGB_Banking.currentBankBag == BAG_BANK) then
     if depositGearToBankESOPlus(gearSet) then
       PlaySound(SOUNDS.INVENTORY_ITEM_UNLOCKED)
-      d("[XLGB] Set \'" .. gearSet.name .. "\' deposited!")
-      return true
+      return waitForMoveItemEnd(startTime, gearSetName, false)
     end
-    
   else
     if depositItemsToBankNonESOPlus(gearSet.items) then
       PlaySound(SOUNDS.INVENTORY_ITEM_UNLOCKED)
-      d("[XLGB] Set \'" .. gearSet.name .. "\' deposited!")
-      return true
+      return waitForMoveItemEnd(startTime, gearSetName, false)
     end
   end
   PlaySound(SOUNDS.ABILITY_FAILED)
   XLGB_Banking.isMovingItems = false
-  return false
+  return waitForMoveItemEnd(startTime, gearSetName, false)
 end
 
+--------------------------------------------------------------------------------------------
+-- DEPOSIT FUNCTIONS END
+--------------------------------------------------------------------------------------------
 
 
-local function withdrawGearESOPlus(gearSet)
-  d("withdrawGearESOPlus")
-  local regularBankItemsToMove = findItemsToMove(BAG_BANK, gearSet.items)
-  local ESOPlusItemsToMove = findItemsToMove(BAG_SUBSCRIBER_BANK, gearSet.items)
-  local availableBagSpaces = getAvailableBagSpaces(BAG_BACKPACK)
-  local numberOfItemsToMove = #regularBankItemsToMove + #ESOPlusItemsToMove
-  if (#availableBagSpaces < numberOfItemsToMove) then
-    d("[XLGB_ERROR] Trying to move " .. numberOfItemsToMove.. "items into a bag with " .. #availableBagSpaces .." empty slots.")
-    return false
-  end
-  moveGearFromTwoBags(
-      BAG_BANK, regularBankItemsToMove,
-      BAG_SUBSCRIBER_BANK, ESOPlusItemsToMove,
-      BAG_BACKPACK, availableBagSpaces)
-  return true
-end
 
-local function withdrawItemsNonESOPlus(itemsToWithdraw)
-  d("withdrawItemsNonESOPlus")
-  local itemsToMove = findItemsToMove(XLGB_Banking.currentBankBag, itemsToWithdraw)
-  local availableBagSpaces = getAvailableBagSpaces(BAG_BACKPACK)
-  if (#availableBagSpaces < #itemsToMove) then
-    d("[XLGB_ERROR] Trying to move " .. #itemsToMove.. "items into a bag with " .. #availableBagSpaces .." empty slots.")
-    return false
-  end
-  moveGear(XLGB_Banking.currentBankBag, itemsToMove, BAG_BACKPACK, availableBagSpaces)
-  return true
-end
-
-function XLGB_Banking:WithdrawSet(gearSetName)
-  if not XLGB_Banking.bankOpen then
-    d("[XLGB_ERROR] Bank is not open, abort!")
-    PlaySound(SOUNDS.ABILITY_FAILED)
-    return false
-  end
-
-  if XLGB_Banking.isMovingItems then
-    d("Already moving")
-    return false
-  end
-  XLGB_Banking.isMovingItems = true
-  XLGB_Banking.isMoveCancelled = false
-  XLGB_Banking.movesInSuccession = 1
-
-  local gearSet = XLGB_GearSet:FindGearSet(gearSetName)
-  if IsESOPlusSubscriber() and (XLGB_Banking.currentBankBag == BAG_BANK) then
-    if withdrawGearESOPlus(gearSet) then
-      PlaySound(SOUNDS.RETRAITING_ITEM_TO_RETRAIT_REMOVED)
-      d("[XLGB] Set \'" .. gearSet.name .. "\' withdrawn!")
-      return true
-    end
-  else 
-    if withdrawItemsNonESOPlus(gearSet.items) then
-      PlaySound(SOUNDS.RETRAITING_ITEM_TO_RETRAIT_REMOVED)
-      d("[XLGB] Set \'" .. gearSet.name .. "\' withdrawn!")
-      return true
-    end
-  end
-  PlaySound(SOUNDS.ABILITY_FAILED)
-  XLGB_Banking.isMovingItems = false
-  return false
-
-end
+--------------------------------------------------------------------------------------------
+--------------------------------------------------------------------------------------------
+--
+--
+--
+--                                        INITIALIZATION
+--
+--
+--
+--------------------------------------------------------------------------------------------
 
 function XLGB_Banking:Initialize()
   sV = XLGearBanker.savedVariables
@@ -416,7 +479,7 @@ function XLGB_Banking:Initialize()
   self.isWaitingForBag = false
   self.itemMoveDelay = 0
   self.movesInSuccession = 0
-  
+
   self.bankButtonGroup = {
     {
       name = "Toggle XLGB UI",
@@ -425,7 +488,6 @@ function XLGB_Banking:Initialize()
     },
     alignment = KEYBIND_STRIP_ALIGN_CENTER,
   }
-  
 
   EVENT_MANAGER:RegisterForEvent(self.name, EVENT_OPEN_BANK, self.OnBankOpenEvent)
   EVENT_MANAGER:RegisterForEvent(self.name, EVENT_CLOSE_BANK, self.OnBankCloseEvent)
