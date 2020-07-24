@@ -66,7 +66,10 @@ SLASH_COMMANDS["/xlgb_overlay"] = function (argsv)
 end
 
 SLASH_COMMANDS["/xlgb_missing"] = function (argsv)
-  XLGB_GearSet:GetMissingItems(BAG_BACKPACK, sV.displayingSet)
+  local missingItems = XLGB_GearSet:GetMissingItems(BAG_BACKPACK, sV.displayingSet)
+  for _, item in pairs(missingItems) do
+      d(item.link)
+  end
 end
 
 SLASH_COMMANDS["/xlgb_help"] = function (argsv)
