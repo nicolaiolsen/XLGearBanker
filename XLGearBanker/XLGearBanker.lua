@@ -8,7 +8,7 @@ XLGearBanker.savedVariables = {
   safeMode = true,
   debug = false,
   threshold = 70,
-  safeModeDowntime = 5000,
+  safeModeDowntime = 10000,
 }
 
 function XLGearBanker.OnAddOnLoaded(event, addonName)
