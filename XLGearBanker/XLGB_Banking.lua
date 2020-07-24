@@ -125,10 +125,10 @@ end
 
 local function updateMoveEvent(eventName, targetBag, lambda)
   d("updateMoveEvent called!")
-  if sV.safeMode then
     EVENT_MANAGER:UnregisterForUpdate(XLGearBanker.name .. eventName)
     EVENT_MANAGER:UnregisterForEvent(XLGearBanker.name .. eventName, EVENT_INVENTORY_SINGLE_SLOT_UPDATE)
 
+  if sV.safeMode then
     EVENT_MANAGER:RegisterForEvent(XLGearBanker.name .. eventName, EVENT_INVENTORY_SINGLE_SLOT_UPDATE, lambda)
     EVENT_MANAGER:AddFilterForEvent(XLGearBanker.name .. eventName, EVENT_INVENTORY_SINGLE_SLOT_UPDATE, REGISTER_FILTER_IS_NEW_ITEM, false)
     EVENT_MANAGER:AddFilterForEvent(XLGearBanker.name .. eventName, EVENT_INVENTORY_SINGLE_SLOT_UPDATE, REGISTER_FILTER_BAG_ID, targetBag)
@@ -227,7 +227,18 @@ local function moveGearFromTwoBags(sourceBagOne, itemsToMoveOne, sourceBagTwo, i
         return _onTargetBagItemReceived()
       end
     end
-    checkMoveEventAndUpdate("MoveGearFromTwoBags", targetBag, _onTargetBagItemReceived, safeModeBefore)
+    -- checkMoveEventAndUpdate("MoveGearFromTwoBags", targetBag, _onTargetBagItemReceived, safeModeBefore)
+
+    if not sV.safeMode and (XLGB_Banking.recentlyMovedItems > sV.threshold) then
+      sV.safeMode = true
+      EVENT_MANAGER:UnregisterForUpdate(XLGearBanker.name .. "RefreshRecentlyMoved")
+      EVENT_MANAGER:RegisterForUpdate(XLGearBanker.name .. "RefreshRecentlyMoved", sV.safeModeDowntime, function () refreshRecentlyMovedItems(safeModeBefore) end)
+      updateMoveEvent("MoveGearFromTwoBags", targetBag, _onTargetBagItemReceived)
+      return _onTargetBagItemReceived
+    elseif (sV.safeMode ~= safeModeBefore) and (XLGB_Banking.recentlyMovedItems < sV.threshold) then
+      updateMoveEvent("MoveGearFromTwoBags", targetBag, _onTargetBagItemReceived)
+      return _onTargetBagItemReceived
+    end
     -- d("(".. tostring(sourceBag) .. ") Moving item [" .. tostring(nextIndex) .. "/" .. tostring(#itemsToMove) .. "]")
     moveItem(sourceBag, itemsToMove[nextIndex].index, targetBag, availableBagSpaces[nextIndex + availableSpaceOffset])
     local itemsLeft = #itemsToMove - nextIndex
