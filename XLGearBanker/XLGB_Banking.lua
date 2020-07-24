@@ -134,23 +134,28 @@ local function updateMoveEvent(eventName, targetBag, lambda)
     EVENT_MANAGER:AddFilterForEvent(XLGearBanker.name .. eventName, EVENT_INVENTORY_SINGLE_SLOT_UPDATE, REGISTER_FILTER_IS_NEW_ITEM, false)
     EVENT_MANAGER:AddFilterForEvent(XLGearBanker.name .. eventName, EVENT_INVENTORY_SINGLE_SLOT_UPDATE, REGISTER_FILTER_BAG_ID, targetBag)
     EVENT_MANAGER:AddFilterForEvent(XLGearBanker.name .. eventName, EVENT_INVENTORY_SINGLE_SLOT_UPDATE, REGISTER_FILTER_INVENTORY_UPDATE_REASON, INVENTORY_UPDATE_REASON_DEFAULT)
-    XLGB_Banking.isSafeState = true
   else
     EVENT_MANAGER:UnregisterForUpdate(XLGearBanker.name .. eventName)
     EVENT_MANAGER:UnregisterForEvent(XLGearBanker.name .. eventName, EVENT_INVENTORY_SINGLE_SLOT_UPDATE)
 
     EVENT_MANAGER:RegisterForUpdate(XLGearBanker.name .. eventName, XLGB_Banking.itemMoveDelay, lambda)
-    XLGB_Banking.isSafeState = false
   end
+end
+
+local function refreshRecentlyMovedItems(safeModeBefore)
+  XLGB_Banking.recentlyMovedItems = 0
+  sV.safeMode = safeModeBefore
+  EVENT_MANAGER:UnregisterForUpdate(XLGearBanker.name .. "RefreshRecentlyMoved")
 end
 
 local function checkMoveEventAndUpdate(eventName, targetBag, lambda, safeModeBefore)
   if not sV.safeMode and (XLGB_Banking.recentlyMovedItems > sV.threshold) then
     XLGB_Banking.swapEvent = true
     sV.safeMode = true
+    EVENT_MANAGER:UnregisterForUpdate(XLGearBanker.name .. "RefreshRecentlyMoved")
+    EVENT_MANAGER:RegisterForUpdate(XLGearBanker.name .. "RefreshRecentlyMoved", sV.safeModeDowntime, function () refreshRecentlyMovedItems(safeModeBefore) end)
   elseif (sV.safeMode ~= safeModeBefore) and (XLGB_Banking.recentlyMovedItems < sV.threshold) then
     XLGB_Banking.swapEvent = true
-    sV.safeMode = safeModeBefore
   end
   if XLGB_Banking.swapEvent then
     updateMoveEvent(eventName, targetBag, lambda)
