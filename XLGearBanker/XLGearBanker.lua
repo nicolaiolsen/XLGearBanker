@@ -65,6 +65,10 @@ SLASH_COMMANDS["/xlgb_overlay"] = function (argsv)
   XLGB_ProgressWindow:SetHidden(not XLGB_ProgressWindow:IsHidden())
 end
 
+SLASH_COMMANDS["/xlgb_missing"] = function (argsv)
+  XLGB_GearSet:GetMissingItems(BAG_BACKPACK, sV.displayingSet)
+end
+
 SLASH_COMMANDS["/xlgb_help"] = function (argsv)
   d("[XLGB] Commands")
   d("\'/xlgb_debug\': Toggles debug mode. (Note: quite verbose)")

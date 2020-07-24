@@ -124,18 +124,18 @@ end
 
 local function findAndUpdateItem(itemIndex, item, gearSet)
   local bag  = BAG_BACKPACK
-    local slot = ZO_GetNextBagSlotIndex(bag)
-    while slot do
-      local itemID = Id64ToString(GetItemUniqueId(bag, slot))
-      if itemID == item.ID then
-        local itemLink = GetItemLink(bag, slot)
-        d("Updating " .. itemLink)
-        local itemData = XLGB_GearSet:CreateItemData(itemLink, itemID)
-        gearSet.items[itemIndex] = itemData
-        return
-      end
-      slot = ZO_GetNextBagSlotIndex(bag, slot)
+  local slot = ZO_GetNextBagSlotIndex(bag)
+  while slot do
+    local itemID = Id64ToString(GetItemUniqueId(bag, slot))
+    if itemID == item.ID then
+      local itemLink = GetItemLink(bag, slot)
+      d("Updating " .. itemLink)
+      local itemData = XLGB_GearSet:CreateItemData(itemLink, itemID)
+      gearSet.items[itemIndex] = itemData
+      return
     end
+    slot = ZO_GetNextBagSlotIndex(bag, slot)
+  end
 end
 
 function XLGB_GearSet:UpdateGearSetItems(gearSetNumber)
@@ -167,14 +167,12 @@ end
 function XLGB_GearSet:CreateItemData(itemLink, itemID)
   local itemData = {}
   itemData.link = itemLink
-  itemData.name = GetItemLinkName(itemLink)
-  itemData.quality = GetItemLinkQuality(itemLink)
   itemData.ID = itemID
   return itemData
 end
 
 local function compareItems(itemA, itemB)
-  return itemA.name < itemB.name
+  return itemA.link < itemB.link
 end
 
 function XLGB_GearSet:AddItemToGearSet(itemLink, itemID, gearSetNumber)
@@ -235,6 +233,28 @@ function XLGB_GearSet:RemoveItemsFromGearSet(itemsToBeRemoved, gearSetNumber)
   end
   XLGB_Events:OnGearSetItemRemove(gearSet, sV.gearSetList[gearSetNumber])
   d("[XLGB] Removed items from " .. gearSetName)
+end
+
+local function updateMissingItem(fromBag, item, accList)
+  local bag  = fromBag
+  local slot = ZO_GetNextBagSlotIndex(bag)
+  while slot do
+    local itemID = Id64ToString(GetItemUniqueId(bag, slot))
+    if itemID == item.ID then
+      table.insert(accList, item.Link)
+      return
+    end
+    slot = ZO_GetNextBagSlotIndex(bag, slot)
+  end
+end
+
+function XLGB_GearSet:GetMissingItems(fromBag, gearSetNumber)
+  local gearSet = XLGB_GearSet:GetGearSet(gearSetNumber)
+  local missingItems = {}
+  for _, item in pairs(gearSet.items) do
+    updateMissingItem(fromBag, item, missingItems)
+  end
+  return missingItems
 end
 
 

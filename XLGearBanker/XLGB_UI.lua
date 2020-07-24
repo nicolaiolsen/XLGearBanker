@@ -1046,7 +1046,6 @@ function XLGB_UI:UpdateSetScrollList()
     local gearSet = XLGB_GearSet:GetGearSet(sV.displayingSet)
     for _, item in pairs(gearSet.items) do
       local dataEntry = ZO_ScrollList_CreateDataEntry(XLGB_Constants.ITEM_ROW, {
-        itemName = item.name,
         itemLink = item.link,
         itemID = item.ID
       })
