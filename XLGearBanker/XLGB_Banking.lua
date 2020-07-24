@@ -92,6 +92,8 @@ local function stopMovingItems()
   if XLGB_Banking.movesInSuccession < 1 then
     XLGB_Banking.isMovingItems = false
   end
+
+  sV.safeMode = XLGB_Banking.safeModeBefore
 end
 
 local function onMoveFailed(sourceBag, failedAtItemIndex, targetBag, spaceFailedToMoveInto)
@@ -124,9 +126,8 @@ local function moveItemDelayed(sourceBag, itemIndex, targetBag, availableSpace)
 end
 
 local function updateMoveEvent(eventName, targetBag, lambda)
-  d("updateMoveEvent called!")
-    EVENT_MANAGER:UnregisterForUpdate(XLGearBanker.name .. eventName)
-    EVENT_MANAGER:UnregisterForEvent(XLGearBanker.name .. eventName, EVENT_INVENTORY_SINGLE_SLOT_UPDATE)
+  EVENT_MANAGER:UnregisterForUpdate(XLGearBanker.name .. eventName)
+  EVENT_MANAGER:UnregisterForEvent(XLGearBanker.name .. eventName, EVENT_INVENTORY_SINGLE_SLOT_UPDATE)
 
   if sV.safeMode then
     EVENT_MANAGER:RegisterForEvent(XLGearBanker.name .. eventName, EVENT_INVENTORY_SINGLE_SLOT_UPDATE, lambda)
@@ -134,33 +135,30 @@ local function updateMoveEvent(eventName, targetBag, lambda)
     EVENT_MANAGER:AddFilterForEvent(XLGearBanker.name .. eventName, EVENT_INVENTORY_SINGLE_SLOT_UPDATE, REGISTER_FILTER_BAG_ID, targetBag)
     EVENT_MANAGER:AddFilterForEvent(XLGearBanker.name .. eventName, EVENT_INVENTORY_SINGLE_SLOT_UPDATE, REGISTER_FILTER_INVENTORY_UPDATE_REASON, INVENTORY_UPDATE_REASON_DEFAULT)
   else
-    EVENT_MANAGER:UnregisterForUpdate(XLGearBanker.name .. eventName)
-    EVENT_MANAGER:UnregisterForEvent(XLGearBanker.name .. eventName, EVENT_INVENTORY_SINGLE_SLOT_UPDATE)
-
     EVENT_MANAGER:RegisterForUpdate(XLGearBanker.name .. eventName, XLGB_Banking.itemMoveDelay, lambda)
   end
 end
 
-local function refreshRecentlyMovedItems(safeModeBefore)
-  XLGB_Banking.recentlyMovedItems = 0
-  sV.safeMode = safeModeBefore
-  EVENT_MANAGER:UnregisterForUpdate(XLGearBanker.name .. "RefreshRecentlyMoved")
-end
+-- local function refreshRecentlyMovedItems(safeModeBefore)
+--   XLGB_Banking.recentlyMovedItems = 0
+--   sV.safeMode = safeModeBefore
+--   EVENT_MANAGER:UnregisterForUpdate(XLGearBanker.name .. "RefreshRecentlyMoved")
+-- end
 
-local function checkMoveEventAndUpdate(eventName, targetBag, lambda, safeModeBefore)
-  if not sV.safeMode and (XLGB_Banking.recentlyMovedItems > sV.threshold) then
-    sV.safeMode = true
-    updateMoveEvent(eventName, targetBag, lambda)
-    EVENT_MANAGER:UnregisterForUpdate(XLGearBanker.name .. "RefreshRecentlyMoved")
-    EVENT_MANAGER:RegisterForUpdate(XLGearBanker.name .. "RefreshRecentlyMoved", sV.safeModeDowntime, function () refreshRecentlyMovedItems(safeModeBefore) end)
-  elseif (sV.safeMode ~= safeModeBefore) and (XLGB_Banking.recentlyMovedItems < sV.threshold) then
-    updateMoveEvent(eventName, targetBag, lambda)
-  end
-  -- if XLGB_Banking.swapEvent then
-  --   XLGB_Banking.swapEvent = false
-  --   updateMoveEvent(eventName, targetBag, lambda)
-  -- end
-end
+-- local function checkMoveEventAndUpdate(eventName, targetBag, lambda, safeModeBefore)
+--   if not sV.safeMode and (XLGB_Banking.recentlyMovedItems > sV.threshold) then
+--     sV.safeMode = true
+--     updateMoveEvent(eventName, targetBag, lambda)
+--     EVENT_MANAGER:UnregisterForUpdate(XLGearBanker.name .. "RefreshRecentlyMoved")
+--     EVENT_MANAGER:RegisterForUpdate(XLGearBanker.name .. "RefreshRecentlyMoved", sV.safeModeDowntime, function () refreshRecentlyMovedItems(safeModeBefore) end)
+--   elseif (sV.safeMode ~= safeModeBefore) and (XLGB_Banking.recentlyMovedItems < sV.threshold) then
+--     updateMoveEvent(eventName, targetBag, lambda)
+--   end
+--   -- if XLGB_Banking.swapEvent then
+--   --   XLGB_Banking.swapEvent = false
+--   --   updateMoveEvent(eventName, targetBag, lambda)
+--   -- end
+-- end
 
 local function moveGear(sourceBag, itemsToMove, targetBag, availableBagSpaces)
   local nextIndex = 1
@@ -180,12 +178,10 @@ local function moveGear(sourceBag, itemsToMove, targetBag, availableBagSpaces)
       -- d("Bag done!")
       return stopMovingItems()
     end
-    zo_callLater(function () checkMoveEventAndUpdate("MoveGear", targetBag, _onTargetBagItemReceived, safeModeBefore) end, 10)
     -- d("(".. tostring(sourceBag) .. ") Moving item [" .. tostring(nextIndex) .. "/" .. tostring(#itemsToMove) .. "]")
     moveItem(sourceBag, itemsToMove[nextIndex].index, targetBag, availableBagSpaces[nextIndex])
     local itemsLeft = #itemsToMove - nextIndex
     XLGB_Events:OnMoveItem(targetBag, itemsLeft)
-    XLGB_Banking.recentlyMovedItems = XLGB_Banking.recentlyMovedItems + 1
     nextIndex = nextIndex + 1
   end
   
@@ -227,23 +223,10 @@ local function moveGearFromTwoBags(sourceBagOne, itemsToMoveOne, sourceBagTwo, i
         return _onTargetBagItemReceived()
       end
     end
-    -- checkMoveEventAndUpdate("MoveGearFromTwoBags", targetBag, _onTargetBagItemReceived, safeModeBefore)
-
-    if not sV.safeMode and (XLGB_Banking.recentlyMovedItems > sV.threshold) then
-      sV.safeMode = true
-      EVENT_MANAGER:UnregisterForUpdate(XLGearBanker.name .. "RefreshRecentlyMoved")
-      EVENT_MANAGER:RegisterForUpdate(XLGearBanker.name .. "RefreshRecentlyMoved", sV.safeModeDowntime, function () refreshRecentlyMovedItems(safeModeBefore) end)
-      updateMoveEvent("MoveGearFromTwoBags", targetBag, _onTargetBagItemReceived)
-      return _onTargetBagItemReceived
-    elseif (sV.safeMode ~= safeModeBefore) and (XLGB_Banking.recentlyMovedItems < sV.threshold) then
-      updateMoveEvent("MoveGearFromTwoBags", targetBag, _onTargetBagItemReceived)
-      return _onTargetBagItemReceived
-    end
     -- d("(".. tostring(sourceBag) .. ") Moving item [" .. tostring(nextIndex) .. "/" .. tostring(#itemsToMove) .. "]")
     moveItem(sourceBag, itemsToMove[nextIndex].index, targetBag, availableBagSpaces[nextIndex + availableSpaceOffset])
     local itemsLeft = #itemsToMove - nextIndex
     XLGB_Events:OnMoveItem(targetBag, itemsLeft)
-    XLGB_Banking.recentlyMovedItems = XLGB_Banking.recentlyMovedItems + 1
     nextIndex = nextIndex + 1
   end
 
@@ -283,6 +266,9 @@ local function withdrawGearESOPlus(gearSet)
     d("[XLGB_ERROR] Trying to move " .. numberOfItemsToMove.. "items into a bag with " .. #availableBagSpaces .." empty slots.")
     return false
   end
+  if numberOfItemsToMove > sV.threshold then
+    sV.safeMode = true
+  end
   moveGearFromTwoBags(
       BAG_BANK, regularBankItemsToMove,
       BAG_SUBSCRIBER_BANK, ESOPlusItemsToMove,
@@ -297,6 +283,9 @@ local function withdrawItemsNonESOPlus(itemsToWithdraw)
   if (#availableBagSpaces < #itemsToMove) then
     d("[XLGB_ERROR] Trying to move " .. #itemsToMove.. "items into a bag with " .. #availableBagSpaces .." empty slots.")
     return false
+  end
+  if #itemsToMove > sV.threshold then
+    sV.safeMode = true
   end
   moveGear(XLGB_Banking.currentBankBag, itemsToMove, BAG_BACKPACK, availableBagSpaces)
   return true
@@ -342,6 +331,7 @@ function XLGB_Banking:WithdrawSet(gearSetName)
   XLGB_Banking.isMovingItems = true
   XLGB_Banking.isMoveCancelled = false
   XLGB_Banking.movesInSuccession = 1
+  XLGB_Banking.safeModeBefore = sV.safeMode
 
   local startTime = GetGameTimeMilliseconds()
   if not XLGB_Page.isMovingPage then
@@ -394,6 +384,10 @@ local function depositItemsToBankNonESOPlus(itemsToDeposit)
     return false
   end
 
+  if numberOfItemsToMove > sV.threshold then
+    sV.safeMode = true
+  end
+
   moveGearFromTwoBags(
       BAG_BACKPACK, inventoryItemsToMove,
       BAG_WORN, equippedItemsToMove,
@@ -414,6 +408,10 @@ local function depositGearToBankESOPlus(gearSet)
 
   if (numberOfAvailableSpaces < numberOfItemsToMove) then
     return false
+  end
+
+  if numberOfItemsToMove > sV.threshold then
+    sV.safeMode = true
   end
 
   if (#availableBagSpacesRegularBank >= numberOfItemsToMove) then
@@ -473,6 +471,7 @@ function XLGB_Banking:DepositSet(gearSetName)
   XLGB_Banking.isMovingItems = true
   XLGB_Banking.isMoveCancelled = false
   XLGB_Banking.movesInSuccession = 1
+  XLGB_Banking.safeModeBefore = sV.safeMode
 
   local startTime = GetGameTimeMilliseconds()
   if not XLGB_Page.isMovingPage then
@@ -522,9 +521,9 @@ function XLGB_Banking:Initialize()
   self.itemMoveDelay = 0
   self.movesInSuccession = 0
 
-  self.swapEvent = false
-  self.recentlyMovedItems = 0
-  self.safeModeBefore = sV.safeMode
+  -- self.swapEvent = false
+  -- self.recentlyMovedItems = 0
+  -- self.safeModeBefore = sV.safeMode
 
   self.bankButtonGroup = {
     {
