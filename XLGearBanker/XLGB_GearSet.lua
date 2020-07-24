@@ -131,6 +131,7 @@ function XLGB_GearSet:UpdateGearSetItems(gearSetNumber)
       local  itemID = Id64ToString(GetItemUniqueId(bag, slot))
       if itemID == item.ID then
         local itemLink = GetItemLink(bag, slot)
+        d("Updating " .. itemLink)
         local itemData = XLGB_GearSet:CreateItemData(itemLink, itemID)
         item = itemData
       end
