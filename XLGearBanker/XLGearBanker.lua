@@ -67,6 +67,7 @@ end
 
 SLASH_COMMANDS["/xlgb_missing"] = function (argsv)
   local missingItems = XLGB_GearSet:GetMissingItems(BAG_BACKPACK, sV.displayingSet)
+  d("Missing " .. tostring(#missingItems) " items")
   for _, item in pairs(missingItems) do
       d(item.link)
   end

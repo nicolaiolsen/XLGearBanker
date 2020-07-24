@@ -241,11 +241,12 @@ local function updateMissingItem(fromBag, item, accList)
   while slot do
     local itemID = Id64ToString(GetItemUniqueId(bag, slot))
     if itemID == item.ID then
-      table.insert(accList, item.Link)
+      d("Found " .. item.link)
       return
     end
     slot = ZO_GetNextBagSlotIndex(bag, slot)
   end
+  table.insert(accList, item.link)
 end
 
 function XLGB_GearSet:GetMissingItems(fromBag, gearSetNumber)
