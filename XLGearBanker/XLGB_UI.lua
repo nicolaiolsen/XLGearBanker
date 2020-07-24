@@ -1015,7 +1015,8 @@ function XLGB_UI:SelectSet(setNumber)
   else
     sV.displayingSet = setNumber
   end
-
+  
+  XLGB_GearSet:UpdateGearSetItems(sV.displayingSet)
   XLGB_UI:UpdateSetScrollList()
 end
 

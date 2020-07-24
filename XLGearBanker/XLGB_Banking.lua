@@ -91,9 +91,9 @@ local function stopMovingItems()
   XLGB_Banking.movesInSuccession = XLGB_Banking.movesInSuccession - 1
   if XLGB_Banking.movesInSuccession < 1 then
     XLGB_Banking.isMovingItems = false
+    sV.safeMode = XLGB_Banking.safeModeBefore
   end
 
-  sV.safeMode = XLGB_Banking.safeModeBefore
 end
 
 local function onMoveFailed(sourceBag, failedAtItemIndex, targetBag, spaceFailedToMoveInto)

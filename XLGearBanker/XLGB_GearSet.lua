@@ -122,6 +122,23 @@ function XLGB_GearSet:CopyGearSet(gearSetNumber)
   return copy(XLGB_GearSet:GetGearSet(gearSetNumber))
 end
 
+function XLGB_GearSet:UpdateGearSetItems(gearSetNumber)
+  local gearSet = XLGB_GearSet:GetGearSet(gearSetNumber)
+  for _, item in pairs(gearSet.items) do
+    local bag  = BAG_BACKPACK
+    local slot = ZO_GetNextBagSlotIndex(bag)
+    while slot do
+      local  itemID = Id64ToString(GetItemUniqueId(bag, slot))
+      if itemID == item.ID then
+        local itemLink = GetItemLink(bag, slot)
+        local itemData = XLGB_GearSet:CreateItemData(itemLink, itemID)
+        item = itemData
+      end
+      slot = ZO_GetNextBagSlotIndex(bag, slot)
+    end
+  end
+end
+
 function XLGB_GearSet:EditGearSetName(newName, gearSetNumber)
   local gearSet = XLGB_GearSet:GetGearSet(gearSetNumber)
   local isUnique = isNameUnique(newName)
