@@ -180,7 +180,7 @@ local function moveGear(sourceBag, itemsToMove, targetBag, availableBagSpaces)
       -- d("Bag done!")
       return stopMovingItems()
     end
-    checkMoveEventAndUpdate("MoveGear", targetBag, _onTargetBagItemReceived, safeModeBefore)
+    zo_callLater(function () checkMoveEventAndUpdate("MoveGear", targetBag, _onTargetBagItemReceived, safeModeBefore) end, 10)
     -- d("(".. tostring(sourceBag) .. ") Moving item [" .. tostring(nextIndex) .. "/" .. tostring(#itemsToMove) .. "]")
     moveItem(sourceBag, itemsToMove[nextIndex].index, targetBag, availableBagSpaces[nextIndex])
     local itemsLeft = #itemsToMove - nextIndex
