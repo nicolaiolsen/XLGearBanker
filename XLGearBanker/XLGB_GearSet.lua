@@ -122,10 +122,8 @@ function XLGB_GearSet:CopyGearSet(gearSetNumber)
   return copy(XLGB_GearSet:GetGearSet(gearSetNumber))
 end
 
-function XLGB_GearSet:UpdateGearSetItems(gearSetNumber)
-  local gearSet = XLGB_GearSet:GetGearSet(gearSetNumber)
-  for i, item in pairs(gearSet.items) do
-    local bag  = BAG_BACKPACK
+local function findAndUpdateItem(itemIndex, item, gearSet)
+  local bag  = BAG_BACKPACK
     local slot = ZO_GetNextBagSlotIndex(bag)
     while slot do
       local itemID = Id64ToString(GetItemUniqueId(bag, slot))
@@ -133,10 +131,17 @@ function XLGB_GearSet:UpdateGearSetItems(gearSetNumber)
         local itemLink = GetItemLink(bag, slot)
         d("Updating " .. itemLink)
         local itemData = XLGB_GearSet:CreateItemData(itemLink, itemID)
-        gearSet.items[i] = itemData
+        gearSet.items[itemIndex] = itemData
+        return
       end
       slot = ZO_GetNextBagSlotIndex(bag, slot)
     end
+end
+
+function XLGB_GearSet:UpdateGearSetItems(gearSetNumber)
+  local gearSet = XLGB_GearSet:GetGearSet(gearSetNumber)
+  for i, item in pairs(gearSet.items) do
+    findAndUpdateItem(i, item, gearSet)
   end
 end
 

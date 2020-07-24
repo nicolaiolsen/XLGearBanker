@@ -1015,8 +1015,8 @@ function XLGB_UI:SelectSet(setNumber)
   else
     sV.displayingSet = setNumber
   end
-  
-  XLGB_GearSet:UpdateGearSetItems(sV.displayingSet)
+
+  -- XLGB_GearSet:UpdateGearSetItems(sV.displayingSet)
   XLGB_UI:UpdateSetScrollList()
 end
 
@@ -1036,6 +1036,7 @@ function XLGB_UI:InitializeSetDropdown()
 end
 
 function XLGB_UI:UpdateSetScrollList()
+  XLGB_GearSet:UpdateGearSetItems(sV.displayingSet)
   local s = ui.set
   local totalSetItems = ui.set.totalSetItemsRow.text
   local scrollData = ZO_ScrollList_GetDataList(s.scrollList)
