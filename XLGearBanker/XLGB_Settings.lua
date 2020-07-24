@@ -15,7 +15,7 @@ function XLGB_Settings:Initialize()
       author = "@XL_Olsen (PC/EU)",
       -- version = xlHoF.Colorize(xlHoF.version, "AA00FF"),
       slashCommand = "/xlgb_settings",
-      -- registerForRefresh = true,
+      registerForRefresh = true,
       -- registerForDefaults = true,
   }
   XLGB_Settings.panel = LAM:RegisterAddonPanel(menuName, panelData)
