@@ -125,7 +125,6 @@ end
 
 local function updateMoveEvent(eventName, targetBag, lambda)
   d("updateMoveEvent called!")
-  XLGB_Banking.swapEvent = false
   if sV.safeMode then
     EVENT_MANAGER:UnregisterForUpdate(XLGearBanker.name .. eventName)
     EVENT_MANAGER:UnregisterForEvent(XLGearBanker.name .. eventName, EVENT_INVENTORY_SINGLE_SLOT_UPDATE)
@@ -150,16 +149,17 @@ end
 
 local function checkMoveEventAndUpdate(eventName, targetBag, lambda, safeModeBefore)
   if not sV.safeMode and (XLGB_Banking.recentlyMovedItems > sV.threshold) then
-    XLGB_Banking.swapEvent = true
     sV.safeMode = true
+    updateMoveEvent(eventName, targetBag, lambda)
     EVENT_MANAGER:UnregisterForUpdate(XLGearBanker.name .. "RefreshRecentlyMoved")
     EVENT_MANAGER:RegisterForUpdate(XLGearBanker.name .. "RefreshRecentlyMoved", sV.safeModeDowntime, function () refreshRecentlyMovedItems(safeModeBefore) end)
   elseif (sV.safeMode ~= safeModeBefore) and (XLGB_Banking.recentlyMovedItems < sV.threshold) then
-    XLGB_Banking.swapEvent = true
-  end
-  if XLGB_Banking.swapEvent then
     updateMoveEvent(eventName, targetBag, lambda)
   end
+  -- if XLGB_Banking.swapEvent then
+  --   XLGB_Banking.swapEvent = false
+  --   updateMoveEvent(eventName, targetBag, lambda)
+  -- end
 end
 
 local function moveGear(sourceBag, itemsToMove, targetBag, availableBagSpaces)
