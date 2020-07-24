@@ -122,6 +122,19 @@ local function moveItemDelayed(sourceBag, itemIndex, targetBag, availableSpace)
   zo_callLater(function () moveItem(sourceBag, itemIndex, targetBag, availableSpace) end, XLGB_Banking.itemMoveDelay)
 end
 
+local function updateMoveEvent(eventName, targetBag, lambda)
+  d("updateMoveEvent called!")
+  if sV.safeMode then
+    EVENT_MANAGER:RegisterForEvent(XLGearBanker.name .. eventName, EVENT_INVENTORY_SINGLE_SLOT_UPDATE, lambda)
+    EVENT_MANAGER:AddFilterForEvent(XLGearBanker.name .. eventName, EVENT_INVENTORY_SINGLE_SLOT_UPDATE, REGISTER_FILTER_IS_NEW_ITEM, false)
+    EVENT_MANAGER:AddFilterForEvent(XLGearBanker.name .. eventName, EVENT_INVENTORY_SINGLE_SLOT_UPDATE, REGISTER_FILTER_BAG_ID, targetBag)
+    EVENT_MANAGER:AddFilterForEvent(XLGearBanker.name .. eventName, EVENT_INVENTORY_SINGLE_SLOT_UPDATE, REGISTER_FILTER_INVENTORY_UPDATE_REASON, INVENTORY_UPDATE_REASON_DEFAULT)
+  else
+    EVENT_MANAGER:UnregisterForUpdate(XLGearBanker.name .. eventName)
+    EVENT_MANAGER:RegisterForUpdate(XLGearBanker.name .. eventName, XLGB_Banking.itemMoveDelay, lambda)
+  end
+end
+
 local function moveGear(sourceBag, itemsToMove, targetBag, availableBagSpaces)
   local nextIndex = 1
 
@@ -191,22 +204,14 @@ local function moveGearFromTwoBags(sourceBagOne, itemsToMoveOne, sourceBagTwo, i
       end
     end
     -- d("(".. tostring(sourceBag) .. ") Moving item [" .. tostring(nextIndex) .. "/" .. tostring(#itemsToMove) .. "]")
-    
     moveItem(sourceBag, itemsToMove[nextIndex].index, targetBag, availableBagSpaces[nextIndex + availableSpaceOffset])
     local itemsLeft = #itemsToMove - nextIndex
     XLGB_Events:OnMoveItem(targetBag, itemsLeft)
     nextIndex = nextIndex + 1
   end
 
-  if sV.safeMode then
-    EVENT_MANAGER:RegisterForEvent(XLGearBanker.name .. "MoveGearFromTwoBags", EVENT_INVENTORY_SINGLE_SLOT_UPDATE, _onTargetBagItemReceived)
-    EVENT_MANAGER:AddFilterForEvent(XLGearBanker.name .. "MoveGearFromTwoBags", EVENT_INVENTORY_SINGLE_SLOT_UPDATE, REGISTER_FILTER_IS_NEW_ITEM, false)
-    EVENT_MANAGER:AddFilterForEvent(XLGearBanker.name .. "MoveGearFromTwoBags", EVENT_INVENTORY_SINGLE_SLOT_UPDATE, REGISTER_FILTER_BAG_ID, targetBag)
-    EVENT_MANAGER:AddFilterForEvent(XLGearBanker.name .. "MoveGearFromTwoBags", EVENT_INVENTORY_SINGLE_SLOT_UPDATE, REGISTER_FILTER_INVENTORY_UPDATE_REASON, INVENTORY_UPDATE_REASON_DEFAULT)
-  else
-    EVENT_MANAGER:UnregisterForUpdate(XLGearBanker.name .. "MoveGearFromTwoBags")
-    EVENT_MANAGER:RegisterForUpdate(XLGearBanker.name .. "MoveGearFromTwoBags", XLGB_Banking.itemMoveDelay, _onTargetBagItemReceived)
-  end
+  updateMoveEvent("MoveGearFromTwoBags", targetBag, _onTargetBagItemReceived)
+  
   -- d("Source Bag 1: " .. tostring(sourceBagOne))
   -- d("ItemsToMove 1: " .. tostring(#itemsToMoveOne))
   -- d("-")
@@ -300,7 +305,7 @@ function XLGB_Banking:WithdrawSet(gearSetName)
   XLGB_Banking.isMovingItems = true
   XLGB_Banking.isMoveCancelled = false
   XLGB_Banking.movesInSuccession = 1
-  
+
   local startTime = GetGameTimeMilliseconds()
   if not XLGB_Page.isMovingPage then
     XLGB_Events:OnSingleSetWithdrawStart(gearSetName)
@@ -479,6 +484,7 @@ function XLGB_Banking:Initialize()
   self.isWaitingForBag = false
   self.itemMoveDelay = 0
   self.movesInSuccession = 0
+  self.swapEvent = false
 
   self.bankButtonGroup = {
     {
