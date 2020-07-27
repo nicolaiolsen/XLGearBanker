@@ -262,14 +262,14 @@ local function withdrawGearESOPlus(gearSet)
   local ESOPlusItemsToMove = findItemsToMove(BAG_SUBSCRIBER_BANK, gearSet.items)
   local availableBagSpaces = getAvailableBagSpaces(BAG_BACKPACK)
   local numberOfItemsToMove = #regularBankItemsToMove + #ESOPlusItemsToMove
-  -- if (#availableBagSpaces < numberOfItemsToMove) then
-  --   d("[XLGB_ERROR] Trying to move " .. numberOfItemsToMove.. "items into a bag with " .. #availableBagSpaces .." empty slots.")
-  --   return false
-  -- end
-  if CheckInventorySpaceAndWarn(numberOfItemsToMove) then
+  if (#availableBagSpaces < numberOfItemsToMove) then
     d("[XLGB_ERROR] Trying to move " .. numberOfItemsToMove.. "items into a bag with " .. #availableBagSpaces .." empty slots.")
     return false
   end
+  -- if CheckInventorySpaceAndWarn(numberOfItemsToMove) then
+  --   d("[XLGB_ERROR] Trying to move " .. numberOfItemsToMove.. "items into a bag with " .. #availableBagSpaces .." empty slots.")
+  --   return false
+  -- end
   if numberOfItemsToMove > sV.threshold then
     sV.safeMode = true
   end
@@ -284,14 +284,14 @@ local function withdrawItemsNonESOPlus(itemsToWithdraw)
   d("withdrawItemsNonESOPlus")
   local itemsToMove = findItemsToMove(XLGB_Banking.currentBankBag, itemsToWithdraw)
   local availableBagSpaces = getAvailableBagSpaces(BAG_BACKPACK)
-  -- if (#availableBagSpaces < #itemsToMove) then
-  --   d("[XLGB_ERROR] Trying to move " .. #itemsToMove.. "items into a bag with " .. #availableBagSpaces .." empty slots.")
-  --   return false
-  -- end
-  if CheckInventorySpaceAndWarn(#itemsToMove) then
+  if (#availableBagSpaces < #itemsToMove) then
     d("[XLGB_ERROR] Trying to move " .. #itemsToMove.. "items into a bag with " .. #availableBagSpaces .." empty slots.")
     return false
   end
+  -- if CheckInventorySpaceAndWarn(#itemsToMove) then
+  --   d("[XLGB_ERROR] Trying to move " .. #itemsToMove.. "items into a bag with " .. #availableBagSpaces .." empty slots.")
+  --   return false
+  -- end
   if #itemsToMove > sV.threshold then
     sV.safeMode = true
   end
@@ -388,13 +388,13 @@ local function depositItemsToBankNonESOPlus(itemsToDeposit)
   local availableBagSpaces = getAvailableBagSpaces(XLGB_Banking.currentBankBag)
   local numberOfItemsToMove = #equippedItemsToMove + #inventoryItemsToMove
 
-  -- if (#availableBagSpaces < numberOfItemsToMove) then
-  --   return false
-  -- end
-  if CheckInventorySpaceAndWarn(numberOfItemsToMove) then
-    d("[XLGB_ERROR] Trying to move " .. numberOfItemsToMove.. "items into a bag with " .. #availableBagSpaces .." empty slots.")
+  if (#availableBagSpaces < numberOfItemsToMove) then
+      d("[XLGB_ERROR] Trying to move " .. numberOfItemsToMove.. "items into a bag with " .. #availableBagSpaces .." empty slots.")
     return false
   end
+  -- if CheckInventorySpaceAndWarn(numberOfItemsToMove) then
+  --   return false
+  -- end
 
   if numberOfItemsToMove > sV.threshold then
     sV.safeMode = true
