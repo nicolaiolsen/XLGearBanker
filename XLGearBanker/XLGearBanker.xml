@@ -620,9 +620,9 @@
 <!--                                                                                                  -->
 <!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -  -->
 
-<TopLevelControl name="XLGB_MissingItems" clampedToScreen="true" movable="true" mouseEnabled="true" hidden="true" resizeHandleSize="0">
-  <Dimensions x="350" y="600"/>
-  <DimensionConstraints  minX="350" minY="600" maxX="350" maxY="600"/>
+<TopLevelControl name="XLGB_MissingItems" clampedToScreen="true" movable="true" mouseEnabled="true" hidden="true" resizeHandleSize="0" layer="4" level="1">
+  <Dimensions x="350" y="400"/>
+  <DimensionConstraints  minX="350" minY="400" maxX="350" maxY="400"/>
   <Anchor point="CENTER" relativeTo="GUI_ROOT" relativePoint="CENTER" offsetX="0" offsetY="0" />
   <OnMoveStop> XLGB_UI:XLGB_PageWindow_OnMoveStop()</OnMoveStop>
   <Controls>
