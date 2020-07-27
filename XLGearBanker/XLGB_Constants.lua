@@ -30,4 +30,7 @@ function XLGB_Constants:Initialize()
     --UI Stuff
     self.ITEM_ROW = 69
     self.PAGE_ITEM_ROW = 420
+
+    self.MISSING_SET_ROW = 111
+    self.MISSING_ITEM_ROW = 222
 end

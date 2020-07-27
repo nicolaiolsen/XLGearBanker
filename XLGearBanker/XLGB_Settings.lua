@@ -23,34 +23,46 @@ function XLGB_Settings:Initialize()
   local optionsTable = {}
 
   table.insert(optionsTable, {
-      type    = "checkbox",
-      name    = "Enable safe mode",
-      tooltip = "Safely move items with a server load depended delay.",
-      getFunc = function() return sV.safeMode end,
-      setFunc = function(v)
-                  sV.safeMode = v
-              end,
-      width   = "full",
-      warning = "Turning safe mode |cff0000off|r can result in a |cff0000server boot|r if you spam deposit/withdraw due to server load restrictions.\n\n(Safe mode is automatically enabled upon depositing/withdrawing sets/pages with more than 70 items.)",
-      disabled = function () return XLGB_Banking.isMovingItems or XLGB_Page.isMovingPage end
+    type    = "checkbox",
+    name    = "Enable safe mode",
+    tooltip = "Safely move items with a server load depended delay.",
+    getFunc = function() return sV.safeMode end,
+    setFunc = function(v)
+              sV.safeMode = v
+          end,
+    width   = "full",
+    warning = "Turning safe mode |cff0000off|r can result in a |cff0000server boot|r if you spam deposit/withdraw due to server load restrictions.\n\n(Safe mode is automatically enabled upon depositing/withdrawing sets/pages containing more than 'threshold' items.)",
+    disabled = function () return XLGB_Banking.isMovingItems or XLGB_Page.isMovingPage end
   })
 
   table.insert(optionsTable, {
-            type        = "slider",
-            name        = "Dynamic safe mode threshold",
-            tooltip     = "Safe mode will automatically engage when moving more than 'threshold' items",
-            min         = 50,
-            max         = 200,
-            step        = 1,
-            getFunc     = function() return sV.threshold end,
-            setFunc     = function(v)
-                            sV.threshold = v
-                        end,
-            width       = "full",
-            warning     = "Higher threshold is more likely to get you kicked from the server!\n\n(Recommended value is 70)",
-            disabled    = function () return sV.safeMode end
-        })
+    type        = "slider",
+    name        = "Dynamic safe mode threshold",
+    tooltip     = "Safe mode will automatically engage when moving more than 'threshold' items",
+    min         = 50,
+    max         = 200,
+    step        = 1,
+    getFunc     = function() return sV.threshold end,
+    setFunc     = function(v)
+                    sV.threshold = v
+                end,
+    width       = "full",
+    warning     = "Higher threshold is more likely to get you |cff0000kicked|r from the server!\n\n(Recommended value is below 70)",
+    disabled    = function () return sV.safeMode end
+  })
 
+  table.insert(optionsTable, {
+    type    = "checkbox",
+    name    = "Report missing items",
+    tooltip = "Shows a window report after withdraw/deposit with items that could not be found during withdraw/deposit.",
+    getFunc = function() return sV.reportMissing end,
+    setFunc = function(v)
+                sV.reportMissing = v
+            end,
+    width   = "full",
+  })
+
+      
   LAM:RegisterOptionControls(menuName, optionsTable)
 
 end

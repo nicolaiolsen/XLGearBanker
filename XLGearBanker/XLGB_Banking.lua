@@ -184,7 +184,7 @@ local function moveGear(sourceBag, itemsToMove, targetBag, availableBagSpaces)
     XLGB_Events:OnMoveItem(targetBag, itemsLeft)
     nextIndex = nextIndex + 1
   end
-  
+
   updateMoveEvent("MoveGear", targetBag, _onTargetBagItemReceived)
   -- d("Source Bag: " .. tostring(sourceBag))
   -- d("ItemsToMove: " .. tostring(#itemsToMove))
@@ -262,7 +262,11 @@ local function withdrawGearESOPlus(gearSet)
   local ESOPlusItemsToMove = findItemsToMove(BAG_SUBSCRIBER_BANK, gearSet.items)
   local availableBagSpaces = getAvailableBagSpaces(BAG_BACKPACK)
   local numberOfItemsToMove = #regularBankItemsToMove + #ESOPlusItemsToMove
-  if (#availableBagSpaces < numberOfItemsToMove) then
+  -- if (#availableBagSpaces < numberOfItemsToMove) then
+  --   d("[XLGB_ERROR] Trying to move " .. numberOfItemsToMove.. "items into a bag with " .. #availableBagSpaces .." empty slots.")
+  --   return false
+  -- end
+  if CheckInventorySpaceAndWarn(numberOfItemsToMove) then
     d("[XLGB_ERROR] Trying to move " .. numberOfItemsToMove.. "items into a bag with " .. #availableBagSpaces .." empty slots.")
     return false
   end
@@ -280,7 +284,11 @@ local function withdrawItemsNonESOPlus(itemsToWithdraw)
   d("withdrawItemsNonESOPlus")
   local itemsToMove = findItemsToMove(XLGB_Banking.currentBankBag, itemsToWithdraw)
   local availableBagSpaces = getAvailableBagSpaces(BAG_BACKPACK)
-  if (#availableBagSpaces < #itemsToMove) then
+  -- if (#availableBagSpaces < #itemsToMove) then
+  --   d("[XLGB_ERROR] Trying to move " .. #itemsToMove.. "items into a bag with " .. #availableBagSpaces .." empty slots.")
+  --   return false
+  -- end
+  if CheckInventorySpaceAndWarn(#itemsToMove) then
     d("[XLGB_ERROR] Trying to move " .. #itemsToMove.. "items into a bag with " .. #availableBagSpaces .." empty slots.")
     return false
   end
@@ -301,12 +309,12 @@ local function waitForMoveItemEnd(startTime, setName, isWithdrawing)
     if isWithdrawing then
       text = "withdrawn"
       if not XLGB_Page.isMovingPage then
-        XLGB_Events:OnSingleSetWithdrawStop()
+        XLGB_Events:OnSingleSetWithdrawStop(setName)
       end
     else
       text = "deposited"
       if not XLGB_Page.isMovingPage then
-        XLGB_Events:OnSingleSetDepositStop()
+        XLGB_Events:OnSingleSetDepositStop(setName)
       end
     end
 
@@ -380,7 +388,11 @@ local function depositItemsToBankNonESOPlus(itemsToDeposit)
   local availableBagSpaces = getAvailableBagSpaces(XLGB_Banking.currentBankBag)
   local numberOfItemsToMove = #equippedItemsToMove + #inventoryItemsToMove
 
-  if (#availableBagSpaces < numberOfItemsToMove) then
+  -- if (#availableBagSpaces < numberOfItemsToMove) then
+  --   return false
+  -- end
+  if CheckInventorySpaceAndWarn(numberOfItemsToMove) then
+    d("[XLGB_ERROR] Trying to move " .. numberOfItemsToMove.. "items into a bag with " .. #availableBagSpaces .." empty slots.")
     return false
   end
 
@@ -406,9 +418,9 @@ local function depositGearToBankESOPlus(gearSet)
   local numberOfAvailableSpaces = #availableBagSpacesRegularBank + #availableBagSpacesESOPlusBank
   local numberOfItemsToMove = #equippedItemsToMove + #inventoryItemsToMove
 
-  if (numberOfAvailableSpaces < numberOfItemsToMove) then
-    return false
-  end
+  -- if (numberOfAvailableSpaces < numberOfItemsToMove) then
+  --   return false
+  -- end
 
   if numberOfItemsToMove > sV.threshold then
     sV.safeMode = true

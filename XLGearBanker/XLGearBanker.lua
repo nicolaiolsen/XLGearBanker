@@ -9,6 +9,7 @@ XLGearBanker.savedVariables = {
   debug = false,
   threshold = 70,
   safeModeDowntime = 10000,
+  reportMissing = true,
 }
 
 function XLGearBanker.OnAddOnLoaded(event, addonName)

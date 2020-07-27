@@ -165,10 +165,18 @@
         "GetBagUsableSize",
         "GetBagUseableSize",
         "GetNumBagUsedSlots",
-        "XLGB_ProgressWindow_CancelRow_SafeMode"
+        "XLGB_ProgressWindow_CancelRow_SafeMode",
+        "CheckInventorySpaceAndWarn",
+        "XLGB_MissingItems",
+        "XLGB_MissingItems_TitleRow",
+        "XLGB_MissingItems_TitleRow_Title",
+        "XLGB_MissingItems_ConfirmRow",
+        "XLGB_MissingItems_ConfirmRow_Confirm",
+        "XLGB_MissingItems_ScrollList"
     ],
     "Lua.diagnostics.disable": [
         "lowercase-global",
         "empty-block"
-    ]
+    ],
+    "editor.tabSize": 2
 }

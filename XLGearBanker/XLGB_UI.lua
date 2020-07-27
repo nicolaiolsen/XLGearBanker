@@ -7,209 +7,6 @@ local ui = {}
 local sV = {}
 local xl = {}
 
---------------------------------------------------------------------------------------------
---------------------------------------------------------------------------------------------
---
---
---
---                                        PROGRESS BAR
---
---
---
---------------------------------------------------------------------------------------------
-local function getBagSize(bag)
-  if bag == BAG_BANK or bag == BAG_SUBSCRIBER_BANK then
-    return GetBagSize(BAG_BANK) + GetBagSize(BAG_SUBSCRIBER_BANK)
-  else
-    return GetBagSize(bag)
-  end
-end
-
-local function getNumBagUsedSlots(bag)
-  if bag == BAG_BANK or bag == BAG_SUBSCRIBER_BANK then
-    return GetNumBagUsedSlots(BAG_BANK) + GetNumBagUsedSlots(BAG_SUBSCRIBER_BANK)
-  else
-    return GetNumBagUsedSlots(bag)
-  end
-end
-
-local function setProgressBar(current, total)
-  local p = ui.progress
-  local calculateOffSet = -(360  * (1 - (current / total)))
-  p.progressRow.bar:ClearAnchors()
-  p.progressRow.bar:SetAnchor(TOPLEFT, p.progressRow.barBG, TOPLEFT, 0, 0)
-  p.progressRow.bar:SetAnchor(BOTTOMRIGHT, p.progressRow.barBG, BOTTOMRIGHT, calculateOffSet, 0)
-end
-
-local function setInfoRowItemsInSet(itemsRemaining)
-  ui.progress.infoRow.setSize:SetText("|t52:56:/esoui/art/tradinghouse/tradinghouse_apparel_chest_up.dds|t(" .. tostring(itemsRemaining) .. ") |t32:32:/esoui/art/chatwindow/chat_overflowarrow_up.dds|t")
-end
-
-local function updateBagSpace()
-  local p = ui.progress
-  local usedSlots = getNumBagUsedSlots(p.bag)
-  p.infoRow.bagSpace:SetText(p.bagIcon .. "(" .. tostring(usedSlots) .. "/" .. tostring(p.bagSize) .. ")")
-end
-
-local function defaultSetRowInfo()
-  XLGB_UI:OnMoveItem(nil, 0)
-end
-
-local function updateProgressBar(nextSetName, pretext)
-  local p = ui.progress
-  p.x = p.x + 1
-  p.progressRow.xOfY:SetText("[" .. tostring(p.x) .. "/" .. tostring(p.y) .. "]")
-  setProgressBar(p.x, p.y)
-  defaultSetRowInfo()
-  p.setRow.setInfo:SetText(pretext .. " set '|cffecbc" .. nextSetName .. "|r'")
-end
-
-local function hideProgress()
-  local p = ui.progress
-  p:SetHidden(true)
-  p.overlay:SetHidden(true)
-end
-
-function XLGB_UI:OnMoveItem(targetBag, itemsLeft)
-  setInfoRowItemsInSet(itemsLeft)
-  updateBagSpace()
-  if sV.safeMode then
-    ui.progress.cancelRow.safeMode:SetText("Safe mode: |c00ff00ON|r")
-  else
-    ui.progress.cancelRow.safeMode:SetText("Safe mode: |cff0000OFF|r")
-  end
-end
-
-------------
-
-function XLGB_UI:OnPageWithdrawStart(pageName)
-  local p = ui.progress
-  p.x = 0
-  p.y = #XLGB_Page:GetSetsInPage(pageName)
-  p.titleRow.title:SetText("Withdrawing page '|cffecbc" .. pageName .. "|r'")
-
-  p.bag     = BAG_BACKPACK
-  p.bagIcon = "|t32:32:/esoui/art/tooltips/icon_bag.dds|t"
-  p.bagSize = getBagSize(p.bag)
-  defaultSetRowInfo()
-
-  p:SetHidden(false)
-  p.overlay:SetHidden(false)
-end
-
-function XLGB_UI:OnPageWithdrawNextSet(nextSetName)
-  updateProgressBar(nextSetName, "Withdrawing")
-end
-
-function XLGB_UI:OnPageWithdrawStop()
-  hideProgress()
-end
-
-function XLGB_UI:OnSingleSetWithdrawStart(setName, startTime)
-  local p = ui.progress
-  p.x = 0
-  p.y = 1
-  p.titleRow.title:SetText("Withdrawing set '|cffecbc" .. setName .. "|r'")
-
-  p.bag     = BAG_BACKPACK
-  p.bagIcon = "|t32:32:/esoui/art/tooltips/icon_bag.dds|t"
-  p.bagSize = getBagSize(p.bag)
-  defaultSetRowInfo()
-  updateProgressBar(setName, "Withdrawing")
-
-  p:SetHidden(false)
-  p.overlay:SetHidden(false)
-end
-
-function XLGB_UI:OnSingleSetWithdrawStop()
-  hideProgress()
-end
-
-------------
-
-function XLGB_UI:OnPageDepositStart(pageName)
-  local p = ui.progress
-  p.x = 0
-  p.y = #XLGB_Page:GetSetsInPage(pageName)
-  p.titleRow.title:SetText("Depositing page '|cffecbc" .. pageName .. "|r'")
-
-  p.bag     = XLGB_Banking.currentBankBag
-  p.bagIcon = "|t32:32:/esoui/art/tooltips/icon_bank.dds|t"
-  p.bagSize = getBagSize(p.bag)
-  defaultSetRowInfo()
-
-  p:SetHidden(false)
-  p.overlay:SetHidden(false)
-end
-
-function XLGB_UI:OnPageDepositNextSet(nextSetName)
-  updateProgressBar(nextSetName, "Depositing")
-end
-
-function XLGB_UI:OnPageDepositStop()
-  hideProgress()
-end
-
----
-
-function XLGB_UI:OnSingleSetDepositStart(setName)
-  local p = ui.progress
-  p.x = 0
-  p.y = 1
-  p.titleRow.title:SetText("Depositing set '|cffecbc" .. setName .. "|r'")
-
-  p.bag     = XLGB_Banking.currentBankBag
-  p.bagIcon = "|t32:32:/esoui/art/tooltips/icon_bank.dds|t"
-  p.bagSize = getBagSize(p.bag)
-  defaultSetRowInfo()
-  updateProgressBar(setName, "Depositing")
-
-  p:SetHidden(false)
-  p.overlay:SetHidden(false)
-end
-
-function XLGB_UI:OnSingleSetDepositStop()
-  hideProgress()
-end
-
---------
-
-function XLGB_UI:CancelMoveItems()
-  local p = ui.progress
-  p:SetHidden(true)
-  p.overlay:SetHidden(true)
-  XLGB_Banking.isMoveCancelled = true
-end
-
-local function InitUIProgressVariables()
-  ui.progress                     = XLGB_ProgressWindow
-
-  ui.progress.titleRow            = XLGB_ProgressWindow_TitleRow
-  ui.progress.titleRow.title      = XLGB_ProgressWindow_TitleRow_Title
-
-  ui.progress.progressRow         = XLGB_ProgressWindow_ProgressRow
-  ui.progress.progressRow.xOfY    = XLGB_ProgressWindow_ProgressRow_XofY
-  ui.progress.progressRow.barBG   = XLGB_ProgressWindow_ProgressRow_BarBG
-  ui.progress.progressRow.bar     = XLGB_ProgressWindow_ProgressRow_Bar
-
-  ui.progress.infoRow             = XLGB_ProgressWindow_InfoRow
-  ui.progress.infoRow.setSize     = XLGB_ProgressWindow_InfoRow_SetSize
-  ui.progress.infoRow.bagSpace    = XLGB_ProgressWindow_InfoRow_BagSpace
-
-  ui.progress.setRow              = XLGB_ProgressWindow_SetRow
-  ui.progress.setRow.setInfo      = XLGB_ProgressWindow_SetRow_SetInfo
-
-  ui.progress.cancelRow           = XLGB_ProgressWindow_CancelRow
-  ui.progress.cancelRow.safeMode  = XLGB_ProgressWindow_CancelRow_SafeMode
-  ui.progress.cancelRow.cancel    = XLGB_ProgressWindow_CancelRow_Cancel
-
-  ui.progress.overlay             = XLGB_GreyOverlay
-end
---------------------------------------------------------------------------------------------
--- PROGRESS BAR END
---------------------------------------------------------------------------------------------
-
-
 function XLGB_UI:ToggleSettings()
   LAM:OpenToPanel(XLGB_Settings.panel)
 end
@@ -1162,6 +959,325 @@ end
 -- SET WINDOW END
 --------------------------------------------------------------------------------------------
 
+
+--------------------------------------------------------------------------------------------
+--------------------------------------------------------------------------------------------
+--
+--
+--
+--                                        PROGRESS BAR
+--
+--
+--
+--------------------------------------------------------------------------------------------
+local function getBagSize(bag)
+  if bag == BAG_BANK or bag == BAG_SUBSCRIBER_BANK then
+    return GetBagSize(BAG_BANK) + GetBagSize(BAG_SUBSCRIBER_BANK)
+  else
+    return GetBagSize(bag)
+  end
+end
+
+local function getNumBagUsedSlots(bag)
+  if bag == BAG_BANK or bag == BAG_SUBSCRIBER_BANK then
+    return GetNumBagUsedSlots(BAG_BANK) + GetNumBagUsedSlots(BAG_SUBSCRIBER_BANK)
+  else
+    return GetNumBagUsedSlots(bag)
+  end
+end
+
+local function setProgressBar(current, total)
+  local p = ui.progress
+  local calculateOffSet = -(360  * (1 - (current / total)))
+  p.progressRow.bar:ClearAnchors()
+  p.progressRow.bar:SetAnchor(TOPLEFT, p.progressRow.barBG, TOPLEFT, 0, 0)
+  p.progressRow.bar:SetAnchor(BOTTOMRIGHT, p.progressRow.barBG, BOTTOMRIGHT, calculateOffSet, 0)
+end
+
+local function setInfoRowItemsInSet(itemsRemaining)
+  ui.progress.infoRow.setSize:SetText("|t52:56:/esoui/art/tradinghouse/tradinghouse_apparel_chest_up.dds|t(" .. tostring(itemsRemaining) .. ") |t32:32:/esoui/art/chatwindow/chat_overflowarrow_up.dds|t")
+end
+
+local function updateBagSpace()
+  local p = ui.progress
+  local usedSlots = getNumBagUsedSlots(p.bag)
+  p.infoRow.bagSpace:SetText(p.bagIcon .. "(" .. tostring(usedSlots) .. "/" .. tostring(p.bagSize) .. ")")
+end
+
+local function defaultSetRowInfo()
+  XLGB_UI:OnMoveItem(nil, 0)
+end
+
+local function updateProgressBar(nextSetName, pretext)
+  local p = ui.progress
+  p.x = p.x + 1
+  p.progressRow.xOfY:SetText("[" .. tostring(p.x) .. "/" .. tostring(p.y) .. "]")
+  setProgressBar(p.x, p.y)
+  defaultSetRowInfo()
+  p.setRow.setInfo:SetText(pretext .. " set '|cffecbc" .. nextSetName .. "|r'")
+end
+
+local function hideProgress()
+  local p = ui.progress
+  p:SetHidden(true)
+  p.overlay:SetHidden(true)
+end
+
+function XLGB_UI:OnMoveItem(targetBag, itemsLeft)
+  setInfoRowItemsInSet(itemsLeft)
+  updateBagSpace()
+  if sV.safeMode then
+    ui.progress.cancelRow.safeMode:SetText("Safe mode: |c00ff00ON|r")
+  else
+    ui.progress.cancelRow.safeMode:SetText("Safe mode: |cff0000OFF|r")
+  end
+end
+
+------------
+
+function XLGB_UI:OnPageWithdrawStart(pageName)
+  local p = ui.progress
+  p.x = 0
+  p.y = #XLGB_Page:GetSetsInPage(pageName)
+  p.titleRow.title:SetText("Withdrawing page '|cffecbc" .. pageName .. "|r'")
+
+  p.bag     = BAG_BACKPACK
+  p.bagIcon = "|t32:32:/esoui/art/tooltips/icon_bag.dds|t"
+  p.bagSize = getBagSize(p.bag)
+  defaultSetRowInfo()
+
+  p:SetHidden(false)
+  p.overlay:SetHidden(false)
+end
+
+function XLGB_UI:OnPageWithdrawNextSet(nextSetName)
+  updateProgressBar(nextSetName, "Withdrawing")
+end
+
+function XLGB_UI:OnPageWithdrawStop(pageName)
+  hideProgress()
+  local p = ui.progress
+  if sV.reportMissing then
+    local missingItemsPage = XLGB_Page:GetMissingItemsInPage(p.bag, pageName)
+    XLGB_UI:UpdateMissingItemsScrollList(missingItemsPage)
+    XLGB_UI:ShowMissingItemsUI()
+  end
+end
+
+function XLGB_UI:OnSingleSetWithdrawStart(setName, startTime)
+  local p = ui.progress
+  p.x = 0
+  p.y = 1
+  p.titleRow.title:SetText("Withdrawing set '|cffecbc" .. setName .. "|r'")
+
+  p.bag     = BAG_BACKPACK
+  p.bagIcon = "|t32:32:/esoui/art/tooltips/icon_bag.dds|t"
+  p.bagSize = getBagSize(p.bag)
+  defaultSetRowInfo()
+  updateProgressBar(setName, "Withdrawing")
+
+  p:SetHidden(false)
+  p.overlay:SetHidden(false)
+end
+
+function XLGB_UI:OnSingleSetWithdrawStop(setName)
+  hideProgress()
+  local p = ui.progress
+  if sV.reportMissing then
+    local missingItemsPage = {}
+    missingItemsPage.sets[1] = XLGB_GearSet:GetMissingItems(p.bag, XLGB_GearSet:FindGearSet(setName))
+    missingItemsPage.name = missingItemsPage.sets[1].name
+    XLGB_UI:UpdateMissingItemsScrollList(missingItemsPage)
+    XLGB_UI:ShowMissingItemsUI()
+  end
+end
+
+------------
+
+function XLGB_UI:OnPageDepositStart(pageName)
+  local p = ui.progress
+  p.x = 0
+  p.y = #XLGB_Page:GetSetsInPage(pageName)
+  p.titleRow.title:SetText("Depositing page '|cffecbc" .. pageName .. "|r'")
+
+  p.bag     = XLGB_Banking.currentBankBag
+  p.bagIcon = "|t32:32:/esoui/art/tooltips/icon_bank.dds|t"
+  p.bagSize = getBagSize(p.bag)
+  defaultSetRowInfo()
+
+  p:SetHidden(false)
+  p.overlay:SetHidden(false)
+end
+
+function XLGB_UI:OnPageDepositNextSet(nextSetName)
+  updateProgressBar(nextSetName, "Depositing")
+end
+
+function XLGB_UI:OnPageDepositStop(pageName)
+  hideProgress()
+  local p = ui.progress
+  if sV.reportMissing then
+    local missingItemsPage = XLGB_Page:GetMissingItemsInPage(p.bag, pageName)
+    XLGB_UI:UpdateMissingItemsScrollList(missingItemsPage)
+    XLGB_UI:ShowMissingItemsUI()
+  end
+end
+
+---
+
+function XLGB_UI:OnSingleSetDepositStart(setName)
+  local p = ui.progress
+  p.x = 0
+  p.y = 1
+  p.titleRow.title:SetText("Depositing set '|cffecbc" .. setName .. "|r'")
+
+  p.bag     = XLGB_Banking.currentBankBag
+  p.bagIcon = "|t32:32:/esoui/art/tooltips/icon_bank.dds|t"
+  p.bagSize = getBagSize(p.bag)
+  defaultSetRowInfo()
+  updateProgressBar(setName, "Depositing")
+
+  p:SetHidden(false)
+  p.overlay:SetHidden(false)
+end
+
+function XLGB_UI:OnSingleSetDepositStop(setName)
+  hideProgress()
+  local p = ui.progress
+  if sV.reportMissing then
+    local missingItemsPage = {}
+    missingItemsPage.sets[1] = XLGB_GearSet:GetMissingItems(p.bag, XLGB_GearSet:FindGearSet(setName))
+    missingItemsPage.name = missingItemsPage.sets[1].name
+    XLGB_UI:UpdateMissingItemsScrollList(missingItemsPage)
+    XLGB_UI:ShowMissingItemsUI()
+  end
+end
+
+--------
+
+function XLGB_UI:CancelMoveItems()
+  local p = ui.progress
+  p:SetHidden(true)
+  p.overlay:SetHidden(true)
+  XLGB_Banking.isMoveCancelled = true
+end
+
+local function InitUIProgressVariables()
+  ui.progress                     = XLGB_ProgressWindow
+
+  ui.progress.titleRow            = XLGB_ProgressWindow_TitleRow
+  ui.progress.titleRow.title      = XLGB_ProgressWindow_TitleRow_Title
+
+  ui.progress.progressRow         = XLGB_ProgressWindow_ProgressRow
+  ui.progress.progressRow.xOfY    = XLGB_ProgressWindow_ProgressRow_XofY
+  ui.progress.progressRow.barBG   = XLGB_ProgressWindow_ProgressRow_BarBG
+  ui.progress.progressRow.bar     = XLGB_ProgressWindow_ProgressRow_Bar
+
+  ui.progress.infoRow             = XLGB_ProgressWindow_InfoRow
+  ui.progress.infoRow.setSize     = XLGB_ProgressWindow_InfoRow_SetSize
+  ui.progress.infoRow.bagSpace    = XLGB_ProgressWindow_InfoRow_BagSpace
+
+  ui.progress.setRow              = XLGB_ProgressWindow_SetRow
+  ui.progress.setRow.setInfo      = XLGB_ProgressWindow_SetRow_SetInfo
+
+  ui.progress.cancelRow           = XLGB_ProgressWindow_CancelRow
+  ui.progress.cancelRow.safeMode  = XLGB_ProgressWindow_CancelRow_SafeMode
+  ui.progress.cancelRow.cancel    = XLGB_ProgressWindow_CancelRow_Cancel
+
+  ui.progress.overlay             = XLGB_GreyOverlay
+end
+--------------------------------------------------------------------------------------------
+-- PROGRESS BAR END
+--------------------------------------------------------------------------------------------
+
+
+
+--------------------------------------------------------------------------------------------
+--------------------------------------------------------------------------------------------
+--
+--
+--
+--                                        MISSING ITEMS
+--
+--
+--
+--------------------------------------------------------------------------------------------
+
+function XLGB_UI:ShowMissingItemsUI()
+  local m = ui.missing
+  m:SetHidden(false)
+  m.overlay:SetHidden(false)
+end
+
+function XLGB_UI:HideMissingItemsUI()
+  local m = ui.missing
+  m:SetHidden(true)
+  m.overlay:SetHidden(true)
+end
+
+function XLGB_UI:UpdateMissingItemsScrollList(missingItemsPage)
+  local m = ui.missing
+  local scrollData = ZO_ScrollList_GetDataList(m.scrollList)
+  ZO_ScrollList_Clear(m.scrollList)
+
+  for _, set in pairs(missingItemsPage.sets) do
+    local dataSetEntry = ZO_ScrollList_CreateDataEntry(XLGB_Constants.MISSING_SET_ROW, {
+      name = set.name,
+      amount = #set.items})
+    table.insert(scrollData, dataSetEntry)
+    for _, itemLink in pairs(set.items) do
+      local dataItemEntry = ZO_ScrollList_CreateDataEntry(XLGB_Constants.MISSING_ITEM_ROW, {
+        itemLink = itemLink,
+      })
+      table.insert(scrollData, dataItemEntry)
+    end
+  end
+
+  ZO_ScrollList_Commit(m.scrollList)
+end
+
+local function fillMissingSetsRowWithData(control, data)
+  control.data = data
+  control:GetNamedChild("_Name"):SetText(data.name)
+  control:GetNamedChild("_Amount"):SetText("(" .. tostring(data.amount) .. ")")
+end
+
+local function fillMissingItemsRowWithData(control, data)
+  control.data = data
+  control:GetNamedChild("_Name"):SetText(data.itemLink)
+  --GetItemLinkIcon(string itemLink) -- returns texture string
+  --GetItemLinkTraitCategory(string itemLink) 
+  --https://wiki.esoui.com/Globals#ItemTraitType
+  control:SetMouseEnabled(true)
+  control:SetHandler("OnMouseEnter", ShowItemTooltip)
+  control:SetHandler("OnMouseExit", HideItemTooltip)
+end
+
+function XLGB_UI:InitializeMissingItemsScrollList()
+  ZO_ScrollList_AddDataType(ui.missing.scrollList, XLGB_Constants.MISSING_SET_ROW, "XLGB_MissingSetRow_Template", 35, fillMissingSetsRowWithData)
+  ZO_ScrollList_AddDataType(ui.missing.scrollList, XLGB_Constants.MISSING_ITEM_ROW, "XLGB_MissingItemRow_Template", 35, fillMissingItemsRowWithData)
+  ZO_ScrollList_EnableHighlight(ui.missing.scrollList, "ZO_ThinListHighlight")
+  XLGB_UI:UpdateSetScrollList()
+end
+
+local function InitUIMissingItemsVariables()
+  ui.missing                      = XLGB_MissingItems
+
+  ui.missing.titleRow             = XLGB_MissingItems_TitleRow
+  ui.missing.titleRow.title       = XLGB_MissingItems_TitleRow_Title
+
+  ui.missing.confirmRow           = XLGB_MissingItems_ConfirmRow
+  ui.missing.confirmRow.confirm   = XLGB_MissingItems_ConfirmRow_Confirm
+
+  ui.missing.scrollList           = XLGB_MissingItems_ScrollList
+
+  ui.missing.overlay              = XLGB_GreyOverlay
+end
+
+--------------------------------------------------------------------------------------------
+-- MISSING ITEMS END
+--------------------------------------------------------------------------------------------
+
 function XLGB_UI:Initialize()
   xl = XLGearBanker or {}
   sV = XLGearBanker.savedVariables or {}
@@ -1183,9 +1299,9 @@ function XLGB_UI:Initialize()
   InitUIPageVariables()
   InitPageWindowTooltips()
 
+  InitUIMissingItemsVariables()
+
   XLGB_UI:RestorePosition()
-
-
 
   XLGB_UI:InitializeSetScrollList()
   XLGB_UI:InitializeSetDropdown()
@@ -1199,7 +1315,9 @@ function XLGB_UI:Initialize()
   XLGB_UI:UpdatePageDropdown()
   XLGB_UI:SelectPage(sV.displayingPage)
   XLGB_UI:SetupPageDialogs()
-  
+
+  XLGB_UI:InitializeMissingItemsScrollList()
+
 
   if sV.debug then
     XLGB_UI:ShowPageUI()

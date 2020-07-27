@@ -2,6 +2,19 @@
 <Controls>
     <!-- Every control's name must be _unique_. -->
 
+
+<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -    -->
+<!--                                                                                                  -->
+<!--                                                                                                  -->
+<!--                                                                                                  -->
+<!--                                                                                                  -->
+<!--                                    XLGB_PageWindow                                               -->
+<!--                                                                                                  -->
+<!--                                                                                                  -->
+<!--                                                                                                  -->
+<!--                                                                                                  -->
+<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -  -->
+
 <TopLevelControl name="XLGB_PageWindow" clampedToScreen="true" movable="true" mouseEnabled="true" hidden="true" resizeHandleSize="0">
   <Dimensions x="350" y="600"/>
   <DimensionConstraints  minX="350" minY="600" maxX="350" maxY="600"/>
@@ -238,9 +251,24 @@
   </Controls>
 </TopLevelControl>
 
-<!--                -->
-<!-- XLGB_SetWindow -->
-<!--                -->
+<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -  -->
+<!--                                    XLGB_PageWindow end                                           -->
+<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -  -->
+
+
+
+<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -  -->
+<!--                                                                                                  -->
+<!--                                                                                                  -->
+<!--                                                                                                  -->
+<!--                                                                                                  -->
+<!--                                    XLGB_SetWindow                                                -->
+<!--                                                                                                  -->
+<!--                                                                                                  -->
+<!--                                                                                                  -->
+<!--                                                                                                  -->
+<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -  -->
+
 <TopLevelControl name="XLGB_SetWindow" clampedToScreen="true" movable="true" mouseEnabled="true" hidden="true" resizeHandleSize="10">
   <Dimensions x="350" y="600"/>
   <DimensionConstraints  minX="350" minY="400"/>
@@ -415,6 +443,24 @@
   </Controls>
 </TopLevelControl>
 
+<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -  -->
+<!--                                    XLGB_SetWindow end                                            -->
+<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -  -->
+
+
+
+<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -    -->
+<!--                                                                                                  -->
+<!--                                                                                                  -->
+<!--                                                                                                  -->
+<!--                                                                                                  -->
+<!--                                    XLGB_ProgressWindow                                           -->
+<!--                                                                                                  -->
+<!--                                                                                                  -->
+<!--                                                                                                  -->
+<!--                                                                                                  -->
+<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -  -->
+
 <TopLevelControl name="XLGB_ProgressWindow" clampedToScreen="true" movable="true" mouseEnabled="true" hidden="true" resizeHandleSize="0" layer="4" level="1">
   <Dimensions x="460" y="220"/>
   <DimensionConstraints  minX="460" minY="220" maxX="460" maxY="220"/>
@@ -556,6 +602,107 @@
   </Controls>
 </TopLevelControl>
 
+<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -  -->
+<!--                                    XLGB_ProgressWindow end                                       -->
+<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -  -->
+
+
+
+<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -    -->
+<!--                                                                                                  -->
+<!--                                                                                                  -->
+<!--                                                                                                  -->
+<!--                                                                                                  -->
+<!--                                    XLGB_MissingItems                                             -->
+<!--                                                                                                  -->
+<!--                                                                                                  -->
+<!--                                                                                                  -->
+<!--                                                                                                  -->
+<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -  -->
+
+<TopLevelControl name="XLGB_MissingItems" clampedToScreen="true" movable="true" mouseEnabled="true" hidden="true" resizeHandleSize="0">
+  <Dimensions x="350" y="600"/>
+  <DimensionConstraints  minX="350" minY="600" maxX="350" maxY="600"/>
+  <Anchor point="CENTER" relativeTo="GUI_ROOT" relativePoint="CENTER" offsetX="0" offsetY="0" />
+  <OnMoveStop> XLGB_UI:XLGB_PageWindow_OnMoveStop()</OnMoveStop>
+  <Controls>
+    <Backdrop name="$(parent)_BG" inherits="ZO_DefaultBackdrop"><AnchorFill/></Backdrop>
+
+    <!-- 
+      TITLE ROW 
+    -->
+    <Control name="$(parent)_TitleRow" mouseEnabled="false" resizeToFitDescendents="false">
+      <Dimensions x="350" />
+      <DimensionConstraints  minY="30"/>
+      <Anchor point="TOPLEFT" relativeTo="$(parent)" relativePoint="TOPLEFT" offsetX="10" offsetY="10"/>
+      <Anchor point="TOPRIGHT" relativeTo="$(parent)" relativePoint="TOPRIGHT" offsetX="-10" offsetY="10"/>
+      <Controls>
+
+        <!-- Title -->
+        <Label name="$(parent)_Title" font="ZoFontAnnounceMedium" text="Missing Items">
+          <Anchor point="TOPLEFT" relativeTo="$(parent)" relativePoint="TOPLEFT" offsetX="10" offsetY="10"  />
+        </Label>
+
+      </Controls>
+    </Control>
+    <!-- Title Row end-->
+
+    <!-- 
+      CONFIRM ROW 
+    -->
+    <Control name="$(parent)_ConfirmRow" mouseEnabled="false" resizeToFitDescendents="false">
+      <Dimensions x="350" />
+      <DimensionConstraints  minY="30"/>
+      <Anchor point="BOTTOMRIGHT" relativeTo="$(parent)" relativePoint="BOTTOMRIGHT" offsetX="-10" offsetY="-10"/>
+      <Controls>
+        <!-- Cancel Button -->
+        <Button name="$(parent)_Confirm" inherits="ZO_ButtonBehaviorClickSound" hidden="false" >
+          <OnClicked>XLGB_UI:HideMissingItemsUI()</OnClicked>
+          <Dimensions x="120" y="40" />                                
+          <Anchor point="RIGHT" relativeTo="$(parent)" relativePoint="RIGHT" offsetX="-20" offsetY="0"  />
+          <Textures
+              normal    ="/esoui/art/buttons/button_xlarge_mouseup.dds"
+              pressed    ="/esoui/art/buttons/button_xlarge_mousedown.dds"
+              mouseOver  ="/esoui/art/buttons/button_xlarge_mouseover.dds"
+            />
+          <Controls>
+            <Label name="$(parent)_Label" font="ZoFontWinH5" text="Confirm">
+              <Anchor point="CENTER" relativeTo="$(parent)" relativePoint="CENTER" offsetX="0" offsetY="-8"  />
+              <!-- <Anchor point="TOPLEFT" relativeTo="$(parent)" relativePoint="TOPLEFT" offsetX="10" offsetY="-10" />
+              <Anchor point="BOTTOMRIGHT" relativeTo="$(parent)" relativePoint="BOTTOMRIGHT" offsetX="-10" offsetY="10" /> -->
+            </Label>
+          </Controls>
+        </Button> 
+
+      </Controls>
+    </Control>
+    <!-- Confirm Row end-->
+
+    <Control name="$(parent)_ScrollList" inherits="ZO_ScrollList">
+      <Anchor point="TOPLEFT" relativeTo="$(parent)_TitleRow" relativePoint="BOTTOMLEFT" offsetX="0" offsetY="10" />
+      <Anchor point="BOTTOMRIGHT" relativeTo="$(parent)_ConfirmRow" relativePoint="TOPRIGHT" offsetX="20" offsetY="-10" />
+    </Control>
+
+  </Controls>
+</TopLevelControl>
+
+<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -  -->
+<!--                                    XLGB_MissingItems end                                         -->
+<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -  -->
+
+
+
+<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -    -->
+<!--                                                                                                  -->
+<!--                                                                                                  -->
+<!--                                                                                                  -->
+<!--                                                                                                  -->
+<!--                                    XLGB_GreyOverlay                                              -->
+<!--                                                                                                  -->
+<!--                                                                                                  -->
+<!--                                                                                                  -->
+<!--                                                                                                  -->
+<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -  -->
 
 <TopLevelControl name="XLGB_GreyOverlay" clampedToScreen="true" movable="false" mouseEnabled="true" hidden="true" resizeHandleSize="0" layer="4" level="0">
   <Anchor point="TOPLEFT" relativeTo="GUI_ROOT" relativePoint="TOPLEFT" offsetX="0" offsetY="0" />
@@ -568,9 +715,25 @@
   </Controls>
 </TopLevelControl>
 
-<!-- 
-  TEMPLATES 
--->
+
+<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -  -->
+<!--                                    XLGB_GreyOverlay end                                          -->
+<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -  -->
+
+
+
+<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -    -->
+<!--                                                                                                  -->
+<!--                                                                                                  -->
+<!--                                                                                                  -->
+<!--                                                                                                  -->
+<!--                                    TEMPLATES                                                     -->
+<!--                                                                                                  -->
+<!--                                                                                                  -->
+<!--                                                                                                  -->
+<!--                                                                                                  -->
+<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -  -->
+
 <!-- Item Row Template-->
 <Control name="XLGB_Item_Row_Template" virtual="true">
   <Dimensions y="25"/> 
@@ -640,17 +803,37 @@
 </Control>
 <!-- PageSet Row Template end -->
 
-<!-- PageSet Row Template-->
-<Control name="XLGB_Page_ShifterBoxEntry_Template" virtual="true">
+<!-- MissingItemRow Template-->
+<Control name="XLGB_MissingSetRow_Template" virtual="true">
+  <Dimensions y="25"/> 
+  <Controls>
+
+    <Label name="$(parent)_Name" font="ZoFontWinT2" text="Alkosh">
+          <Anchor point="LEFT" relativeTo="$(parent)" relativePoint="LEFT" offsetX="10" offsetY="0" />
+    </Label>
+    <Label name="$(parent)_Amount" font="ZoFontWinT2" text="(10)">
+          <Anchor point="RIGHT" relativeTo="$(parent)" relativePoint="RIGHT" offsetX="-10" offsetY="0" />
+    </Label>
+
+  </Controls>
+</Control>
+<!-- MissingItemRow Template end-->
+
+<!-- MissingItemRow Template-->
+<Control name="XLGB_MissingItemRow_Template" virtual="true">
   <Dimensions y="25"/> 
   <Controls>
 
     <Label name="$(parent)_Name" font="ZoFontWinT2" text="Some Test Label">
-          <Anchor point="TOPLEFT" offsetX="10" offsetY="10" />
+          <Anchor point="LEFT" relativeTo="$(parent)" relativePoint="LEFT" offsetX="10" offsetY="0" />
     </Label>
+
   </Controls>
 </Control>
-<!-- PageSet Row Template end -->
+<!-- MissingItemRow Template end-->
+
+
+
 <!-- Templates end -->
 
 </Controls>

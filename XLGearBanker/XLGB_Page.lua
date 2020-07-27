@@ -139,6 +139,19 @@ function XLGB_Page:GetAmountOfItemsInPage(pageName)
   return itemsInPage -- Returns non-unique items (i.e. can contain duplicates)
 end
 
+function XLGB_Page:GetMissingItemsInPage(fromBag, pageName)
+  local page = XLGB_Page:GetPage(pageName)
+  local missingItemsInPage = {}
+  local sets
+  for _, set in pairs(page.sets) do
+    local setWithMissingItems = XLGB_GearSet:GetMissingItems(fromBag, XLGB_GearSet:FindGearSet(set))
+    table.insert(sets, setWithMissingItems)
+  end
+  missingItemsInPage.name = pageName
+  missingItemsInPage.sets = sets
+  return missingItemsInPage
+end
+
 function XLGB_Page:DepositPage(pageName)
   if XLGB_Banking.isMovingItems then return end
   XLGB_Banking.isMoveCancelled = false

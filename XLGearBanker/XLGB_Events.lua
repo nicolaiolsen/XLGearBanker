@@ -33,16 +33,16 @@ function XLGB_Events:OnPageWithdrawNextSet(nextSetName)
   XLGB_UI:OnPageWithdrawNextSet(nextSetName)
 end
 
-function XLGB_Events:OnPageWithdrawStop()
-  XLGB_UI:OnPageWithdrawStop()
+function XLGB_Events:OnPageWithdrawStop(pageName)
+  XLGB_UI:OnPageWithdrawStop(pageName)
 end
 
 function XLGB_Events:OnSingleSetWithdrawStart(setName)
   XLGB_UI:OnSingleSetWithdrawStart(setName)
 end
 
-function XLGB_Events:OnSingleSetWithdrawStop()
-  XLGB_UI:OnSingleSetWithdrawStop()
+function XLGB_Events:OnSingleSetWithdrawStop(setName)
+  XLGB_UI:OnSingleSetWithdrawStop(setName)
 end
 ----
 
@@ -55,16 +55,16 @@ function XLGB_Events:OnPageDepositNextSet(nextSetName)
   XLGB_UI:OnPageDepositNextSet(nextSetName)
 end
 
-function XLGB_Events:OnPageDepositStop()
-  XLGB_UI:OnPageDepositStop()
+function XLGB_Events:OnPageDepositStop(pageName)
+  XLGB_UI:OnPageDepositStop(pageName)
 end
 
 function XLGB_Events:OnSingleSetDepositStart(setName)
   XLGB_UI:OnSingleSetDepositStart(setName)
 end
 
-function XLGB_Events:OnSingleSetDepositStop()
-  XLGB_UI:OnSingleSetDepositStop()
+function XLGB_Events:OnSingleSetDepositStop(setName)
+  XLGB_UI:OnSingleSetDepositStop(setName)
 end
 ----
 
