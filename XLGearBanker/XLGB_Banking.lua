@@ -300,7 +300,7 @@ local function withdrawItemsNonESOPlus(itemsToWithdraw)
 end
 
 local function waitForMoveItemEnd(startTime, setName, isWithdrawing)
-
+  d("waitForMoveItemEnd")
   local function _waitForEnd()
     if XLGB_Banking.isMovingItems then return end
     local endTime = GetGameTimeMilliseconds()

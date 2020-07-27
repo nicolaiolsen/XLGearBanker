@@ -1085,7 +1085,9 @@ function XLGB_UI:OnSingleSetWithdrawStop(setName)
   local p = ui.progress
   if sV.reportMissing then
     local missingItemsPage = {}
-    missingItemsPage.sets[1] = XLGB_GearSet:GetMissingItems(p.bag, XLGB_GearSet:FindGearSet(setName))
+    local gearSetNumber = XLGB_GearSet:FindGearSet(setName)
+    d(setName .. " has number " .. tostring(gearSetNumber))
+    missingItemsPage.sets[1] = XLGB_GearSet:GetMissingItems(p.bag, gearSetNumber)
     missingItemsPage.name = missingItemsPage.sets[1].name
     XLGB_UI:UpdateMissingItemsScrollList(missingItemsPage)
     XLGB_UI:ShowMissingItemsUI()
