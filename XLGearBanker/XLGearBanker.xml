@@ -639,7 +639,7 @@
       <Controls>
 
         <!-- Title -->
-        <Label name="$(parent)_Title" font="ZoFontAnnounceMedium" text="Missing Items">
+        <Label name="$(parent)_Title" font="ZoFontAnnounceMedium" text="XL Gear Banker">
           <Anchor point="CENTER" relativeTo="$(parent)" relativePoint="CENTER" offsetX="0" offsetY="0"  />
         </Label>
 
@@ -696,7 +696,7 @@
     <!-- Confirm Row end-->
 
     <Control name="$(parent)_ScrollList" inherits="ZO_ScrollList">
-      <Anchor point="TOPLEFT" relativeTo="$(parent)_DescriptionRow" relativePoint="BOTTOMLEFT" offsetX="0" offsetY="10" />
+      <Anchor point="TOPLEFT" relativeTo="$(parent)_DescriptionRow" relativePoint="BOTTOMLEFT" offsetX="-10" offsetY="10" />
       <Anchor point="BOTTOMRIGHT" relativeTo="$(parent)_ConfirmRow" relativePoint="TOPRIGHT" offsetX="-10" offsetY="-20" />
     </Control>
 
