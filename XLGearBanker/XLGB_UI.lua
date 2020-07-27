@@ -1250,7 +1250,7 @@ end
 local function fillMissingItemsRowWithData(control, data)
   control.data = data
   local textureString = GetItemLinkIcon(data.itemLink)
-  control:GetNamedChild("_Name"):SetText(textureString .. data.itemLink)
+  control:GetNamedChild("_Name"):SetText("|t32:32:" .. textureString .. "|t " .. data.itemLink)
   --GetItemLinkIcon(string itemLink) -- returns texture string
   --GetItemLinkTraitCategory(string itemLink) 
   --https://wiki.esoui.com/Globals#ItemTraitType

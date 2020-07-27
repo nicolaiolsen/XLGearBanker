@@ -850,7 +850,7 @@
   <Controls>
 
     <Label name="$(parent)_Name" font="ZoFontWinH5" text="Some Test Label">
-          <Anchor point="LEFT" relativeTo="$(parent)" relativePoint="LEFT" offsetX="30" offsetY="0" />
+          <Anchor point="LEFT" relativeTo="$(parent)" relativePoint="LEFT" offsetX="5" offsetY="0" />
     </Label>
 
   </Controls>
