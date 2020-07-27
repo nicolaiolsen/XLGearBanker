@@ -63,7 +63,6 @@ end
 
 SLASH_COMMANDS["/xlgb_overlay"] = function (argsv)
   XLGB_GreyOverlay:SetHidden(not XLGB_GreyOverlay:IsHidden())
-  XLGB_ProgressWindow:SetHidden(not XLGB_ProgressWindow:IsHidden())
 end
 
 SLASH_COMMANDS["/xlgb_missing"] = function (argsv)
