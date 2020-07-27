@@ -1243,7 +1243,7 @@ end
 
 local function fillMissingSetsRowWithData(control, data)
   control.data = data
-  control:GetNamedChild("_Name"):SetText(data.name)
+  control:GetNamedChild("_Name"):SetText("|cffecbc" .. data.name .. "|r")
   control:GetNamedChild("_Amount"):SetText("(" .. tostring(data.amount) .. ")")
 end
 

@@ -640,12 +640,29 @@
 
         <!-- Title -->
         <Label name="$(parent)_Title" font="ZoFontAnnounceMedium" text="Missing Items">
-          <Anchor point="TOPLEFT" relativeTo="$(parent)" relativePoint="TOPLEFT" offsetX="10" offsetY="10"  />
+          <Anchor point="CENTER" relativeTo="$(parent)" relativePoint="CENTER" offsetX="0" offsetY="0"  />
         </Label>
 
       </Controls>
     </Control>
     <!-- Title Row end-->
+
+    <!-- 
+      DESCRIPTION ROW 
+    -->
+    <Control name="$(parent)_DescriptionRow" mouseEnabled="false" resizeToFitDescendents="false">
+      <Dimensions x="350" />
+      <DimensionConstraints  minY="30"/>
+      <Anchor point="TOPLEFT" relativeTo="$(parent)_TitleRow" relativePoint="BOTTOMLEFT" offsetX="10" offsetY="10"/>
+      <Anchor point="TOPRIGHT" relativeTo="$(parent)_TitleRow" relativePoint="BOTTOMRIGHT" offsetX="-10" offsetY="10"/>
+      <Controls>
+
+        <!-- XofY -->
+        <Label name="$(parent)_Description" font="ZoFontWinH5" text="The following items could not be found:">
+          <Anchor point="LEFT" relativeTo="$(parent)" relativePoint="LEFT" offsetX="0" offsetY="0"  />
+        </Label>
+      </Controls>
+    </Control>
 
     <!-- 
       CONFIRM ROW 
@@ -679,8 +696,8 @@
     <!-- Confirm Row end-->
 
     <Control name="$(parent)_ScrollList" inherits="ZO_ScrollList">
-      <Anchor point="TOPLEFT" relativeTo="$(parent)_TitleRow" relativePoint="BOTTOMLEFT" offsetX="0" offsetY="10" />
-      <Anchor point="BOTTOMRIGHT" relativeTo="$(parent)_ConfirmRow" relativePoint="TOPRIGHT" offsetX="20" offsetY="-10" />
+      <Anchor point="TOPLEFT" relativeTo="$(parent)_DescriptionRow" relativePoint="BOTTOMLEFT" offsetX="0" offsetY="30" />
+      <Anchor point="BOTTOMRIGHT" relativeTo="$(parent)_ConfirmRow" relativePoint="TOPRIGHT" offsetX="-10" offsetY="-10" />
     </Control>
 
   </Controls>
@@ -769,7 +786,7 @@
       <Anchor point="BOTTOMRIGHT" offsetX="-10" offsetY="0" />
     </Backdrop>
     
-    <Label name="$(parent)_Name" font="ZoFontWinH5" text="Some Test Label">
+    <Label name="$(parent)_Name" font="ZoFontWinH3" text="Some Test Label">
           <Anchor point="TOPLEFT" offsetX="20" offsetY="8" />
     </Label>
 
@@ -803,16 +820,24 @@
 </Control>
 <!-- PageSet Row Template end -->
 
+<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -    -->
+<!--                                                                                                  -->
+<!--                                                                                                  -->
+<!--                                    MISSING ITEM TEMPLATES                                        -->
+<!--                                                                                                  -->
+<!--                                                                                                  -->
+<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -  -->
+
 <!-- MissingItemRow Template-->
 <Control name="XLGB_MissingSetRow_Template" virtual="true">
   <Dimensions y="25"/> 
   <Controls>
 
-    <Label name="$(parent)_Name" font="ZoFontWinT2" text="Alkosh">
+    <Label name="$(parent)_Name" font="ZoFontWinH3" text="|cffecbcAlkosh|r">
           <Anchor point="LEFT" relativeTo="$(parent)" relativePoint="LEFT" offsetX="10" offsetY="0" />
     </Label>
-    <Label name="$(parent)_Amount" font="ZoFontWinT2" text="(10)">
-          <Anchor point="RIGHT" relativeTo="$(parent)" relativePoint="RIGHT" offsetX="-10" offsetY="0" />
+    <Label name="$(parent)_Amount" font="ZoFontWinH5" text="(10)">
+          <Anchor point="LEFT" relativeTo="$(parent)_Name" relativePoint="RIGHT" offsetX="10" offsetY="0" />
     </Label>
 
   </Controls>
@@ -824,8 +849,8 @@
   <Dimensions y="25"/> 
   <Controls>
 
-    <Label name="$(parent)_Name" font="ZoFontWinT2" text="Some Test Label">
-          <Anchor point="LEFT" relativeTo="$(parent)" relativePoint="LEFT" offsetX="10" offsetY="0" />
+    <Label name="$(parent)_Name" font="ZoFontWinH5" text="Some Test Label">
+          <Anchor point="LEFT" relativeTo="$(parent)" relativePoint="LEFT" offsetX="30" offsetY="0" />
     </Label>
 
   </Controls>
