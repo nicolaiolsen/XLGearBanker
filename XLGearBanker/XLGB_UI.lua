@@ -1210,8 +1210,10 @@ end
 
 function XLGB_UI:ShowMissingItemsUI()
   local m = ui.missing
-  m:SetHidden(false)
-  m.overlay:SetHidden(false)
+  if xl.areThereAnyItemsMissing then
+    m:SetHidden(false)
+    m.overlay:SetHidden(false)
+  end
 end
 
 function XLGB_UI:HideMissingItemsUI()
@@ -1224,7 +1226,7 @@ function XLGB_UI:UpdateMissingItemsScrollList(missingItemsPage)
   local m = ui.missing
   local scrollData = ZO_ScrollList_GetDataList(m.scrollList)
   ZO_ScrollList_Clear(m.scrollList)
-
+  xl.areThereAnyItemsMissing = false
   for _, set in pairs(missingItemsPage.sets) do
     local dataSetEntry = ZO_ScrollList_CreateDataEntry(XLGB_Constants.MISSING_SET_ROW, {
       name = set.name,
@@ -1234,6 +1236,7 @@ function XLGB_UI:UpdateMissingItemsScrollList(missingItemsPage)
       local dataItemEntry = ZO_ScrollList_CreateDataEntry(XLGB_Constants.MISSING_ITEM_ROW, {
         itemLink = itemLink,
       })
+      xl.areThereAnyItemsMissing = true
       table.insert(scrollData, dataItemEntry)
     end
   end
@@ -1296,6 +1299,7 @@ function XLGB_UI:Initialize()
   xl.copyOfSet = {}
   xl.itemChanges = false
   xl.nameChanges = false
+  xl.areThereAnyItemsMissing = false
 
   InitUIProgressVariables()
 
