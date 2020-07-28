@@ -538,6 +538,8 @@ end
 --
 --------------------------------------------------------------------------------------------
 
+local printSpacesNeeded = function () return XLGB_Banking.spacesNeeded end
+
 function XLGB_Banking:Initialize()
   sV = XLGearBanker.savedVariables
   self.bankOpen = IsBankOpen()
@@ -566,7 +568,7 @@ function XLGB_Banking:Initialize()
     "XLGearBanker", 
     "NotEnoughSpace", 
     "XL Gear Banker", 
-    "Not enough bagspace. " .. function () return XLGB_Banking.spacesNeeded end,
+    "Not enough bagspace. " .. printSpacesNeeded,
     function() return end,
     nil,
     nil)
