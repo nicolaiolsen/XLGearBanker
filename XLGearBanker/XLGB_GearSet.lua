@@ -5,7 +5,7 @@ local sV
 
 function XLGB_GearSet:Initialize()
   sV = XLGearBanker.savedVariables
-  sV.gearSetList = sV.gearSetList or {}
+  -- sV.gearSetList = sV.gearSetList or {}
 
 end
 

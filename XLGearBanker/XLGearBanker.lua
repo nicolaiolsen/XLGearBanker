@@ -5,10 +5,18 @@ XLGearBanker.name = "XLGearBanker"
 
 -- Default settings.
 XLGearBanker.savedVariables = {
+  pages = {},
+  gearSetList = {},
+
+  pageWindow_x = 995,
+  pageWindow_y = 250,
+  setWindow_x = 640,
+  setWindow_y = 250,
+
+
   safeMode = true,
   debug = false,
   threshold = 70,
-  safeModeDowntime = 10000,
   reportMissing = true,
 }
 
@@ -51,26 +59,8 @@ SLASH_COMMANDS["/xlgb_debug"] = function (argsv)
   end
 end
 
-SLASH_COMMANDS["/xlgb_safemode"] = function (argsv)
-  if sV.safeMode then
-    d("[XLGB] Safe mode = off.")
-    sV.safeMode = false
-  else 
-    d("[XLGB] Safe mode = on.")
-    sV.safeMode = true
-  end
-end
-
 SLASH_COMMANDS["/xlgb_overlay"] = function (argsv)
   XLGB_GreyOverlay:SetHidden(not XLGB_GreyOverlay:IsHidden())
-end
-
-SLASH_COMMANDS["/xlgb_missing"] = function (argsv)
-  local missingItems = XLGB_GearSet:GetMissingItems(BAG_BACKPACK, sV.displayingSet)
-  d("Missing " .. tostring(#missingItems) .. " items")
-  for _, itemLink in pairs(missingItems) do
-      d(itemLink)
-  end
 end
 
 SLASH_COMMANDS["/xlgb_help"] = function (argsv)
