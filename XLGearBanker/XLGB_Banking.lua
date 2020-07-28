@@ -247,6 +247,7 @@ local function moveGearFromTwoBags(sourceBagOne, itemsToMoveOne, sourceBagTwo, i
 end
 
 local function _onNotEnoughSpace(itemsToMove, availableSpaces)
+  d("[XLGB_ERROR] Trying to move " .. itemsToMove.. "items into a bag with " .. availableSpaces .." empty slots.")
   libDialog:ShowDialog("XLGearBanker", "NotEnoughSpace", nil)
   XLGB_Banking.isMoveCancelled = true
 end
@@ -270,7 +271,7 @@ local function withdrawGearESOPlus(gearSet)
   local numberOfItemsToMove = #regularBankItemsToMove + #ESOPlusItemsToMove
   if (#availableBagSpaces < numberOfItemsToMove) then
     -- d("[XLGB_ERROR] Trying to move " .. numberOfItemsToMove.. "items into a bag with " .. #availableBagSpaces .." empty slots.")
-    _onNotEnoughSpace()
+    _onNotEnoughSpace(numberOfItemsToMove, #availableBagSpaces)
     return false
   end
   -- if CheckInventorySpaceAndWarn(numberOfItemsToMove) then
@@ -292,8 +293,7 @@ local function withdrawItemsNonESOPlus(itemsToWithdraw)
   local itemsToMove = findItemsToMove(XLGB_Banking.currentBankBag, itemsToWithdraw)
   local availableBagSpaces = getAvailableBagSpaces(BAG_BACKPACK)
   if (#availableBagSpaces < #itemsToMove) then
-    -- d("[XLGB_ERROR] Trying to move " .. #itemsToMove.. "items into a bag with " .. #availableBagSpaces .." empty slots.")
-    _onNotEnoughSpace()
+    _onNotEnoughSpace(#itemsToMove, #availableBagSpaces)
     return false
   end
   -- if CheckInventorySpaceAndWarn(#itemsToMove) then
@@ -397,8 +397,8 @@ local function depositItemsToBankNonESOPlus(itemsToDeposit)
   local numberOfItemsToMove = #equippedItemsToMove + #inventoryItemsToMove
 
   if (#availableBagSpaces < numberOfItemsToMove) then
-      -- d("[XLGB_ERROR] Trying to move " .. numberOfItemsToMove.. "items into a bag with " .. #availableBagSpaces .." empty slots.")
-      _onNotEnoughSpace()
+      
+      _onNotEnoughSpace(numberOfItemsToMove, #availableBagSpaces)
     return false
   end
   -- if CheckInventorySpaceAndWarn(numberOfItemsToMove) then
@@ -428,7 +428,7 @@ local function depositGearToBankESOPlus(gearSet)
   local numberOfItemsToMove = #equippedItemsToMove + #inventoryItemsToMove
 
   if (numberOfAvailableSpaces < numberOfItemsToMove) then
-    _onNotEnoughSpace()
+    _onNotEnoughSpace(numberOfItemsToMove, numberOfAvailableSpaces)
     return false
   end
 
