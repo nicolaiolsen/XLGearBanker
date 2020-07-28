@@ -13,11 +13,13 @@ XLGearBanker.savedVariables = {
   setWindow_x = 640,
   setWindow_y = 250,
 
-
   safeMode = true,
   debug = false,
   threshold = 70,
   reportMissing = true,
+
+  displayingSet = 1,
+  displayingPage = 1,
 }
 
 function XLGearBanker.OnAddOnLoaded(event, addonName)

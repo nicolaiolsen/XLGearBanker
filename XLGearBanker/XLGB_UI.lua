@@ -127,10 +127,12 @@ function XLGB_UI:OnBankClosed()
 end
 
 function XLGB_UI:DepositPage()
+  if XLGB_Page:GetNumberOfPages() < 1 then return end
   XLGB_Page:DepositPage(XLGB_Page:GetPageByIndex(sV.displayingPage).name)
 end
 
 function XLGB_UI:WithdrawPage()
+  if XLGB_Page:GetNumberOfPages() < 1 then return end
   XLGB_Page:WithdrawPage(XLGB_Page:GetPageByIndex(sV.displayingPage).name)
 end
 
@@ -1331,8 +1333,7 @@ end
 function XLGB_UI:Initialize()
   xl = XLGearBanker or {}
   sV = XLGearBanker.savedVariables or {}
-  sV.displayingSet = sV.displayingSet or 1
-  sV.displayingPage = sV.displayingPage or 1
+  
 
   xl.isSetEditable = false
   xl.isPageEditable = false
