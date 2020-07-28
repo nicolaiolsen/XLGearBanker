@@ -1060,7 +1060,7 @@ end
 function XLGB_UI:OnPageWithdrawStop(pageName)
   hideProgress()
   local p = ui.progress
-  if sV.reportMissing then
+  if sV.reportMissing and not XLGB_Banking.isMoveCancelled then
     local missingItemsPage = XLGB_Page:GetMissingItemsInPage(p.bag, pageName)
     XLGB_UI:UpdateMissingItemsScrollList(missingItemsPage)
     XLGB_UI:ShowMissingItemsUI()
@@ -1086,7 +1086,7 @@ end
 function XLGB_UI:OnSingleSetWithdrawStop(setName)
   hideProgress()
   local p = ui.progress
-  if sV.reportMissing then
+  if sV.reportMissing and not XLGB_Banking.isMoveCancelled then
     local missingItemsPage = {}
     local gearSetNumber = XLGB_GearSet:GetGearSetIndex(setName)
     d(setName .. " has number " .. tostring(gearSetNumber))
@@ -1122,7 +1122,7 @@ end
 function XLGB_UI:OnPageDepositStop(pageName)
   hideProgress()
   local p = ui.progress
-  if sV.reportMissing then
+  if sV.reportMissing and not XLGB_Banking.isMoveCancelled then
     local missingItemsPage = XLGB_Page:GetMissingItemsInPage(p.bag, pageName)
     XLGB_UI:UpdateMissingItemsScrollList(missingItemsPage)
     XLGB_UI:ShowMissingItemsUI()
@@ -1150,7 +1150,7 @@ end
 function XLGB_UI:OnSingleSetDepositStop(setName)
   hideProgress()
   local p = ui.progress
-  if sV.reportMissing then
+  if sV.reportMissing and not XLGB_Banking.isMoveCancelled then
     local missingItemsPage = {}
     local gearSetNumber = XLGB_GearSet:GetGearSetIndex(setName)
     missingItemsPage.sets = {}
