@@ -1226,6 +1226,7 @@ function XLGB_UI:UpdateMissingItemsScrollList(missingItemsPage)
   local m = ui.missing
   local scrollData = ZO_ScrollList_GetDataList(m.scrollList)
   ZO_ScrollList_Clear(m.scrollList)
+  ZO_ScrollList_EnableHighlight(m.scrollList, "ZO_ThinListHighlight")
   xl.areThereAnyItemsMissing = false
   for _, set in pairs(missingItemsPage.sets) do
     local dataSetEntry = ZO_ScrollList_CreateDataEntry(XLGB_Constants.MISSING_SET_ROW, {
