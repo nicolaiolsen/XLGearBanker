@@ -247,7 +247,7 @@ local function moveGearFromTwoBags(sourceBagOne, itemsToMoveOne, sourceBagTwo, i
 end
 
 local function _onNotEnoughSpace(itemsToMove, availableSpaces)
-  libDialog:ShowDialog("XLGearBanker", "NotEnoughSpaces", nil)
+  libDialog:ShowDialog("XLGearBanker", "NotEnoughSpace", nil)
   XLGB_Banking.isMoveCancelled = true
 end
 
