@@ -849,7 +849,8 @@
   <Dimensions y="25"/> 
   <Controls>
 
-    <Backdrop name="$(parent)_BG" inherits="ZO_DefaultBackdrop">
+    <Backdrop name="$(parent)_BG" inherits="ZO_DefaultBackdrop" centerColor="99BADD" edgeColor="00000000" alpha="1" hidden="true">
+    <!-- <Backdrop name="$(parent)_BG" centerColor="99BADD" edgeColor="00000000" alpha="0.8"> -->
       <AnchorFill/>
       <Anchor point="TOPLEFT" offsetX="10" offsetY="0" />
       <Anchor point="BOTTOMRIGHT" offsetX="-10" offsetY="0" />
