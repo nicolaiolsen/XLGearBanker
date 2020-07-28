@@ -173,7 +173,9 @@
         "XLGB_MissingItems_ConfirmRow",
         "XLGB_MissingItems_ConfirmRow_Confirm",
         "XLGB_MissingItems_ScrollList",
-        "GetItemLinkIcon"
+        "GetItemLinkIcon",
+        "ZO_Dialog1Button1",
+        "ZO_Dialog1Button2"
     ],
     "Lua.diagnostics.disable": [
         "lowercase-global",

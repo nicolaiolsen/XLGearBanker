@@ -250,6 +250,7 @@ local function _onNotEnoughSpace(itemsToMove, availableSpaces)
   d("[XLGB_ERROR] Trying to move " .. itemsToMove .. "items into a bag with " .. availableSpaces .." empty slots.")
   XLGB_Banking.spacesNeeded = itemsToMove - availableSpaces
   libDialog:ShowDialog("XLGearBanker", "NotEnoughSpace", nil)
+  -- Hack that only shows confirm button
   ZO_Dialog1Button2:SetHidden(true)
   ZO_Dialog1Button1:ClearAnchors()
   ZO_Dialog1Button1:SetAnchor(TOPRIGHT, ZO_Dialog1Button2, TOPLEFT, 120, 0)
@@ -575,7 +576,7 @@ function XLGB_Banking:Initialize()
     "NotEnoughSpace", 
     "XL Gear Banker", 
     "Not enough bagspace.",
-    function() 
+    function() -- reverse the hack that only shows confirm button
       ZO_Dialog1Button2:SetHidden(false)
       ZO_Dialog1Button1:ClearAnchors()
       ZO_Dialog1Button1:SetAnchor(TOPRIGHT, ZO_Dialog1Button2, TOPLEFT, -30, 0) 

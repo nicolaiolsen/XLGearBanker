@@ -473,6 +473,14 @@ function XLGB_UI:DepositSet(depositControl)
   XLGB_Banking:DepositSet(data.setName)
 end
 
+local function _showPageHighlight(control)
+  control:GetNamedChild("_Highlight"):SetHidden(false)
+end
+
+local function _hidePageHighlight(control)
+  control:GetNamedChild("_Highlight"):SetHidden(true)
+end
+
 local function fillPageItemRowWithData(control, data)
   control.data = data
   local gearSet = XLGB_GearSet:FindGearSet(data.setName)
@@ -495,6 +503,8 @@ local function fillPageItemRowWithData(control, data)
   control:SetMouseEnabled(true)
   control:SetHandler("OnMouseUp", toggleSetUI)
   --
+  control:SetHandler("OnMouseEnter", _showPageHighlight)
+  control:SetHandler("OnMouseExit", _hidePageHighlight)
   CreatePageTooltip(control:GetNamedChild("_Withdraw"), "Withdraw " .. data.setName)
   CreatePageTooltip(control:GetNamedChild("_Deposit"), "Deposit " .. data.setName)
 end

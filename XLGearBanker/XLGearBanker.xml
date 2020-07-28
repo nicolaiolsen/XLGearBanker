@@ -791,6 +791,12 @@
       <Anchor point="TOPLEFT" offsetX="10" offsetY="0" />
       <Anchor point="BOTTOMRIGHT" offsetX="-10" offsetY="0" />
     </Backdrop>
+
+    <Backdrop name="$(parent)_Highlight" edgeColor="00000000" hidden="true">
+      <Anchor point="TOPLEFT" offsetX="10" offsetY="-4" />
+      <Anchor point="BOTTOMRIGHT" offsetX="-10" offsetY="4" />
+      <Center file="/esoui/art/buttons/gamepad/inline_controllerbkg_darkgrey-center.dds"/>
+    </Backdrop>
     
     <Label name="$(parent)_Name" font="ZoFontWinH3" text="Some Test Label">
           <Anchor point="TOPLEFT" offsetX="20" offsetY="8" />
