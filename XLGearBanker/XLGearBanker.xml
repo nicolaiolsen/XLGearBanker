@@ -751,6 +751,14 @@
 <!--                                                                                                  -->
 <!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -  -->
 
+
+<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -    -->
+<!--                                                                                                  -->
+<!--                                                                                                  -->
+<!--                                    ITEM ROW TEMPLATE                                             -->
+<!--                                                                                                  -->
+<!--                                                                                                  -->
+<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -  -->
 <!-- Item Row Template-->
 <Control name="XLGB_Item_Row_Template" virtual="true">
   <Dimensions y="25"/> 
@@ -769,7 +777,7 @@
     <Button name="$(parent)_Remove" inherits="ZO_ButtonBehaviorClickSound" >
       <OnClicked>XLGB_UI:RemoveItem(self)</OnClicked>
       <Dimensions x="20" y="20" />                                
-      <Anchor point="TOPRIGHT" relativeTo="$(parent)" relativePoint="TOPRIGHT" offsetX="-12" offsetY="8"  />
+      <Anchor point="RIGHT" relativeTo="$(parent)" relativePoint="RIGHT" offsetX="-12" offsetY="0"  />
       <Textures
           normal    ="/esoui/art/buttons/decline_up.dds"
           pressed    ="/esoui/art/buttons/decline_down.dds"
@@ -780,6 +788,15 @@
   </Controls>
 </Control>
 <!-- Item Row Template end-->
+
+<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -    -->
+<!--                                                                                                  -->
+<!--                                                                                                  -->
+<!--                                    PAGE SET ROW TEMPLATE                                         -->
+<!--                                                                                                  -->
+<!--                                                                                                  -->
+<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -  -->
+
 
 <!-- PageSet Row Template-->
 <Control name="XLGB_Page_SetEntry_Template" virtual="true" mouseEnabled="true">

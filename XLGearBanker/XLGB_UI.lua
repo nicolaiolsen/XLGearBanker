@@ -1127,7 +1127,6 @@ function XLGB_UI:OnSingleSetWithdrawStop(setName)
   if sV.reportMissing and not XLGB_Banking.isMoveCancelled then
     local missingItemsPage = {}
     local gearSetNumber = XLGB_GearSet:GetGearSetIndex(setName)
-    d(setName .. " has number " .. tostring(gearSetNumber))
     missingItemsPage.sets = {}
     missingItemsPage.sets[1] = XLGB_GearSet:GetMissingItems(p.bag, gearSetNumber)
     missingItemsPage.name = missingItemsPage.sets[1].name
