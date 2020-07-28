@@ -1231,7 +1231,9 @@ function XLGB_UI:UpdateMissingItemsScrollList(missingItemsPage)
     local dataSetEntry = ZO_ScrollList_CreateDataEntry(XLGB_Constants.MISSING_SET_ROW, {
       name = set.name,
       amount = #set.items})
-    table.insert(scrollData, dataSetEntry)
+    if #set.items ~= 0 then 
+      table.insert(scrollData, dataSetEntry)
+    end
     for _, itemLink in pairs(set.items) do
       local dataItemEntry = ZO_ScrollList_CreateDataEntry(XLGB_Constants.MISSING_ITEM_ROW, {
         itemLink = itemLink,
