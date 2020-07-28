@@ -849,6 +849,12 @@
   <Dimensions y="25"/> 
   <Controls>
 
+    <Backdrop name="$(parent)_BG" inherits="ZO_DefaultBackdrop">
+      <AnchorFill/>
+      <Anchor point="TOPLEFT" offsetX="10" offsetY="0" />
+      <Anchor point="BOTTOMRIGHT" offsetX="-10" offsetY="0" />
+    </Backdrop>
+
     <Label name="$(parent)_Name" font="ZoFontWinH5" text="Some Test Label">
           <Anchor point="LEFT" relativeTo="$(parent)" relativePoint="LEFT" offsetX="15" offsetY="0" />
     </Label>

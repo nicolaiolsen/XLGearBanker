@@ -1247,6 +1247,14 @@ function XLGB_UI:UpdateMissingItemsScrollList(missingItemsPage)
   ZO_ScrollList_Commit(m.scrollList)
 end
 
+local function ShowHighlight(control)
+  control:GetNamedChild("_BG"):SetHidden(false)
+end
+
+local function HideHighlight(control)
+  control:GetNamedChild("_BG"):SetHidden(true)
+end
+
 local function fillMissingSetsRowWithData(control, data)
   control.data = data
   control:GetNamedChild("_Name"):SetText("|cffecbc" .. data.name .. "|r")
@@ -1262,7 +1270,9 @@ local function fillMissingItemsRowWithData(control, data)
   --https://wiki.esoui.com/Globals#ItemTraitType
   control:SetMouseEnabled(true)
   control:SetHandler("OnMouseEnter", ShowItemTooltip)
+  control:SetHandler("OnMouseEnter", ShowHighlight)
   control:SetHandler("OnMouseExit", HideItemTooltip)
+  control:SetHandler("OnMouseExit", HideHighlight)
 end
 
 function XLGB_UI:InitializeMissingItemsScrollList()
