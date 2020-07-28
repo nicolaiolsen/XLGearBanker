@@ -570,10 +570,10 @@ function XLGB_Banking:Initialize()
     "XLGearBanker", 
     "NotEnoughSpace", 
     "XL Gear Banker", 
-    "Not enough bagspace. " .. printSpacesNeeded(),
+    "Not enough bagspace.",
     function() return end,
     nil,
-    nil)
+    function() ZO_Dialog1Button2:SetHidden(true) end)
 
     --libDialog:RegisterDialog("YourAddonName", 
       -- "DialogNameConfirmation1", 
