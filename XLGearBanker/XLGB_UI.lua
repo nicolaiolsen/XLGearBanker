@@ -766,11 +766,13 @@ function XLGB_UI:AddEquippedItemsToSet()
 end
 
 local function ShowItemTooltip(self)
+  self:GetNamedChild("_BG"):SetHidden(false)
   InitializeTooltip(ItemTooltip, self)
   ItemTooltip:SetLink(self.data.itemLink)
 end
 
-local function HideItemTooltip(control)
+local function HideItemTooltip(self)
+  self:GetNamedChild("_BG"):SetHidden(true)
   ClearTooltip(ItemTooltip)
 end
 
@@ -1270,9 +1272,7 @@ local function fillMissingItemsRowWithData(control, data)
   --https://wiki.esoui.com/Globals#ItemTraitType
   control:SetMouseEnabled(true)
   control:SetHandler("OnMouseEnter", ShowItemTooltip)
-  control:SetHandler("OnMouseEnter", ShowHighlight)
   control:SetHandler("OnMouseExit", HideItemTooltip)
-  control:SetHandler("OnMouseExit", HideHighlight)
 end
 
 function XLGB_UI:InitializeMissingItemsScrollList()

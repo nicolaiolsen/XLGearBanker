@@ -756,8 +756,14 @@
   <Dimensions y="25"/> 
   <Controls>
 
-    <Label name="$(parent)_Name" font="ZoFontWinT2" text="Some Test Label">
-          <Anchor point="TOPLEFT" offsetX="10" offsetY="10" />
+    <Backdrop name="$(parent)_BG" edgeColor="00000000" hidden="true">
+      <Anchor point="TOPLEFT" offsetX="10" offsetY="-4" />
+      <Anchor point="BOTTOMRIGHT" offsetX="-10" offsetY="4" />
+      <Center file="/esoui/art/buttons/gamepad/inline_controllerbkg_darkgrey-center.dds"/>
+    </Backdrop>
+
+    <Label name="$(parent)_Name" font="ZoFontWinH5" text="Some Test Label">
+          <Anchor point="LEFT" relativeTo="$(parent)" relativePoint="LEFT" offsetX="15" offsetY="0" />
     </Label>
 
     <Button name="$(parent)_Remove" inherits="ZO_ButtonBehaviorClickSound" >
@@ -854,11 +860,7 @@
     <Backdrop name="$(parent)_BG" edgeColor="00000000" hidden="true">
       <Anchor point="TOPLEFT" offsetX="10" offsetY="-4" />
       <Anchor point="BOTTOMRIGHT" offsetX="-10" offsetY="4" />
-      <!-- <Center file="/esoui/art/miscellaneous/centerscreen_floating_edge.dds"/> -->
       <Center file="/esoui/art/buttons/gamepad/inline_controllerbkg_darkgrey-center.dds"/>
-      <!-- <Edge file="/esoui/art/miscellaneous/insethighlight_edge.dds">
-      </Edge> -->
-
     </Backdrop>
 
     <Label name="$(parent)_Name" font="ZoFontWinH5" text="Some Test Label">
