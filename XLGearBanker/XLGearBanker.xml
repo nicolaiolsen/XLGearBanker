@@ -851,9 +851,10 @@
 
     <!-- <Backdrop name="$(parent)_BG" inherits="ZO_DefaultBackdrop" centerColor="99BADD" edgeColor="00000000" alpha="1" hidden="true"> -->
     <!-- <Backdrop name="$(parent)_BG" centerColor="99BADD" edgeColor="00000000" alpha="0.25" hidden="true" blendMode="TEX_BLEND_MODE_ALPHA"> -->
-    <Backdrop name="$(parent)_BG" alpha="0.25" hidden="true">
+    <Backdrop name="$(parent)_BG" edgeColor="00000000" hidden="true">
       <Anchor point="TOPLEFT" offsetX="10" offsetY="-4" />
       <Anchor point="BOTTOMRIGHT" offsetX="-10" offsetY="4" />
+      <Center file="/esoui/art/miscellaneous/centerscreen_floating_edge.dds"/>
       <!-- <Edge file="/esoui/art/miscellaneous/insethighlight_edge.dds">
       </Edge> -->
 
