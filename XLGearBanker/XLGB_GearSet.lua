@@ -241,7 +241,6 @@ local function updateMissingItem(fromBag, item, accList)
   while slot do
     local itemID = Id64ToString(GetItemUniqueId(bag, slot))
     if itemID == item.ID then
-      d("Found " .. item.link)
       return
     end
     slot = ZO_GetNextBagSlotIndex(bag, slot)

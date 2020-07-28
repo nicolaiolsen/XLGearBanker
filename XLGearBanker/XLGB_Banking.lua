@@ -9,6 +9,7 @@
 
 --Namespace
 XLGB_Banking = {}
+local libDialog = LibDialog
 local sV
 
 local XLGB = XLGB_Constants
@@ -245,6 +246,11 @@ local function moveGearFromTwoBags(sourceBagOne, itemsToMoveOne, sourceBagTwo, i
   _onTargetBagItemReceived()
 end
 
+local function _onNotEnoughSpace(itemsToMove, availableSpaces)
+  libDialog:ShowDialog("XLGearBanker", "NotEnoughSpaces", nil)
+  XLGB_Banking.isMoveCancelled = true
+end
+
 --------------------------------------------------------------------------------------------
 --------------------------------------------------------------------------------------------
 --
@@ -263,7 +269,8 @@ local function withdrawGearESOPlus(gearSet)
   local availableBagSpaces = getAvailableBagSpaces(BAG_BACKPACK)
   local numberOfItemsToMove = #regularBankItemsToMove + #ESOPlusItemsToMove
   if (#availableBagSpaces < numberOfItemsToMove) then
-    d("[XLGB_ERROR] Trying to move " .. numberOfItemsToMove.. "items into a bag with " .. #availableBagSpaces .." empty slots.")
+    -- d("[XLGB_ERROR] Trying to move " .. numberOfItemsToMove.. "items into a bag with " .. #availableBagSpaces .." empty slots.")
+    _onNotEnoughSpace()
     return false
   end
   -- if CheckInventorySpaceAndWarn(numberOfItemsToMove) then
@@ -285,7 +292,8 @@ local function withdrawItemsNonESOPlus(itemsToWithdraw)
   local itemsToMove = findItemsToMove(XLGB_Banking.currentBankBag, itemsToWithdraw)
   local availableBagSpaces = getAvailableBagSpaces(BAG_BACKPACK)
   if (#availableBagSpaces < #itemsToMove) then
-    d("[XLGB_ERROR] Trying to move " .. #itemsToMove.. "items into a bag with " .. #availableBagSpaces .." empty slots.")
+    -- d("[XLGB_ERROR] Trying to move " .. #itemsToMove.. "items into a bag with " .. #availableBagSpaces .." empty slots.")
+    _onNotEnoughSpace()
     return false
   end
   -- if CheckInventorySpaceAndWarn(#itemsToMove) then
@@ -300,7 +308,7 @@ local function withdrawItemsNonESOPlus(itemsToWithdraw)
 end
 
 local function waitForMoveItemEnd(startTime, setName, isWithdrawing)
-  d("waitForMoveItemEnd")
+  -- d("waitForMoveItemEnd")
   local function _waitForEnd()
     if XLGB_Banking.isMovingItems then return end
     local endTime = GetGameTimeMilliseconds()
@@ -389,7 +397,8 @@ local function depositItemsToBankNonESOPlus(itemsToDeposit)
   local numberOfItemsToMove = #equippedItemsToMove + #inventoryItemsToMove
 
   if (#availableBagSpaces < numberOfItemsToMove) then
-      d("[XLGB_ERROR] Trying to move " .. numberOfItemsToMove.. "items into a bag with " .. #availableBagSpaces .." empty slots.")
+      -- d("[XLGB_ERROR] Trying to move " .. numberOfItemsToMove.. "items into a bag with " .. #availableBagSpaces .." empty slots.")
+      _onNotEnoughSpace()
     return false
   end
   -- if CheckInventorySpaceAndWarn(numberOfItemsToMove) then
@@ -418,9 +427,10 @@ local function depositGearToBankESOPlus(gearSet)
   local numberOfAvailableSpaces = #availableBagSpacesRegularBank + #availableBagSpacesESOPlusBank
   local numberOfItemsToMove = #equippedItemsToMove + #inventoryItemsToMove
 
-  -- if (numberOfAvailableSpaces < numberOfItemsToMove) then
-  --   return false
-  -- end
+  if (numberOfAvailableSpaces < numberOfItemsToMove) then
+    _onNotEnoughSpace()
+    return false
+  end
 
   if numberOfItemsToMove > sV.threshold then
     sV.safeMode = true
@@ -532,6 +542,8 @@ function XLGB_Banking:Initialize()
   self.isWaitingForBag = false
   self.itemMoveDelay = 0
   self.movesInSuccession = 0
+  self.spacesNeeded = 0
+  self.dialogMoveText = "deposit"
 
   -- self.swapEvent = false
   -- self.recentlyMovedItems = 0
@@ -545,6 +557,26 @@ function XLGB_Banking:Initialize()
     },
     alignment = KEYBIND_STRIP_ALIGN_CENTER,
   }
+
+  libDialog:RegisterDialog(
+    "XLGearBanker", 
+    "NotEnoughSpace", 
+    "XL Gear Banker", 
+    "Not enough bagspace.",
+    function() return end,
+    nil,
+    nil)
+
+    --libDialog:RegisterDialog("YourAddonName", 
+      -- "DialogNameConfirmation1", 
+      -- "Title of the dialog", 
+      -- "Body text of the dialog.\n\nAre you sure?", 
+      -- callbackYes, 
+      -- callbackNo, 
+      -- callbackSetup, 
+      -- forceUpdate, 
+      -- additionalOptions,
+      -- textParams)
 
   EVENT_MANAGER:RegisterForEvent(self.name, EVENT_OPEN_BANK, self.OnBankOpenEvent)
   EVENT_MANAGER:RegisterForEvent(self.name, EVENT_CLOSE_BANK, self.OnBankCloseEvent)
