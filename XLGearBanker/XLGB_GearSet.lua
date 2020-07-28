@@ -129,7 +129,6 @@ local function findAndUpdateItem(itemIndex, item, gearSet)
     local itemID = Id64ToString(GetItemUniqueId(bag, slot))
     if itemID == item.ID then
       local itemLink = GetItemLink(bag, slot)
-      d("Updating " .. itemLink)
       local itemData = XLGB_GearSet:CreateItemData(itemLink, itemID)
       gearSet.items[itemIndex] = itemData
       return
