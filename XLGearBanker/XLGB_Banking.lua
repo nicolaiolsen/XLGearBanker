@@ -252,7 +252,7 @@ local function _onNotEnoughSpace(itemsToMove, availableSpaces)
   libDialog:ShowDialog("XLGearBanker", "NotEnoughSpace", nil)
   ZO_Dialog1Button2:SetHidden(true)
   ZO_Dialog1Button1:ClearAnchors()
-  ZO_Dialog1Button1:SetAnchor(TOPRIGHT, ZO_Dialog1Button2, TOPLEFT, 100, 0)
+  ZO_Dialog1Button1:SetAnchor(TOPRIGHT, ZO_Dialog1Button2, TOPLEFT, 120, 0)
 
   XLGB_Banking.isMoveCancelled = true
 end
@@ -575,9 +575,13 @@ function XLGB_Banking:Initialize()
     "NotEnoughSpace", 
     "XL Gear Banker", 
     "Not enough bagspace.",
-    function() return end,
+    function() 
+      ZO_Dialog1Button2:SetHidden(false)
+      ZO_Dialog1Button1:ClearAnchors()
+      ZO_Dialog1Button1:SetAnchor(TOPRIGHT, ZO_Dialog1Button2, TOPLEFT, -30, 0) 
+    end,
     nil,
-    function() ZO_Dialog1Button2:SetHidden(true) end)
+    nil)
 
     --libDialog:RegisterDialog("YourAddonName", 
       -- "DialogNameConfirmation1", 
