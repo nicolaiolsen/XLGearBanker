@@ -538,7 +538,9 @@ end
 --
 --------------------------------------------------------------------------------------------
 
-local printSpacesNeeded = function () return XLGB_Banking.spacesNeeded end
+local function printSpacesNeeded()
+  return XLGB_Banking.spacesNeeded 
+end
 
 function XLGB_Banking:Initialize()
   sV = XLGearBanker.savedVariables
