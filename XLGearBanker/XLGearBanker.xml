@@ -850,7 +850,7 @@
   <Controls>
 
     <!-- <Backdrop name="$(parent)_BG" inherits="ZO_DefaultBackdrop" centerColor="99BADD" edgeColor="00000000" alpha="1" hidden="true"> -->
-    <Backdrop name="$(parent)_BG" centerColor="99BADD" edgeColor="00000000" alpha="0.25" hidden="true" blendMode="TEX_BLEND_MODE_COLOR_DODGE">
+    <Backdrop name="$(parent)_BG" centerColor="99BADD" edgeColor="00000000" alpha="0.25" hidden="true" blendMode="TEX_BLEND_MODE_ALPHA">
       <AnchorFill/>
       <Anchor point="TOPLEFT" offsetX="10" offsetY="-4" />
       <Anchor point="BOTTOMRIGHT" offsetX="-10" offsetY="4" />
