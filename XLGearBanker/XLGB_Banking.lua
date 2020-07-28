@@ -247,7 +247,8 @@ local function moveGearFromTwoBags(sourceBagOne, itemsToMoveOne, sourceBagTwo, i
 end
 
 local function _onNotEnoughSpace(itemsToMove, availableSpaces)
-  d("[XLGB_ERROR] Trying to move " .. itemsToMove.. "items into a bag with " .. availableSpaces .." empty slots.")
+  d("[XLGB_ERROR] Trying to move " .. itemsToMove .. "items into a bag with " .. availableSpaces .." empty slots.")
+  XLGB_Banking.spacesNeeded = itemsToMove - availableSpaces
   libDialog:ShowDialog("XLGearBanker", "NotEnoughSpace", nil)
   XLGB_Banking.isMoveCancelled = true
 end
@@ -450,7 +451,7 @@ local function depositGearToBankESOPlus(gearSet)
     -- Add items to regular bank
     XLGB_Banking.isWaitingForBag = true
     XLGB_Banking.movesInSuccession = 2
-    
+
     moveGearFromTwoBags(
         BAG_BACKPACK, inventoryItemsToMove,
         BAG_WORN, equippedItemsToMove,
@@ -488,7 +489,7 @@ function XLGB_Banking:DepositSet(gearSetName)
     PlaySound(SOUNDS.ABILITY_FAILED)
     return false
   end
-  
+
   if XLGB_Banking.isMovingItems then
     d("Already moving")
     return false
@@ -565,7 +566,7 @@ function XLGB_Banking:Initialize()
     "XLGearBanker", 
     "NotEnoughSpace", 
     "XL Gear Banker", 
-    "Not enough bagspace.",
+    "Not enough bagspace. " .. function () return XLGB_Banking.spacesNeeded end,
     function() return end,
     nil,
     nil)

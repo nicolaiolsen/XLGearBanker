@@ -181,7 +181,7 @@ function XLGB_Page:DepositPage(pageName)
     XLGB_Events:OnPageDepositStop(pageName)
     EVENT_MANAGER:UnregisterForUpdate(XLGearBanker.name .. "WaitLastSetFinish")
   end
-  
+
   local function _waitDepositSet()
     if nextIndex > #page.sets or XLGB_Banking.isMoveCancelled then
       EVENT_MANAGER:UnregisterForUpdate(XLGearBanker.name .. "WaitDepositSet")
