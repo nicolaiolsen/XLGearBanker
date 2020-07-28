@@ -854,7 +854,8 @@
     <Backdrop name="$(parent)_BG" edgeColor="00000000" hidden="true">
       <Anchor point="TOPLEFT" offsetX="10" offsetY="-4" />
       <Anchor point="BOTTOMRIGHT" offsetX="-10" offsetY="4" />
-      <Center file="/esoui/art/miscellaneous/centerscreen_floating_edge.dds"/>
+      <!-- <Center file="/esoui/art/miscellaneous/centerscreen_floating_edge.dds"/> -->
+      <Center file="/esoui/art/buttons/gamepad/inline_controllerbkg_darkgrey-center.dds"/>
       <!-- <Edge file="/esoui/art/miscellaneous/insethighlight_edge.dds">
       </Edge> -->
 
