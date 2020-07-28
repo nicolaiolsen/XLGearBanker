@@ -570,7 +570,7 @@ function XLGB_Banking:Initialize()
     "XLGearBanker", 
     "NotEnoughSpace", 
     "XL Gear Banker", 
-    "Not enough bagspace. " .. printSpacesNeeded,
+    "Not enough bagspace. " .. printSpacesNeeded(),
     function() return end,
     nil,
     nil)
