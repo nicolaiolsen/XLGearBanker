@@ -325,8 +325,11 @@ local function waitForMoveItemEnd(startTime, setName, isWithdrawing)
         XLGB_Events:OnSingleSetDepositStop(setName)
       end
     end
-
-    d("[XLGB] Set '" .. setName .."' ".. text .." in " .. tostring(string.format("%.2f", (endTime - startTime)/1000)) .. " seconds.")
+    if XLGB_Banking.isMoveCancelled then
+      d("[XLGB_ERROR] Movement of '" .. setName .."' got cancelled.")
+    else
+      d("[XLGB] Set '" .. setName .."' ".. text .." in " .. tostring(string.format("%.2f", (endTime - startTime)/1000)) .. " seconds.")
+    end
     EVENT_MANAGER:UnregisterForUpdate(XLGearBanker.name .. "waitForMoveItemEnd")
   end
   EVENT_MANAGER:UnregisterForUpdate(XLGearBanker.name .. "waitForMoveItemEnd")

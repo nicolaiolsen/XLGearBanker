@@ -173,6 +173,8 @@ function XLGB_Page:DepositPage(pageName)
     if XLGB_Banking.isMovingItems then return end
     if not XLGB_Banking.isMoveCancelled then
       d("[XLGB] Page '" .. page.name .."' deposited in " .. tostring(string.format("%.2f", (GetGameTimeMilliseconds()-time)/1000)) .. " seconds.")
+    else
+      d("[XLGB_ERROR] Deposit of page '" .. page.name .. "' got cancelled. (" ..tostring(string.format("%.2f", (GetGameTimeMilliseconds()-time)/1000)) .. " seconds.)")
     end
     XLGB_Page.isMovingPage = false
     sV.safeMode = safeModeBefore
@@ -219,6 +221,8 @@ function XLGB_Page:WithdrawPage(pageName)
     if XLGB_Banking.isMovingItems then return end
     if not XLGB_Banking.isMoveCancelled then
       d("[XLGB] Page '" .. page.name .."' withdrawn in " .. tostring(string.format("%.2f", (GetGameTimeMilliseconds()-time)/1000)) .. " seconds.")
+    else
+      d("[XLGB_ERROR] Withdrawing of page '" .. page.name .. "' got cancelled. (" ..tostring(string.format("%.2f", (GetGameTimeMilliseconds()-time)/1000)) .. " seconds.)")
     end
     XLGB_Page.isMovingPage = false
     sV.safeMode = safeModeBefore
