@@ -863,7 +863,8 @@ end
 
 local function fillSetItemRowWithData(control, data)
   control.data = data
-  control:GetNamedChild("_Name"):SetText(data.itemLink)
+  local textureString = GetItemLinkIcon(data.itemLink)
+  control:GetNamedChild("_Name"):SetText("|t32:32:" .. textureString .. "|t " .. data.itemLink)
   control:SetMouseEnabled(true)
   control:SetHandler("OnMouseEnter", ShowItemTooltip)
   control:SetHandler("OnMouseExit", HideItemTooltip)
@@ -1249,14 +1250,6 @@ function XLGB_UI:UpdateMissingItemsScrollList(missingItemsPage)
   ZO_ScrollList_Commit(m.scrollList)
 end
 
-local function ShowHighlight(control)
-  control:GetNamedChild("_BG"):SetHidden(false)
-end
-
-local function HideHighlight(control)
-  control:GetNamedChild("_BG"):SetHidden(true)
-end
-
 local function fillMissingSetsRowWithData(control, data)
   control.data = data
   control:GetNamedChild("_Name"):SetText("|cffecbc" .. data.name .. "|r")
@@ -1279,7 +1272,6 @@ function XLGB_UI:InitializeMissingItemsScrollList()
   ZO_ScrollList_AddDataType(ui.missing.scrollList, XLGB_Constants.MISSING_SET_ROW, "XLGB_MissingSetRow_Template", 35, fillMissingSetsRowWithData)
   ZO_ScrollList_AddDataType(ui.missing.scrollList, XLGB_Constants.MISSING_ITEM_ROW, "XLGB_MissingItemRow_Template", 35, fillMissingItemsRowWithData)
   ZO_ScrollList_EnableHighlight(ui.missing.scrollList, "ZO_ThinListHighlight")
-  XLGB_UI:UpdateSetScrollList()
 end
 
 local function InitUIMissingItemsVariables()
