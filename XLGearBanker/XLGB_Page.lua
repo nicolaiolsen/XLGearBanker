@@ -142,7 +142,7 @@ end
 function XLGB_Page:GetMissingItemsInPage(fromBag, pageName)
   local page = XLGB_Page:GetPage(pageName)
   local missingItemsInPage = {}
-  local sets
+  local sets = {}
   for _, set in pairs(page.sets) do
     local setWithMissingItems = XLGB_GearSet:GetMissingItems(fromBag, XLGB_GearSet:GetGearSetIndex(set))
     table.insert(sets, setWithMissingItems)
