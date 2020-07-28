@@ -502,11 +502,39 @@ local function fillPageItemRowWithData(control, data)
   end
   control:SetMouseEnabled(true)
   control:SetHandler("OnMouseUp", toggleSetUI)
+
   --
+
   control:SetHandler("OnMouseEnter", _showPageHighlight)
   control:SetHandler("OnMouseExit", _hidePageHighlight)
-  CreatePageTooltip(control:GetNamedChild("_Withdraw"), "Withdraw " .. data.setName)
-  CreatePageTooltip(control:GetNamedChild("_Deposit"), "Deposit " .. data.setName)
+
+  --
+
+  local function ShowTooltip(self)
+    InitializeTooltip(InformationTooltip, self, TOPRIGHT, 0, 5, BOTTOMRIGHT)
+    if not xl.isPageEditable then
+      SetTooltipText(InformationTooltip, self.tooltipText)
+      _showPageHighlight(control)
+    else
+      SetTooltipText(InformationTooltip, self.tooltipEditText)
+      _showPageHighlight(control)
+    end
+  end
+
+  local function HideTooltip(self)
+    ClearTooltip(InformationTooltip)
+    _hidePageHighlight(control)
+  end
+
+  local withdrawControl = control:GetNamedChild("_Withdraw")
+  withdrawControl.tooltipText = "Withdraw " .. data.setName
+  withdrawControl:SetHandler("OnMouseEnter", ShowTooltip)
+  withdrawControl:SetHandler("OnMouseExit", HideTooltip)
+
+  local depositControl = control:GetNamedChild("_Deposit")
+  depositControl.tooltipText = "Deposit " .. data.setName
+  depositControl:SetHandler("OnMouseEnter", ShowTooltip)
+  depositControl:SetHandler("OnMouseExit", HideTooltip)
 end
 
 function XLGB_UI:InitializePageScrollList()
