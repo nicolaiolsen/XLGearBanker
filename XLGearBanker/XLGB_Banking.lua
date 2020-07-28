@@ -263,7 +263,7 @@ end
 --------------------------------------------------------------------------------------------
 
 local function withdrawGearESOPlus(gearSet)
-  d("withdrawGearESOPlus")
+  -- d("withdrawGearESOPlus")
   local regularBankItemsToMove = findItemsToMove(BAG_BANK, gearSet.items)
   local ESOPlusItemsToMove = findItemsToMove(BAG_SUBSCRIBER_BANK, gearSet.items)
   local availableBagSpaces = getAvailableBagSpaces(BAG_BACKPACK)
@@ -288,7 +288,7 @@ local function withdrawGearESOPlus(gearSet)
 end
 
 local function withdrawItemsNonESOPlus(itemsToWithdraw)
-  d("withdrawItemsNonESOPlus")
+  -- d("withdrawItemsNonESOPlus")
   local itemsToMove = findItemsToMove(XLGB_Banking.currentBankBag, itemsToWithdraw)
   local availableBagSpaces = getAvailableBagSpaces(BAG_BACKPACK)
   if (#availableBagSpaces < #itemsToMove) then
