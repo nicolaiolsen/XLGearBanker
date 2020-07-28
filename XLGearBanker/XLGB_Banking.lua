@@ -250,6 +250,7 @@ local function _onNotEnoughSpace(itemsToMove, availableSpaces)
   d("[XLGB_ERROR] Trying to move " .. itemsToMove .. "items into a bag with " .. availableSpaces .." empty slots.")
   XLGB_Banking.spacesNeeded = itemsToMove - availableSpaces
   libDialog:ShowDialog("XLGearBanker", "NotEnoughSpace", nil)
+  ZO_Dialog1Button2:SetHidden(true)
   XLGB_Banking.isMoveCancelled = true
 end
 
