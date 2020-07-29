@@ -257,6 +257,12 @@ local function updateMissingItem(fromBag, item, accList, itemIndex, gearSet)
   elseif(bag == BAG_SUBSCRIBER_BANK) then
     bag = BAG_BANK
     slot = ZO_GetNextBagSlotIndex(bag)
+  elseif (bag == BAG_BACKPACK) then
+    bag = BAG_WORN
+    slot = ZO_GetNextBagSlotIndex(bag)
+  elseif (bag == BAG_WORN) then
+      bag = BAG_BACKPACK
+      slot = ZO_GetNextBagSlotIndex(bag)
   end
 
   while slot do
