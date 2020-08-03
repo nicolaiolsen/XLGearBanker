@@ -1097,13 +1097,23 @@ function XLGB_UI:OnPageWithdrawNextSet(nextSetName)
   updateProgressBar(nextSetName, "Withdrawing")
 end
 
+local function pageMissingItemsReport(bag, pageName)
+  local function _onPageMissingWait()
+    EVENT_MANAGER:UnregisterForEvent("pageMissingItemsReport" .. XLGearBanker.name)
+    local missingItemsPage = XLGB_Page:GetMissingItemsInPage(bag, pageName)
+    XLGB_UI:UpdateMissingItemsScrollList(missingItemsPage)
+    XLGB_UI:ShowMissingItemsUI()
+  end
+
+  EVENT_MANAGER:UnregisterForEvent("pageMissingItemsReport" .. XLGearBanker.name)
+  EVENT_MANAGER:RegisterForEvent("pageMissingItemsReport" .. XLGearBanker.name, 500, _onPageMissingWait)
+end
+
 function XLGB_UI:OnPageWithdrawStop(pageName)
   hideProgress()
   local p = ui.progress
   if sV.reportMissing and not XLGB_Banking.isMoveCancelled then
-    local missingItemsPage = XLGB_Page:GetMissingItemsInPage(p.bag, pageName)
-    XLGB_UI:UpdateMissingItemsScrollList(missingItemsPage)
-    XLGB_UI:ShowMissingItemsUI()
+    pageMissingItemsReport(p.bag, pageName)
   end
 end
 
@@ -1123,17 +1133,27 @@ function XLGB_UI:OnSingleSetWithdrawStart(setName, startTime)
   p.overlay:SetHidden(false)
 end
 
+local function singleSetMissingItemsReport(bag, setName)
+  local function _onPageMissingWait()
+    EVENT_MANAGER:UnregisterForEvent("pageMissingItemsReport" .. XLGearBanker.name)
+    local missingItemsPage = {}
+    local gearSetNumber = XLGB_GearSet:GetGearSetIndex(setName)
+    missingItemsPage.sets = {}
+    missingItemsPage.sets[1] = XLGB_GearSet:GetMissingItems(bag, gearSetNumber)
+    missingItemsPage.name = missingItemsPage.sets[1].name
+    XLGB_UI:UpdateMissingItemsScrollList(missingItemsPage)
+    XLGB_UI:ShowMissingItemsUI()
+  end
+
+  EVENT_MANAGER:UnregisterForEvent("pageMissingItemsReport" .. XLGearBanker.name)
+  EVENT_MANAGER:RegisterForEvent("pageMissingItemsReport" .. XLGearBanker.name, 500, _onPageMissingWait)
+end
+
 function XLGB_UI:OnSingleSetWithdrawStop(setName)
   hideProgress()
   local p = ui.progress
   if sV.reportMissing and not XLGB_Banking.isMoveCancelled then
-    local missingItemsPage = {}
-    local gearSetNumber = XLGB_GearSet:GetGearSetIndex(setName)
-    missingItemsPage.sets = {}
-    missingItemsPage.sets[1] = XLGB_GearSet:GetMissingItems(p.bag, gearSetNumber)
-    missingItemsPage.name = missingItemsPage.sets[1].name
-    XLGB_UI:UpdateMissingItemsScrollList(missingItemsPage)
-    XLGB_UI:ShowMissingItemsUI()
+    singleSetMissingItemsReport(p.bag, setName)
   end
 end
 
@@ -1162,9 +1182,7 @@ function XLGB_UI:OnPageDepositStop(pageName)
   hideProgress()
   local p = ui.progress
   if sV.reportMissing and not XLGB_Banking.isMoveCancelled then
-    local missingItemsPage = XLGB_Page:GetMissingItemsInPage(p.bag, pageName)
-    XLGB_UI:UpdateMissingItemsScrollList(missingItemsPage)
-    XLGB_UI:ShowMissingItemsUI()
+    pageMissingItemsReport(p.bag, pageName)
   end
 end
 
@@ -1190,13 +1208,7 @@ function XLGB_UI:OnSingleSetDepositStop(setName)
   hideProgress()
   local p = ui.progress
   if sV.reportMissing and not XLGB_Banking.isMoveCancelled then
-    local missingItemsPage = {}
-    local gearSetNumber = XLGB_GearSet:GetGearSetIndex(setName)
-    missingItemsPage.sets = {}
-    missingItemsPage.sets[1] = XLGB_GearSet:GetMissingItems(p.bag, gearSetNumber)
-    missingItemsPage.name = missingItemsPage.sets[1].name
-    XLGB_UI:UpdateMissingItemsScrollList(missingItemsPage)
-    XLGB_UI:ShowMissingItemsUI()
+    singleSetMissingItemsReport(p.bag, setName)
   end
 end
 
