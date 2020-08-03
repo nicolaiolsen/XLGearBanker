@@ -60,12 +60,9 @@ local function MakeContextMenuEntry_RemoveItemFromGearSet(itemLink, itemID)
 end
 
 local function AddContextMenuEntries(itemLink, itemID, inventorySlot)
-  zo_callLater(
-    function()
-      MakeContextMenuEntry_AddItemToGearSet(itemLink, itemID)
-      MakeContextMenuEntry_RemoveItemFromGearSet(itemLink, itemID)
-      ShowMenu(inventorySlot)
-    end, 10)
+  MakeContextMenuEntry_AddItemToGearSet(itemLink, itemID)
+  MakeContextMenuEntry_RemoveItemFromGearSet(itemLink, itemID)
+  ShowMenu(inventorySlot)
 end
 
 
@@ -95,7 +92,7 @@ local function OverWriteInventoryShowContextMenuHandler()
         if not itemTypesAllowed[itemType] then return end
         AddContextMenuEntries(itemLink, itemID, inventorySlot)
       end,
-      CATEGORY_LATE
+      LibCustomMenu.CATEGORY_LATE
     )
   end
 

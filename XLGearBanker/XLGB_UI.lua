@@ -173,23 +173,23 @@ end
 function XLGB_UI:InitializePageShifterBox()
   local p = ui.page
   local customSettings = {
-    showMoveAllButtons = true,  -- the >> and << buttons to move all entries can be hidden if set to false
-    dragDropEnabled = true,     -- entries can be moved between lsit with drag-and-drop
-    sortEnabled = true,         -- sorting of the entries can be disabled
-    sortBy = "value",           -- sort the list by value or key (allowed are: "value" or "key")
-    leftList = {                -- list-specific settings that apply to the LEFT list
-        title = "In",                                     -- the title/header of the list
-        rowHeight = 32,                                 -- the height of an individual row/entry
-        --rowTemplateName = "",    -- an individual XML (cirtual) control can be provided for the rows/entries
+    showMoveAllButtons = true,                -- the >> and << buttons to move all entries can be hidden if set to false
+    dragDropEnabled = true,                   -- entries can be moved between lsit with drag-and-drop
+    sortEnabled = true,                       -- sorting of the entries can be disabled
+    sortBy = "value",                         -- sort the list by value or key (allowed are: "value" or "key")
+    leftList = {                              -- list-specific settings that apply to the LEFT list
+        title = "In",                         -- the title/header of the list
+        rowHeight = 32,                       -- the height of an individual row/entry
+        --rowTemplateName = "",               -- an individual XML (cirtual) control can be provided for the rows/entries
         emptyListText = GetString("No Sets"), -- the text to be displayed if there are no entries left in the list
-        fontSize = 16,                                  -- size of the font
+        fontSize = 16,                        -- size of the font
     },
-    rightList = {               -- list-specific settings that apply to the RIGHT list
-        title = "Out",                                     -- the title/header of the list
-        rowHeight = 32,                                 -- the height of an individual row/entry
+    rightList = {                             -- list-specific settings that apply to the RIGHT list
+        title = "Out",                        -- the title/header of the list
+        rowHeight = 32,                       -- the height of an individual row/entry
         -- rowTemplateName = "Page_ShifterBoxEntry_Template",    -- an individual XML (cirtual) control can be provided for the rows/entries
         emptyListText = GetString("All Sets"), -- the text to be displayed if there are no entries left in the list
-        fontSize = 16,                                  -- size of the font
+        fontSize = 16,                         -- size of the font
     }
   }
 
