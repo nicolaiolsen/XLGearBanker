@@ -16,6 +16,11 @@ function XLGB_UI:XLGB_SetWindow_OnMoveStop()
   sV.setWindow_y = ui.set:GetTop()
 end
 
+function XLGB_UI:XLGB_SetWindow_OnResizeStop()
+  sV.setWindow_width = ui.set:GetWidth()
+  sV.setWindow_height = ui.set:GetHeight()
+end
+
 function XLGB_UI:XLGB_PageWindow_OnMoveStop()
   sV.pageWindow_x = ui.page:GetLeft()
   sV.pageWindow_y = ui.page:GetTop()
@@ -37,6 +42,9 @@ function XLGB_UI:RestorePosition()
   ui.set:ClearAnchors()
   ui.set:SetAnchor(TOPLEFT, GuiRoot, TOPLEFT, sV.setWindow_x, sV.setWindow_y)
 
+  ui.set:SetWidth(sV.setWindow_width)
+  ui.set:SetHeight(sV.setWindow_height)
+
   ui.page:ClearAnchors()
   ui.page:SetAnchor(TOPLEFT, GuiRoot, TOPLEFT, sV.pageWindow_x, sV.pageWindow_y)
 end
@@ -46,9 +54,6 @@ local function reanchorScrollList(scrollList, top, bottom)
   scrollList:SetAnchor(TOPLEFT, top, BOTTOMLEFT, 0, 10)
   scrollList:SetAnchor(BOTTOMRIGHT, bottom, TOPRIGHT, -21, -20)
 end
-
-
-
 
 --------------------------------------------------------------------------------------------
 --------------------------------------------------------------------------------------------
@@ -81,16 +86,14 @@ local function reanchorPageScrollList()
 end
 
 local function areThereAnySetChanges()
-  if (ui.set.setRow.editName:GetText() == xl.oldSetName)
-  and not(xl.itemChanges) then
+  if (ui.set.setRow.editName:GetText() == xl.oldSetName) and not (xl.itemChanges) then
     return false
   end
   return true
 end
 
 local function areThereAnyPageChanges()
-  if (ui.page.pageRow.editName:GetText() == xl.oldPageName)
-  and not(xl.pageSetChange) then
+  if (ui.page.pageRow.editName:GetText() == xl.oldPageName) and not (xl.pageSetChange) then
     return false
   end
   return true
@@ -112,7 +115,12 @@ end
 function XLGB_UI:OnBankOpen()
   refreshBankAndShifterRow()
   reanchorPageScrollList()
-  XLGB_UI:ShowPageUI()
+  if sV.showPageWindowOnOpen then
+    XLGB_UI:ShowPageUI()
+  end
+  if sV.showSetWindowOnOpen then
+    XLGB_UI:ShowSetUI()
+  end
 end
 
 function XLGB_UI:OnBankClosed()
@@ -127,12 +135,16 @@ function XLGB_UI:OnBankClosed()
 end
 
 function XLGB_UI:DepositPage()
-  if XLGB_Page:GetNumberOfPages() < 1 then return end
+  if XLGB_Page:GetNumberOfPages() < 1 then
+    return
+  end
   XLGB_Page:DepositPage(XLGB_Page:GetPageByIndex(sV.displayingPage).name)
 end
 
 function XLGB_UI:WithdrawPage()
-  if XLGB_Page:GetNumberOfPages() < 1 then return end
+  if XLGB_Page:GetNumberOfPages() < 1 then
+    return
+  end
   XLGB_Page:WithdrawPage(XLGB_Page:GetPageByIndex(sV.displayingPage).name)
 end
 
@@ -166,30 +178,32 @@ local function updatePageSetEntries()
   local pageName = XLGB_Page:GetPageByIndex(sV.displayingPage).name
   XLGB_Page:ClearPage(pageName)
   for _, set in pairs(chosenSets) do
-      XLGB_Page:AddSetToPage(set, pageName)
+    XLGB_Page:AddSetToPage(set, pageName)
   end
 end
 
 function XLGB_UI:InitializePageShifterBox()
   local p = ui.page
   local customSettings = {
-    showMoveAllButtons = true,                -- the >> and << buttons to move all entries can be hidden if set to false
-    dragDropEnabled = true,                   -- entries can be moved between lsit with drag-and-drop
-    sortEnabled = true,                       -- sorting of the entries can be disabled
-    sortBy = "value",                         -- sort the list by value or key (allowed are: "value" or "key")
-    leftList = {                              -- list-specific settings that apply to the LEFT list
-        title = "In",                         -- the title/header of the list
-        rowHeight = 32,                       -- the height of an individual row/entry
-        --rowTemplateName = "",               -- an individual XML (cirtual) control can be provided for the rows/entries
-        emptyListText = GetString("No Sets"), -- the text to be displayed if there are no entries left in the list
-        fontSize = 16,                        -- size of the font
+    showMoveAllButtons = true, -- the >> and << buttons to move all entries can be hidden if set to false
+    dragDropEnabled = true, -- entries can be moved between lsit with drag-and-drop
+    sortEnabled = true, -- sorting of the entries can be disabled
+    sortBy = "value", -- sort the list by value or key (allowed are: "value" or "key")
+    leftList = {
+      -- list-specific settings that apply to the LEFT list
+      title = "In", -- the title/header of the list
+      rowHeight = 32, -- the height of an individual row/entry
+      --rowTemplateName = "",               -- an individual XML (cirtual) control can be provided for the rows/entries
+      emptyListText = GetString("No Sets"), -- the text to be displayed if there are no entries left in the list
+      fontSize = 16 -- size of the font
     },
-    rightList = {                             -- list-specific settings that apply to the RIGHT list
-        title = "Out",                        -- the title/header of the list
-        rowHeight = 32,                       -- the height of an individual row/entry
-        -- rowTemplateName = "Page_ShifterBoxEntry_Template",    -- an individual XML (cirtual) control can be provided for the rows/entries
-        emptyListText = GetString("All Sets"), -- the text to be displayed if there are no entries left in the list
-        fontSize = 16,                         -- size of the font
+    rightList = {
+      -- list-specific settings that apply to the RIGHT list
+      title = "Out", -- the title/header of the list
+      rowHeight = 32, -- the height of an individual row/entry
+      -- rowTemplateName = "Page_ShifterBoxEntry_Template",    -- an individual XML (cirtual) control can be provided for the rows/entries
+      emptyListText = GetString("All Sets"), -- the text to be displayed if there are no entries left in the list
+      fontSize = 16 -- size of the font
     }
   }
 
@@ -430,8 +444,14 @@ function XLGB_UI:UpdatePageDropdown()
   local dd = ui.page.pageRow.page.dropdown
   dd:ClearItems()
   for i = 1, XLGB_Page:GetNumberOfPages() do
-      local entry = ZO_ComboBox:CreateItemEntry(XLGB_Page:GetPageByIndex(i).name, function () XLGB_UI:SelectPage(i) end)
-      dd:AddItem(entry, ZO_COMBOBOX_SUPRESS_UPDATE)
+    local entry =
+      ZO_ComboBox:CreateItemEntry(
+      XLGB_Page:GetPageByIndex(i).name,
+      function()
+        XLGB_UI:SelectPage(i)
+      end
+    )
+    dd:AddItem(entry, ZO_COMBOBOX_SUPRESS_UPDATE)
   end
   dd:SelectItemByIndex(sV.displayingPage, true)
 end
@@ -449,9 +469,13 @@ function XLGB_UI:UpdatePageScrollList()
   if XLGB_Page:GetNumberOfPages() > 0 then
     local page = XLGB_Page:GetPageByIndex(sV.displayingPage)
     for _, set in pairs(XLGB_Page:GetSetsInPage(page.name)) do
-      local dataEntry = ZO_ScrollList_CreateDataEntry(XLGB_Constants.PAGE_ITEM_ROW, {
-        setName = set,
-      })
+      local dataEntry =
+        ZO_ScrollList_CreateDataEntry(
+        XLGB_Constants.PAGE_ITEM_ROW,
+        {
+          setName = set
+        }
+      )
       table.insert(scrollData, dataEntry)
     end
     totalItems = XLGB_Page:GetAmountOfItemsInPage(page.name)
@@ -540,7 +564,13 @@ local function fillPageItemRowWithData(control, data)
 end
 
 function XLGB_UI:InitializePageScrollList()
-  ZO_ScrollList_AddDataType(ui.page.scrollList, XLGB_Constants.PAGE_ITEM_ROW, "XLGB_Page_SetEntry_Template", 70, fillPageItemRowWithData)
+  ZO_ScrollList_AddDataType(
+    ui.page.scrollList,
+    XLGB_Constants.PAGE_ITEM_ROW,
+    "XLGB_Page_SetEntry_Template",
+    70,
+    fillPageItemRowWithData
+  )
   ZO_ScrollList_EnableHighlight(ui.page.scrollList, "ZO_ThinListHighlight")
   XLGB_UI:UpdatePageScrollList()
 end
@@ -569,71 +599,69 @@ function XLGB_UI:TogglePageUI()
 end
 
 function XLGB_UI:SetupPageDialogs()
-
   libDialog:RegisterDialog(
-    "XLGearBanker", 
-    "RemovePageDialog", 
-    "XL Gear Banker", 
+    "XLGearBanker",
+    "RemovePageDialog",
+    "XL Gear Banker",
     "You are about to remove the page.\n\nAre you sure?",
-    removePageConfirmed, 
+    removePageConfirmed,
     nil,
-    nil)
+    nil
+  )
 
   libDialog:RegisterDialog(
-    "XLGearBanker", 
-    "AcceptPageChanges", 
-    "XL Gear Banker", 
-    "Are you sure you want to save the changes?", 
-    acceptPageChanges, 
+    "XLGearBanker",
+    "AcceptPageChanges",
+    "XL Gear Banker",
+    "Are you sure you want to save the changes?",
+    acceptPageChanges,
     nil,
-    nil)
+    nil
+  )
 
   libDialog:RegisterDialog(
-    "XLGearBanker", 
-    "DiscardPageChangesDialog", 
-    "XL Gear Banker", 
-    "You are about to discard any changes you made.\n\nAre you sure?", 
-    discardPageChanges, 
+    "XLGearBanker",
+    "DiscardPageChangesDialog",
+    "XL Gear Banker",
+    "You are about to discard any changes you made.\n\nAre you sure?",
+    discardPageChanges,
     nil,
-    nil)
+    nil
+  )
 end
 
 local function InitUIPageVariables()
-  ui.page                         = XLGB_PageWindow
+  ui.page = XLGB_PageWindow
 
-  ui.page.titleRow                = XLGB_PageWindow_TitleRow
-  ui.page.titleRow.title          = XLGB_PageWindow_TitleRow_Title
-  ui.page.titleRow.settings       = XLGB_PageWindow_TitleRow_Settings
+  ui.page.titleRow = XLGB_PageWindow_TitleRow
+  ui.page.titleRow.title = XLGB_PageWindow_TitleRow_Title
+  ui.page.titleRow.settings = XLGB_PageWindow_TitleRow_Settings
 
-  ui.page.pageRow                 = XLGB_PageWindow_PageRow
-  ui.page.pageRow.edit            = XLGB_PageWindow_PageRow_EditPage
-  ui.page.pageRow.editName        = XLGB_PageWindow_PageRow_EditPageName
-  ui.page.pageRow.page            = XLGB_PageWindow_PageRow_Page
-  ui.page.pageRow.accept          = XLGB_PageWindow_PageRow_AcceptPage
-  ui.page.pageRow.addRemovePage   = XLGB_PageWindow_PageRow_AddRemovePage
+  ui.page.pageRow = XLGB_PageWindow_PageRow
+  ui.page.pageRow.edit = XLGB_PageWindow_PageRow_EditPage
+  ui.page.pageRow.editName = XLGB_PageWindow_PageRow_EditPageName
+  ui.page.pageRow.page = XLGB_PageWindow_PageRow_Page
+  ui.page.pageRow.accept = XLGB_PageWindow_PageRow_AcceptPage
+  ui.page.pageRow.addRemovePage = XLGB_PageWindow_PageRow_AddRemovePage
 
-  ui.page.scrollList              = XLGB_PageWindow_ScrollList
+  ui.page.scrollList = XLGB_PageWindow_ScrollList
 
-  ui.page.empty                   = XLGB_PageWindow_EmptyRow
+  ui.page.empty = XLGB_PageWindow_EmptyRow
 
-  ui.page.bankRow                 = XLGB_PageWindow_BankRow
-  ui.page.bankRow.deposit         = XLGB_PageWindow_BankRow_DepositPage
-  ui.page.bankRow.withdraw        = XLGB_PageWindow_BankRow_WithdrawPage
+  ui.page.bankRow = XLGB_PageWindow_BankRow
+  ui.page.bankRow.deposit = XLGB_PageWindow_BankRow_DepositPage
+  ui.page.bankRow.withdraw = XLGB_PageWindow_BankRow_WithdrawPage
 
-  ui.page.shifterRow              = XLGB_PageWindow_ShifterRow
-  ui.page.shifterRow.setEditor    = XLGB_PageWindow_ShifterRow_SetEditor
+  ui.page.shifterRow = XLGB_PageWindow_ShifterRow
+  ui.page.shifterRow.setEditor = XLGB_PageWindow_ShifterRow_SetEditor
 
-  ui.page.totalPageItemsRow       = XLGB_PageWindow_TotalPageItemsRow
-  ui.page.totalPageItemsRow.text  = XLGB_PageWindow_TotalPageItemsRow_TotalPageItems
+  ui.page.totalPageItemsRow = XLGB_PageWindow_TotalPageItemsRow
+  ui.page.totalPageItemsRow.text = XLGB_PageWindow_TotalPageItemsRow_TotalPageItems
 end
 
 --------------------------------------------------------------------------------------------
 -- PAGE WINDOW END
 --------------------------------------------------------------------------------------------
-
-
-
-
 
 --------------------------------------------------------------------------------------------
 --------------------------------------------------------------------------------------------
@@ -645,7 +673,6 @@ end
 --
 --
 --------------------------------------------------------------------------------------------
-
 
 local function setEditSetFalse()
   local s = ui.set
@@ -722,7 +749,7 @@ end
 
 function XLGB_UI:AcceptSetEdit()
   if areThereAnySetChanges() then
-      libDialog:ShowDialog("XLGearBanker", "AcceptSetChanges", nil)
+    libDialog:ShowDialog("XLGearBanker", "AcceptSetChanges", nil)
   else
     acceptSetChanges()
   end
@@ -732,7 +759,7 @@ local function discardSetChanges()
   sV.gearSetList[sV.displayingSet] = xl.copyOfSet
   xl.copyOfSet = {}
   setEditSetFalse()
-  
+
   XLGB_UI:UpdateSetScrollList()
 end
 
@@ -781,7 +808,7 @@ local function removeSetConfirmed()
   XLGB_UI:UpdateSetDropdown()
 end
 
-function XLGB_UI:RemoveSet() 
+function XLGB_UI:RemoveSet()
   if #XLGB_GearSet:GetGearSet(sV.displayingSet).items == 0 then
     removeSetConfirmed()
   else
@@ -863,8 +890,14 @@ function XLGB_UI:UpdateSetDropdown()
   local dd = ui.set.setRow.set.dropdown
   dd:ClearItems()
   for i = 1, XLGB_GearSet:GetNumberOfGearSets() do
-      local entry = ZO_ComboBox:CreateItemEntry(XLGB_GearSet:GetGearSet(i).name, function () XLGB_UI:SelectSet(i) end)
-      dd:AddItem(entry, ZO_COMBOBOX_SUPRESS_UPDATE)
+    local entry =
+      ZO_ComboBox:CreateItemEntry(
+      XLGB_GearSet:GetGearSet(i).name,
+      function()
+        XLGB_UI:SelectSet(i)
+      end
+    )
+    dd:AddItem(entry, ZO_COMBOBOX_SUPRESS_UPDATE)
   end
   dd:SelectItemByIndex(sV.displayingSet, true)
 end
@@ -884,13 +917,17 @@ function XLGB_UI:UpdateSetScrollList()
   if XLGB_GearSet:GetNumberOfGearSets() > 0 then
     local gearSet = XLGB_GearSet:GetGearSet(sV.displayingSet)
     for _, item in pairs(gearSet.items) do
-      local dataEntry = ZO_ScrollList_CreateDataEntry(XLGB_Constants.ITEM_ROW, {
-        itemLink = item.link,
-        itemID = item.ID
-      })
+      local dataEntry =
+        ZO_ScrollList_CreateDataEntry(
+        XLGB_Constants.ITEM_ROW,
+        {
+          itemLink = item.link,
+          itemID = item.ID
+        }
+      )
       table.insert(scrollData, dataEntry)
     end
-    totalSetItems:SetText("Total items in set: ".. #XLGB_GearSet:GetGearSet(sV.displayingSet).items)
+    totalSetItems:SetText("Total items in set: " .. #XLGB_GearSet:GetGearSet(sV.displayingSet).items)
 
     if (#scrollData < 1) and not xl.isSetEditable then
       s.empty:SetHidden(false)
@@ -910,14 +947,20 @@ local function fillSetItemRowWithData(control, data)
   control:SetHandler("OnMouseExit", HideItemTooltip)
   if xl.isSetEditable then
     control:GetNamedChild("_Remove"):SetHidden(false)
-  else 
+  else
     control:GetNamedChild("_Remove"):SetHidden(true)
   end
   CreateSetTooltip(control:GetNamedChild("_Remove"), "Remove item from set")
 end
 
 function XLGB_UI:InitializeSetScrollList()
-  ZO_ScrollList_AddDataType(ui.set.scrollList, XLGB_Constants.ITEM_ROW, "XLGB_Item_Row_Template", 35, fillSetItemRowWithData)
+  ZO_ScrollList_AddDataType(
+    ui.set.scrollList,
+    XLGB_Constants.ITEM_ROW,
+    "XLGB_Item_Row_Template",
+    35,
+    fillSetItemRowWithData
+  )
   ZO_ScrollList_EnableHighlight(ui.set.scrollList, "ZO_ThinListHighlight")
   XLGB_UI:UpdateSetScrollList()
 end
@@ -945,63 +988,64 @@ function XLGB_UI:ToggleSetUI()
 end
 
 function XLGB_UI:SetupSetDialogs()
-
   libDialog:RegisterDialog(
-    "XLGearBanker", 
-    "RemoveSetDialog", 
-    "XL Gear Banker", 
+    "XLGearBanker",
+    "RemoveSetDialog",
+    "XL Gear Banker",
     "You are about to remove the set.\n\nAre you sure you want the set removed?",
-    removeSetConfirmed, 
+    removeSetConfirmed,
     nil,
-    nil)
+    nil
+  )
 
   libDialog:RegisterDialog(
-    "XLGearBanker", 
-    "AcceptSetChanges", 
-    "XL Gear Banker", 
-    "You have added/removed items to/from this set.\n\nAre you sure you want to keep these changes?", 
-    acceptSetChanges, 
+    "XLGearBanker",
+    "AcceptSetChanges",
+    "XL Gear Banker",
+    "You have added/removed items to/from this set.\n\nAre you sure you want to keep these changes?",
+    acceptSetChanges,
     nil,
-    nil)
+    nil
+  )
 
   libDialog:RegisterDialog(
-    "XLGearBanker", 
-    "DiscardSetChangesDialog", 
-    "XL Gear Banker", 
-    "Looks like you've edited the current set and are about to discard any changes you've made including recently added/removed items.\n\nAre you sure?", 
-    discardSetChanges, 
+    "XLGearBanker",
+    "DiscardSetChangesDialog",
+    "XL Gear Banker",
+    "Looks like you've edited the current set and are about to discard any changes you've made including recently added/removed items.\n\nAre you sure?",
+    discardSetChanges,
     nil,
-    nil)
+    nil
+  )
 end
 
 local function InitUISetVariables()
-  ui.set                          = XLGB_SetWindow
+  ui.set = XLGB_SetWindow
 
-  ui.set.titleRow                 = XLGB_SetWindow_TitleRow
-  ui.set.titleRow.title           = XLGB_SetWindow_TitleRow_Title
+  ui.set.titleRow = XLGB_SetWindow_TitleRow
+  ui.set.titleRow.title = XLGB_SetWindow_TitleRow_Title
 
-  ui.set.setRow                   = XLGB_SetWindow_SetRow
-  ui.set.setRow.edit              = XLGB_SetWindow_SetRow_EditSet
-  ui.set.setRow.editName          = XLGB_SetWindow_SetRow_EditSetName
-  ui.set.setRow.set               = XLGB_SetWindow_SetRow_Set
-  ui.set.setRow.accept            = XLGB_SetWindow_SetRow_AcceptSet
-  ui.set.setRow.addRemoveSet      = XLGB_SetWindow_SetRow_AddRemoveSet
+  ui.set.setRow = XLGB_SetWindow_SetRow
+  ui.set.setRow.edit = XLGB_SetWindow_SetRow_EditSet
+  ui.set.setRow.editName = XLGB_SetWindow_SetRow_EditSetName
+  ui.set.setRow.set = XLGB_SetWindow_SetRow_Set
+  ui.set.setRow.accept = XLGB_SetWindow_SetRow_AcceptSet
+  ui.set.setRow.addRemoveSet = XLGB_SetWindow_SetRow_AddRemoveSet
 
-  ui.set.scrollList               = XLGB_SetWindow_ScrollList
+  ui.set.scrollList = XLGB_SetWindow_ScrollList
 
-  ui.set.empty                    = XLGB_SetWindow_EmptyRow
+  ui.set.empty = XLGB_SetWindow_EmptyRow
 
-  ui.set.addItemsRow              = XLGB_SetWindow_AddItemsRow
-  ui.set.addItemsRow.addEquipped  = XLGB_SetWindow_AddItemsRow_AddEquipped
+  ui.set.addItemsRow = XLGB_SetWindow_AddItemsRow
+  ui.set.addItemsRow.addEquipped = XLGB_SetWindow_AddItemsRow_AddEquipped
 
-  ui.set.totalSetItemsRow         = XLGB_SetWindow_TotalSetItemsRow
-  ui.set.totalSetItemsRow.text    = XLGB_SetWindow_TotalSetItemsRow_TotalSetItems
+  ui.set.totalSetItemsRow = XLGB_SetWindow_TotalSetItemsRow
+  ui.set.totalSetItemsRow.text = XLGB_SetWindow_TotalSetItemsRow_TotalSetItems
 end
 
 --------------------------------------------------------------------------------------------
 -- SET WINDOW END
 --------------------------------------------------------------------------------------------
-
 
 --------------------------------------------------------------------------------------------
 --------------------------------------------------------------------------------------------
@@ -1031,14 +1075,17 @@ end
 
 local function setProgressBar(current, total)
   local p = ui.progress
-  local calculateOffSet = -(360  * (1 - (current / total)))
+  local calculateOffSet = -(360 * (1 - (current / total)))
   p.progressRow.bar:ClearAnchors()
   p.progressRow.bar:SetAnchor(TOPLEFT, p.progressRow.barBG, TOPLEFT, 0, 0)
   p.progressRow.bar:SetAnchor(BOTTOMRIGHT, p.progressRow.barBG, BOTTOMRIGHT, calculateOffSet, 0)
 end
 
 local function setInfoRowItemsInSet(itemsRemaining)
-  ui.progress.infoRow.setSize:SetText("|t52:56:/esoui/art/tradinghouse/tradinghouse_apparel_chest_up.dds|t(" .. tostring(itemsRemaining) .. ") |t32:32:/esoui/art/chatwindow/chat_overflowarrow_up.dds|t")
+  ui.progress.infoRow.setSize:SetText(
+    "|t52:56:/esoui/art/tradinghouse/tradinghouse_apparel_chest_up.dds|t(" ..
+      tostring(itemsRemaining) .. ") |t32:32:/esoui/art/chatwindow/chat_overflowarrow_up.dds|t"
+  )
 end
 
 local function updateBagSpace()
@@ -1084,7 +1131,7 @@ function XLGB_UI:OnPageWithdrawStart(pageName)
   p.y = #XLGB_Page:GetSetsInPage(pageName)
   p.titleRow.title:SetText("Withdrawing page '|cffecbc" .. pageName .. "|r'")
 
-  p.bag     = BAG_BACKPACK
+  p.bag = BAG_BACKPACK
   p.bagIcon = "|t32:32:/esoui/art/tooltips/icon_bag.dds|t"
   p.bagSize = getBagSize(p.bag)
   defaultSetRowInfo()
@@ -1123,7 +1170,7 @@ function XLGB_UI:OnSingleSetWithdrawStart(setName, startTime)
   p.y = 1
   p.titleRow.title:SetText("Withdrawing set '|cffecbc" .. setName .. "|r'")
 
-  p.bag     = BAG_BACKPACK
+  p.bag = BAG_BACKPACK
   p.bagIcon = "|t32:32:/esoui/art/tooltips/icon_bag.dds|t"
   p.bagSize = getBagSize(p.bag)
   defaultSetRowInfo()
@@ -1165,7 +1212,7 @@ function XLGB_UI:OnPageDepositStart(pageName)
   p.y = #XLGB_Page:GetSetsInPage(pageName)
   p.titleRow.title:SetText("Depositing page '|cffecbc" .. pageName .. "|r'")
 
-  p.bag     = XLGB_Banking.currentBankBag
+  p.bag = XLGB_Banking.currentBankBag
   p.bagIcon = "|t32:32:/esoui/art/tooltips/icon_bank.dds|t"
   p.bagSize = getBagSize(p.bag)
   defaultSetRowInfo()
@@ -1194,7 +1241,7 @@ function XLGB_UI:OnSingleSetDepositStart(setName)
   p.y = 1
   p.titleRow.title:SetText("Depositing set '|cffecbc" .. setName .. "|r'")
 
-  p.bag     = XLGB_Banking.currentBankBag
+  p.bag = XLGB_Banking.currentBankBag
   p.bagIcon = "|t32:32:/esoui/art/tooltips/icon_bank.dds|t"
   p.bagSize = getBagSize(p.bag)
   defaultSetRowInfo()
@@ -1222,34 +1269,32 @@ function XLGB_UI:CancelMoveItems()
 end
 
 local function InitUIProgressVariables()
-  ui.progress                     = XLGB_ProgressWindow
+  ui.progress = XLGB_ProgressWindow
 
-  ui.progress.titleRow            = XLGB_ProgressWindow_TitleRow
-  ui.progress.titleRow.title      = XLGB_ProgressWindow_TitleRow_Title
+  ui.progress.titleRow = XLGB_ProgressWindow_TitleRow
+  ui.progress.titleRow.title = XLGB_ProgressWindow_TitleRow_Title
 
-  ui.progress.progressRow         = XLGB_ProgressWindow_ProgressRow
-  ui.progress.progressRow.xOfY    = XLGB_ProgressWindow_ProgressRow_XofY
-  ui.progress.progressRow.barBG   = XLGB_ProgressWindow_ProgressRow_BarBG
-  ui.progress.progressRow.bar     = XLGB_ProgressWindow_ProgressRow_Bar
+  ui.progress.progressRow = XLGB_ProgressWindow_ProgressRow
+  ui.progress.progressRow.xOfY = XLGB_ProgressWindow_ProgressRow_XofY
+  ui.progress.progressRow.barBG = XLGB_ProgressWindow_ProgressRow_BarBG
+  ui.progress.progressRow.bar = XLGB_ProgressWindow_ProgressRow_Bar
 
-  ui.progress.infoRow             = XLGB_ProgressWindow_InfoRow
-  ui.progress.infoRow.setSize     = XLGB_ProgressWindow_InfoRow_SetSize
-  ui.progress.infoRow.bagSpace    = XLGB_ProgressWindow_InfoRow_BagSpace
+  ui.progress.infoRow = XLGB_ProgressWindow_InfoRow
+  ui.progress.infoRow.setSize = XLGB_ProgressWindow_InfoRow_SetSize
+  ui.progress.infoRow.bagSpace = XLGB_ProgressWindow_InfoRow_BagSpace
 
-  ui.progress.setRow              = XLGB_ProgressWindow_SetRow
-  ui.progress.setRow.setInfo      = XLGB_ProgressWindow_SetRow_SetInfo
+  ui.progress.setRow = XLGB_ProgressWindow_SetRow
+  ui.progress.setRow.setInfo = XLGB_ProgressWindow_SetRow_SetInfo
 
-  ui.progress.cancelRow           = XLGB_ProgressWindow_CancelRow
-  ui.progress.cancelRow.safeMode  = XLGB_ProgressWindow_CancelRow_SafeMode
-  ui.progress.cancelRow.cancel    = XLGB_ProgressWindow_CancelRow_Cancel
+  ui.progress.cancelRow = XLGB_ProgressWindow_CancelRow
+  ui.progress.cancelRow.safeMode = XLGB_ProgressWindow_CancelRow_SafeMode
+  ui.progress.cancelRow.cancel = XLGB_ProgressWindow_CancelRow_Cancel
 
-  ui.progress.overlay             = XLGB_GreyOverlay
+  ui.progress.overlay = XLGB_GreyOverlay
 end
 --------------------------------------------------------------------------------------------
 -- PROGRESS BAR END
 --------------------------------------------------------------------------------------------
-
-
 
 --------------------------------------------------------------------------------------------
 --------------------------------------------------------------------------------------------
@@ -1283,16 +1328,25 @@ function XLGB_UI:UpdateMissingItemsScrollList(missingItemsPage)
   ZO_ScrollList_Clear(m.scrollList)
   xl.areThereAnyItemsMissing = false
   for _, set in pairs(missingItemsPage.sets) do
-    local dataSetEntry = ZO_ScrollList_CreateDataEntry(XLGB_Constants.MISSING_SET_ROW, {
-      name = set.name,
-      amount = #set.items})
-    if #set.items ~= 0 then 
+    local dataSetEntry =
+      ZO_ScrollList_CreateDataEntry(
+      XLGB_Constants.MISSING_SET_ROW,
+      {
+        name = set.name,
+        amount = #set.items
+      }
+    )
+    if #set.items ~= 0 then
       table.insert(scrollData, dataSetEntry)
     end
     for _, itemLink in pairs(set.items) do
-      local dataItemEntry = ZO_ScrollList_CreateDataEntry(XLGB_Constants.MISSING_ITEM_ROW, {
-        itemLink = itemLink,
-      })
+      local dataItemEntry =
+        ZO_ScrollList_CreateDataEntry(
+        XLGB_Constants.MISSING_ITEM_ROW,
+        {
+          itemLink = itemLink
+        }
+      )
       xl.areThereAnyItemsMissing = true
       table.insert(scrollData, dataItemEntry)
     end
@@ -1311,7 +1365,7 @@ local function fillMissingItemsRowWithData(control, data)
   local textureString = GetItemLinkIcon(data.itemLink)
   control:GetNamedChild("_Name"):SetText("|t32:32:" .. textureString .. "|t " .. data.itemLink)
   --GetItemLinkIcon(string itemLink) -- returns texture string
-  --GetItemLinkTraitCategory(string itemLink) 
+  --GetItemLinkTraitCategory(string itemLink)
   --https://wiki.esoui.com/Globals#ItemTraitType
   control:SetMouseEnabled(true)
   control:SetHandler("OnMouseEnter", ShowItemTooltip)
@@ -1319,23 +1373,35 @@ local function fillMissingItemsRowWithData(control, data)
 end
 
 function XLGB_UI:InitializeMissingItemsScrollList()
-  ZO_ScrollList_AddDataType(ui.missing.scrollList, XLGB_Constants.MISSING_SET_ROW, "XLGB_MissingSetRow_Template", 35, fillMissingSetsRowWithData)
-  ZO_ScrollList_AddDataType(ui.missing.scrollList, XLGB_Constants.MISSING_ITEM_ROW, "XLGB_MissingItemRow_Template", 35, fillMissingItemsRowWithData)
+  ZO_ScrollList_AddDataType(
+    ui.missing.scrollList,
+    XLGB_Constants.MISSING_SET_ROW,
+    "XLGB_MissingSetRow_Template",
+    35,
+    fillMissingSetsRowWithData
+  )
+  ZO_ScrollList_AddDataType(
+    ui.missing.scrollList,
+    XLGB_Constants.MISSING_ITEM_ROW,
+    "XLGB_MissingItemRow_Template",
+    35,
+    fillMissingItemsRowWithData
+  )
   ZO_ScrollList_EnableHighlight(ui.missing.scrollList, "ZO_ThinListHighlight")
 end
 
 local function InitUIMissingItemsVariables()
-  ui.missing                      = XLGB_MissingItems
+  ui.missing = XLGB_MissingItems
 
-  ui.missing.titleRow             = XLGB_MissingItems_TitleRow
-  ui.missing.titleRow.title       = XLGB_MissingItems_TitleRow_Title
+  ui.missing.titleRow = XLGB_MissingItems_TitleRow
+  ui.missing.titleRow.title = XLGB_MissingItems_TitleRow_Title
 
-  ui.missing.confirmRow           = XLGB_MissingItems_ConfirmRow
-  ui.missing.confirmRow.confirm   = XLGB_MissingItems_ConfirmRow_Confirm
+  ui.missing.confirmRow = XLGB_MissingItems_ConfirmRow
+  ui.missing.confirmRow.confirm = XLGB_MissingItems_ConfirmRow_Confirm
 
-  ui.missing.scrollList           = XLGB_MissingItems_ScrollList
+  ui.missing.scrollList = XLGB_MissingItems_ScrollList
 
-  ui.missing.overlay              = XLGB_GreyOverlay
+  ui.missing.overlay = XLGB_GreyOverlay
 end
 
 --------------------------------------------------------------------------------------------
@@ -1345,7 +1411,6 @@ end
 function XLGB_UI:Initialize()
   xl = XLGearBanker or {}
   sV = XLGearBanker.savedVariables or {}
-  
 
   xl.isSetEditable = false
   xl.isPageEditable = false
@@ -1373,18 +1438,16 @@ function XLGB_UI:Initialize()
   XLGB_UI:SelectSet(sV.displayingSet)
   XLGB_UI:SetupSetDialogs()
 
+  XLGB_UI:InitializePageShifterBox()
   XLGB_UI:InitializePageScrollList()
   XLGB_UI:InitializePageDropdown()
-  XLGB_UI:InitializePageShifterBox()
   XLGB_UI:UpdatePageDropdown()
   XLGB_UI:SelectPage(sV.displayingPage)
   XLGB_UI:SetupPageDialogs()
 
   XLGB_UI:InitializeMissingItemsScrollList()
 
-
   if sV.debug then
     XLGB_UI:ShowPageUI()
   end
-  
 end
