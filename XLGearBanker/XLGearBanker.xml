@@ -274,6 +274,7 @@
   <DimensionConstraints  minX="350" minY="400"/>
   <Anchor point="CENTER" relativeTo="GUI_ROOT" relativePoint="CENTER" offsetX="-125" offsetY="-140" />
   <OnMoveStop> XLGB_UI:XLGB_SetWindow_OnMoveStop()</OnMoveStop>
+  <OnResizeStop> XLGB_UI:XLGB_SetWindow_OnResizeStop()</OnResizeStop>
   <Controls>
     <Backdrop name="$(parent)_BG" inherits="ZO_DefaultBackdrop"><AnchorFill/></Backdrop>
 
