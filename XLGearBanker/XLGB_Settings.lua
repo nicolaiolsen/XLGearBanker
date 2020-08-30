@@ -26,6 +26,46 @@ function XLGB_Settings:Initialize()
     optionsTable,
     {
       type = "checkbox",
+      name = "Show 'Page' window on bank open",
+      -- tooltip = "Shows a window report after withdraw/deposit with items that could not be found during withdraw/deposit.",
+      getFunc = function()
+        return sV.showPageWindowOnOpen
+      end,
+      setFunc = function(v)
+        sV.showPageWindowOnOpen = v
+      end,
+      width = "full"
+    }
+  )
+
+  table.insert(
+    optionsTable,
+    {
+      type = "checkbox",
+      name = "Show 'Set' window on bank open",
+      -- tooltip = "Shows a window .",
+      getFunc = function()
+        return sV.showSetWindowOnOpen
+      end,
+      setFunc = function(v)
+        sV.showSetWindowOnOpen = v
+      end,
+      width = "full"
+    }
+  )
+
+  table.insert(
+    optionsTable,
+    {
+      type = "divider",
+      width = "full"
+    }
+  )
+
+  table.insert(
+    optionsTable,
+    {
+      type = "checkbox",
       name = "Enable safe mode",
       tooltip = "Safely move items with a server load depended delay.",
       getFunc = function()
@@ -68,6 +108,14 @@ function XLGB_Settings:Initialize()
   table.insert(
     optionsTable,
     {
+      type = "divider",
+      width = "full"
+    }
+  )
+
+  table.insert(
+    optionsTable,
+    {
       type = "checkbox",
       name = "Report missing items",
       tooltip = "Shows a window report after withdraw/deposit with items that could not be found during withdraw/deposit.",
@@ -84,31 +132,7 @@ function XLGB_Settings:Initialize()
   table.insert(
     optionsTable,
     {
-      type = "checkbox",
-      name = "Show 'Set' window when opening a bank or storage chest",
-      -- tooltip = "Shows a window .",
-      getFunc = function()
-        return sV.showSetWindowOnOpen
-      end,
-      setFunc = function(v)
-        sV.showSetWindowOnOpen = v
-      end,
-      width = "full"
-    }
-  )
-
-  table.insert(
-    optionsTable,
-    {
-      type = "checkbox",
-      name = "Show 'Page' window when opening a bank or storage chest",
-      -- tooltip = "Shows a window report after withdraw/deposit with items that could not be found during withdraw/deposit.",
-      getFunc = function()
-        return sV.showPageWindowOnOpen
-      end,
-      setFunc = function(v)
-        sV.showPageWindowOnOpen = v
-      end,
+      type = "divider",
       width = "full"
     }
   )

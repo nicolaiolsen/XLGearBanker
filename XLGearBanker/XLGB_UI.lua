@@ -19,6 +19,7 @@ end
 function XLGB_UI:XLGB_SetWindow_OnResizeStop()
   sV.setWindow_width = ui.set:GetWidth()
   sV.setWindow_height = ui.set:GetHeight()
+  XLGB_UI:XLGB_SetWindow_OnMoveStop()
 end
 
 function XLGB_UI:XLGB_PageWindow_OnMoveStop()
